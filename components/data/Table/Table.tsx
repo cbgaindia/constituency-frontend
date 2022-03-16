@@ -1,5 +1,5 @@
 import React, { Fragment, useRef, useState, useEffect, useMemo } from 'react';
-import TableComp from './TableComp';
+import styled from 'styled-components';
 
 const Arrow = ({ sortDir, isCurrent }) => {
   const ascending = sortDir === 'ascending';
@@ -77,7 +77,7 @@ const Table = ({ headers, rows, caption, sortable }) => {
 
   return (
     <Fragment>
-      <TableComp
+      <TableWrapper
         className="table-container"
         ref={container}
         tabIndex={tabIndex}
@@ -105,17 +105,12 @@ const Table = ({ headers, rows, caption, sortable }) => {
                   {header}
                   {sortable && (
                     <button onClick={() => sortBy(i)}>
-                       <span className="sr-only">
-                            sort by {header} in{' '}
-                            {sortDir !== 'ascending'
-                              ? 'ascending'
-                              : 'descending'}{' '}
-                            order
-                          </span>
-                      <Arrow
-                        sortDir={sortDir}
-                        isCurrent={sortedBy === i}
-                      />
+                      <span className="sr-only">
+                        sort by {header} in{' '}
+                        {sortDir !== 'ascending' ? 'ascending' : 'descending'}{' '}
+                        order
+                      </span>
+                      <Arrow sortDir={sortDir} isCurrent={sortedBy === i} />
                     </button>
                   )}
                 </th>
@@ -130,9 +125,89 @@ const Table = ({ headers, rows, caption, sortable }) => {
             ))}
           </tbody>
         </table>
-      </TableComp>
+      </TableWrapper>
     </Fragment>
   );
 };
 
 export default Table;
+
+export const TableWrapper = styled.div`
+  table {
+    border-collapse: collapse;
+    background-color: var(--color-grey-600);
+  }
+
+  th,
+  td {
+    // border: 2px solid #000;
+    padding: 0.75rem;
+    text-align: left;
+  }
+
+  th {
+    font-weight: bold;
+    white-space: nowrap;
+  }
+
+  th {
+    background-color: var(--color-grey-600);
+  }
+
+  tr:first-of-type th:not(:last-child) {
+    border-right-color: #fff;
+  }
+
+  tr:first-child th:first-child,
+  tr:not(:first-child):not(:last-child) th {
+    border-bottom-color: #fff !important;
+  }
+
+  caption {
+    margin-bottom: 0.5rem;
+    font-style: italic;
+    text-align: left;
+  }
+
+  dl {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  dl > * {
+    flex: 0 0 50%;
+    margin: 0;
+  }
+
+  dt {
+    padding-right: 0.5rem;
+  }
+
+  dt {
+    font-weight: bold;
+  }
+
+  th button {
+    background-color: var(--color-grey-500);
+    border: 0;
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.25rem;
+    font-weight: bold;
+    vertical-align: middle;
+    margin-left: 1rem;
+  }
+
+  h3 {
+    padding: 0.5rem;
+  }
+
+  th svg {
+    stroke: currentColor;
+    stroke-width: 20;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+    width: 0.5rem;
+    height: 1.5em;
+  }
+`;

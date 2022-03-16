@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Header = ({ data }) => {
   return (
-    <HeaderComp>
+    <HeaderWrapper>
       <div className="container">
         {data.previousPage && (
           <Link href={data.previousLink}>
@@ -14,13 +14,13 @@ const Header = ({ data }) => {
         <p>{data.content}</p>
         {data.date && <p>{data.date}</p>}
       </div>
-    </HeaderComp>
+    </HeaderWrapper>
   );
 };
 
 export default Header;
 
-const HeaderComp = styled.div`
+export const HeaderWrapper = styled.div`
   .container {
     padding-top: 1rem;
     display: block;

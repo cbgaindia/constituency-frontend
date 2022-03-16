@@ -11,20 +11,7 @@ import {
 } from './MobileAlterComp';
 import { Button, Modal } from 'components/actions';
 import { FilterIcon, SortIcon } from 'components/icons';
-
-function formatFilterName(name: string) {
-  if (name == 'fiscal_year') {
-    return 'fiscal year';
-  } else if (name == 'buyer_name') return 'buyer name';
-  else if (
-    name == 'tender/mainProcurementCategory' ||
-    name == 'tender_mainprocurementcategory'
-  )
-    return 'category';
-  else if (name == 'tender/stage') return 'tender stage';
-  else if (name == 'tender_status') return 'status';
-  else return name;
-}
+import { simplifyNaming } from 'utils/helper';
 
 const sort = [
   {
@@ -53,7 +40,16 @@ const MobileAlter: React.FC<{
   sortShow?: boolean;
   newIndicator?: any;
   indicators?: any;
-}> = ({ data, newData, fq, sortShow, newIndicator, indicators }) => {
+  simpleNames?: any;
+}> = ({
+  data,
+  newData,
+  fq,
+  sortShow,
+  newIndicator,
+  indicators,
+  simpleNames,
+}) => {
   const displaySort = sortShow == false ? false : true;
 
   const router = useRouter();
@@ -376,7 +372,9 @@ const MobileAlter: React.FC<{
                         data-id={data[filter].title}
                         id={`filterTab${index}`}
                       >
-                        {formatFilterName(data[filter].title)}
+                        {simpleNames
+                          ? simplifyNaming(data[filter].title, simpleNames)
+                          : data[filter].title}
                       </a>
                     </li>
                   ))}

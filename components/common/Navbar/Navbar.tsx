@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import MobNav from './MobileNav';
+import MobileNav from './MobileNav';
 import { ArrowDown, ArrowTail } from 'components/icons';
 import styled from 'styled-components';
+import { submenuHover, submenuClick } from './navbar.helper';
 
 const Nav = ({ data }) => {
   const router = useRouter();
@@ -13,71 +14,12 @@ const Nav = ({ data }) => {
   useEffect(() => {
     var menuItems = document.querySelectorAll('li.has-submenu');
     let timer;
-    Array.prototype.forEach.call(menuItems, function (el) {
-      // show on hover
-      el.addEventListener('mouseover', function () {
-        if (document.querySelector('.has-submenu.open')) {
-          document.querySelector('.has-submenu.open').className =
-            'has-submenu';
-        }
-        this.className = 'has-submenu open';
-        clearTimeout(timer);
-      });
-
-      // remove on mouse out
-      el.addEventListener('mouseout', function () {
-        timer = setTimeout(function () {
-          if (!el.contains(document.activeElement)) {
-            if (document.querySelector('.has-submenu.open'))
-              document.querySelector('.has-submenu.open').className =
-                'has-submenu';
-          }
-        }, 500); //delay before menu hides
-      });
-
-      // check for ESC key to close submenu
-      el.addEventListener('keyup', function handler(event) {
-        if (event.key === 'Escape') {
-          if (document.querySelector('.has-submenu.open')) {
-            document.querySelector('.has-submenu.open').className =
-              'has-submenu';
-            el.querySelector('button').focus();
-          }
-        }
-      });
-
-      // hide when focus is out of submenu
-      el.addEventListener('focusout', function (elm) {
-        elm.preventDefault();
-        setTimeout(function () {
-          //setTimeout to prevent it from trigger while focus is changing
-          if (!el.contains(document.activeElement)) {
-            if (document.querySelector('.has-submenu.open'))
-              document.querySelector('.has-submenu.open').className =
-                'has-submenu';
-          }
-        }, 10);
-      });
-    });
+    submenuHover(menuItems, timer);
   }, []);
-
-  // shows and hides the submenu on button click
-  function handleSubMenu(e) {
-    e.preventDefault();
-    const el = e.target;
-
-    if (el.parentNode.className == 'has-submenu') {
-      el.parentNode.className = 'has-submenu open';
-      el.setAttribute('aria-expanded', 'true');
-    } else {
-      el.parentNode.className = 'has-submenu';
-      el.setAttribute('aria-expanded', 'false');
-    }
-  }
 
   return (
     <>
-      <Header>
+      <NavbarWrapper>
         <div className="container">
           <div className={data.logo && 'header__logo'}>
             <Link href="/">
@@ -109,7 +51,7 @@ const Nav = ({ data }) => {
                     {navItem.submenu ? (
                       <>
                         <Navitem
-                          onClick={(e) => handleSubMenu(e)}
+                          onClick={(e) => submenuClick(e)}
                           aria-haspopup="true"
                           aria-expanded="false"
                           as="button"
@@ -154,15 +96,15 @@ const Nav = ({ data }) => {
             </ul>
           </Navlinks>
         </div>
-      </Header>
-      <MobNav data={data} />
+      </NavbarWrapper>
+      <MobileNav data={data} />
     </>
   );
 };
 
 export default Nav;
 
-const Header = styled.header`
+export const NavbarWrapper = styled.header`
   background-color: var(--nav-bg);
   color: var(--text-dark-high);
   padding: 13px;

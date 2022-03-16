@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   FilterComp,
   FilterButton,
@@ -8,73 +8,31 @@ import {
   FilterSelected,
 } from './FilterComp';
 import { Cross } from 'components/icons';
-import { truncate } from 'lodash';
 import Chevron from 'components/icons/Chevron';
+import { filterChange, selectedFilterClass } from './filter.helper';
+import { sectionCollapse, simplifyNaming, truncate } from 'utils/helper';
 
 const dataObj = {};
 const filterSearch = {};
 
-const Filter = ({ data, newFilters, fq }) => {
+const Filter: React.FC<{
+  data: any;
+  newFilters: any;
+  fq: any;
+  simpleNames?: any;
+}> = ({ data, newFilters, fq, simpleNames }) => {
   const [filterResult, setFilterResult] = useState({});
-  function headingCollapsable() {
-    const headings = document.querySelectorAll('.filters__heading');
-
-    Array.prototype.forEach.call(headings, (h: any) => {
-      const btn = h.querySelector('button');
-      const target = h.nextElementSibling;
-
-      btn.onclick = () => {
-        const expanded = btn.getAttribute('aria-expanded') === 'true';
-
-        const selectedBtn = document.querySelector(
-          '.filters__heading [aria-expanded = "true"]'
-        );
-        if (selectedBtn && !expanded) {
-          selectedBtn.setAttribute('aria-expanded', 'false');
-          (
-            selectedBtn.parentElement.nextElementSibling as HTMLElement
-          ).hidden = true;
-        }
-
-        btn.setAttribute('aria-expanded', !expanded);
-        target.hidden = expanded;
-      };
-    });
-  }
+  const filterRef = useRef(null);
 
   useEffect(() => {
-    headingCollapsable();
-
     Object.keys(data).forEach((val) => {
       dataObj[val] = [];
       filterSearch[val] = data[val].items;
     });
+    setFilterResult({ ...filterSearch });
 
     // if filter query available on page load, add class to relevant buttons
-    if (fq) {
-      const removeEscape = fq.replaceAll(/"/g, '');
-      const splitFilters = removeEscape.split(' AND ');
-
-      splitFilters.forEach((query: any) => {
-        const id = query.split(':')[0];
-
-        let value = query.split(':')[1];
-        value = value.slice(1, value.length - 1);
-        const valueArr = value.split(' OR ');
-
-        setTimeout(() => {
-          valueArr.forEach((element) => {
-            dataObj[id].push(element);
-
-            if (document.getElementById(element))
-              document
-                .getElementById(element)
-                .setAttribute('aria-pressed', 'true');
-          });
-        }, 200);
-      });
-    }
-    setFilterResult({ ...filterSearch });
+    selectedFilterClass(fq, dataObj);
   }, []);
 
   function handleFilterSearch(val: string, id: string) {
@@ -92,58 +50,8 @@ const Filter = ({ data, newFilters, fq }) => {
     }, 100);
   }
 
-  function formatFilterName(name: string) {
-    if (name == 'fiscal_year') {
-      return 'fiscal year';
-    } else if (name == 'organization' || name == 'buyer_name')
-      return 'buyer name';
-    else if (name == 'tender_mainprocurementcategory') return 'type';
-    else if (name == 'tender/mainProcurementCategory') return 'category';
-    else if (name == 'tender/stage') return 'tender stage';
-    else if (name == 'tender_status') return 'status';
-    else return name;
-  }
-
   function handleFilterChange(e: any) {
-    const selectedFilter = e.target as HTMLInputElement;
-    const type = selectedFilter.dataset.type;
-    const value = selectedFilter.id || selectedFilter.dataset.id;
-
-    const filterButton = document.getElementById(value);
-
-    if (filterButton) {
-      const pressed = filterButton.getAttribute('aria-pressed');
-      filterButton.setAttribute(
-        'aria-pressed',
-        pressed == 'false' ? 'true' : 'false'
-      );
-    }
-    const index = dataObj[type].indexOf(value);
-    if (index > -1) {
-      dataObj[type].splice(index, 1);
-    } else {
-      dataObj[type].push(value);
-    }
-
-    const final = [];
-    Object.keys(dataObj).forEach((val) => {
-      if (dataObj[val].length > 0) {
-        let filter = '';
-
-        filter = filter.concat(`${val}:(`);
-        const valArray = [];
-
-        dataObj[val].forEach((item: string) => {
-          valArray.push(`"${item}"`);
-        });
-
-        const valString = valArray.join(' OR ');
-        filter = filter.concat(valString + ')');
-        final.push(filter);
-      }
-    });
-
-    const finalFilter = final.join(' AND ');
+    const finalFilter = filterChange(e, dataObj);
     newFilters({
       query: 'fq',
       value: finalFilter,
@@ -151,20 +59,28 @@ const Filter = ({ data, newFilters, fq }) => {
   }
 
   return (
-    <FilterComp className="filters">
+    <FilterComp className="filters" ref={filterRef}>
       <h3 className="heading">Filters</h3>
       {Object.keys(data).map((filter: any, index: number) => (
         <React.Fragment key={`filters-${index}`}>
-          <FilterHeading className="filters__heading" key={`filter-${index}`}>
-            <button aria-expanded="false">
-              {formatFilterName(data[filter].title)}
-              <Chevron />
-            </button>
+          <FilterHeading
+            aria-expanded="false"
+            onClick={(e) => sectionCollapse(e, filterRef)}
+          >
+            {simpleNames
+              ? simplifyNaming(data[filter].title, simpleNames)
+              : data[filter].title}
+            <Chevron />
           </FilterHeading>
+
           <FilterContent hidden>
             <FilterSearch
               type="text"
-              placeholder={`search ${formatFilterName(data[filter].title)}`}
+              placeholder={`search ${
+                simpleNames
+                  ? simplifyNaming(data[filter].title, simpleNames)
+                  : data[filter].title
+              }`}
               onChange={(e) => handleFilterSearch(e.target.value, filter)}
             />
             {filterResult[filter] &&
@@ -190,7 +106,7 @@ const Filter = ({ data, newFilters, fq }) => {
                     data-id={item}
                     onClick={handleFilterChange}
                   >
-                    {truncate(item.replace(/_/g, ' '), { length: 30 })}{' '}
+                    {truncate(item.replace(/_/g, ' '), 30)}{' '}
                     <Cross width={24} height={24} />
                   </button>
                 </li>

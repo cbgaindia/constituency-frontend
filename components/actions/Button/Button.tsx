@@ -1,5 +1,5 @@
 import React, { MutableRefObject, ReactElement } from 'react';
-import ButtonComp from './ButtonComp';
+import ButtonWrapper from './ButtonComp';
 
 interface ButtonProps extends React.HTMLAttributes<HTMLElement> {
   /**
@@ -67,7 +67,7 @@ const Button = ({
   ...props
 }: Props) => {
   return (
-    <ButtonComp
+    <ButtonWrapper
       as={href ? 'a' : null}
       href={href ? href : null}
       bg={bg}
@@ -82,7 +82,7 @@ const Button = ({
       {icon && iconSide == 'left' && icon}
       {iconOnly ? <span className="sr-only">{children}</span> : children}
       {icon && iconSide == 'right' && icon}
-    </ButtonComp>
+    </ButtonWrapper>
   );
 };
 

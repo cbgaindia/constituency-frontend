@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react';
-import { isArray } from 'lodash';
 
 interface Props {
   /**
@@ -37,7 +36,7 @@ const Carousel = ({ children, prevBtn, nextBtn, label }: Props) => {
     carouselItems = children.props.children;
   }
   // if it's a single element, put it in a array
-  carouselItems = !isArray(carouselItems) ? [carouselItems] : carouselItems;
+  carouselItems = !Array.isArray(carouselItems) ? [carouselItems] : carouselItems;
 
   function handleArrowKeys(e) {
     if (e.key == 'ArrowRight') {
@@ -83,7 +82,7 @@ const Carousel = ({ children, prevBtn, nextBtn, label }: Props) => {
   });
 
   return (
-    <Wrapper
+    <CarouselWrapper
       ref={carouselRef}
       role="group"
       aria-roledescription="slider"
@@ -134,13 +133,13 @@ const Carousel = ({ children, prevBtn, nextBtn, label }: Props) => {
           </button>
         </div>
       )}
-    </Wrapper>
+    </CarouselWrapper>
   );
 };
 
 export default Carousel;
 
-export const Wrapper = styled.div`
+export const CarouselWrapper = styled.div`
   position: relative;
 
   .keen-slider__slide {

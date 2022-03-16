@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import * as echarts from 'echarts/core';
 import { BarChart, LineChart } from 'echarts/charts';
 import { CanvasRenderer } from 'echarts/renderers';
@@ -8,7 +8,6 @@ import {
   TitleComponent,
   LegendComponent,
   TooltipComponent,
-  ToolboxComponent,
 } from 'echarts/components';
 
 import ReactEChartsCore from 'echarts-for-react/lib/core';
@@ -117,7 +116,6 @@ const SimpleBarLineChartViz: React.FC<SimpleBarLineChartProps> = ({
     DatasetComponent,
     LegendComponent,
     TooltipComponent,
-    ToolboxComponent,
   ]);
 
   return (

@@ -2,8 +2,6 @@ import React from 'react';
 import { saveAs } from 'file-saver';
 import { stripTitle } from 'utils/explorer';
 import { Download } from 'components/icons';
-import * as echarts from 'echarts/core';
-// import watermark from 'watermarkjs';
 import { Button } from 'components/actions';
 
 function fileName(type, name, indicator, format) {
@@ -52,23 +50,34 @@ export function export_table_to_csv(filename: any) {
   download_csv(csv.join('\n'), filename);
 }
 
+function createDummyCanvas(srcCanvas) {
+  //create a dummy CANVAS
+
+  const destinationCanvas = document.createElement('canvas');
+  destinationCanvas.width = srcCanvas.width;
+  destinationCanvas.height = srcCanvas.height;
+
+  const destCtx = destinationCanvas.getContext('2d');
+
+  //create a rectangle with the desired color
+  destCtx.fillStyle = '#FFFFFF';
+  destCtx.fillRect(0, 0, srcCanvas.width, srcCanvas.height);
+
+  //draw the original canvas onto the destination canvas
+  destCtx.drawImage(srcCanvas, 0, 0);
+
+  //finally use the destinationCanvas.toDataURL() method to get the desired output;
+  return destinationCanvas.toDataURL('image/jpeg', 0.8);
+}
+
 const DownloadViz = ({ viz, type, name, indicator }) => {
   function svg2img() {
-    const myChart = echarts.getInstanceByDom(
-      document.querySelector(`${viz} > .echarts-for-react`)
-    );
+    const canvas = document.querySelector(
+      `${viz} > .echarts-for-react canvas`
+    ) as HTMLCanvasElement;
+    const myChart = createDummyCanvas(canvas);
 
-    const url = myChart.getConnectedDataURL({
-      pixelRatio: 5,
-      backgroundColor: '#fff',
-      excludeComponents: ['toolbox'],
-      type: 'png',
-    });
-    saveAs(url, fileName(type, name, indicator, 'png'));
-
-    // watermark([url, '/assets/images/jh_logo.png'])
-    //   .image(watermark.image.lowerRight(0.5))
-    //   .then((img) => saveAs(img.src, fileName(type, name, indicator, 'png')));
+    saveAs(myChart, fileName(type, name, indicator, 'jpeg'));
   }
 
   function downloadSelector(viz) {

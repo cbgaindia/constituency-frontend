@@ -1,86 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import TabbedComp from './TabbedComp';
-
-function tabbedInterface(tablist, panels) {
-  // Get relevant elements and collections
-  const tabs = tablist.querySelectorAll('a');
-
-  // The tab switching function
-  const switchTab = (oldTab, newTab) => {
-    newTab.focus();
-    // Make the active tab focusable by the user (Tab key)
-    newTab.removeAttribute('tabindex');
-    // Set the selected state
-    newTab.setAttribute('aria-selected', 'true');
-    oldTab.removeAttribute('aria-selected');
-    oldTab.setAttribute('tabindex', '-1');
-    // Get the indices of the new and old tabs to find the correct
-    // tab panels to show and hide
-    let index = Array.prototype.indexOf.call(tabs, newTab);
-    let oldIndex = Array.prototype.indexOf.call(tabs, oldTab);
-    panels[oldIndex].hidden = true;
-    panels[index].hidden = false;
-  };
-
-  // Add the tablist role to the first <ul> in the .tabbed container
-  tablist.setAttribute('role', 'tablist');
-
-  // Add semantics are remove user focusability for each tab
-  Array.prototype.forEach.call(tabs, (tab, i) => {
-    tab.setAttribute('role', 'tab');
-    tab.setAttribute('id', 'tab' + (i + 1));
-    tab.setAttribute('tabindex', '-1');
-    tab.parentNode.setAttribute('role', 'presentation');
-
-    // Handle clicking of tabs for mouse users
-    tab.addEventListener('click', (e) => {
-      e.preventDefault();
-      let currentTab = tablist.querySelector('[aria-selected]');
-      if (e.currentTarget !== currentTab) {
-        switchTab(currentTab, e.currentTarget);
-      }
-    });
-
-    // Handle keydown events for keyboard users
-    tab.addEventListener('keydown', (e) => {
-      // Get the index of the current tab in the tabs node list
-      let index = Array.prototype.indexOf.call(tabs, e.currentTarget);
-      // Work out which key the user is pressing and
-      // Calculate the new tab's index where appropriate
-      let dir =
-        e.which === 37
-          ? index - 1
-          : e.which === 39
-          ? index + 1
-          : e.which === 40
-          ? 'down'
-          : null;
-      if (dir !== null) {
-        e.preventDefault();
-        // If the down key is pressed, move focus to the open panel,
-        // otherwise switch to the adjacent tab
-        dir === 'down'
-          ? panels[i].focus()
-          : tabs[dir]
-          ? switchTab(e.currentTarget, tabs[dir])
-          : void 0;
-      }
-    });
-  });
-
-  // Add tab panel semantics and hide them all
-  Array.prototype.forEach.call(panels, (panel, i) => {
-    panel.setAttribute('role', 'tabpanel');
-    panel.setAttribute('tabindex', '-1');
-    panel.setAttribute('aria-labelledby', tabs[i].id);
-    panel.hidden = true;
-  });
-
-  // Initially activate the first tab and reveal the first tab panel
-  tabs[0].removeAttribute('tabindex');
-  tabs[0].setAttribute('aria-selected', 'true');
-  panels[0].hidden = false;
-}
+import styled from 'styled-components';
+import { tabbedInterface } from './tabbed.helper';
 
 const Tabbed = ({ data }) => {
   const TabbedRef = useRef(null);
@@ -92,7 +12,7 @@ const Tabbed = ({ data }) => {
     tabbedInterface(tablist, panels);
   }, []);
   return (
-    <TabbedComp ref={TabbedRef}>
+    <TabbedWrapper ref={TabbedRef}>
       <ul>
         {data.tabs.map((item, index) => (
           <li key={`toggleItem-${index}`}>
@@ -108,8 +28,72 @@ const Tabbed = ({ data }) => {
           </section>
         ))}
       </div>
-    </TabbedComp>
+    </TabbedWrapper>
   );
 };
 
 export default Tabbed;
+
+export const TabbedWrapper = styled.div`
+  * {
+    color: inherit;
+    margin: 0;
+  }
+
+  [role='tablist'] {
+    padding: 0;
+
+    a,
+    li {
+      display: inline-block;
+    }
+
+    a {
+      text-decoration: none;
+      padding: 0.5rem 1em;
+    }
+
+    [aria-selected] {
+      border: 2px solid;
+      background: #fff;
+      border-bottom: 0;
+      position: relative;
+      top: 2px;
+    }
+  }
+
+  [role='tabpanel'] {
+    border: 2px solid;
+    padding: 1.5rem;
+
+    * + * {
+      margin-top: 0.75rem;
+    }
+  }
+
+  @media (max-width: 550px) {
+    [role='tablist'] {
+      li,
+      a {
+        display: block;
+        position: static;
+      }
+
+      a {
+        border: 2px solid #222 !important;
+      }
+
+      li + li a {
+        border-top: 0 !important;
+      }
+
+      [aria-selected] {
+        position: static;
+      }
+    }
+
+    [role='tabpanel'] {
+      border-top: 0;
+    }
+  }
+`;

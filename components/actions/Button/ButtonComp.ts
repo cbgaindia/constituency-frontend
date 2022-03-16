@@ -79,7 +79,7 @@ function iconPadding(iconSide, size, iconOnly) {
   }
 }
 
-const ButtonComp = styled.button<ButtonProps>`
+const ButtonWrapper = styled.button<ButtonProps>`
   font-size: ${(props: any) => buttonFont(props.size)};
   line-height: 137%;
   font-weight: 500;
@@ -113,4 +113,4 @@ const ButtonComp = styled.button<ButtonProps>`
   }
 `;
 
-export default ButtonComp;
+export default ButtonWrapper;
