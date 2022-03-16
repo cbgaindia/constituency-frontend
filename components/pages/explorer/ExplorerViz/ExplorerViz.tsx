@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
-
+import dynamic from 'next/dynamic';
 import {
   tabbedInterface,
   filter_data_indicator,
   filter_data_budgettype,
 } from 'utils/explorer';
 
-import { barLineTransformer, SimpleBarLineChartViz } from 'components/viz';
+import { barLineTransformer } from 'components/viz';
 
 import {
   DownloadViz,
@@ -17,6 +17,10 @@ import {
 } from 'components/data';
 import { ExternalLink } from 'components/icons';
 import { Button, Menu } from 'components/actions';
+const SimpleBarLineChartViz = dynamic(
+  () => import('components/viz/SimpleBarLineChart'),
+  { ssr: false, loading: () => <p>...</p> }
+);
 
 const ExplorerViz = ({ data, meta, fileData }) => {
   const [selectedIndicator, setSelectedIndicator] =

@@ -1,11 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import Link from 'next/link';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { truncate } from 'lodash';
-// import { getDate } from 'utils/index';
 import { DatasetCardComp } from './CardComp';
 import { Tags } from 'components/data';
+import { truncate } from 'utils/helper';
 
 const DatasetCard: React.FC<{ datapackage: any }> = ({ datapackage }) => {
   const router = useRouter();
@@ -18,7 +16,7 @@ const DatasetCard: React.FC<{ datapackage: any }> = ({ datapackage }) => {
           <h3 className="card__heading">{datapackage.title}</h3>
           <Tags data={datapackage.tags} />
           <div className="card__content">
-            <p>{truncate(datapackage.notes, { length: 300 })}</p>
+            <p>{truncate(datapackage.notes, 300)}</p>
           </div>
         </section>
       </DatasetCardComp>

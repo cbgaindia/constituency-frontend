@@ -1,7 +1,7 @@
 export function sectionCollapse(e: any, wrapperRef) {
   const btn = e.target;
   console.log(btn);
-  
+
   const target = btn.nextElementSibling;
   const expanded = btn.getAttribute('aria-expanded') === 'true';
 
@@ -17,10 +17,13 @@ export function sectionCollapse(e: any, wrapperRef) {
   target.hidden = expanded;
 }
 
-const ex = {
-  abc: 'abc',
-  def: 'def',
-};
+export function truncate(str, num) {
+  if (str.length > num) {
+    return str.slice(0, num) + '...';
+  } else {
+    return str;
+  }
+}
 
 export function simplifyNaming(key, obj) {
   if (obj[key]) return obj[key];

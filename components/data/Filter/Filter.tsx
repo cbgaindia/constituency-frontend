@@ -8,10 +8,9 @@ import {
   FilterSelected,
 } from './FilterComp';
 import { Cross } from 'components/icons';
-import { truncate } from 'lodash';
 import Chevron from 'components/icons/Chevron';
 import { filterChange, selectedFilterClass } from './filter.helper';
-import { sectionCollapse, simplifyNaming } from 'utils/helper';
+import { sectionCollapse, simplifyNaming, truncate } from 'utils/helper';
 
 const dataObj = {};
 const filterSearch = {};
@@ -107,7 +106,7 @@ const Filter: React.FC<{
                     data-id={item}
                     onClick={handleFilterChange}
                   >
-                    {truncate(item.replace(/_/g, ' '), { length: 30 })}{' '}
+                    {truncate(item.replace(/_/g, ' '), 30)}{' '}
                     <Cross width={24} height={24} />
                   </button>
                 </li>
