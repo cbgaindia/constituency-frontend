@@ -6,8 +6,9 @@ import { ArrowTail, Cross, Hamburger } from 'components/icons';
 import styled from 'styled-components';
 import { Button } from 'components/actions';
 import Modal from 'components/actions/Modal';
+import { sectionCollapse } from 'utils/helper';
 
-const MobNav = ({ data }) => {
+const MobileNav = ({ data }) => {
   const [navIsOpen, setNavIsOpen] = useState(false);
   const menuBtnRef = useRef(null);
   const menuRef = useRef(null);
@@ -19,27 +20,9 @@ const MobNav = ({ data }) => {
     setNavIsOpen(!navIsOpen);
   }
 
-  // open / close sub-menu
-  function submenuHandler(e: any) {
-    const btn = e.target;
-    const target = btn.nextElementSibling;
-    const expanded = btn.getAttribute('aria-expanded') === 'true';
-
-    const selectedBtn = menuRef.current.querySelector(
-      '[aria-expanded = "true"]'
-    );
-    if (selectedBtn && !expanded) {
-      selectedBtn.setAttribute('aria-expanded', 'false');
-      (selectedBtn.nextElementSibling as HTMLElement).hidden = true;
-    }
-
-    btn.setAttribute('aria-expanded', !expanded);
-    target.hidden = expanded;
-  }
-
   return (
     <>
-      <Header>
+      <MobileHeader>
         <div className="container">
           <Button
             passRef={menuBtnRef}
@@ -66,7 +49,7 @@ const MobNav = ({ data }) => {
             </Link>
           </div>
         </div>
-      </Header>
+      </MobileHeader>
 
       <Modal
         isOpen={navIsOpen}
@@ -74,7 +57,7 @@ const MobNav = ({ data }) => {
         label="mobile menu"
         from="left"
       >
-        <MenuWrapper>
+        <MobileNavWrapper>
           <MenuHeader>
             <h2 id="mobileMenu">Menus</h2>
             <Button
@@ -97,7 +80,7 @@ const MobNav = ({ data }) => {
                         as="button"
                         type="button"
                         aria-expanded="false"
-                        onClick={submenuHandler}
+                        onClick={(e) => sectionCollapse(e, menuRef)}
                       >
                         {navItem.name}
                       </MenuItem>
@@ -137,15 +120,15 @@ const MobNav = ({ data }) => {
                 </li>
               ))}
           </ul>
-        </MenuWrapper>
+        </MobileNavWrapper>
       </Modal>
     </>
   );
 };
 
-export default MobNav;
+export default MobileNav;
 
-const Header = styled.header`
+export const MobileHeader = styled.header`
   display: none;
   align-items: center;
   background-color: var(--nav-bg);
@@ -183,7 +166,7 @@ const Header = styled.header`
   }
 `;
 
-const MenuWrapper = styled.nav`
+export const MobileNavWrapper = styled.nav`
   background-color: var(--nav-mobile);
   color: var(--text-dark-high);
   height: 100%;
@@ -201,7 +184,7 @@ const MenuWrapper = styled.nav`
   }
 `;
 
-const MenuHeader = styled.div`
+export const MenuHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -216,7 +199,7 @@ const MenuHeader = styled.div`
   }
 `;
 
-const MenuItem = styled.a`
+export const MenuItem = styled.a`
   padding: 1rem 1.5rem;
   display: flex;
   align-items: center;
@@ -261,7 +244,7 @@ const MenuItem = styled.a`
   }
 `;
 
-const SubMenu = styled.ul`
+export const SubMenu = styled.ul`
   width: 100%;
 
   a {

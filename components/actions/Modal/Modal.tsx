@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useState } from 'react';
+import React from 'react';
 import ModalWrapper from 'react-modal';
 import styled from 'styled-components';
 

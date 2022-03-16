@@ -96,7 +96,7 @@ export function filter_data_budgettype(mainData, budgetType) {
 export async function fetchFromTags(tags, id) {
   const tagsString = tags.map((i) => `"${i}"`).join(' OR ');
   const response = await fetch(
-    `https://justicehub.in/api/3/action/package_search?fq=tags:(${tagsString}) AND groups:budgets-for-justice`
+    `${process.env.CKAN_URL}/package_search?fq=tags:(${tagsString}) AND groups:budgets-for-justice`
   ).then((res) => res.json());
   const data = response.result.results;
   let filteredData = data.filter((item) => item.name != id).splice(0, 2);
@@ -181,30 +181,10 @@ export function getDate(time) {
   } else return time;
 }
 
-// fetch list of datasets.
-// Required: type -> type of dataset; variables -> from url parameters.
-export async function fetchDatasets() {
-  const ministry = await fetch(
-    'https://justicehub.in/api/3/action/package_search?fq=(tags:ministry AND groups:budgets-for-justice)&rows=200'
-  ).then((res) => res.json());
-  const scheme = await fetch(
-    'https://justicehub.in/api/3/action/package_search?fq=(tags:scheme AND groups:budgets-for-justice)&rows=200'
-  ).then((res) => res.json());
-  const category = await fetch(
-    'https://justicehub.in/api/3/action/package_search?fq=(tags:scheme-category AND groups:budgets-for-justice)&rows=200'
-  ).then((res) => res.json());
-  const data = {
-    ministry: datasetPopulation(ministry.result.results),
-    scheme: datasetPopulation(scheme.result.results),
-    category: datasetPopulation(category.result.results),
-  };
-  return data;
-}
-
 // fetch particular dataset
 export async function fetchAPI(path) {
   const response = await fetch(
-    `https://justicehub.in/api/3/action/package_show?id=${path}`
+    `${process.env.CKAN_URL}/package_show?id=${path}`
   );
   const data = await response.json();
   return data;
@@ -218,7 +198,7 @@ export async function getFilters(list, variable, page) {
     }&q=${variable.q ? variable.q : ''}`;
 
     const fetchData = await fetch(
-      `http://13.126.46.107/api/3/action/package_search?facet.field=[${list}]&facet.limit=6&${queryVars}`
+      `${process.env.CKAN_URL}/package_search?facet.field=[${list}]&facet.limit=6&${queryVars}`
     ).then((res) => res.json());
     return fetchData.result.search_facets;
   } catch (error) {

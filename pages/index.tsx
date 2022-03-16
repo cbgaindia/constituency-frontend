@@ -2,11 +2,10 @@ import Head from 'next/head';
 import styled from 'styled-components';
 import * as temp from 'data/tempData';
 
-import { Button, Menu, Modal, Select } from 'components/actions';
+import { Button, Menu, Select } from 'components/actions';
 import {
   Banner,
   Carousel,
-  FlexLayout,
   Tabbed,
   Toggletip,
 } from 'components/layouts';

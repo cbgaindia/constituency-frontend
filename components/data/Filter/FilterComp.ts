@@ -32,24 +32,21 @@ export const FilterComp = styled.div`
   }
 `;
 
-export const FilterHeading = styled.h4`
+export const FilterHeading = styled.button`
   margin-top: 16px;
   border-radius: 4px;
-
-  button {
-    background-color: var(--color-grey-500);
-    text-transform: capitalize;
-    padding: 12px;
-    font-weight: 500;
-    line-height: 137%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    border: 1px solid var(--color-grey-500);
-    color: var(--text-light-high);
-    border-radius: 4px;
-  }
+  background-color: var(--color-grey-500);
+  text-transform: capitalize;
+  padding: 12px;
+  font-weight: 500;
+  line-height: 137%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border: 1px solid var(--color-grey-500);
+  color: var(--text-light-high);
+  border-radius: 4px;
 
   svg {
     margin-left: 0.5em;
@@ -57,7 +54,7 @@ export const FilterHeading = styled.h4`
     fill: var(--color-grey-300);
   }
 
-  [aria-expanded='true'] svg {
+  &[aria-expanded='true'] svg {
     transform: rotate(-180deg);
   }
 `;

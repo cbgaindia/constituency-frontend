@@ -22,7 +22,7 @@ export const fetchDatasets = async (variables) => {
       : `fq=(tags:scheme-category AND groups:budgets-for-justice)`;
 
   const response = await fetch(
-    `https://justicehub.in/api/3/action/package_search?${varString}`
+    `${process.env.CKAN_URL}/package_search?${varString}`
   );
   const data = await response.json();
   return data;
@@ -36,7 +36,7 @@ export async function fetchFilters(list, variable, page) {
     // }`;
 
     const fetchData = await fetch(
-      `http://justicehub.in/api/3/action/package_search?facet.field=[${list}]&fq=(tags:scheme-category AND groups:budgets-for-justice)`
+      `${process.env.CKAN_URL}/package_search?facet.field=[${list}]&fq=(tags:scheme-category AND groups:budgets-for-justice)`
     ).then((res) => res.json());
     return fetchData.result.search_facets;
   } catch (error) {

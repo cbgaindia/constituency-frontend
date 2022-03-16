@@ -1,76 +1,83 @@
-import ToggletipComp from "./ToggletipComp"
+import { handleToggleClick } from './toggletip.helper';
+import styled from 'styled-components';
 
 const Toggletip = ({ data }) => {
-	function hideToggle(liveRegion: any, toggletip: any) {
-		liveRegion.innerHTML = ''
-		toggletip.setAttribute('aria-pressed', 'false')
+  return (
+    <ToggletipWrapper>
+      <button
+        type="button"
+        data-toggletip-content={data}
+        onClick={(e) => handleToggleClick(e)}
+        aria-pressed="false"
+        className="toggle__button"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="12"
+          height="12"
+          fill="none"
+          viewBox="0 0 12 12"
+          aria-hidden="true"
+        >
+          <path
+            fill="#ABB0B0"
+            d="M6 0a6 6 0 1 0 0 12A6 6 0 0 0 6 0Zm.6 9H5.4V5.4h1.2V9Zm0-4.8H5.4V3h1.2v1.2Z"
+          />
+        </svg>
+        {/* <span className="sr-only">More info</span> */}
+      </button>
+      <span role="status"></span>
+    </ToggletipWrapper>
+  );
+};
+
+export default Toggletip;
+
+export const ToggletipWrapper = styled.span`
+	position: relative;
+
+	.toggle__button {
+		&[aria-pressed='true'] {
+			+ [role='status'] {
+				opacity: 100;
+				width: 212px;
+			}
+		}
+
+		svg {
+			pointer-events: none;
+		}
 	}
 
-	function handleToggleClick(e: any) {
-		const toggletip = e.target
+	[role='status'] {
+		position: absolute;
+		max-width: 50vw;
+		font-weight: 600;
+		font-size: 12px;
+		line-height: 133%;
+		padding: 10px 12px;
+		background-color: #666D6E;
+		color: hsl(0, 33%, 99%);
+		border: 1px solid #666D6E;
+		border-radius: 8px;
+		bottom: 150%;
+		left: -8px;
+		z-index: 10;
+		opacity: 0;
+		width: 0;
+		isolation: isolate;
 
-		toggletip.setAttribute('aria-pressed', 'true')
-		const message = toggletip.getAttribute('data-toggletip-content')
-		const liveRegion = toggletip.nextElementSibling
-
-		liveRegion.innerHTML = ''
-		window.setTimeout(function () {
-			liveRegion.innerHTML = `
-      <span class="toggletip-bubble">${message}</span>
-      `
-		}, 10)
-
-		// close on outside click
-		document.addEventListener('click', function handler(e: any) {
-			toggletip.setAttribute('aria-pressed', 'true')
-			if (toggletip != e.target) {
-				hideToggle(liveRegion, toggletip)
-				this.removeEventListener('click', handler)
-			}
-		})
-
-		// close on blur
-		toggletip.addEventListener('blur', function handler() {
-			hideToggle(liveRegion, toggletip)
-			this.removeEventListener('click', handler)
-		})
-
-		// close on ESC click
-		toggletip.addEventListener('keydown', function handler(e: any) {
-			if ((e.keyCode || e.which) === 27) {
-				hideToggle(liveRegion, toggletip)
-				this.removeEventListener('click', handler)
-			}
-		})
+		&::before {
+			border-left: 0.8em solid transparent;
+			border-right: 0.8em solid transparent;
+			border-top: 0.8em solid #666D6E;
+			bottom: -0.8em;
+			content: ' ';
+			height: 0;
+			left: 8px;
+			width: 0;
+			position: absolute;
+			z-index: 9;
+		}
 	}
-
-	return (
-		<ToggletipComp>
-			<button
-				type="button"
-				data-toggletip-content={data}
-				onClick={(e) => handleToggleClick(e)}
-				aria-pressed="false"
-				className="toggle__button"
-			>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="12"
-					height="12"
-					fill="none"
-					viewBox="0 0 12 12"
-					aria-hidden="true"
-				>
-					<path
-						fill="#ABB0B0"
-						d="M6 0a6 6 0 1 0 0 12A6 6 0 0 0 6 0Zm.6 9H5.4V5.4h1.2V9Zm0-4.8H5.4V3h1.2v1.2Z"
-					/>
-				</svg>
-				{/* <span className="sr-only">More info</span> */}
-			</button>
-			<span role="status"></span>
-		</ToggletipComp>
-	)
-}
-
-export default Toggletip
+`

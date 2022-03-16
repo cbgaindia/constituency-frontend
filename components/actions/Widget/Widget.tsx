@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { WidgetComp, WidgetContent } from './WidgetComp';
 import { Button } from 'components/actions';
+import styled from 'styled-components';
+import ButtonComp from '../Button/ButtonComp';
 
 interface Props extends React.HTMLAttributes<HTMLElement> {
   /**
@@ -113,3 +114,27 @@ const Widget = ({
   );
 };
 export default Widget;
+
+export const WidgetComp = styled.div`
+  position: relative;
+  height: 100%;
+
+  ${ButtonComp} {
+    &[aria-expanded='true'] {
+      background-color: #ebfeff;
+    }
+  }
+`;
+
+const WidgetContent = styled.div`
+  position: absolute;
+  top: 3.5rem;
+  /* right: 0; */
+  display: none;
+  isolation: isolate;
+  z-index: 20;
+
+  &.widget__active {
+    display: block;
+  }
+`;
