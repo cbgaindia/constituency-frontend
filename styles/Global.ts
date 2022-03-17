@@ -96,7 +96,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-family: 'Rubik',-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
 		Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  background-color: var(--color-background-light);
+  background-color: var(--color-background-lighter);
   font-size: 16px;
   line-height: 1.5;
   color: var(--text-light-high);
@@ -140,9 +140,10 @@ ul, ol {
   margin-left: auto;
   
   width: calc(100vw - 20px);
+  max-width: 1216px;
+}
 
-  @media (min-width: 1350px) {
-    width: 1216px;
-  }
+.img-cover {
+   object-fit: cover;
 }
 `;

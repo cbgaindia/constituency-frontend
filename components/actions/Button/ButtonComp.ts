@@ -81,7 +81,7 @@ function iconPadding(iconSide, size, iconOnly) {
 
 const ButtonWrapper = styled.button<ButtonProps>`
   font-size: ${(props: any) => buttonFont(props.size)};
-  line-height: 137%;
+  line-height: 1.5;
   font-weight: 500;
   display: flex;
   align-items: center;
@@ -94,6 +94,7 @@ const ButtonWrapper = styled.button<ButtonProps>`
   padding: ${(props: any) => buttonSize(props.size, props.buttonType)};
   border: ${(props: any) => border(props.buttonType)};
   border-radius: 4px;
+  text-decoration: none;
 
   ${(props: any) => iconPadding(props.iconSide, props.size, props.iconOnly)}
 

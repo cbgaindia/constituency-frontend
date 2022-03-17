@@ -24,6 +24,8 @@ interface Props {
    */
   value?: string;
 
+  showLabel?: boolean;
+
   /**
    * Heading for the menu
    */
@@ -44,7 +46,7 @@ interface Props {
   /**
    * return prop
    */
-  handleChange?: (event: string) => void;
+  handleChange: (event: string) => void;
 }
 
 const MenuContentID = uuidv4();
@@ -57,6 +59,7 @@ const Menu = ({
   value,
   top = false,
   position = 'right',
+  showLabel = true,
   className,
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -244,7 +247,7 @@ const Menu = ({
 
   return (
     <MenuComp className={className}>
-      {heading && value && (
+      {heading && value && showLabel && (
         <MenuLabel id={menuLabelID}>{heading}&nbsp;&nbsp;</MenuLabel>
       )}
       <Wrapper>

@@ -26,6 +26,7 @@ export const MenuLabel = styled.span`
 export const Wrapper = styled.div`
   position: relative;
   height: 100%;
+  width: 100%;
 `;
 
 export const MenuButton = styled.button`
@@ -33,13 +34,14 @@ export const MenuButton = styled.button`
   border: var(--border-1);
   border-radius: 4px;
   box-shadow: var(--box-shadow-inset);
-  padding: 4px 12px;
+  padding: 8px 12px;
   display: flex;
   align-items: center;
-  line-height: 137%;
+  justify-content: space-between;
+  gap: 16px;
+  line-height: 1.5;
 
   svg {
-    margin-left: 17px;
     transition: transform 150ms ease;
   }
 

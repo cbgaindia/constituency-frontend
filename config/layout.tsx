@@ -1,5 +1,5 @@
 import { Navbar } from 'components/common';
-import { navList } from 'data/navdata/navlist';
+import { navList } from 'config/navigation';
 
 const Layout: React.FC = ({ children }) => {
   return (
