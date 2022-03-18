@@ -30,7 +30,7 @@ export default HomeHighlight;
 
 const HighlightWrapper = styled.section`
   background-color: #c3cfd9;
-  padding: 24px 48px;
+  padding-block: 24px;
 `;
 
 const HighlightList = styled.ul`

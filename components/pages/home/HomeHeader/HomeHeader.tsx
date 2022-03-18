@@ -103,7 +103,7 @@ const HomeHeader = () => {
 
   return (
     <Header>
-      <div>
+      <div className="container">
         <h1>Explore Constituency-wise Fiscal Information for schemes</h1>
         <HeaderControls>
           <HeaderToggle ref={sabhaRef}>
@@ -139,7 +139,7 @@ const HomeHeader = () => {
                 showLabel={false}
               ></Menu>
             </div>
-            <Button kind="secondary" onClick={handleSubmitClick}>
+            <Button kind="primary" onClick={handleSubmitClick}>
               Explore
             </Button>
           </SchemeSelector>
@@ -160,7 +160,7 @@ const Header = styled.header`
   flex-direction: column;
   justify-content: center;
 
-  > div {
+  > .container {
     max-width: 1020px;
     margin: 0 auto;
   }

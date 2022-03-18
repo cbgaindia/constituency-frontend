@@ -5,7 +5,8 @@ import { Button } from 'components/actions';
 
 const questions = [
   {
-    question: 'Do you know this question about Rajasthan?',
+    question:
+      'Do you know this question about Rajasthan state which is like really weird?',
     options: [
       {
         id: 'huey',
@@ -27,7 +28,7 @@ const questions = [
     answer: 'pixel',
     url: '#',
     image: '/assets/images/placeholder.jpg',
-    kind: 'scheme',
+    kind: 'state',
     name: 'quiz1',
   },
   {
@@ -54,7 +55,7 @@ const questions = [
     answer: 'pixel',
     url: '#',
     image: '/assets/images/placeholder.jpg',
-    kind: 'state',
+    kind: 'scheme',
     name: 'quiz2',
   },
 ];
@@ -77,11 +78,11 @@ const HomeQuiz = () => {
       if (selectedAns.value != correct) {
         document
           .querySelector(`[data-id="${selectedAns.value}"]`)
-          .classList.add('wrong');
+          .classList.add('quiz-wrong');
       }
       document
         .querySelector(`[data-id="${correct}"]`)
-        .classList.add('correct');
+        .classList.add('quiz-correct');
     } else {
       alert('select an option');
     }
@@ -108,40 +109,39 @@ const HomeQuiz = () => {
           <Options>
             {currentQuiz.options.map((item, index) => (
               <Item data-id={item.id} key={`${currentQuiz.name}-${index}`}>
-                <input
-                  type="radio"
-                  id={item.id}
-                  name={currentQuiz.name}
-                  value={item.id}
-                />
-                <label htmlFor={item.id}>{item.text}</label>
+                <input type="radio" name={currentQuiz.name} value={item.id} />
+                {item.text}
               </Item>
             ))}
           </Options>
           <Button
             size="sm"
-            kind="secondary"
+            kind="primary"
             onClick={handleSubmitClick}
             passRef={submitRef}
           >
             Submit Answer
           </Button>
           <AnsweredButtons ref={answeredRef} hidden>
-            <Button size="sm" kind="secondary-outline" onClick={playAgain}>
+            <Button size="sm" kind="primary-outline" onClick={playAgain}>
               Play Again
             </Button>
-            <Button href={currentQuiz.url} size="sm" kind="secondary">
-              Go to Explorer
+            <Button href={currentQuiz.url} size="sm" kind="primary">
+              {currentQuiz.kind == 'state'
+                ? 'Explore State'
+                : 'Go to Explorer'}
             </Button>
           </AnsweredButtons>
         </div>
-        <Image
-          src="/assets/images/placeholder.jpg"
-          width={350}
-          height={184}
-          alt=""
-          className="img-cover"
-        />
+        <figure>
+          <Image
+            src="/assets/images/placeholder.jpg"
+            width={350}
+            height={184}
+            alt=""
+            className="img-cover"
+          />
+        </figure>
       </Card>
     </section>
   );
@@ -153,6 +153,8 @@ const Card = styled.div`
   display: flex;
   gap: 48px;
   justify-content: space-between;
+  align-items: stretch;
+
   padding: 48px;
   border: 1px solid #c3cfd9;
   border-radius: 4px;
@@ -163,31 +165,91 @@ const Card = styled.div`
   button {
     margin-top: 16px;
   }
+
+  figure {
+    line-height: 0;
+    display: flex;
+  }
+
+  @media (max-width: 768px) {
+    figure {
+      display: none;
+    }
+  }
 `;
 
 const Options = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-top: 16px;
+  gap: 16px;
 
-  > div {
-    min-width: 50%;
+  > label {
+    min-width: 45%;
   }
 `;
 
-const Item = styled.div`
-  display: flex;
-  gap: 8px;
+const Item = styled.label`
+  display: grid;
+  grid-template-columns: 1em auto;
+  gap: 0.5em;
 
-  &.wrong {
-    color: red;
+  input {
+    /* Remove native radio style */
+    appearance: none;
+    background-color: #fff;
+    margin: 0;
+
+    font: inherit;
+    color: currentColor;
+    width: 1.15em;
+    height: 1.15em;
+    border: 0.15em solid currentColor;
+    border-radius: 50%;
+    transform: translateY(0.2em);
+
+    display: grid;
+    place-content: center;
+
+    &::before {
+      content: '';
+      width: 0.65em;
+      height: 0.65em;
+      border-radius: 50%;
+      transform: scale(0);
+      transition: 120ms transform ease-in-out;
+      box-shadow: inset 1em 1em var(--color-grey-200);
+
+      /* Windows High Contrast Mode */
+      background-color: CanvasText;
+    }
+
+    &:checked::before {
+      transform: scale(1);
+    }
+
+    &:focus-visible {
+      outline: max(2px, 0.15em) solid currentColor;
+      outline-offset: max(2px, 0.15em);
+    }
   }
 
-  &.correct {
-    color: green;
+  &.quiz-wrong {
+    color: var(--color-error);
 
-    label {
-      font-weight: bold;
+    input::before {
+      box-shadow: inset 1em 1em var(--color-error);
+      transform: scale(1);
+    }
+  }
+
+  &.quiz-correct {
+    color: var(--color-success);
+    font-weight: bold;
+
+    input::before {
+      box-shadow: inset 1em 1em var(--color-success);
+      transform: scale(1);
     }
   }
 `;

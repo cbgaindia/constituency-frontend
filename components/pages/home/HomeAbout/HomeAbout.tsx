@@ -7,13 +7,15 @@ const HomeAbout = () => {
   return (
     <About>
       <div className="container">
-        <Image
-          src="/assets/images/placeholder.jpg"
-          width={560}
-          height={240}
-          alt=""
-          className="img-cover"
-        />
+        <figure>
+          <Image
+            src="/assets/images/placeholder.jpg"
+            width={560}
+            height={240}
+            alt=""
+            className="img-cover"
+          />
+        </figure>
         <div>
           <h2>About the platform</h2>
           <p>
@@ -22,7 +24,7 @@ const HomeAbout = () => {
             Beatae sequi, omnis maxime accusantium perferendis id nesciunt eum
             inventore amet dignissimos.
           </p>
-          <Button kind="secondary-outline" size="sm">
+          <Button kind="primary-outline" size="sm">
             Know More About Us
           </Button>
         </div>
@@ -35,16 +37,17 @@ export default HomeAbout;
 
 const About = styled.section`
   background-color: #dfe6ed;
-  padding: 48px 40px;
 
   > .container {
     display: flex;
     flex-wrap: wrap;
     gap: 42px;
+    padding-block: 48px;
 
     > div {
       flex-basis: 0;
       flex-grow: 999;
+      min-inline-size: 35%;
     }
   }
 
@@ -56,7 +59,9 @@ const About = styled.section`
     margin-top: 16px;
   }
 
-  .img-cover {
+  figure {
     flex-grow: 1;
+    line-height: 0;
+    flex-basis: 480px;
   }
 `;

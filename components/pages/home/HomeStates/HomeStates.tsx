@@ -65,15 +65,17 @@ export default HomeStates;
 
 const Wrapper = styled.section`
   background-color: #f7f9fa;
-  padding: 48px;
-  padding-bottom: 144px;
+
+  .container {
+    padding-top: 48px;
+    padding-bottom: 144px;
+  }
 `;
 
 const StateList = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
   gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
 
   margin-top: 32px;
 
