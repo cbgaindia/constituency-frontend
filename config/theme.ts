@@ -1,6 +1,7 @@
 export const DEFAULT_THEME = {
   primary: '#28A062',
   secondary: '#E9B840',
+  tertiary: '#CCBE72',
 
   color_amazon_100: '#28A062',
   color_amazon_200: '#238E57',
