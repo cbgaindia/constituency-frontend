@@ -2,14 +2,34 @@ export const DEFAULT_THEME = {
   primary: '#28A062',
   secondary: '#E9B840',
 
-  background_dark: '#6E3D7A',
-  background_darker: '#3E1C47',
-  background_light: '#F0EBF0',
+  color_amazon_100: '#28A062',
+  color_amazon_200: '#238E57',
+  color_amazon_300: '#1D7548',
+  color_amazon_400: '#165735',
+  color_amazon_500: '#11452A',
+  color_amazon_600: '#0D331F',
+
+  color_maple_100: '#E9B840',
+  color_maple_200: '#CEA338',
+  color_maple_300: '#AA862E',
+  color_maple_400: '#7D6322',
+  color_maple_500: '#634E1A',
+  color_maple_600: '#483913',
+
+  color_olive_100: '#CCBE72',
+  color_olive_200: '#B4A865',
+  color_olive_300: '#958B53',
+  color_olive_400: '#6D663D',
+  color_olive_500: '#56502F',
+  color_olive_600: '#3E3A22',
+
+  background_dark: '#2D523F',
+  background_darker: '#172920',
+  background_light: '#EBF0EE',
   background_lighter: '#FFFFFF',
 
   color_violet: '#B881C7',
   color_honey: '#FBB670',
-  color_amazon: '#69BC99',
   color_white: '#FFFFFF',
 
   color_carrot: '#ED8686',

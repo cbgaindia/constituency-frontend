@@ -11,12 +11,12 @@ ${cssReset}
 ${cssNormalise}
 
 html {
-  --color-primary: ${theme.primary};
-  --color-secondary : ${theme.secondary};
-  --color-tertiary : ${theme.color_carrot};
+  --color-primary: ${theme.color_amazon_100};
+  --color-secondary : ${theme.color_maple_100};
+  --color-tertiary : ${theme.color_olive_100};
 
   --color-background-dark : ${theme.background_dark};
-  --background-dark-hover : ${theme.color_violet_3};
+  --background-dark-hover : ${theme.color_amazon_600};
   --color-background-darker : ${theme.background_darker};
   --color-background-light : ${theme.background_light};
   --color-background-lighter : ${theme.background_lighter};
@@ -24,7 +24,12 @@ html {
   --color-white : ${theme.color_white};
   --color-violet : ${theme.color_violet};
   --color-honey : ${theme.color_honey};
-  --color-amazon : ${theme.color_amazon};
+  --color-amazon-100 : ${theme.color_amazon_100};
+  --color-amazon-200 : ${theme.color_amazon_200};
+  --color-amazon-300 : ${theme.color_amazon_300};
+  --color-amazon-400 : ${theme.color_amazon_400};
+  --color-amazon-500 : ${theme.color_amazon_500};
+  --color-amazon-600 : ${theme.color_amazon_600};
   --color-carrot : ${theme.color_carrot};
   --color-carrot-2 : ${theme.color_carrot_2};
   --color-carrot-3 : ${theme.color_carrot_3};
@@ -70,11 +75,11 @@ html {
   --font-weight-medium: 500;
   --font-weight-light: 400;
 
-  --nav-bg: var(--color-sapphire-5);
-  --nav-bg-hover: var(--color-secondary);
-  --nav-submenu: var(--color-carrot-3);
-  --nav-submenu-hover: var(--color-carrot);
-  --nav-mobile: var(--color-sapphire-3);
+  --nav-bg: var(--color-background-dark);
+  --nav-bg-hover: var(--background-dark-hover);
+  --nav-submenu: var(--color-amazon-400);
+  --nav-submenu-hover: var(--color-amazon-600);
+  --nav-mobile: var(--color-amazon-400);
 
   box-sizing: border-box;
 
@@ -96,7 +101,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-family: 'Rubik',-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
 		Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  background-color: var(--color-background-lighter);
+  background-color: var(--color-background-light);
   font-size: 16px;
   line-height: 1.5;
   color: var(--text-light-high);
@@ -145,5 +150,8 @@ ul, ol {
 
 .img-cover {
    object-fit: cover;
+}
+.img-contain {
+   object-fit: contain;
 }
 `;

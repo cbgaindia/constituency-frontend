@@ -104,6 +104,7 @@ const ButtonWrapper = styled.button<ButtonProps>`
     max-height: ${(props: any) =>
       props.size == 'sm' ? '18px' : props.iconOnly ? '32px' : '24px'};
     fill: currentColor;
+    pointer-events: none;
 
     ${(props: any) =>
       !props.iconOnly

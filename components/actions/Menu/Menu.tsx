@@ -259,8 +259,10 @@ const Menu = ({
           ref={MenuButtonRef}
           onClick={menuButtonHandle}
         >
-          {value ? value : heading}
-          <ArrowDown fill="#6C666E" />
+          <span>{value ? value : heading}</span>
+          <div>
+            <ArrowDown fill="#6C666E" />
+          </div>
         </MenuButton>
         <MenuContent
           id={MenuContentID}

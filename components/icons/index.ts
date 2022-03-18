@@ -17,3 +17,5 @@ export { default as Arrow } from './Arrow';
 export { default as SortIcon } from './SortIcon';
 export { default as FilterIcon } from './FilterIcon';
 export { default as Hamburger } from './Hamburger';
+export { default as LokSabha } from './LokSabha';
+export { default as VidhanSabha } from './VidhanSabha';

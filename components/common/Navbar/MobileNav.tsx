@@ -39,7 +39,7 @@ const MobileNav = ({ data }) => {
             <Link href="/">
               <a>
                 <Image
-                  className="logo"
+                  className="img-contain"
                   src="/assets/images/oci_logo.png"
                   alt="oci logo"
                   width={166}
@@ -188,7 +188,7 @@ export const MenuHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--nav-bg);
+  background-color: var(--nav-bg-hover);
   height: 4rem;
   padding-left: 1.5rem;
 

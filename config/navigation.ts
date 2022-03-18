@@ -1,6 +1,6 @@
 export const navList = {
   site: 'Constituency Dashboard',
-  logo: '/assets/images/oci_assam_light.png',
+  logo: '',
   links: [
     {
       link: '/about',

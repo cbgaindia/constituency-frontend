@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { Button, Menu } from 'components/actions';
 import { MenuContent } from 'components/actions/Menu/MenuComp';
+import { LokSabha, VidhanSabha } from 'components/icons';
 
 const states = [
   {
@@ -107,29 +108,37 @@ const HomeHeader = () => {
         <h1>Explore Constituency-wise Fiscal Information for schemes</h1>
         <HeaderControls>
           <HeaderToggle ref={sabhaRef}>
-            <button
+            <Button
               aria-pressed="true"
               data-value="lok-sabha"
               onClick={handleSabhaClick}
+              icon={<LokSabha />}
+              iconSide="left"
+              kind="custom"
             >
               Lok Sabha
-            </button>
-            <button
+            </Button>
+            <Button
               aria-pressed="false"
               data-value="vidhan-sabha"
               onClick={handleSabhaClick}
+              icon={<VidhanSabha />}
+              iconSide="left"
+              kind="custom"
             >
               Vidhan Sabha
-            </button>
+            </Button>
           </HeaderToggle>
           <SchemeSelector>
-            <Menu
-              options={states}
-              handleChange={(e) => handleMenuChange(e, states)}
-              heading="Select State"
-              value={selectedState.title}
-              showLabel={false}
-            ></Menu>
+            <StateMenu className="fill">
+              <Menu
+                options={states}
+                handleChange={(e) => handleMenuChange(e, states)}
+                heading="Select State"
+                value={selectedState.title}
+                showLabel={false}
+              />
+            </StateMenu>
             <div className="fill">
               <Menu
                 options={schemes}
@@ -137,7 +146,7 @@ const HomeHeader = () => {
                 heading="Select any Scheme"
                 value={selectedScheme.title}
                 showLabel={false}
-              ></Menu>
+              />
             </div>
             <Button kind="primary" onClick={handleSubmitClick}>
               Explore
@@ -153,8 +162,10 @@ export default HomeHeader;
 
 const Header = styled.header`
   padding: 64px 0;
-  background-color: #8dd7cf;
-  min-height: 70vh;
+  min-height: calc(100vh - 182px);
+  background-color: var(--color-background-light);
+  background-image: url('/assets/images/background.svg');
+  z-index: -1;
 
   display: flex;
   flex-direction: column;
@@ -201,16 +212,33 @@ const SchemeSelector = styled.div`
 
 const HeaderToggle = styled.div`
   display: flex;
+  flex-wrap: wrap;
   gap: 16px;
 
   button {
-    font-weight: 500;
-    padding-bottom: 4px;
+    font-weight: 600;
+    padding-bottom: 10px;
     border-bottom: 2px solid transparent;
+    padding-inline: 8px;
+    border-radius: 0;
+    color: var(--color-grey-300);
+
+    svg {
+      fill: var(--color-grey-300);
+    }
 
     &[aria-pressed='true'] {
-      color: #6558f5;
-      border-bottom-color: #6558f5;
+      color: var(--color-amazon-100);
+      border-bottom-color: var(--color-amazon-100);
+
+      svg {
+        fill: var(--color-amazon-300);
+      }
     }
   }
+`;
+
+const StateMenu = styled.div`
+  flex-basis: 20%;
+  flex-grow: 1;
 `;

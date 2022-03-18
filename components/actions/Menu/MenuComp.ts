@@ -35,11 +35,27 @@ export const MenuButton = styled.button`
   border-radius: 4px;
   box-shadow: var(--box-shadow-inset);
   padding: 8px 12px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
   line-height: 1.5;
+  position: relative;
+  text-align: start;
+
+  > span {
+    width: 97%;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+  }
+
+  > div {
+    background-color: var(--color-background-lighter);
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    line-height: 0;
+  }
 
   svg {
     transition: transform 150ms ease;

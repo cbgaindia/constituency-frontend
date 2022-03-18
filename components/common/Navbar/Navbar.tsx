@@ -33,7 +33,7 @@ const Nav = ({ data }) => {
                     height={46}
                   ></Image>
                 ) : (
-                  <h1>{data.site || 'Opub'}</h1>
+                  <h1>{data.site || 'Constituency Dashboard'}</h1>
                 )}
               </a>
             </Link>
@@ -131,6 +131,12 @@ export const NavbarWrapper = styled.header`
       object-fit: contain;
       vertical-align: bottom;
     }
+  }
+
+  h1 {
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 1.5;
   }
 `;
 

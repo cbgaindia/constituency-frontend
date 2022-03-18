@@ -37,7 +37,7 @@ const HighlightList = styled.ul`
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
-  justify-content: space-between;
+  justify-content: space-evenly;
 
   li {
     text-align: center;
