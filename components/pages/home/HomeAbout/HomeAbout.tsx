@@ -1,33 +1,35 @@
 import React from 'react';
 import styled from 'styled-components';
+import LiteYouTubeEmbed from 'react-lite-youtube-embed';
+import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
 import { Button } from 'components/actions';
-import Image from 'next/image';
+import { HomeTitle } from 'styles/Global';
 
 const HomeAbout = () => {
   return (
     <About>
       <div className="container">
-        <figure>
-          <Image
-            src="/assets/images/placeholder.jpg"
-            width={560}
-            height={240}
-            alt=""
-            className="img-cover"
+        <VideoWrapper>
+          <LiteYouTubeEmbed
+            id="inKrfwhHHic"
+            title="Budget Forum | Open Budgets India"
+            params="disablekb=1"
+            noCookie
           />
-        </figure>
-        <div>
+        </VideoWrapper>
+        <ContentWrapper>
+          <HomeTitle className="gradient-maple">Introduction</HomeTitle>
           <h2>About the platform</h2>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur
-            ut totam cupiditate iusto architecto mollitia fugiat esse nam.
-            Beatae sequi, omnis maxime accusantium perferendis id nesciunt eum
-            inventore amet dignissimos.
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industrys standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book.
           </p>
-          <Button kind="primary-outline" size="sm">
-            Know More About Us
+          <Button kind="secondary" size="sm" href="#">
+            Know More
           </Button>
-        </div>
+        </ContentWrapper>
       </div>
     </About>
   );
@@ -36,32 +38,70 @@ const HomeAbout = () => {
 export default HomeAbout;
 
 const About = styled.section`
-  background-color: #dfe6ed;
+  background-color: var(--color-background-lighter);
 
   > .container {
     display: flex;
     flex-wrap: wrap;
-    gap: 42px;
-    padding-block: 48px;
+    align-items: center;
+    gap: 64px;
+    padding-top: 104px;
+  }
 
-    > div {
-      flex-basis: 0;
-      flex-grow: 999;
-      min-inline-size: 35%;
+  .yt-lite {
+    border-radius: 4px;
+
+    &::before {
+      display: none;
     }
   }
 
+  .lty-playbtn {
+    background-color: transparent !important;
+    background-image: url('/assets/images/play.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 120px;
+    height: 120px;
+
+    @media screen and (max-width: 480px) {
+      width: 80px;
+      height: 80px;
+    }
+
+    &::before {
+      display: none;
+    }
+  }
+`;
+
+const VideoWrapper = styled.div`
+  flex-grow: 1;
+  line-height: 0;
+  flex-basis: 664px;
+  border-radius: 4px;
+`;
+
+const ContentWrapper = styled.div`
+  flex-basis: 0;
+  flex-grow: 999;
+  min-inline-size: 35%;
+
+  h2 {
+    margin-top: 8px;
+    font-weight: 600;
+    line-height: 1.24;
+    font-size: 2rem;
+  }
+
   p {
-    margin-top: 12px;
-  }
-
-  button {
     margin-top: 16px;
+    letter-spacing: 0.01em;
+    font-weight: 400;
+    line-height: 1.5;
   }
 
-  figure {
-    flex-grow: 1;
-    line-height: 0;
-    flex-basis: 480px;
+  a {
+    margin-top: 20px;
   }
 `;

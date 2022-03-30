@@ -1,10 +1,18 @@
-import { createGlobalStyle } from 'styled-components';
-import { normalize, transparentize } from 'polished';
+import styled, { css, createGlobalStyle } from 'styled-components';
+import { transparentize } from 'polished';
 import cssReset from './Reset';
 import cssNormalise from './Normalise';
 import { DEFAULT_THEME } from 'config/theme';
 
 const theme = DEFAULT_THEME;
+
+const gradient = css`
+  background-size: 100%;
+  background-repeat: repeat;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+`;
 
 export const GlobalStyle = createGlobalStyle`
 ${cssReset}
@@ -15,6 +23,7 @@ html {
   --color-secondary : ${theme.color_maple_100};
   --color-tertiary : ${theme.color_olive_100};
 
+  --color-background : ${theme.background};
   --color-background-dark : ${theme.background_dark};
   --background-dark-hover : ${theme.color_amazon_600};
   --color-background-darker : ${theme.background_darker};
@@ -30,6 +39,14 @@ html {
   --color-amazon-400 : ${theme.color_amazon_400};
   --color-amazon-500 : ${theme.color_amazon_500};
   --color-amazon-600 : ${theme.color_amazon_600};
+
+  --color-maple-100 : ${theme.color_maple_100};
+  --color-maple-200 : ${theme.color_maple_200};
+  --color-maple-300 : ${theme.color_maple_300};
+  --color-maple-400 : ${theme.color_maple_400};
+  --color-maple-500 : ${theme.color_maple_500};
+  --color-maple-600 : ${theme.color_maple_600};
+
   --color-carrot : ${theme.color_carrot};
   --color-carrot-2 : ${theme.color_carrot_2};
   --color-carrot-3 : ${theme.color_carrot_3};
@@ -62,6 +79,8 @@ html {
   --gradient-basic : ${theme.gradient_basic};
   --gradient-hotPink : ${theme.gradient_hotPink};
   --gradient-sapphire : ${theme.gradient_sapphire};
+  --gradient-maple : linear-gradient(162.85deg, #E9B840 0%, #AA862E 99.48%);
+  --gradient-amazon: linear-gradient(158.61deg, #28A062 7.07%, #165735 99.52%);
 
   --border-1 : 1px solid var(--color-grey-500);
   --border-2 : 1px solid var(--color-grey-600);
@@ -75,7 +94,7 @@ html {
   --font-weight-medium: 500;
   --font-weight-light: 400;
 
-  --nav-bg: var(--color-background-dark);
+  --nav-bg: var(--color-background-darker);
   --nav-bg-hover: var(--background-dark-hover);
   --nav-submenu: var(--color-amazon-400);
   --nav-submenu-hover: var(--color-amazon-600);
@@ -145,7 +164,7 @@ ul, ol {
   margin-left: auto;
   
   width: calc(100vw - 20px);
-  max-width: 1216px;
+  max-width: 1246px;
 }
 
 .img-cover {
@@ -154,4 +173,26 @@ ul, ol {
 .img-contain {
    object-fit: contain;
 }
+
+.gradient {
+  &-maple {
+    ${gradient} {
+      background-image: var(--gradient-maple);
+    }
+  }
+
+  &-amazon {
+    ${gradient} {
+      background-image: var(--gradient-amazon);
+    }
+  }
+}
 `;
+
+export const HomeTitle = styled.span`
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.75rem;
+  line-height: 1.7;
+`

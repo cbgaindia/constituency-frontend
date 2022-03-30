@@ -1,26 +1,40 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const content = [
+  {
+    text: 'Schemes',
+    value: '25',
+  },
+  {
+    text: 'States',
+    value: '6',
+  },
+  {
+    text: 'Indicators',
+    value: '12',
+  },
+  {
+    text: 'Contributors',
+    value: '500',
+  },
+  {
+    text: 'Active Users',
+    value: '200,000',
+  },
+];
+
 const HomeHighlight = () => {
   return (
     <HighlightWrapper>
       <h2 className="sr-only">Highlights</h2>
       <HighlightList className="container">
-        <li>
-          <span>25+</span>Schemes
-        </li>
-        <li>
-          <span>6+</span>States
-        </li>
-        <li>
-          <span>12+</span>Indicators
-        </li>
-        <li>
-          <span>500+</span>Contributors
-        </li>
-        <li>
-          <span>200,000+</span>Active Users
-        </li>
+        {content.map((item, index) => (
+          <li key={`highlights-${index}`}>
+            <span className='gradient-amazon'>{item.value}</span>
+            {item.text}
+          </li>
+        ))}
       </HighlightList>
     </HighlightWrapper>
   );
@@ -29,24 +43,26 @@ const HomeHighlight = () => {
 export default HomeHighlight;
 
 const HighlightWrapper = styled.section`
-  background-color: #c3cfd9;
-  padding-block: 24px;
+  background-color: var(--color-background-lighter);
+  padding-block: 80px;
 `;
 
 const HighlightList = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 32px;
   justify-content: space-evenly;
 
   li {
+    font-weight: 600;
+    font-size: 1.5rem;
     text-align: center;
-    padding: 8px 16px;
   }
 
   span {
     display: block;
-    font-weight: bold;
-    margin-bottom: 4px;
+    font-weight: 900;
+    font-size: 2rem;
+    line-height: 1.24;
   }
 `;

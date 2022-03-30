@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import Image from 'next/image';
 import styled from 'styled-components';
 import { Button } from 'components/actions';
 
@@ -27,7 +26,7 @@ const questions = [
     ],
     answer: 'pixel',
     url: '#',
-    image: '/assets/images/placeholder.jpg',
+    image: '/assets/images/ques1.png',
     kind: 'state',
     name: 'quiz1',
   },
@@ -54,7 +53,7 @@ const questions = [
     ],
     answer: 'pixel',
     url: '#',
-    image: '/assets/images/placeholder.jpg',
+    image: '/assets/images/ques2.png',
     kind: 'scheme',
     name: 'quiz2',
   },
@@ -103,45 +102,32 @@ const HomeQuiz = () => {
   return (
     <section className="container">
       <h2 className="sr-only">Quiz</h2>
-      <Card>
-        <div>
-          <h3>{currentQuiz.question}</h3>
-          <Options>
-            {currentQuiz.options.map((item, index) => (
-              <Item data-id={item.id} key={`${currentQuiz.name}-${index}`}>
-                <input type="radio" name={currentQuiz.name} value={item.id} />
-                {item.text}
-              </Item>
-            ))}
-          </Options>
-          <Button
-            size="sm"
-            kind="primary"
-            onClick={handleSubmitClick}
-            passRef={submitRef}
-          >
-            Submit Answer
+      <Card img={currentQuiz.image}>
+        <h3 className="gradient-amazon">{currentQuiz.question}</h3>
+        <Options>
+          {currentQuiz.options.map((item, index) => (
+            <Item data-id={item.id} key={`${currentQuiz.name}-${index}`}>
+              <input type="radio" name={currentQuiz.name} value={item.id} />
+              {item.text}
+            </Item>
+          ))}
+        </Options>
+        <Button
+          size="sm"
+          kind="secondary"
+          onClick={handleSubmitClick}
+          passRef={submitRef}
+        >
+          Submit Answer
+        </Button>
+        <AnsweredButtons ref={answeredRef} hidden>
+          <Button size="sm" kind="primary-outline" onClick={playAgain}>
+            Play Again
           </Button>
-          <AnsweredButtons ref={answeredRef} hidden>
-            <Button size="sm" kind="primary-outline" onClick={playAgain}>
-              Play Again
-            </Button>
-            <Button href={currentQuiz.url} size="sm" kind="primary">
-              {currentQuiz.kind == 'state'
-                ? 'Explore State'
-                : 'Go to Explorer'}
-            </Button>
-          </AnsweredButtons>
-        </div>
-        <figure>
-          <Image
-            src="/assets/images/placeholder.jpg"
-            width={350}
-            height={184}
-            alt=""
-            className="img-cover"
-          />
-        </figure>
+          <Button href={currentQuiz.url} size="sm" kind="primary">
+            {currentQuiz.kind == 'state' ? 'Explore State' : 'Go to Explorer'}
+          </Button>
+        </AnsweredButtons>
       </Card>
     </section>
   );
@@ -149,42 +135,45 @@ const HomeQuiz = () => {
 
 export default HomeQuiz;
 
-const Card = styled.div`
-  display: flex;
-  gap: 48px;
-  justify-content: space-between;
-  align-items: stretch;
+interface StyledCardProps {
+  img: string;
+}
 
-  padding: 48px;
-  border: 1px solid #c3cfd9;
+const Card = styled.div<StyledCardProps>`
+  padding: 40px 40px 48px;
+  margin-top: 56px;
+  margin-bottom: -128px;
+  isolation: isolate;
+
   border-radius: 4px;
-  margin-top: -86px;
-  background-color: white;
-  margin-bottom: 86px;
+  background-color: var(--color-background-lighter);
+  background-image: url(${(props) => props.img});
+  background-repeat: no-repeat;
+  background-position: right;
+  filter: drop-shadow(var(--box-shadow-1));
 
-  button {
-    margin-top: 16px;
+  h3 {
+    font-weight: 900;
+    font-size: 1.5rem;
   }
 
-  figure {
-    line-height: 0;
-    display: flex;
+  button {
+    margin-top: 20px;
   }
 
   @media (max-width: 768px) {
     padding: 24px;
 
-    figure {
-      display: none;
-    }
+    background-image: none;
   }
 `;
 
 const Options = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin-top: 16px;
+  margin-top: 20px;
   gap: 16px;
+  width: 50%;
 
   > label {
     min-width: 45%;
@@ -195,6 +184,7 @@ const Item = styled.label`
   display: grid;
   grid-template-columns: 1em auto;
   gap: 0.5em;
+  color: var(--text-light-light);
 
   input {
     /* Remove native radio style */

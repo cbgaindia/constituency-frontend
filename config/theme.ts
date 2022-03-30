@@ -24,6 +24,7 @@ export const DEFAULT_THEME = {
   color_olive_500: '#56502F',
   color_olive_600: '#3E3A22',
 
+  background: '#E5E5E5',
   background_dark: '#2D523F',
   background_darker: '#172920',
   background_light: '#EBF0EE',
@@ -68,4 +69,5 @@ export const DEFAULT_THEME = {
   gradient_basic: 'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%)',
   gradient_hotPink: 'linear-gradient(162.85deg, #FA5C82 0%, #3E1C47 99.48%)',
   gradient_sapphire: 'linear-gradient(162.85deg, #4965B2 0%, #3E1C47 99.48%)',
+
 };

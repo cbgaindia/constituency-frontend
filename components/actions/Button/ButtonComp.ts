@@ -19,7 +19,7 @@ function bgColor(type: string, bg: string) {
       case 'primary':
         return 'var(--color-primary)';
       case 'secondary':
-        return 'var(--color-secondary)';
+        return 'var(--color-maple-200)';
       default:
         return 'transparent';
     }
@@ -30,9 +30,9 @@ function color(type: string) {
   if (type == 'custom') {
     return 'null';
   }
-  if (type == 'primary' || type == 'secondary') return 'white';
+  if (type == 'primary' || type == 'secondary') return 'var(--text-dark-high)';
   else if (type == 'primary-outline') return 'var(--color-primary)';
-  else return 'var(--color-secondary)';
+  else return 'var(--color-maple-200)';
 }
 
 function border(type: string) {
@@ -42,7 +42,7 @@ function border(type: string) {
   if (type == 'primary' || type == 'secondary') return 'none';
   else if (type == 'primary-outline')
     return `2px solid ${'var(--color-primary)'}`;
-  else return `2px solid ${'var(--color-secondary)'}`;
+  else return `2px solid ${'var(--color-maple-200)'}`;
 }
 
 function buttonSize(size: string, type: string) {
@@ -82,10 +82,10 @@ function iconPadding(iconSide, size, iconOnly) {
 const ButtonWrapper = styled.button<ButtonProps>`
   font-size: ${(props: any) => buttonFont(props.size)};
   line-height: 1.5;
-  font-weight: 500;
+  font-weight: 600;
   display: flex;
   align-items: center;
-  width: ${(props: any) => (props.fluid == true ? '100%' : null)};
+  width: ${(props: any) => (props.fluid == true ? '100%' : 'fit-content')};
   justify-content: ${(props: any) => (props.fluid == true ? 'center' : null)};
   cursor: pointer;
 

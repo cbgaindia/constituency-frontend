@@ -1,36 +1,37 @@
 import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
+import { HomeTitle } from 'styles/Global';
 
 const states = [
   {
-    img: '/assets/images/placeholder.jpg',
-    title: 'Rajasthan',
+    img: '/assets/states/bihar.svg',
+    title: 'Bihar',
     link: '#',
   },
   {
-    img: '/assets/images/placeholder.jpg',
-    title: 'Uttar Pradesh',
+    img: '/assets/states/chhattisgarh.svg',
+    title: 'Chhattisgarh',
     link: '#',
   },
   {
-    img: '/assets/images/placeholder.jpg',
+    img: '/assets/states/jharkhand.svg',
+    title: 'Jharkhand',
+    link: '#',
+  },
+  {
+    img: '/assets/states/maharashtra.svg',
+    title: 'Maharashtra',
+    link: '#',
+  },
+  {
+    img: '/assets/states/odisha.svg',
     title: 'Odisha',
     link: '#',
   },
   {
-    img: '/assets/images/placeholder.jpg',
-    title: 'Gujrat',
-    link: '#',
-  },
-  {
-    img: '/assets/images/placeholder.jpg',
-    title: 'Kerala',
-    link: '#',
-  },
-  {
-    img: '/assets/images/placeholder.jpg',
-    title: 'Tamilnadu',
+    img: '/assets/states/up.svg',
+    title: 'Uttar Pradesh',
     link: '#',
   },
 ];
@@ -39,6 +40,7 @@ const HomeStates = () => {
   return (
     <Wrapper>
       <div className="container">
+        <HomeTitle className="gradient-maple">Drilldown further</HomeTitle>
         <h2>Explore Schemes Expenditures for the following States</h2>
         <StateList>
           {states.map((item, index) => (
@@ -46,8 +48,8 @@ const HomeStates = () => {
               <a href={item.link}>
                 <Image
                   src={item.img}
-                  width={144}
-                  height={144}
+                  width={160}
+                  height={160}
                   alt=""
                   className="img-cover"
                 />
@@ -64,32 +66,48 @@ const HomeStates = () => {
 export default HomeStates;
 
 const Wrapper = styled.section`
-  background-color: #f7f9fa;
-
   .container {
-    padding-top: 48px;
-    padding-bottom: 144px;
+    padding-top: 80px;
+  }
+
+  h2 {
+    margin-top: 8px;
+    font-weight: 600;
+    line-height: 1.24;
+    font-size: 2rem;
   }
 `;
 
 const StateList = styled.ul`
-  display: grid;
+  display: flex;
+  justify-content: space-between;
   gap: 24px;
-  grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+  margin-top: 40px;
+  padding-bottom: 16px;
 
-  margin-top: 32px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+
+  li {
+    min-width: 176px;
+    scroll-snap-align: start;
+  }
 
   a {
     display: flex;
     flex-direction: column;
     text-decoration-color: transparent;
+    background-color: var(--color-background-lighter);
+    padding: 8px;
+    filter: drop-shadow(var(--box-shadow-1));
+    border-radius: 4px;
   }
 
   h3 {
-    padding: 8px;
+    margin-top: 8px;
     text-align: center;
-    font-size: 14px;
-    background-color: white;
-    line-height: 1.5;
+    font-weight: 600;
   }
 `;
