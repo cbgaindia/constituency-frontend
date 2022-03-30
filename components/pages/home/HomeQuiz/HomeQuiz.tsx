@@ -173,7 +173,8 @@ const Options = styled.div`
   flex-wrap: wrap;
   margin-top: 20px;
   gap: 16px;
-  width: 50%;
+  width: 100%;
+  max-width: 480px;
 
   > label {
     min-width: 45%;

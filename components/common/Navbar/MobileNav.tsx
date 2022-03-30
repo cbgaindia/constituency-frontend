@@ -36,15 +36,19 @@ const MobileNav = ({ data }) => {
           </Button>
 
           <div className={data.logo && 'header__logo'}>
-            <Link href="/">
+          <Link href="/">
               <a>
-                <Image
-                  className="img-contain"
-                  src="/assets/images/oci_logo.png"
-                  alt="oci logo"
-                  width={166}
-                  height={40}
-                ></Image>
+                {data.logo ? (
+                  <Image
+                    className="logo"
+                    src={data.logo}
+                    alt={`${data.site} logo`}
+                    width={220}
+                    height={46}
+                  ></Image>
+                ) : (
+                  <h1>{data.site || 'Constituency Dashboard'}</h1>
+                )}
               </a>
             </Link>
           </div>
@@ -141,6 +145,11 @@ export const MobileHeader = styled.header`
     display: flex;
     padding-block: 16px;
     justify-content: flex-start;
+    align-items: center;
+  }
+
+  a {
+    text-decoration: none;
   }
 
   .header__logo {
@@ -150,6 +159,12 @@ export const MobileHeader = styled.header`
       object-fit: contain;
       vertical-align: bottom;
     }
+  }
+
+  h1 {
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text-dark-high);
   }
 
   button {

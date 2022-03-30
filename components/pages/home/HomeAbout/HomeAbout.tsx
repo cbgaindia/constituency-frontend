@@ -76,16 +76,18 @@ const About = styled.section`
 `;
 
 const VideoWrapper = styled.div`
-  flex-grow: 1;
-  line-height: 0;
-  flex-basis: 664px;
+
+flex-basis: 0;
+  flex-grow: 999;
+  min-inline-size: 40%;
+  
   border-radius: 4px;
 `;
 
 const ContentWrapper = styled.div`
-  flex-basis: 0;
-  flex-grow: 999;
-  min-inline-size: 35%;
+  flex-grow: 1;
+  line-height: 0;
+  flex-basis: 512px;
 
   h2 {
     margin-top: 8px;
