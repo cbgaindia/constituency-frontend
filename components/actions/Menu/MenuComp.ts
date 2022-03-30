@@ -34,7 +34,7 @@ export const MenuButton = styled.button`
   border: var(--border-1);
   border-radius: 4px;
   box-shadow: var(--box-shadow-inset);
-  padding: 8px 12px;
+  padding: 11px 12px;
   line-height: 1.5;
   position: relative;
   text-align: start;

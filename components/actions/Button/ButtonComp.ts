@@ -93,7 +93,7 @@ const ButtonWrapper = styled.button<ButtonProps>`
   color: ${(props: any) => color(props.buttonType)};
   padding: ${(props: any) => buttonSize(props.size, props.buttonType)};
   border: ${(props: any) => border(props.buttonType)};
-  border-radius: 4px;
+  border-radius: 2px;
   text-decoration: none;
 
   ${(props: any) => iconPadding(props.iconSide, props.size, props.iconOnly)}

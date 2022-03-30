@@ -261,7 +261,7 @@ const Menu = ({
         >
           <span>{value ? value : heading}</span>
           <div>
-            <ArrowDown fill="#6C666E" />
+            <ArrowDown fill="#ABB0AD" />
           </div>
         </MenuButton>
         <MenuContent

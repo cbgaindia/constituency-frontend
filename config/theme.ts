@@ -49,12 +49,12 @@ export const DEFAULT_THEME = {
   color_warning: '#DC9020',
   color_notice: '#2C59B1',
 
-  grey_100: '#4B444D',
+  grey_100: '#494D44',
   grey_200: '#666E6A',
-  grey_300: '#8E888F',
-  grey_400: '#AFABB0',
-  grey_500: '#D1CDD1',
-  grey_600: '#F2EFF2',
+  grey_300: '#888F8B',
+  grey_400: '#ABB0AD',
+  grey_500: '#CDD1CF',
+  grey_600: '#EFF2F0',
 
   text_dark_high: 'rgba(255, 255, 255, 1)',
   text_dark_medium: 'rgba(255, 255, 255, 0.72)',

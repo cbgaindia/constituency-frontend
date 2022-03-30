@@ -184,7 +184,7 @@ const Item = styled.label`
   display: grid;
   grid-template-columns: 1em auto;
   gap: 0.5em;
-  color: var(--text-light-light);
+  color: var(--text-light-medium);
 
   input {
     /* Remove native radio style */

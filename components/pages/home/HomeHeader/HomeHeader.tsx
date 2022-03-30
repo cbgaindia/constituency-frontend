@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { Button, Menu } from 'components/actions';
-import { MenuContent } from 'components/actions/Menu/MenuComp';
+import { MenuButton, MenuContent } from 'components/actions/Menu/MenuComp';
 import { LokSabha, VidhanSabha } from 'components/icons';
 
 const states = [
@@ -59,9 +59,29 @@ const schemes = [
   },
 ];
 
+const trending = [
+  {
+    text: 'Uttar Pradesh x Manrega',
+    link: '#',
+  },
+  {
+    text: 'Rajasthan x Beti Bachao Beti Padhao',
+    link: '#',
+  },
+];
+
+const noState = {
+  title: 'Select a state...',
+  value: null,
+};
+const noScheme = {
+  title: 'Select a scheme...',
+  value: null,
+};
+
 const HomeHeader = () => {
-  const [selectedState, setSelectedState] = useState(states[0]);
-  const [selectedScheme, setSelectedScheme] = useState(schemes[0]);
+  const [selectedState, setSelectedState] = useState(noState);
+  const [selectedScheme, setSelectedScheme] = useState(noScheme);
   const [selectedSabha, setSelectedSabha] = useState('Lok Sabha');
 
   const sabhaRef = useRef(null);
@@ -94,18 +114,28 @@ const HomeHeader = () => {
   }
 
   function handleSubmitClick() {
-    const obj = {
-      state: selectedState.value,
-      scheme: selectedScheme.value,
-      sabha: selectedSabha,
-    };
-    console.log(obj);
+    if (selectedState.value == null || selectedScheme.value == null) {
+      alert('Select state and scheme');
+    } else {
+      const obj = {
+        state: selectedState.value,
+        scheme: selectedScheme.value,
+        sabha: selectedSabha,
+      };
+      console.log(obj);
+    }
   }
 
   return (
     <Header>
       <div className="container">
-        <h1>Explore Constituency-wise Fiscal Information for schemes</h1>
+        <h1>
+          <span className="gradient-amazon">Explore</span>{' '}
+          <span className="gradient-maple">
+            Constituency-wise Fiscal Information
+          </span>{' '}
+          <span className="gradient-amazon">for schemes</span>
+        </h1>
         <HeaderControls>
           <HeaderToggle ref={sabhaRef}>
             <Button
@@ -130,7 +160,11 @@ const HomeHeader = () => {
             </Button>
           </HeaderToggle>
           <SchemeSelector>
-            <StateMenu className="fill">
+            <StateMenu
+              className={`fill ${
+                selectedState.value == null && 'not-selected'
+              }`}
+            >
               <Menu
                 options={states}
                 handleChange={(e) => handleMenuChange(e, states)}
@@ -139,7 +173,11 @@ const HomeHeader = () => {
                 showLabel={false}
               />
             </StateMenu>
-            <div className="fill">
+            <SchemeMenu
+              className={`fill ${
+                selectedScheme.value == null && 'not-selected'
+              }`}
+            >
               <Menu
                 options={schemes}
                 handleChange={(e) => handleMenuChange(e, schemes)}
@@ -147,11 +185,21 @@ const HomeHeader = () => {
                 value={selectedScheme.title}
                 showLabel={false}
               />
-            </div>
+            </SchemeMenu>
             <Button kind="primary" onClick={handleSubmitClick}>
               Explore
             </Button>
           </SchemeSelector>
+          <Trending>
+            <span>Trending Search:</span>
+            <div>
+              {trending.map((item, index) => (
+                <a key={`trending-${index}`} href={item.link}>
+                  {item.text}
+                </a>
+              ))}
+            </div>
+          </Trending>
         </HeaderControls>
       </div>
     </Header>
@@ -171,31 +219,30 @@ const Header = styled.header`
   flex-direction: column;
   justify-content: center;
 
-  > .container {
-    max-width: 1020px;
-    margin: 0 auto;
-  }
-
   h1 {
     text-align: center;
+    text-shadow: var(--box-shadow-1);
+    font-size: 2.5rem;
+    line-height: 1.2;
+    font-weight: 600;
   }
 `;
 
 const HeaderControls = styled.div`
   background-color: var(--color-white);
-  padding: 20px;
-  margin-top: 24px;
+  padding: 16px 16px 12px;
   border-radius: 4px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+
+  max-width: 1020px;
+  margin: 0 auto;
+  margin-top: 40px;
 `;
 
 const SchemeSelector = styled.div`
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
   gap: 16px;
+  margin-top: 16px;
 
   .fill {
     flex-grow: 1;
@@ -208,12 +255,30 @@ const SchemeSelector = styled.div`
       width: 100%;
     }
   }
+
+  .not-selected {
+    ${MenuButton} {
+      color: var(--text-light-light);
+    }
+  }
+
+  ${MenuButton} {
+    border-radius: 2px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    font-weight: 600;
+    color: var(--text-light-medium);
+  }
+
+  @media screen and (max-width: 720px) {
+    flex-wrap: wrap;
+  }
 `;
 
 const HeaderToggle = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
+  border-bottom: var(--border-2);
 
   button {
     font-weight: 600;
@@ -221,7 +286,7 @@ const HeaderToggle = styled.div`
     border-bottom: 2px solid transparent;
     padding-inline: 8px;
     border-radius: 0;
-    color: var(--color-grey-300);
+    color: var(--text-light-light);
 
     svg {
       fill: var(--color-grey-300);
@@ -239,6 +304,30 @@ const HeaderToggle = styled.div`
 `;
 
 const StateMenu = styled.div`
-  flex-basis: 20%;
-  flex-grow: 1;
+  flex-basis: 208px;
+`;
+
+const SchemeMenu = styled.div`
+  flex-basis: 637px;
+`;
+
+const Trending = styled.div`
+  display: flex;
+  gap: 4px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+
+  font-weight: 600;
+  font-size: 0.75rem;
+  line-height: 1.7;
+
+  > div {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  a {
+    color: var(--color-amazon-100);
+  }
 `;
