@@ -5,8 +5,11 @@ import styled from 'styled-components';
 
 import { fetchDatasets, convertToCkanSearchQuery } from 'utils/fetch';
 
-import { DatasetList } from 'components/pages/datasets';
 import Header from 'components/pages/state/Header';
+import SchemeList from 'components/pages/state/SchemeList';
+import { Button } from 'components/actions';
+import { Banner } from 'components/layouts';
+import { BannerWrapper } from 'components/layouts/Banner';
 
 type Props = {
   data: any;
@@ -14,11 +17,31 @@ type Props = {
 };
 
 const Datasets: React.FC<Props> = ({ data, query }) => {
-  const { state } = query;
+  const state = query.stateName;
   const { results } = data.result;
 
+  const bannerDetails = {
+    heading:
+      'Do you know what is the Total Available Fund for Swachh Bharat Mission - Gramin (SBM-G) for Uttar Pradesh?',
+    content: (
+      <Button kind="secondary" size="sm">
+        Explore Now
+      </Button>
+    ),
+    image: '/assets/images/banner.png',
+  };
+
+  function stateName(id) {
+    switch (id) {
+      case 'up':
+        return 'uttar pradesh';
+      default:
+        return id;
+    }
+  }
+
   const headerData = {
-    title: state,
+    title: stateName(state),
     content:
       'It is the most populated state in India, as well as the most populous country subdivision in the world. The state is bordered by Rajasthan to the west, Haryana, Himachal Pradesh and Delhi to the northwest, Uttarakhand and an international border with Nepal to the north, Bihar to the east, Madhya Pradesh to the south, and touches the states of Jharkhand and Chhattisgarh to the southeast.',
   };
@@ -31,11 +54,8 @@ const Datasets: React.FC<Props> = ({ data, query }) => {
       </Head>
       <Wrapper className="container">
         <Header data={headerData} />
-        {data && (
-          <SchemeList>
-            <DatasetList data={results} />
-          </SchemeList>
-        )}
+        <SchemeList data={results} url={state} />
+        <Banner details={bannerDetails} />
       </Wrapper>
     </>
   );
@@ -55,8 +75,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 export default Datasets;
 
-const Wrapper = styled.main``;
-
-const SchemeList = styled.div`
-  margin-top: 2.5rem;
+const Wrapper = styled.main`
+  .banner{
+    margin-top: 32px;
+    margin-bottom: 212px;
+  }
 `;

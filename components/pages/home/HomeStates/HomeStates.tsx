@@ -8,32 +8,32 @@ const states = [
   {
     img: '/assets/states/bihar.svg',
     title: 'Bihar',
-    link: '#',
+    link: '/bihar',
   },
   {
     img: '/assets/states/chhattisgarh.svg',
     title: 'Chhattisgarh',
-    link: '#',
+    link: '/chhattisgarh',
   },
   {
     img: '/assets/states/jharkhand.svg',
     title: 'Jharkhand',
-    link: '#',
+    link: '/jharkhand',
   },
   {
     img: '/assets/states/maharashtra.svg',
     title: 'Maharashtra',
-    link: '#',
+    link: '/maharashtra',
   },
   {
     img: '/assets/states/odisha.svg',
     title: 'Odisha',
-    link: '#',
+    link: '/odisha',
   },
   {
     img: '/assets/states/up.svg',
     title: 'Uttar Pradesh',
-    link: '#',
+    link: 'up',
   },
 ];
 
@@ -46,7 +46,7 @@ const HomeStates = () => {
         <StateList>
           {states.map((item, index) => (
             <li key={`state-${index}`}>
-              <Link href={item.link}>
+              <Link href={`/state/${item.link}`}>
                 <a>
                   <Image
                     src={item.img}

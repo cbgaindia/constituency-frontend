@@ -1,3 +1,4 @@
+import { Share } from 'components/actions';
 import Image from 'next/image';
 import styled from 'styled-components';
 
@@ -56,7 +57,10 @@ const Header = ({ data }) => {
       </article>
       <div>
         <Main>
-          <h1 className="gradient-amazon">{data.title}</h1>
+          <div>
+            <h1 className="gradient-amazon">{data.title}</h1>
+            <Share title={data.title} />
+          </div>
           <p>{data.content}</p>
         </Main>
         <Summary>
@@ -140,10 +144,18 @@ const Main = styled.section`
   padding-bottom: 24px;
   border-bottom: var(--separator-5);
 
+  > div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
   h1 {
     font-size: 2.5rem;
     font-weight: 600;
     line-height: 1.2;
+    text-transform: capitalize;
   }
 
   p {
