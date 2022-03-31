@@ -7,12 +7,17 @@ import { DEFAULT_THEME } from 'config/theme';
 const theme = DEFAULT_THEME;
 
 const gradient = css`
-  background-size: 100%;
-  background-repeat: repeat;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
+  @supports (background-clip: text) {
+    --gradient-bg: var(--text-light-high);
+    background-color: var(--gradient-bg);
+    background-image: var(--gradient-bg);
+    background-size: 100%;
+    background-repeat: repeat;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+  }
 `;
 
 export const GlobalStyle = createGlobalStyle`
@@ -125,7 +130,6 @@ body {
   font-size: 16px;
   line-height: 1.5;
   color: var(--text-light-high);
-  scroll-behavior: smooth;
 }
 
 #__next {
@@ -179,13 +183,13 @@ ul, ol {
 .gradient {
   &-maple {
     ${gradient} {
-      background-image: var(--gradient-maple);
+      --gradient-bg: var(--gradient-maple);
     }
   }
 
   &-amazon {
     ${gradient} {
-      background-image: var(--gradient-amazon);
+      --gradient-bg: var(--gradient-amazon);
     }
   }
 }
@@ -197,4 +201,4 @@ export const HomeTitle = styled.span`
   font-weight: 700;
   font-size: 0.75rem;
   line-height: 1.7;
-`
+`;

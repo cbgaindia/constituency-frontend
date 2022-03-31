@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
 import { HomeTitle } from 'styles/Global';
@@ -45,16 +46,18 @@ const HomeStates = () => {
         <StateList>
           {states.map((item, index) => (
             <li key={`state-${index}`}>
-              <a href={item.link}>
-                <Image
-                  src={item.img}
-                  width={160}
-                  height={160}
-                  alt=""
-                  className="img-cover"
-                />
-                <h3>{item.title}</h3>
-              </a>
+              <Link href={item.link}>
+                <a>
+                  <Image
+                    src={item.img}
+                    width={160}
+                    height={160}
+                    alt=""
+                    className="img-cover"
+                  />
+                  <h3>{item.title}</h3>
+                </a>
+              </Link>
             </li>
           ))}
         </StateList>
