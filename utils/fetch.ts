@@ -36,7 +36,7 @@ export async function fetchFilters(list, variable, page) {
     // }`;
 
     const fetchData = await fetch(
-      `${process.env.CKAN_URL}/package_search?facet.field=[${list}]&fq=(tags:scheme-category AND groups:budgets-for-justice)`
+      `${process.env.CKAN_URL}/package_search?facet.field=[${list}]`
     ).then((res) => res.json());
     return fetchData.result.search_facets;
   } catch (error) {

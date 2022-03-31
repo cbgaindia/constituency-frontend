@@ -17,6 +17,7 @@ const gradient = css`
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     -moz-text-fill-color: transparent;
+    text-shadow: var(--box-shadow-1);
   }
 `;
 
