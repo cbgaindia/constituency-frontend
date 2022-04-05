@@ -8,27 +8,27 @@ const states = [
   {
     img: '/assets/states/bihar.svg',
     title: 'Bihar',
-    link: '/bihar',
+    link: 'bihar',
   },
   {
     img: '/assets/states/chhattisgarh.svg',
     title: 'Chhattisgarh',
-    link: '/chhattisgarh',
+    link: 'chhattisgarh',
   },
   {
     img: '/assets/states/jharkhand.svg',
     title: 'Jharkhand',
-    link: '/jharkhand',
+    link: 'jharkhand',
   },
   {
     img: '/assets/states/maharashtra.svg',
     title: 'Maharashtra',
-    link: '/maharashtra',
+    link: 'maharashtra',
   },
   {
     img: '/assets/states/odisha.svg',
     title: 'Odisha',
-    link: '/odisha',
+    link: 'odisha',
   },
   {
     img: '/assets/states/up.svg',
