@@ -9,7 +9,6 @@ import Header from 'components/pages/state/Header';
 import SchemeList from 'components/pages/state/SchemeList';
 import { Button } from 'components/actions';
 import { Banner } from 'components/layouts';
-import { BannerWrapper } from 'components/layouts/Banner';
 
 type Props = {
   data: any;
@@ -49,7 +48,7 @@ const Datasets: React.FC<Props> = ({ data, query }) => {
   return (
     <>
       <Head>
-        <title>{state} | Constituency Dashboard</title>
+        <title>{stateName(state)} | Constituency Dashboard</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Wrapper className="container">

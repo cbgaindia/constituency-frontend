@@ -89,7 +89,7 @@ const DownloadViz = ({ viz, type, name, indicator }) => {
   return (
     <Button
       onClick={() => downloadSelector(viz)}
-      kind="secondary"
+      kind="primary"
       size="sm"
       icon={<Download />}
     >

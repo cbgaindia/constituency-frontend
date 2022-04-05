@@ -7,26 +7,16 @@ export const navList = {
       name: 'About',
     },
     {
-      link: '#dataexplorer',
-      name: 'Dashboards',
-      submenu: [
-        {
-          link: '#',
-          name: 'Budget Summary',
-        },
-        {
-          link: '#',
-          name: 'Summary',
-        },
-        {
-          link: '#',
-          name: 'Data Story',
-        },
-      ],
+      link: '/state/up',
+      name: 'State Page',
     },
     {
-      link: '#resources',
-      name: 'Resources',
+      link: '/explorer',
+      name: 'Explorer',
+    },
+    {
+      link: '#dataexplorer',
+      name: 'Dashboards',
       submenu: [
         {
           link: '#',

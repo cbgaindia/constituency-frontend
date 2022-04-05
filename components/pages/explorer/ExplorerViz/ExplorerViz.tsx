@@ -234,12 +234,14 @@ const ExplorerViz = ({ data, meta, fileData }) => {
               ))}
             </VizTabs>
             {budgetTypes.length > 1 && !isTable && (
-              <Menu
-                value={selectedBudgetType}
-                options={budgetTypes}
-                heading="Select Budget Type"
-                handleChange={handleDropdownChange}
-              />
+              <VizMenu className="fill">
+                <Menu
+                  value={selectedBudgetType}
+                  options={budgetTypes}
+                  heading="Financial Year:"
+                  handleChange={handleDropdownChange}
+                />
+              </VizMenu>
             )}
           </VizHeader>
 
@@ -270,17 +272,6 @@ const ExplorerViz = ({ data, meta, fileData }) => {
             </SourceText>
 
             <SourceButtons>
-              <Button
-                href="https://docs.google.com/document/d/1PlnurMmjyzKdIZ5ktHbQZxYmI0XWKdd0NAW1OHtvhe8/preview"
-                rel="noreferrer"
-                target="_blank"
-                size="sm"
-                kind="secondary-outline"
-                icon={<ExternalLink fill="#076775" />}
-              >
-                Data Guidebook
-                <span className="sr-only"> :opens in new window</span>
-              </Button>
               <DownloadViz
                 viz={currentViz}
                 type={selectedBudgetType}
@@ -332,9 +323,14 @@ export const VizHeader = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   padding: 1.5rem;
   gap: 1.5rem;
+`;
+const VizMenu = styled.div`
+  &.fill {
+    max-width: 280px;
+  }
 `;
 
 export const VizTabs = styled.ul`

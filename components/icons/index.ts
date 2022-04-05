@@ -19,3 +19,5 @@ export { default as FilterIcon } from './FilterIcon';
 export { default as Hamburger } from './Hamburger';
 export { default as LokSabha } from './LokSabha';
 export { default as VidhanSabha } from './VidhanSabha';
+export { default as Drop } from './Drop';
+export { default as Document } from './Document';

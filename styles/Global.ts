@@ -3,6 +3,7 @@ import { transparentize } from 'polished';
 import cssReset from './Reset';
 import cssNormalise from './Normalise';
 import { DEFAULT_THEME } from 'config/theme';
+import { MenuContent } from 'components/actions/Menu/MenuComp';
 
 const theme = DEFAULT_THEME;
 
@@ -195,6 +196,18 @@ ul, ol {
     }
   }
 }
+
+.fill {
+    flex-grow: 1;
+
+    button {
+      width: 100%;
+    }
+
+    ${MenuContent} {
+      width: 100%;
+    }
+  }
 `;
 
 export const HomeTitle = styled.span`
