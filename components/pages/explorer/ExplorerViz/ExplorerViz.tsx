@@ -39,11 +39,11 @@ const ExplorerViz = ({ data, meta, fileData }) => {
 
   // todo: make it dynamic lie scheme dashboard
   const IndicatorDesc = [
-    meta['Indicator 1 - Description'],
-    meta['Indicator 2 - Description'],
-    meta['Indicator 3 - Description'],
-    meta['Indicator 4 - Description'],
-    meta['Indicator 5 - Description'],
+    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos quia, eligendi commodi aliquid',
+    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos quia, eligendi commodi aliquid',
+    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos quia, eligendi commodi aliquid',
+    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos quia, eligendi commodi aliquid',
+    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos quia, eligendi commodi aliquid',
   ];
 
   const vizToggle = [
@@ -186,7 +186,7 @@ const ExplorerViz = ({ data, meta, fileData }) => {
   }
 
   function handleNewVizData(val: any) {
-    if (val) {      
+    if (val) {
       const filtered = filter_data_indicator(fileData, val);
       const budgetType = [
         ...Array.from(new Set(filtered.map((item) => item.budgetType))),
@@ -357,7 +357,7 @@ const Toggler = styled.div`
     color: var(--text-light-light);
     border-right: var(--border-2);
 
-    &[data-value="editorial-notes"] {
+    &[data-value='editorial-notes'] {
       border-inline: var(--border-2);
     }
 

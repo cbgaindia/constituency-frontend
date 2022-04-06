@@ -1,38 +1,71 @@
-import React, { useEffect } from 'react';
-import { Toggletip } from 'components/layouts';
+import Radio from 'components/layouts/Radio';
+import { RadioItem } from 'components/layouts/Radio/Radio';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 const Indicator = ({ data, newIndicator, meta }) => {
+  const indicatorRef = useRef(null);
   useEffect(() => {
-    (document.getElementById('Budget Estimates') as HTMLInputElement).checked =
-      true;
+    indicatorRef.current
+      .querySelector(`label`)
+      .setAttribute('data-selected', 'true');
+    (
+      document.querySelector(
+        `[data-id="${data[0]}"] > input`
+      ) as HTMLInputElement
+    ).checked = true;
+
+    indicatorRef.current
+      .querySelectorAll(`label`)
+      .forEach((elm) => elm.addEventListener('click', handleIndicatorChange));
   }, [data]);
 
   function handleIndicatorChange(e: any) {
-    newIndicator(e.value);
+    // e.stopPropagation();
+    e.preventDefault();
+    const elm = e.target;
+    console.log(e);
+
+    elm.querySelector(`input`).checked = true;
+
+    newIndicator(elm.dataset.id);
+    if (document.querySelector(`[data-selected="true"]`) !== elm) {
+      // set previous selected indicator as false
+      document
+        .querySelector(`[data-selected="true"]`)
+        .setAttribute('data-selected', 'false');
+
+      // select current indicator
+      elm.setAttribute('data-selected', 'true');
+    }
   }
 
   return (
     <IndicatorWrapper className="indicator">
       <h3>Indicators</h3>
-      <fieldset>
+      <fieldset ref={indicatorRef}>
         <legend className="sr-only">Choose Indicator:</legend>
         {data &&
           data.map(
             (item, index) =>
               item && (
-                <div key={`indicatorItem-${index}`}>
-                  <input
-                    onClick={(e) => handleIndicatorChange(e.target)}
-                    type="radio"
-                    name="indicators"
-                    id={item}
-                    value={item}
-                  />
-                  <label htmlFor={item}>
-                    {item} <Toggletip data={meta[index]} />
-                  </label>
-                </div>
+                <Radio
+                  // onClick={(e) => handleIndicatorChange(e)}
+                  color="var(--color-amazon-300)"
+                  data-id={item}
+                  data-selected="false"
+                  id={item}
+                  text={
+                    <>
+                      {item}
+                      <Info>
+                        <p>{meta[index]}</p>
+                      </Info>
+                    </>
+                  }
+                  name="indicators"
+                  key={`indicatorItem-${index}`}
+                />
               )
           )}
       </fieldset>
@@ -41,6 +74,15 @@ const Indicator = ({ data, newIndicator, meta }) => {
 };
 
 export default Indicator;
+
+const Info = styled.div`
+  display: none;
+  font-weight: 400;
+  line-height: 1.7;
+  font-size: 0.75rem;
+  color: var(--text-light-medium);
+  grid-column: 2/3;
+`;
 
 export const IndicatorWrapper = styled.div`
   scrollbar-width: thin;
@@ -57,27 +99,26 @@ export const IndicatorWrapper = styled.div`
     width: 5px;
   }
 
-  fieldset {
-    > div {
-      margin-top: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
+  ${RadioItem} {
+    line-height: 1.7;
+    margin-top: 1rem;
+    color: var(--text-light-high);
+    letter-spacing: 0.01em;
+    padding: 8px;
+
+    &[data-selected='true'] {
+      font-weight: 600;
+      background-color: var(--color-grey-600);
     }
 
     input {
-      transform: scale(1.5);
-      accent-color: #666d6e;
-
-      &:checked + label {
-        font-weight: bold;
-      }
+      pointer-events: none;
     }
 
-    label {
-      font-weight: 500;
-      line-height: 175%;
-      margin-bottom: -3px;
+    input:checked {
+      + ${Info} {
+        display: block;
+      }
     }
   }
 

@@ -1,6 +1,8 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Button } from 'components/actions';
+import Radio from 'components/layouts/Radio';
+import { RadioItem } from 'components/layouts/Radio/Radio';
 
 const questions = [
   {
@@ -106,10 +108,13 @@ const HomeQuiz = () => {
         <h3 className="gradient-amazon">{currentQuiz.question}</h3>
         <Options>
           {currentQuiz.options.map((item, index) => (
-            <Item data-id={item.id} key={`${currentQuiz.name}-${index}`}>
-              <input type="radio" name={currentQuiz.name} value={item.id} />
-              {item.text}
-            </Item>
+            <Radio
+              text={item.text}
+              id={item.id}
+              name={currentQuiz.name}
+              key={`${currentQuiz.name}-${index}`}
+              data-id={item.id}
+            />
           ))}
         </Options>
         <Button
@@ -166,6 +171,27 @@ const Card = styled.div<StyledCardProps>`
 
     background-image: none;
   }
+
+  ${RadioItem} {
+    &.quiz-wrong {
+      color: var(--color-error);
+
+      input::before {
+        box-shadow: inset 1em 1em var(--color-error);
+        transform: scale(1);
+      }
+    }
+
+    &.quiz-correct {
+      color: var(--color-success);
+      font-weight: bold;
+
+      input::before {
+        box-shadow: inset 1em 1em var(--color-success);
+        transform: scale(1);
+      }
+    }
+  }
 `;
 
 const Options = styled.div`
@@ -178,72 +204,6 @@ const Options = styled.div`
 
   > label {
     min-width: 45%;
-  }
-`;
-
-const Item = styled.label`
-  display: grid;
-  grid-template-columns: 1em auto;
-  gap: 0.5em;
-  color: var(--text-light-medium);
-
-  input {
-    /* Remove native radio style */
-    appearance: none;
-    background-color: #fff;
-    margin: 0;
-
-    font: inherit;
-    color: currentColor;
-    width: 1.15em;
-    height: 1.15em;
-    border: 0.15em solid currentColor;
-    border-radius: 50%;
-    transform: translateY(0.2em);
-
-    display: grid;
-    place-content: center;
-
-    &::before {
-      content: '';
-      width: 0.65em;
-      height: 0.65em;
-      border-radius: 50%;
-      transform: scale(0);
-      transition: 120ms transform ease-in-out;
-      box-shadow: inset 1em 1em var(--color-grey-200);
-
-      /* Windows High Contrast Mode */
-      background-color: CanvasText;
-    }
-
-    &:checked::before {
-      transform: scale(1);
-    }
-
-    &:focus-visible {
-      outline: max(2px, 0.15em) solid currentColor;
-      outline-offset: max(2px, 0.15em);
-    }
-  }
-
-  &.quiz-wrong {
-    color: var(--color-error);
-
-    input::before {
-      box-shadow: inset 1em 1em var(--color-error);
-      transform: scale(1);
-    }
-  }
-
-  &.quiz-correct {
-    color: var(--color-success);
-    font-weight: bold;
-
-    input::before {
-      box-shadow: inset 1em 1em var(--color-success);
-      transform: scale(1);
-    }
   }
 `;
 
