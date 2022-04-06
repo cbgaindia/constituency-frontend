@@ -11,7 +11,7 @@ export const navList = {
       name: 'State Page',
     },
     {
-      link: '/explorer',
+      link: '/explorer?id=union-budget-data-for-the-infrastructure-facilities-for-judiciary',
       name: 'Explorer',
     },
     {

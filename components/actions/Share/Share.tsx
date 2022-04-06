@@ -10,7 +10,10 @@ import {
 import { Widget } from 'components/actions';
 import styled from 'styled-components';
 
-const Share = ({ title }) => {
+const Share: React.FC<{ title: string; buttonSize?: 'sm' | 'md' }> = ({
+  title,
+  buttonSize = 'md',
+}) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -36,6 +39,7 @@ const Share = ({ title }) => {
         buttonContent="Share"
         title="share menu"
         buttonStyle="primary-outline"
+        buttonSize={buttonSize}
       >
         <ShareComp className="shareModal__dropdown">
           <li>

@@ -81,6 +81,16 @@ export function filter_data_indicator(mainData, indicatorName) {
   return data;
 }
 
+export function filter_data_fiscalYear(mainData, indicatorName) {
+  let data = mainData;
+  if (indicatorName) {
+    if (data.length > 0) {
+      data = data.filter((item) => item['fiscalYear'] == indicatorName);
+    }
+  }
+  return data;
+}
+
 export function filter_data_budgettype(mainData, budgetType) {
   let data = mainData;
   if (budgetType) {

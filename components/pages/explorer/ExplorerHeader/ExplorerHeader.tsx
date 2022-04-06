@@ -121,6 +121,8 @@ export default ExplorerHeader;
 
 const Wrapper = styled.div`
   margin-top: 40px;
+  padding-bottom: 40px;
+  border-bottom: var(--border-1);
 `;
 
 const Tabs = styled.ul`

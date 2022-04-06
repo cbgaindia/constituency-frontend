@@ -1,14 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import Modal from 'react-modal';
 import { Toggletip } from 'components/layouts';
 import styled from 'styled-components';
-
-Modal.setAppElement('#__next');
+import { Button, Modal } from 'components/actions';
 
 const IndicatorMobile = ({ indicators, newIndicator, meta }) => {
   const [sortIsOpen, setSortIsOpen] = useState(false);
   const [currentSort, setCurrentSort] = useState('Budget Estimates mobile');
   const [selectedSort, setSelectedSort] = useState('Budget Estimates mobile');
+
+  function DataAlterFooter({ cancel, apply }) {
+    return (
+      <Footer>
+        <Button kind="secondary-outline" onClick={cancel} fluid={true}>
+          Close
+        </Button>
+        <Button kind="secondary" onClick={apply} fluid={true}>
+          Apply
+        </Button>
+      </Footer>
+    );
+  }
 
   useEffect(() => {
     setTimeout(() => {
@@ -80,53 +91,34 @@ const IndicatorMobile = ({ indicators, newIndicator, meta }) => {
       {/* Sort Modal */}
       <Modal
         isOpen={sortIsOpen}
-        onRequestClose={handleSortClick}
-        className="modal"
-        overlayClassName="modal__backdrop"
-        closeTimeoutMS={200}
-        aria={{
-          labelledby: 'modal-head',
-        }}
-        preventScroll={true}
-        htmlOpenClassName="ReactModal__Html--open"
+        label="sort modal"
+        modalHandler={handleSortClick}
       >
-        <div className="modal__header">
-          <h1 id="modal-head">Change Indicator</h1>
-        </div>
-        <fieldset className="modal__body" id="modalSort-mobile">
-          <legend className="sr-only">Select Indicator</legend>
-          {indicators.map((elm, index) => {
-            return (
-              elm && (
-                <label key={`sort-${index}`} htmlFor={`${elm} mobile`}>
-                  <input
-                    type="radio"
-                    value={elm}
-                    name="sort-group"
-                    id={`${elm} mobile`}
-                  />
-                  {elm} <Toggletip data={meta[index]} />
-                </label>
-              )
-            );
-          })}
-        </fieldset>
-        <div className="indicator-mobile__footer">
-          <button
-            type="button"
-            onClick={cancelSortChange}
-            className="btn-secondary-invert"
-          >
-            Close
-          </button>
-          <button
-            type="button"
-            onClick={applySortChange}
-            className="btn-secondary"
-          >
-            Apply
-          </button>
-        </div>
+        <Header>
+            <h1 id="modal-head">Sort Datasets</h1>
+          </Header>
+          <Wrapper>
+            <Fieldset id="modalSort">
+              <legend className="sr-only">Select Indicator</legend>
+              {indicators.map((elm, index) => {
+                return (
+                  <label key={`sort-${index}`} htmlFor={`${elm} mobile`}>
+                    <input
+                      type="radio"
+                      value={elm}
+                      name="sort-group"
+                      id={`${elm} mobile`}
+                    />
+                    {elm} <Toggletip data={meta[index]} />
+                  </label>
+                );
+              })}
+            </Fieldset>
+            <DataAlterFooter
+              cancel={cancelSortChange}
+              apply={applySortChange}
+            />
+          </Wrapper>
       </Modal>
     </>
   );
@@ -134,17 +126,107 @@ const IndicatorMobile = ({ indicators, newIndicator, meta }) => {
 
 export default IndicatorMobile;
 
+export const Header = styled.div`
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-grey-600);
+  border-radius: 12px 12px 0px 0px;
+  padding-inline: 24px;
+  padding-block: 24px 20px;
+  border-bottom: var(--separator-5-2);
+
+  @media (max-width: 540px) {
+    padding-inline: 16px;
+  }
+
+  h1 {
+    font-weight: var(--font-weight-medium);
+    font-size: 20px;
+    line-height: 26px;
+    margin: 0;
+  }
+
+  button {
+    color: var(--color-secondary);
+    text-decoration-line: underline;
+    text-transform: capitalize;
+  }
+`;
+
+export const Wrapper = styled.div`
+  padding-inline: 24px;
+  background-color: var(--color-background-lighter);
+
+  @media (max-width: 540px) {
+    padding-inline: 16px;
+  }
+`;
+
+export const Fieldset = styled.fieldset`
+  padding-top: 0;
+  height: 40vh;
+  padding: 0;
+
+  input {
+    margin-right: 12px;
+    accent-color: var(--color-primary);
+
+    &[type='radio'] {
+      padding: 6px 0;
+      transform: scale(1.5);
+    }
+  }
+
+  &#modalSort {
+    overflow-y: auto;
+
+    label {
+      padding-left: 3px;
+    }
+  }
+
+  [role='tabpanel'] {
+    overflow-y: auto;
+    max-height: 39vh;
+  }
+
+  label {
+    display: flex;
+    margin-top: 20px;
+    align-items: center;
+    font-weight: 500;
+    line-height: 140%;
+  }
+`;
+
+export const Footer = styled.div`
+  display: flex;
+  gap: 12px;
+  padding: 16px 0;
+  border-top: var(--separator-5-2);
+
+  button {
+    width: 100%;
+  }
+
+  @media (max-width: 540px) {
+    padding: 8px 0;
+  }
+`;
+
 export const IndicatorMobileWrapper = styled.div`
   padding: 1rem 1.5rem;
-  background-color: $bg-lightest;
+  background-color: var(--color-background-lighter);
   border-radius: 8px;
-  filter: $drop-shadow;
+  filter: drop-shadow(var(--box-shadow-1));
   margin-top: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  @include media.widerThan('sprout') {
+  @media (min-width: 720px) {
     display: none;
   }
 
@@ -153,16 +235,16 @@ export const IndicatorMobileWrapper = styled.div`
     font-size: 1.25rem;
     font-weight: 500;
 
-    @include media.narrowerThan('seedling') {
+    @media (max-width: 480px) {
       font-size: 1rem;
     }
   }
 
   .indicator-mobile__buttons {
     button {
-      border: 2px solid $color-sapphire;
+      border: 2px solid var(--color-secondary);
       border-radius: 4px;
-      color: $color-sapphire;
+      color: var(--color-secondary);
       font-weight: 500;
       vertical-align: middle;
       display: inline-flex;
@@ -175,7 +257,7 @@ export const IndicatorMobileWrapper = styled.div`
         margin-left: 12px;
       }
 
-      @include media.narrowerThan('seed') {
+      @media (max-width: 480px) {
         font-size: 0;
         border: none;
         padding: 8px 8px;
@@ -190,55 +272,5 @@ export const IndicatorMobileWrapper = styled.div`
     justify-content: center;
     align-items: center;
     margin-right: 0.5rem;
-  }
-
-  .indicator-mobile__filter {
-    display: grid;
-    grid-template-columns: max-content 1fr;
-    margin-top: 0.5rem;
-
-    ul {
-      width: 200px;
-      margin-right: 1.25rem;
-
-      li {
-        margin-top: 0.5rem;
-
-        &:first-of-type {
-          margin-top: 1rem;
-        }
-      }
-
-      a {
-        width: 100%;
-        padding: 9px 8px;
-        display: block;
-        text-decoration: none;
-        text-transform: capitalize;
-        border-radius: 4px;
-        background-color: $grey-6;
-        line-height: 137%;
-
-        &[aria-selected='true'] {
-          background-color: $bg-lightest;
-          font-weight: 500;
-        }
-      }
-
-      @include media.narrowerThan('seed') {
-        width: 144px;
-      }
-    }
-  }
-  .indicator-mobile__footer {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    padding: 0 1rem;
-    margin-top: 1rem;
-
-    button {
-      width: 49%;
-    }
   }
 `;

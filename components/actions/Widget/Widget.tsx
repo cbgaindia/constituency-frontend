@@ -13,6 +13,11 @@ interface Props extends React.HTMLAttributes<HTMLElement> {
   /**
    * Button Content
    */
+   buttonSize?: 'sm' | 'md';
+
+  /**
+   * Button Content
+   */
   icon: React.ReactElement;
 
   /**
@@ -41,6 +46,7 @@ const Widget = ({
   buttonContent,
   title = 'widget',
   buttonStyle = 'custom',
+  buttonSize = 'md',
   buttonClass,
   icon,
   children,
@@ -88,6 +94,7 @@ const Widget = ({
     <WidgetComp onKeyUp={wrapKeyHandler}>
       <Button
         kind={buttonStyle}
+        size={buttonSize}
         aria-expanded="false"
         icon={icon}
         aria-controls={widgetID}

@@ -8,7 +8,7 @@ import { MenuContent } from 'components/actions/Menu/MenuComp';
 const theme = DEFAULT_THEME;
 
 const gradient = css`
-  @supports (background-clip: text) {
+  @supports (background-clip: text) or (-webkit-background-clip: text) {
     --gradient-bg: var(--text-light-high);
     background-color: var(--gradient-bg);
     background-image: var(--gradient-bg);
@@ -41,6 +41,8 @@ html {
   --color-white : ${theme.color_white};
   --color-violet : ${theme.color_violet};
   --color-honey : ${theme.color_honey};
+
+  --color-amazon-00 : ${theme.color_amazon_00};
   --color-amazon-100 : ${theme.color_amazon_100};
   --color-amazon-200 : ${theme.color_amazon_200};
   --color-amazon-300 : ${theme.color_amazon_300};

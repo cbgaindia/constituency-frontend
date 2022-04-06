@@ -3,6 +3,7 @@ export const DEFAULT_THEME = {
   secondary: '#E9B840',
   tertiary: '#CCBE72',
 
+  color_amazon_00: '#B2D2C2',
   color_amazon_100: '#28A062',
   color_amazon_200: '#238E57',
   color_amazon_300: '#1D7548',
