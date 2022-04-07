@@ -10,13 +10,14 @@ import {
 import { barLineTransformer } from 'components/viz';
 
 import {
-  DownloadViz,
   Indicator,
   IndicatorMobile,
   Table,
 } from 'components/data';
-import { ExternalLink, LokSabha, VidhanSabha } from 'components/icons';
-import { Button, Menu, Share } from 'components/actions';
+import { Menu } from 'components/actions';
+import Source from './Source';
+import Toggler from './Toggler';
+
 const SimpleBarLineChartViz = dynamic(
   () => import('components/viz/SimpleBarLineChart'),
   { ssr: false, loading: () => <p>...</p> }
@@ -31,11 +32,9 @@ const ExplorerViz = ({ data, meta, fileData }) => {
   const [selectedBudgetType, setSelectedBudgetType] = useState('');
   const [isTable, setIsTable] = useState(false);
   const [currentViz, setCurrentViz] = useState('#barGraph');
-  const [selectedSabha, setSelectedSabha] = useState('Lok Sabha');
 
   const barRef = useRef(null);
   const lineRef = useRef(null);
-  const sabhaRef = useRef(null);
 
   // todo: make it dynamic lie scheme dashboard
   const IndicatorDesc = [
@@ -202,21 +201,6 @@ const ExplorerViz = ({ data, meta, fileData }) => {
     }
   }
 
-  function handleSabhaClick(e) {
-    const btn = e.target;
-    const value = btn.dataset.value;
-    setSelectedSabha(value);
-
-    const selectedBtn = sabhaRef.current.querySelector(
-      '[aria-pressed="true"]'
-    ) as HTMLElement;
-
-    if (btn !== selectedBtn) {
-      selectedBtn.setAttribute('aria-pressed', 'false');
-      btn.setAttribute('aria-pressed', 'true');
-    }
-  }
-
   function handleDropdownChange(val: any) {
     const finalFiltered = filter_data_budgettype(indicatorFiltered, val);
     setSelectedBudgetType(val);
@@ -230,46 +214,14 @@ const ExplorerViz = ({ data, meta, fileData }) => {
         newIndicator={handleNewVizData}
         meta={IndicatorDesc}
       />
-      <Toggler ref={sabhaRef}>
-        <SabhaToggle>
-          <Button
-            aria-pressed="true"
-            data-value="lok-sabha"
-            onClick={handleSabhaClick}
-            icon={<LokSabha />}
-            iconSide="left"
-            kind="custom"
-          >
-            Lok Sabha
-          </Button>
-          <Button
-            aria-pressed="false"
-            data-value="vidhan-sabha"
-            onClick={handleSabhaClick}
-            icon={<VidhanSabha />}
-            iconSide="left"
-            kind="custom"
-          >
-            Vidhan Sabha
-          </Button>
-        </SabhaToggle>
-        <div>
-          <Button
-            aria-pressed="false"
-            data-value="editorial-notes"
-            onClick={handleSabhaClick}
-            kind="custom"
-          >
-            Scheme Editorial Notes
-          </Button>
-        </div>
-      </Toggler>
+      <Toggler />
 
       <Wrapper>
         <Indicator
           data={data.indicators}
           meta={IndicatorDesc}
           newIndicator={handleNewVizData}
+          selectedIndicator={selectedIndicator}
         />
         <VizWrapper>
           <VizHeader>
@@ -305,36 +257,12 @@ const ExplorerViz = ({ data, meta, fileData }) => {
             </VizGraph>
           ))}
 
-          <ExplorerSource>
-            <SourceText>
-              <strong>Data Source: </strong>
-              <p>
-                Union Budget documents (2016-17 to 2021-22) sourced from{' '}
-                <a
-                  href="https://openbudgetsindia.org/"
-                  rel="noreferrer"
-                  target="_blank"
-                >
-                  Open Budgets India
-                  <span className="sr-only"> :opens in new window</span>
-                </a>
-              </p>
-            </SourceText>
-
-            <SourceButtons>
-              <Share buttonSize="sm" title="share viz" />
-              <DownloadViz
-                viz={currentViz}
-                type={selectedBudgetType}
-                indicator={
-                  indicatorFiltered[0]
-                    ? indicatorFiltered[0]['indicators']
-                    : 'Budget Estimates'
-                }
-                name={data.title}
-              />
-            </SourceButtons>
-          </ExplorerSource>
+          <Source
+            title={data.title}
+            currentViz={currentViz}
+            selectedBudgetType={selectedBudgetType}
+            indicatorFiltered={indicatorFiltered}
+          />
         </VizWrapper>
       </Wrapper>
     </>
@@ -342,48 +270,6 @@ const ExplorerViz = ({ data, meta, fileData }) => {
 };
 
 export default ExplorerViz;
-
-const Toggler = styled.div`
-  background-color: var(--color-background-lighter);
-  margin-top: 32px;
-  border-radius: 4px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-
-  button {
-    font-weight: 600;
-    padding: 20px 24px;
-    color: var(--text-light-light);
-    border-right: var(--border-2);
-
-    &[data-value='editorial-notes'] {
-      border-inline: var(--border-2);
-    }
-
-    svg {
-      fill: var(--color-grey-300);
-    }
-
-    &[aria-pressed='true'] {
-      color: var(--color-amazon-100);
-      background-color: var(--color-amazon-00);
-
-      svg {
-        fill: var(--color-amazon-300);
-      }
-    }
-
-    @media screen and (max-width: 480px) {
-      font-size: 0.75rem;
-    }
-  }
-`;
-
-const SabhaToggle = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`;
 
 export const Wrapper = styled.section`
   display: grid;
@@ -479,42 +365,4 @@ export const VizGraph = styled.div`
   height: 500px;
   overflow-y: auto;
   overflow-x: auto;
-`;
-
-export const ExplorerSource = styled.div`
-  border-top: 1px solid #cdd1d1;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 2rem;
-  justify-content: flex-end;
-  align-items: flex-start;
-  padding: 1rem 0;
-  margin: 0 1.5rem;
-
-  button,
-  a {
-    svg {
-      width: 10px;
-      margin-left: 8px;
-    }
-  }
-`;
-
-export const SourceText = styled.div`
-  flex-basis: 35%;
-  flex-grow: 1;
-  font-size: 14px;
-
-  p {
-    color: var(--text-light-medium);
-    font-weight: var(--font-weight-medium);
-    display: inline;
-  }
-`;
-
-export const SourceButtons = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
 `;

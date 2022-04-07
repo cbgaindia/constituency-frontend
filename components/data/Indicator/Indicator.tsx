@@ -3,7 +3,7 @@ import { RadioItem } from 'components/layouts/Radio/Radio';
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
-const Indicator = ({ data, newIndicator, meta }) => {
+const Indicator = ({ data, newIndicator, meta, selectedIndicator }) => {
   const indicatorRef = useRef(null);
   useEffect(() => {
     indicatorRef.current
@@ -14,30 +14,12 @@ const Indicator = ({ data, newIndicator, meta }) => {
         `[data-id="${data[0]}"] > input`
       ) as HTMLInputElement
     ).checked = true;
-
-    indicatorRef.current
-      .querySelectorAll(`label`)
-      .forEach((elm) => elm.addEventListener('click', handleIndicatorChange));
-  }, [data]);
+  }, []);
 
   function handleIndicatorChange(e: any) {
-    // e.stopPropagation();
-    e.preventDefault();
+    e.stopPropagation();
     const elm = e.target;
-    console.log(e);
-
-    elm.querySelector(`input`).checked = true;
-
-    newIndicator(elm.dataset.id);
-    if (document.querySelector(`[data-selected="true"]`) !== elm) {
-      // set previous selected indicator as false
-      document
-        .querySelector(`[data-selected="true"]`)
-        .setAttribute('data-selected', 'false');
-
-      // select current indicator
-      elm.setAttribute('data-selected', 'true');
-    }
+    newIndicator(elm.value);
   }
 
   return (
@@ -50,10 +32,10 @@ const Indicator = ({ data, newIndicator, meta }) => {
             (item, index) =>
               item && (
                 <Radio
-                  // onClick={(e) => handleIndicatorChange(e)}
+                  onClick={handleIndicatorChange}
                   color="var(--color-amazon-300)"
                   data-id={item}
-                  data-selected="false"
+                  data-selected={selectedIndicator == item ? 'true' : 'false'}
                   id={item}
                   text={
                     <>
@@ -82,6 +64,7 @@ const Info = styled.div`
   font-size: 0.75rem;
   color: var(--text-light-medium);
   grid-column: 2/3;
+  pointer-events: none;
 `;
 
 export const IndicatorWrapper = styled.div`

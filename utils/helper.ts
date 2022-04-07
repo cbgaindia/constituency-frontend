@@ -1,6 +1,5 @@
 export function sectionCollapse(e: any, wrapperRef) {
   const btn = e.target;
-  console.log(btn);
 
   const target = btn.nextElementSibling;
   const expanded = btn.getAttribute('aria-expanded') === 'true';

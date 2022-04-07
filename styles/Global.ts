@@ -205,10 +205,6 @@ ul, ol {
     button {
       width: 100%;
     }
-
-    ${MenuContent} {
-      width: 100%;
-    }
   }
 `;
 

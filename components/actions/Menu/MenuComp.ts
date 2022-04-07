@@ -10,24 +10,29 @@ interface MenuProps {
    * should the menu stick to left or right
    */
   readonly position?: 'left' | 'right';
+
+  /**
+   * show or hide label of menu
+   */
+  readonly showLabel?: boolean;
 }
 
-export const MenuComp = styled.div`
-  display: flex;
+export const MenuComp = styled.div<MenuProps>`
+  display: grid;
+  grid-template-columns: ${(props: any) =>
+    props.showLabel == true ? 'minmax(0, auto) 1fr' : '1fr'};
   align-items: center;
 `;
 
 export const MenuLabel = styled.span`
   font-weight: var(--font-weight-medium);
-  color: var(--text-light-light);
+  color: var(--text-light-medium);
   font-size: 14px;
-  flex-basis: 170px;
 `;
 
 export const Wrapper = styled.div`
   position: relative;
   height: 100%;
-  width: 100%;
 `;
 
 export const MenuButton = styled.button`
@@ -84,8 +89,7 @@ export const MenuContent = styled.ul<MenuProps>`
 
   max-height: 300px;
   overflow-y: auto;
-  min-width: 100%;
-  width: max-content;
+  width: 100%;
 `;
 
 export const MenuItem = styled.li`

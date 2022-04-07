@@ -246,7 +246,7 @@ const Menu = ({
   }
 
   return (
-    <MenuComp className={className}>
+    <MenuComp showLabel={showLabel} className={className}>
       {heading && value && showLabel && (
         <MenuLabel id={menuLabelID}>{heading}&nbsp;&nbsp;</MenuLabel>
       )}

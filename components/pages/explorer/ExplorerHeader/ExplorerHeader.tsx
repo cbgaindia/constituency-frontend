@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Document, Drop } from 'components/icons';
 import { tabbedInterface } from 'utils/explorer';
+import { Menu } from 'components/actions';
+import { MenuComp, MenuLabel } from 'components/actions/Menu/MenuComp';
 
 const data = {
   tabs: [
@@ -67,6 +69,21 @@ const data = {
   ],
 };
 
+const financialYear = [
+  {
+    value: '2019-20',
+    title: '2019-20',
+  },
+  {
+    value: '2018-19',
+    title: '2018-19',
+  },
+  {
+    value: '2020-21',
+    title: '2020-21',
+  },
+];
+
 const ExplorerHeader = () => {
   const TabbedRef = useRef(null);
 
@@ -97,9 +114,15 @@ const ExplorerHeader = () => {
               <Summary>
                 <div>
                   <h2>Summary</h2>
-                  <span>Financial Year 2022-23</span>
+                  <Menu
+                    options={financialYear}
+                    heading="Financial Year"
+                    handleChange={() => {}}
+                    value={financialYear[0].title}
+                    className="fill"
+                  />
                 </div>
-                <ul>
+                <SummaryCard>
                   {item.summaryCards.map((itemCard, index) => (
                     <li key={`summary-${index}`}>
                       <div></div>
@@ -107,7 +130,7 @@ const ExplorerHeader = () => {
                       <span>{itemCard.text}</span>
                     </li>
                   ))}
-                </ul>
+                </SummaryCard>
               </Summary>
             </section>
           ))}
@@ -141,12 +164,12 @@ const Tabs = styled.ul`
       fill: var(--color-grey-300);
     }
 
-    &[aria-selected="true"] {
+    &[aria-selected='true'] {
       color: var(--color-primary);
       border-bottom: 2px solid var(--color-primary);
 
       svg {
-        fill: var(--color-amazon-300);;
+        fill: var(--color-amazon-300);
       }
     }
   }
@@ -169,13 +192,19 @@ const Summary = styled.div`
     flex-wrap: wrap;
     gap: 8px;
 
-    h2,
-    span {
+    .fill {
+      max-width: 250px;
+    }
+
+    ${MenuLabel} {
       font-weight: 600;
       font-size: 1rem;
+      color: var(--text-light-high);
     }
 
     h2 {
+      font-weight: 600;
+      font-size: 1rem;
       border-right: 2px solid var(--text-light-disabled);
       padding-right: 8px;
       line-height: 1;
@@ -189,44 +218,44 @@ const Summary = styled.div`
       }
     }
   }
+`;
 
-  ul {
-    margin-top: 20px;
-    display: flex;
-    gap: 14px;
-    flex-wrap: wrap;
+const SummaryCard = styled.ul`
+  margin-top: 20px;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
 
-    li {
-      text-align: center;
-      background-color: var(--color-background-lighter);
-      padding: 20px 16px;
-      border: var(--border-1);
-      border-radius: 4px;
-      filter: drop-shadow(var(--box-shadow-1));
-      flex-basis: 214px;
-      flex-grow: 1;
-      position: relative;
+  li {
+    text-align: center;
+    background-color: var(--color-background-lighter);
+    padding: 20px 16px;
+    border: var(--border-1);
+    border-radius: 4px;
+    filter: drop-shadow(var(--box-shadow-1));
+    flex-basis: 214px;
+    flex-grow: 1;
+    position: relative;
 
-      > div {
-        width: 4px;
-        height: 100%;
-        position: absolute;
-        left: 0;
-        top: 0;
-        background: var(--gradient-maple);
-      }
+    > div {
+      width: 4px;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      background: var(--gradient-maple);
     }
+  }
 
-    strong {
-      font-weight: 900;
-    }
+  strong {
+    font-weight: 900;
+  }
 
-    span {
-      display: block;
-      font-size: 0.75rem;
-      color: var(--text-light-medium);
-      line-height: 1.7;
-      margin-top: 4px;
-    }
+  span {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-light-medium);
+    line-height: 1.7;
+    margin-top: 4px;
   }
 `;
