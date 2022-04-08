@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
-import styled from 'styled-components';
 import dynamic from 'next/dynamic';
+import styled from 'styled-components';
 import {
   tabbedInterface,
   filter_data_indicator,
@@ -9,11 +9,7 @@ import {
 
 import { barLineTransformer } from 'components/viz';
 
-import {
-  Indicator,
-  IndicatorMobile,
-  Table,
-} from 'components/data';
+import { Indicator, IndicatorMobile, Table } from 'components/data';
 import { Menu } from 'components/actions';
 import Source from './Source';
 import Toggler from './Toggler';
@@ -32,6 +28,7 @@ const ExplorerViz = ({ data, meta, fileData }) => {
   const [selectedBudgetType, setSelectedBudgetType] = useState('');
   const [isTable, setIsTable] = useState(false);
   const [currentViz, setCurrentViz] = useState('#barGraph');
+  const [selectedSabha, setSelectedSabha] = useState('lok-sabha');
 
   const barRef = useRef(null);
   const lineRef = useRef(null);
@@ -155,6 +152,37 @@ const ExplorerViz = ({ data, meta, fileData }) => {
     },
   ];
 
+  const schemeNotes = {
+    heading:
+      'MGNREGS aims to enhance livelihood security of the rural masses with a provision of at least 100 days of wage employment in financial year to every rural household whose adult member volunteers to do unskilled manual work. This is one of the world’s largest public sector employment programmes, providing guaranteed income through employment.',
+    indicators: [
+      {
+        title: 'Opening Balance',
+        format: '₹ lakhs',
+        text: 'Amount reported as balance under the scheme by the end of the previous Financial Year (FY)',
+        note: 'NA',
+      },
+      {
+        title: 'Total Available Fund',
+        format: '₹ lakhs',
+        text: 'Based on the demand from the states / UTs funds are made available by the Union Government for the scheme',
+        note: 'Total Available Fund includes Opening Balance as per Utilisation Certificate.',
+      },
+      {
+        title: 'Total Expenditure on Wages',
+        format: '₹ lakhs',
+        text: 'Total expenditure incurred on wage payments to labourers',
+        note: 'Does not include material cost, administrative expenditure or tax payments',
+      },
+      {
+        title: 'Total Expenditure on Materials',
+        format: '₹ lakhs',
+        text: 'Total expenditure incurred on procuring materials',
+        note: 'Does not include wage payments, administrative expenditure or tax payments',
+      },
+    ],
+  };
+
   useEffect(() => {
     // ceating tabbed interface for viz selector
     const tablist = document.querySelector('.viz__tabs');
@@ -214,7 +242,10 @@ const ExplorerViz = ({ data, meta, fileData }) => {
         newIndicator={handleNewVizData}
         meta={IndicatorDesc}
       />
-      <Toggler />
+      <Toggler
+        handleNewToggle={(e) => setSelectedSabha(e)}
+        selectedSabha={selectedSabha}
+      />
 
       <Wrapper>
         <Indicator
@@ -224,39 +255,60 @@ const ExplorerViz = ({ data, meta, fileData }) => {
           selectedIndicator={selectedIndicator}
         />
         <VizWrapper>
-          <VizHeader>
-            <VizTabs className="viz__tabs">
-              {vizToggle.map((item, index) => (
-                <li key={`toggleItem-${index}`}>
-                  <a href={item.id} onClick={(e) => hideMenu(e)}>
-                    {item.icon}
-                    {item.name}
-                  </a>
-                </li>
+          <div
+            className={selectedSabha === 'editorial-notes' && 'inactive-viz'}
+          >
+            <VizHeader>
+              <VizTabs className="viz__tabs">
+                {vizToggle.map((item, index) => (
+                  <li key={`toggleItem-${index}`}>
+                    <a href={item.id} onClick={(e) => hideMenu(e)}>
+                      {item.icon}
+                      {item.name}
+                    </a>
+                  </li>
+                ))}
+              </VizTabs>
+              {budgetTypes.length > 1 && !isTable && (
+                <VizMenu className="fill">
+                  <Menu
+                    value={selectedBudgetType}
+                    options={budgetTypes}
+                    heading="Financial Year:"
+                    handleChange={handleDropdownChange}
+                  />
+                </VizMenu>
+              )}
+            </VizHeader>
+
+            {vizItems.map((item, index) => (
+              <VizGraph
+                className="viz__graph"
+                key={`vizItem-${index}`}
+                id={item.id}
+              >
+                {item.graph}
+              </VizGraph>
+            ))}
+          </div>
+          <SchemeNotes
+            className={selectedSabha !== 'editorial-notes' && 'inactive-viz'}
+          >
+            <p>{schemeNotes.heading}</p>
+            <div>
+              {schemeNotes.indicators.map((item, index) => (
+                <NotesInidicator key={`indicatorScheme-${index}`}>
+                  <NotesTitle>
+                    <h3>{item.title}</h3> ({item.format})
+                  </NotesTitle>
+                  <p>{item.text}</p>
+                  <IndicatorNotes>
+                    <strong>Note:</strong> {item.note}
+                  </IndicatorNotes>
+                </NotesInidicator>
               ))}
-            </VizTabs>
-            {budgetTypes.length > 1 && !isTable && (
-              <VizMenu className="fill">
-                <Menu
-                  value={selectedBudgetType}
-                  options={budgetTypes}
-                  heading="Financial Year:"
-                  handleChange={handleDropdownChange}
-                />
-              </VizMenu>
-            )}
-          </VizHeader>
-
-          {vizItems.map((item, index) => (
-            <VizGraph
-              className="viz__graph"
-              key={`vizItem-${index}`}
-              id={item.id}
-            >
-              {item.graph}
-            </VizGraph>
-          ))}
-
+            </div>
+          </SchemeNotes>
           <Source
             title={data.title}
             currentViz={currentViz}
@@ -277,14 +329,6 @@ export const Wrapper = styled.section`
   grid-template-columns: 312px minmax(0, 1fr);
   margin-top: 2.5rem;
 
-  h3 {
-    font-weight: 800;
-    font-size: 18px;
-    line-height: 156%;
-    border-bottom: 1px solid #eff2f2;
-    padding-bottom: 1rem;
-  }
-
   @media (max-width: 980px) {
     display: block;
     margin-top: 1.5rem;
@@ -296,6 +340,10 @@ export const VizWrapper = styled.div`
   border: 1px solid #f7fdf9;
   border-radius: 6px;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.14);
+
+  .inactive-viz {
+    display: none;
+  }
 `;
 
 export const VizHeader = styled.div`
@@ -303,7 +351,7 @@ export const VizHeader = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem;
+  padding: 16px 24px;
   gap: 1.5rem;
 `;
 const VizMenu = styled.div`
@@ -366,3 +414,40 @@ export const VizGraph = styled.div`
   overflow-y: auto;
   overflow-x: auto;
 `;
+
+const SchemeNotes = styled.div`
+  padding: 24px;
+  max-height: 592px;
+  overflow-y: auto;
+
+  > p {
+    border-left: 4px solid var(--color-amazon-100);
+    padding-left: 18px;
+    border-radius: 4px;
+  }
+`;
+
+const NotesInidicator = styled.section`
+  margin-top: 16px;
+  background-color: var(--color-background-light);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  h3 {
+    display: inline-block;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text-light-high);
+  }
+`;
+
+const NotesTitle = styled.span`
+  font-weight: 400;
+  color: var(--text-light-medium);
+`;
+const IndicatorNotes = styled.span`
+  font-size: 0.75rem;
+  line-height: 1.7;
+`

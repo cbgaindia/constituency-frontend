@@ -125,7 +125,6 @@ const SchemeSelector: React.FC<{ sabha?: boolean; suggestion?: boolean }> = ({
         scheme: selectedScheme.value,
         sabha: selectedSabha,
       };
-      console.log(obj);
     }
   }
 

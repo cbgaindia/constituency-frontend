@@ -93,9 +93,6 @@ export const cssNormalise = css`
     padding: 0;
   }
 
-  fieldset {
-    padding: 0.35em 0.75em 0.625em;
-  }
   legend {
     box-sizing: border-box; /* 1 */
     color: inherit; /* 2 */
