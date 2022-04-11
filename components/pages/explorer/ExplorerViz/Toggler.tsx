@@ -1,7 +1,8 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
+import fscreen from 'fscreen';
 import { Button } from 'components/actions';
-import { LokSabha, VidhanSabha } from 'components/icons';
+import { FullScreen, LokSabha, VidhanSabha } from 'components/icons';
 
 const Toggler = ({ handleNewToggle, selectedSabha }) => {
   const sabhaRef = useRef(null);
@@ -15,6 +16,15 @@ const Toggler = ({ handleNewToggle, selectedSabha }) => {
     if (currentBtn !== selectedBtn) {
       const value = currentBtn.dataset.value;
       handleNewToggle(value);
+    }
+  }
+
+  function fullScreenMode() {
+    if (fscreen.fullscreenElement !== null) {
+      fscreen.exitFullscreen();
+    } else {
+      const vizWrapper = document.getElementById('explorerVizWrapper');
+      if (vizWrapper) fscreen.requestFullscreen(vizWrapper);
     }
   }
 
@@ -47,7 +57,7 @@ const Toggler = ({ handleNewToggle, selectedSabha }) => {
           </Button>
         </h2>
       </SabhaToggle>
-      <div>
+      <RightSide>
         <h2>
           <Button
             aria-pressed={
@@ -60,7 +70,15 @@ const Toggler = ({ handleNewToggle, selectedSabha }) => {
             Scheme Editorial Notes
           </Button>
         </h2>
-      </div>
+        <Button
+          icon={<FullScreen fill="#1D7548" />}
+          iconOnly={true}
+          kind="custom"
+          onClick={fullScreenMode}
+        >
+          Full screen mode
+          </Button>
+      </RightSide>
     </Wrapper>
   );
 };
@@ -77,16 +95,13 @@ const Wrapper = styled.div`
 
   button {
     font-weight: 600;
+    height: 100%;
     padding: 20px 24px;
     color: var(--text-light-light);
     border-right: var(--border-2);
 
     &[data-value='editorial-notes'] {
       border-inline: var(--border-2);
-    }
-
-    svg {
-      fill: var(--color-grey-300);
     }
 
     &[aria-pressed='true'] {
@@ -105,6 +120,11 @@ const Wrapper = styled.div`
 `;
 
 const SabhaToggle = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const RightSide = styled.div`
   display: flex;
   flex-wrap: wrap;
 `;

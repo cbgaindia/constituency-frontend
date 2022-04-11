@@ -242,81 +242,91 @@ const ExplorerViz = ({ data, meta, fileData }) => {
         newIndicator={handleNewVizData}
         meta={IndicatorDesc}
       />
-      <Toggler
-        handleNewToggle={(e) => setSelectedSabha(e)}
-        selectedSabha={selectedSabha}
-      />
-
-      <Wrapper>
-        <Indicator
-          data={data.indicators}
-          meta={IndicatorDesc}
-          newIndicator={handleNewVizData}
-          selectedIndicator={selectedIndicator}
+      <div id="explorerVizWrapper">
+        <Toggler
+          handleNewToggle={(e) => setSelectedSabha(e)}
+          selectedSabha={selectedSabha}
         />
-        <VizWrapper>
-          <div
-            className={selectedSabha === 'editorial-notes' && 'inactive-viz'}
-          >
-            <VizHeader>
-              <VizTabs className="viz__tabs">
-                {vizToggle.map((item, index) => (
-                  <li key={`toggleItem-${index}`}>
-                    <a href={item.id} onClick={(e) => hideMenu(e)}>
-                      {item.icon}
-                      {item.name}
-                    </a>
-                  </li>
-                ))}
-              </VizTabs>
-              {budgetTypes.length > 1 && !isTable && (
-                <VizMenu className="fill">
-                  <Menu
-                    value={selectedBudgetType}
-                    options={budgetTypes}
-                    heading="Financial Year:"
-                    handleChange={handleDropdownChange}
-                  />
-                </VizMenu>
-              )}
-            </VizHeader>
 
-            {vizItems.map((item, index) => (
-              <VizGraph
-                className="viz__graph"
-                key={`vizItem-${index}`}
-                id={item.id}
-              >
-                {item.graph}
-              </VizGraph>
-            ))}
-          </div>
-          <SchemeNotes
-            className={selectedSabha !== 'editorial-notes' && 'inactive-viz'}
-          >
-            <p>{schemeNotes.heading}</p>
-            <div>
-              {schemeNotes.indicators.map((item, index) => (
-                <NotesInidicator key={`indicatorScheme-${index}`}>
-                  <NotesTitle>
-                    <h3>{item.title}</h3> ({item.format})
-                  </NotesTitle>
-                  <p>{item.text}</p>
-                  <IndicatorNotes>
-                    <strong>Note:</strong> {item.note}
-                  </IndicatorNotes>
-                </NotesInidicator>
+        <Wrapper>
+          <Indicator
+            data={data.indicators}
+            meta={IndicatorDesc}
+            newIndicator={handleNewVizData}
+            selectedIndicator={selectedIndicator}
+          />
+          <VizWrapper>
+            <div
+              className={
+                selectedSabha === 'editorial-notes'
+                  ? 'inactive-viz'
+                  : undefined
+              }
+            >
+              <VizHeader>
+                <VizTabs className="viz__tabs">
+                  {vizToggle.map((item, index) => (
+                    <li key={`toggleItem-${index}`}>
+                      <a href={item.id} onClick={(e) => hideMenu(e)}>
+                        {item.icon}
+                        {item.name}
+                      </a>
+                    </li>
+                  ))}
+                </VizTabs>
+                {budgetTypes.length > 1 && !isTable && (
+                  <VizMenu className="fill">
+                    <Menu
+                      value={selectedBudgetType}
+                      options={budgetTypes}
+                      heading="Financial Year:"
+                      handleChange={handleDropdownChange}
+                    />
+                  </VizMenu>
+                )}
+              </VizHeader>
+
+              {vizItems.map((item, index) => (
+                <VizGraph
+                  className="viz__graph"
+                  key={`vizItem-${index}`}
+                  id={item.id}
+                >
+                  {item.graph}
+                </VizGraph>
               ))}
             </div>
-          </SchemeNotes>
-          <Source
-            title={data.title}
-            currentViz={currentViz}
-            selectedBudgetType={selectedBudgetType}
-            indicatorFiltered={indicatorFiltered}
-          />
-        </VizWrapper>
-      </Wrapper>
+            <SchemeNotes
+              className={
+                selectedSabha !== 'editorial-notes'
+                  ? 'inactive-viz'
+                  : undefined
+              }
+            >
+              <p>{schemeNotes.heading}</p>
+              <div>
+                {schemeNotes.indicators.map((item, index) => (
+                  <NotesInidicator key={`indicatorScheme-${index}`}>
+                    <NotesTitle>
+                      <h3>{item.title}</h3> ({item.format})
+                    </NotesTitle>
+                    <p>{item.text}</p>
+                    <IndicatorNotes>
+                      <strong>Note:</strong> {item.note}
+                    </IndicatorNotes>
+                  </NotesInidicator>
+                ))}
+              </div>
+            </SchemeNotes>
+            <Source
+              title={data.title}
+              currentViz={currentViz}
+              selectedBudgetType={selectedBudgetType}
+              indicatorFiltered={indicatorFiltered}
+            />
+          </VizWrapper>
+        </Wrapper>
+      </div>
     </>
   );
 };
@@ -450,4 +460,4 @@ const NotesTitle = styled.span`
 const IndicatorNotes = styled.span`
   font-size: 0.75rem;
   line-height: 1.7;
-`
+`;

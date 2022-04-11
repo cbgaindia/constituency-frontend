@@ -154,6 +154,8 @@ const Navlinks = styled.nav`
     &.open {
       ul {
         display: block;
+        isolation: isolate;
+        z-index: 1;
       }
     }
   }
