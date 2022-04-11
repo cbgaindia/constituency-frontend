@@ -9,7 +9,7 @@ const Radio = ({
   ...props
 }) => {
   return (
-    <RadioItem color={color} {...props}>
+    <RadioItem id={id} color={color} {...props}>
       <input type="radio" name={name} value={id} />
       {text}
     </RadioItem>

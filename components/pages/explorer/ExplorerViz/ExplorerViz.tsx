@@ -212,7 +212,7 @@ const ExplorerViz = ({ data, meta, fileData }) => {
     else setIsTable(false);
   }
 
-  function handleNewVizData(val: any) {
+  function handleNewVizData(val: any) {    
     if (val) {
       const filtered = filter_data_indicator(fileData, val);
       const budgetType = [
@@ -241,6 +241,7 @@ const ExplorerViz = ({ data, meta, fileData }) => {
         indicators={data.indicators}
         newIndicator={handleNewVizData}
         meta={IndicatorDesc}
+        selectedIndicator={selectedIndicator}
       />
       <div id="explorerVizWrapper">
         <Toggler
