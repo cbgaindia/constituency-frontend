@@ -4,7 +4,7 @@ import fscreen from 'fscreen';
 import { Button } from 'components/actions';
 import { FullScreen, LokSabha, VidhanSabha } from 'components/icons';
 
-const Toggler = ({ handleNewToggle, selectedSabha }) => {
+const Toggler = ({ handleNewToggle, selectedSabha, currentToggle }) => {
   const sabhaRef = useRef(null);
 
   function handleSabhaClick(e) {
@@ -33,8 +33,8 @@ const Toggler = ({ handleNewToggle, selectedSabha }) => {
       <SabhaToggle>
         <h2>
           <Button
-            aria-pressed={selectedSabha === 'lok-sabha' ? 'true' : 'false'}
-            data-value="lok-sabha"
+            aria-pressed={currentToggle == 'viz' && selectedSabha === 'lok' ? 'true' : 'false'}
+            data-value="lok"
             onClick={handleSabhaClick}
             icon={<LokSabha />}
             iconSide="left"
@@ -46,8 +46,8 @@ const Toggler = ({ handleNewToggle, selectedSabha }) => {
 
         <h2>
           <Button
-            aria-pressed={selectedSabha === 'vidhan-sabha' ? 'true' : 'false'}
-            data-value="vidhan-sabha"
+            aria-pressed={currentToggle == 'viz' && selectedSabha === 'vidhan' ? 'true' : 'false'}
+            data-value="vidhan"
             onClick={handleSabhaClick}
             icon={<VidhanSabha />}
             iconSide="left"
@@ -61,7 +61,7 @@ const Toggler = ({ handleNewToggle, selectedSabha }) => {
         <h2>
           <Button
             aria-pressed={
-              selectedSabha === 'editorial-notes' ? 'true' : 'false'
+              currentToggle === 'editorial-notes' ? 'true' : 'false'
             }
             data-value="editorial-notes"
             onClick={handleSabhaClick}

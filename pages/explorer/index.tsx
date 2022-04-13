@@ -5,10 +5,7 @@ import styled from 'styled-components';
 import { fetchAPI, explorerPopulation, fetchFromTags } from 'utils/explorer';
 import { resourceGetter } from 'utils/resourceParser';
 
-import {
-  ExplorerHeader,
-  ExplorerViz,
-} from 'components/pages/explorer';
+import { ExplorerHeader, ExplorerViz } from 'components/pages/explorer';
 import SchemeSelector from 'components/pages/shared/SchemeSelector';
 import {
   HeaderControls,
@@ -26,6 +23,11 @@ const headerData = {
     'It is the most populated state in India, as well as the most populous country subdivision in the world. The state is bordered by Rajasthan to the west, Haryana, Himachal Pradesh and Delhi to the northwest, Uttarakhand and an international border with Nepal to the north, Bihar to the east, Madhya Pradesh to the south, and touches the states of Jharkhand and Chhattisgarh to the southeast.',
 };
 
+function verifyState(state) {
+  if (['UP', 'Bihar'].includes(state)) return true;
+  else return false;
+}
+
 const Explorer: React.FC<Props> = ({ data, meta, fileData }) => {
   return (
     <>
@@ -34,9 +36,9 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData }) => {
       </Head>
       <Wrapper>
         <div className="container">
-          <SchemeSelector suggestion={false} sabha={false} />
+          <SchemeSelector suggestion={false} sabha={false} state={data.state} />
 
-          {Object.keys(data).length !== 0 ? (
+          {Object.keys(data).length !== 0 && verifyState(data.state) ? (
             <>
               <ExplorerHeader />
               <ExplorerViz data={data} meta={meta} fileData={fileData} />
@@ -52,7 +54,8 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData }) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   // fetch dataset
-  const dataRes = await fetchAPI(context.query.id);
+  const dataRes = await fetchAPI(context.query.scheme);
+  const state = context.query.state || '';
 
   let data: any = {};
   let fileData: any = {};
@@ -80,6 +83,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     ];
 
     data.indicators = indicators;
+    data.state = state;
   }
 
   return {

@@ -11,7 +11,7 @@ const states = [
   },
   {
     title: 'Uttar Pradesh',
-    value: 'uttar_pradesh',
+    value: 'up',
   },
   {
     title: 'Odisha',
@@ -79,11 +79,14 @@ const noScheme = {
   value: null,
 };
 
-const SchemeSelector: React.FC<{ sabha?: boolean; suggestion?: boolean }> = ({
-  sabha = true,
-  suggestion = true,
-}) => {
-  const [selectedState, setSelectedState] = useState(noState);
+const SchemeSelector: React.FC<{
+  sabha?: boolean;
+  suggestion?: boolean;
+  state?: string;
+}> = ({ sabha = true, suggestion = true, state }) => {
+  const [selectedState, setSelectedState] = useState<any>(
+    state ? selectState(state) : noState
+  );
   const [selectedScheme, setSelectedScheme] = useState(noScheme);
   const [selectedSabha, setSelectedSabha] = useState('Lok Sabha');
 
@@ -99,6 +102,15 @@ const SchemeSelector: React.FC<{ sabha?: boolean; suggestion?: boolean }> = ({
       }
     }
     setState(array[0]);
+  }
+
+  function selectState(val) {
+    for (let i = 0; i < states.length; i++) {
+      if (val.toLowerCase() === states[i].value) {
+        return states[i];
+      }
+    }
+    return noState;
   }
 
   function handleSabhaClick(e) {
