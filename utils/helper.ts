@@ -28,3 +28,13 @@ export function simplifyNaming(key, obj) {
   if (obj[key]) return obj[key];
   else return key;
 }
+
+export function debounce(func, timeout = 1000) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, timeout);
+  };
+}
