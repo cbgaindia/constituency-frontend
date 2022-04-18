@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import * as echarts from 'echarts/core';
-import { CanvasRenderer } from 'echarts/renderers';
 import {
-  TitleComponent,
-  ToolboxComponent,
   TooltipComponent,
   VisualMapComponent,
   GeoComponent,
 } from 'echarts/components';
 import { MapChart } from 'echarts/charts';
+import { SVGRenderer } from 'echarts/renderers';
 import ReactEChartsCore from 'echarts-for-react/lib/core';
 
-const MapViz = ({ selectedIndicator, mapFile, sabha, data }) => {  
+const MapViz = ({
+  selectedIndicator,
+  mapFile,
+  sabha,
+  data,
+  newMapItem,
+  // selectedItem,
+}) => {
   const [mapOptions, setMapOptions] = useState({});
 
   useEffect(() => {
@@ -72,6 +77,15 @@ const MapViz = ({ selectedIndicator, mapFile, sabha, data }) => {
                 areaColor: '#0D331F',
               },
             },
+            select: {
+              label: {
+                show: false,
+                color: 'rgb(100,0,0)',
+              },
+              itemStyle: {
+                color: 'rgba(255, 215, 0, 0.8)',
+              },
+            },
             scaleLimit: {
               min: 0.8,
               max: 3,
@@ -81,23 +95,31 @@ const MapViz = ({ selectedIndicator, mapFile, sabha, data }) => {
         ],
       };
       setMapOptions(options);
+      // setDataLoaded(false);
     }
-  }, [selectedIndicator, data]);
+  }, [selectedIndicator, data, mapFile]);
+
+  function handleClick(e) {
+    // console.log(e);
+
+    newMapItem(e.name);
+  }
+
+  const onEvents = { click: handleClick };
 
   echarts.use([
-    TitleComponent,
-    ToolboxComponent,
     TooltipComponent,
     VisualMapComponent,
     GeoComponent,
     MapChart,
-    CanvasRenderer,
+    SVGRenderer,
   ]);
 
   return (
     Object.keys(mapOptions).length > 0 && (
       <ReactEChartsCore
         echarts={echarts}
+        onEvents={onEvents}
         option={mapOptions}
         notMerge={true}
         lazyUpdate={true}
@@ -108,4 +130,4 @@ const MapViz = ({ selectedIndicator, mapFile, sabha, data }) => {
     )
   );
 };
-export default MapViz;
+export default React.memo(MapViz);

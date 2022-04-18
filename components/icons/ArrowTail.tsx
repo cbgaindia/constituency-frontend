@@ -1,13 +1,10 @@
 export default function ArrowTail({ ...props }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="42"
-      height="42"
-      {...props}
-      viewBox="0 0 24 24"
-    >
-      <path d="M14.3851 8.00002 19 12.5 14.3851 17l-.7496-.7309 3.3354-3.2523H5v-1.0336h11.9709l-3.3354-3.25229.7496-.73089Z" />
+    <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        {...props}
+        d="M19 11H7.83l4.88-4.88c.39-.39.39-1.03 0-1.42a.996.996 0 0 0-1.41 0l-6.59 6.59a.996.996 0 0 0 0 1.41l6.59 6.59a.996.996 0 1 0 1.41-1.41L7.83 13H19c.55 0 1-.45 1-1s-.45-1-1-1Z"
+      />
     </svg>
   );
 }

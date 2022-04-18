@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import styled from 'styled-components';
 import { fetchAPI, explorerPopulation, fetchFromTags } from 'utils/explorer';
 import { resourceGetter } from 'utils/resourceParser';
 
-import { ExplorerHeader, ExplorerViz } from 'components/pages/explorer';
+import {
+  ExplorerDetailsViz,
+  ExplorerHeader,
+  ExplorerViz,
+} from 'components/pages/explorer';
 import SchemeSelector from 'components/pages/shared/SchemeSelector';
 import {
   HeaderControls,
@@ -28,7 +32,14 @@ function verifyState(state) {
   else return false;
 }
 
-const Explorer: React.FC<Props> = ({ data, meta, fileData }) => {
+const Explorer: React.FC<Props> = ({ data, fileData }) => {
+  const [showReport, setShowReport] = useState(false);
+  const [meta, setMeta] = useState({});
+
+  function handleReportBtn(bool, metaObj = {}) {
+    setShowReport(bool);
+    setMeta(metaObj)
+  }
   return (
     <>
       <Head>
@@ -36,12 +47,32 @@ const Explorer: React.FC<Props> = ({ data, meta, fileData }) => {
       </Head>
       <Wrapper>
         <div className="container">
-          <SchemeSelector suggestion={false} sabha={false} state={data.state} />
+          <SchemeSelector
+            suggestion={false}
+            sabha={false}
+            state={data.state}
+          />
 
           {Object.keys(data).length !== 0 && verifyState(data.state) ? (
             <>
               <ExplorerHeader />
-              <ExplorerViz data={data} meta={meta} fileData={fileData} />
+              {!showReport && (
+                <ExplorerViz
+                  data={data}
+                  meta={meta}
+                  fileData={fileData}
+                  handleReportBtn={handleReportBtn}
+                />
+              )}
+
+              {showReport && (
+                <ExplorerDetailsViz
+                  data={data}
+                  meta={meta}
+                  fileData={fileData}
+                  handleReportBtn={handleReportBtn}
+                />
+              )}
             </>
           ) : (
             <></>

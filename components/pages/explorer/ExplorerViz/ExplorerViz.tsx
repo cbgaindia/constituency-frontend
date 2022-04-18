@@ -25,7 +25,7 @@ const MapViz = dynamic(() => import('components/viz/MapViz'), {
   loading: () => <p>...</p>,
 });
 
-const ExplorerViz = ({ data, meta, fileData }) => {
+const ExplorerViz = ({ data, meta, fileData, handleReportBtn }) => {
   const [selectedIndicator, setSelectedIndicator] =
     useState('Budget Estimates');
   const [indicatorFiltered, setIndicatorFiltered] = useState([]);
@@ -41,6 +41,16 @@ const ExplorerViz = ({ data, meta, fileData }) => {
   const mapRef = useRef(null);
 
   const { state } = data;
+
+  function handleReport(bool, cons) {
+    const metaObj = {
+      sabha: selectedSabha,
+      state: state,
+      constituency: cons
+    }
+
+    handleReportBtn(bool, metaObj)
+  }
 
   useEffect(() => {
     // ceating tabbed interface for viz selector
@@ -178,6 +188,7 @@ const ExplorerViz = ({ data, meta, fileData }) => {
           state={state}
           selectedIndicator={selectedIndicator}
           mapData={mapData}
+          handleReportBtn={handleReport}
         />
       ),
       ref: mapRef,

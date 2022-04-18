@@ -90,11 +90,11 @@ const SimpleBarLineChartViz: React.FC<SimpleBarLineChartProps> = ({
         return val.max <= 1 ? 1 : null;
       },
     },
-    title: {
-      text: Title,
-      left: 'center',
-      subtext: subTitle,
-    },
+    // title: {
+    //   text: Title,
+    //   left: 'center',
+    //   subtext: subTitle,
+    // },
     // toolbox: {
     //   show: true,
     //   feature: {
