@@ -2,7 +2,7 @@ import * as echarts from 'echarts/core';
 import { Button } from 'components/actions';
 import { Cross } from 'components/icons';
 import { MapViz } from 'components/viz';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { debounce } from 'utils/helper';
 
@@ -17,6 +17,7 @@ const ExplorerMap = ({
   const [mapValues, setMapvalues] = useState([]);
   const [searchItems, setSearchItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
 
   async function getMapFile() {
     const mapFile = await fetch(
@@ -41,8 +42,8 @@ const ExplorerMap = ({
 
   function handleSearch(query, obj) {
     let newObj = [];
+    setSearchQuery(query);
     if (query.length > 0) {
-      setSelectedItem('');
       Object.keys(obj).forEach(() => {
         newObj = obj.filter((item) =>
           JSON.stringify(item, ['name'])
@@ -57,6 +58,7 @@ const ExplorerMap = ({
   const newMapItem = useCallback((e) => {
     setSelectedItem(e);
     setSearchItems([]);
+    setSearchQuery('');
     (document.getElementById('searchInput') as HTMLInputElement).value = '';
 
     // overriding map highlight on constituency selection
@@ -103,7 +105,7 @@ const ExplorerMap = ({
             ))}
           </SearchResult>
         )}
-        {selectedItem && (
+        {selectedItem && searchQuery.length == 0 && (
           <SelectedCons>
             <div>
               <h3>{selectedItem}</h3>
@@ -223,7 +225,9 @@ const SelectedCons = styled.section`
   border-radius: 2px;
   border: var(--border-1);
   opacity: 0.92;
-  position: relative;
+  /* position: absolute;
+  top: 32px;
+  z-index: -1; */
 
   div:first-of-type {
     border-bottom: var(--border-2);
