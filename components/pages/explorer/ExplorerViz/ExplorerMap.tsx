@@ -129,14 +129,14 @@ const ExplorerMap = ({
               <Button
                 kind="secondary-outline"
                 size="sm"
-                onClick={() => handleReportBtn(true, selectedItem)}
+                onClick={() => handleReportBtn(true, selectedItem, 'report')}
               >
                 Generate Report Card
               </Button>
               <Button
                 kind="secondary"
                 size="sm"
-                onClick={() => handleReportBtn(true, selectedItem)}
+                onClick={() => handleReportBtn(true, selectedItem, 'compare')}
               >
                 Compare Constituency
               </Button>

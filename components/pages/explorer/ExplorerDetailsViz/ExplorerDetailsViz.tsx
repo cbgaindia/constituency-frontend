@@ -2,14 +2,19 @@ import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { filter_data_indicator, filter_data_budgettype } from 'utils/explorer';
 
-import { IndicatorMobile } from 'components/data';
+import { Indicator, IndicatorMobile } from 'components/data';
 import Source from '../ExplorerViz/Source';
 import Toggler from './Toggler';
-import { Info } from 'components/icons';
+import { ArrowDown, Info } from 'components/icons';
 import { barLineTransformer, SimpleBarLineChartViz } from 'components/viz';
-import Indicator from './Indicator';
+import IndicatorCheckbox from './IndicatorCheckbox';
+import { Widget } from 'components/actions';
+import { WidgetContent } from 'components/actions/Widget/Widget';
+import ConstituencySelect from './ConstituencySelect';
 
 const ExplorerViz = ({ data, meta, fileData, handleReportBtn }) => {
+  console.log(meta);
+
   const [selectedIndicator, setSelectedIndicator] =
     useState('Budget Estimates');
   const [indicatorFiltered, setIndicatorFiltered] = useState([]);
@@ -147,6 +152,10 @@ const ExplorerViz = ({ data, meta, fileData, handleReportBtn }) => {
         );
     }
   }
+  const vizHeading =
+    meta.type == 'report'
+      ? 'Can select multiple indicator and do comparative analysis!'
+      : 'Select a Vidhan Sabha Constituency to Compare:';
 
   return (
     <>
@@ -160,16 +169,28 @@ const ExplorerViz = ({ data, meta, fileData, handleReportBtn }) => {
         <Toggler handleReportBtn={handleReportBtn} meta={meta} />
 
         <Wrapper>
-          <Indicator
-            data={data.indicators}
-            newIndicator={handleNewVizData}
-            selectedIndicator={selectedIndicator}
-          />
+          {meta.type == 'report' ? (
+            <IndicatorCheckbox
+              data={data.indicators}
+              newIndicator={handleNewVizData}
+              selectedIndicator={selectedIndicator}
+            />
+          ) : (
+            <Indicator
+              data={data.indicators}
+              newIndicator={handleNewVizData}
+              selectedIndicator={selectedIndicator}
+              meta={meta}
+            />
+          )}
 
           <VizWrapper>
             <VizHeader>
-              <Info fill="#1D7548" />
-              <p>Can select multiple indicator and do comparative analysis!</p>
+              <HeaderTitle>
+                {meta.type == 'report' && <Info fill="#1D7548" />}
+                <p>{vizHeading}</p>
+              </HeaderTitle>
+              {meta.type == 'compare' && <ConstituencySelect />}
             </VizHeader>
 
             <VizGraph className="viz__graph" id="#barGraph">
@@ -254,7 +275,11 @@ export const VizHeader = styled.div`
   gap: 10px;
   margin-bottom: 16px;
   border-bottom: var(--border-2);
+`;
 
+const HeaderTitle = styled.div`
+  display: flex;
+  gap: 8px;
   p {
     letter-spacing: 0.01em;
   }

@@ -3,7 +3,7 @@ import { CheckboxItem } from 'components/layouts/Checkbox/Checkbox';
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
-const Indicator = ({ data, newIndicator, selectedIndicator }) => {
+const IndicatorCheckbox = ({ data, newIndicator, selectedIndicator }) => {
   const [currentIndicators, setCurrentIndicators] = useState([
     selectedIndicator,
   ]);
@@ -68,7 +68,7 @@ const Indicator = ({ data, newIndicator, selectedIndicator }) => {
   );
 };
 
-export default Indicator;
+export default IndicatorCheckbox;
 
 export const IndicatorWrapper = styled.div`
   scrollbar-width: thin;

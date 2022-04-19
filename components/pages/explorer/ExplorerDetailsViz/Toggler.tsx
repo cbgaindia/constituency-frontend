@@ -1,13 +1,8 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import fscreen from 'fscreen';
 import { Button } from 'components/actions';
-import {
-  ArrowTail,
-  FullScreen,
-  LokSabha,
-  VidhanSabha,
-} from 'components/icons';
+import { ArrowTail, FullScreen } from 'components/icons';
 
 const Toggler = ({ handleReportBtn, meta }) => {
   function fullScreenMode() {
@@ -32,8 +27,14 @@ const Toggler = ({ handleReportBtn, meta }) => {
         </Button>
 
         <div>
-          <h2>Report Card - {meta.constituency}</h2>
-          <span>{meta.state} . {meta.sabha == 'lok' ? 'Lok' : 'Vidhan'} Sabha Constituency</span>
+          <h2>
+            {meta.type == 'report' ? 'Report Card' : 'Comparator'} -{' '}
+            {meta.constituency}
+          </h2>
+          <span>
+            {meta.state} . {meta.sabha == 'lok' ? 'Lok' : 'Vidhan'} Sabha
+            Constituency
+          </span>
         </div>
       </LeftSide>
       <RightSide>

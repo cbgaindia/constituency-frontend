@@ -42,14 +42,15 @@ const ExplorerViz = ({ data, meta, fileData, handleReportBtn }) => {
 
   const { state } = data;
 
-  function handleReport(bool, cons) {
+  function handleReport(bool, cons, type) {
     const metaObj = {
       sabha: selectedSabha,
       state: state,
-      constituency: cons
-    }
+      constituency: cons,
+      type: type,
+    };
 
-    handleReportBtn(bool, metaObj)
+    handleReportBtn(bool, metaObj);
   }
 
   useEffect(() => {
@@ -497,13 +498,13 @@ export const VizTabs = styled.ul`
 
     &[aria-selected='true'] {
       color: var(--color-amazon-100);
-      border-bottom: 2px solid var(--color-amazon-100);;
+      border-bottom: 2px solid var(--color-amazon-100);
 
       svg {
-        fill: var(--color-amazon-300);;
+        fill: var(--color-amazon-300);
 
         &.svg-stroke {
-          stroke: var(--color-amazon-300);;
+          stroke: var(--color-amazon-300);
         }
       }
     }
