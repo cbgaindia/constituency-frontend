@@ -19,7 +19,6 @@ const MapViz = ({
   // selectedItem,
 }) => {
   const [mapOptions, setMapOptions] = useState({});
-
   useEffect(() => {
     if (Object.keys(mapFile).length > 0) {
       const map = JSON.stringify(mapFile);

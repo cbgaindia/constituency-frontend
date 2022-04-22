@@ -257,8 +257,6 @@ const ExplorerViz = ({ data, meta, fileData, handleReportBtn, scheme }) => {
     }
   }
 
-  console.log(finalFiltered);
-
   return (
     <>
       <IndicatorMobile
