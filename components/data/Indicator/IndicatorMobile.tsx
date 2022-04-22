@@ -7,7 +7,6 @@ import Radio from 'components/layouts/Radio';
 const IndicatorMobile = ({
   indicators,
   newIndicator,
-  meta,
   selectedIndicator,
 }) => {
   const [sortIsOpen, setSortIsOpen] = useState(false);
@@ -111,7 +110,7 @@ const IndicatorMobile = ({
                 <Radio
                   text={
                     <>
-                      {elm} <Toggletip data={meta[index]} />
+                      {elm}
                     </>
                   }
                   id={`${elm} mobile`}

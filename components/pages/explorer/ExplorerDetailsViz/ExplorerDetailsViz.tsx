@@ -5,26 +5,31 @@ import { filter_data_indicator, filter_data_budgettype } from 'utils/explorer';
 import { Indicator, IndicatorMobile } from 'components/data';
 import Source from '../ExplorerViz/Source';
 import Toggler from './Toggler';
-import { ArrowDown, Info } from 'components/icons';
+import { Info } from 'components/icons';
 import { barLineTransformer, SimpleBarLineChartViz } from 'components/viz';
 import IndicatorCheckbox from './IndicatorCheckbox';
-import { Widget } from 'components/actions';
-import { WidgetContent } from 'components/actions/Widget/Widget';
 import ConstituencySelect from './ConstituencySelect';
 
-const ExplorerViz = ({ data, meta, fileData, handleReportBtn }) => {
-  console.log(meta);
-
+const ExplorerViz = ({ data, meta, fileData, handleReportBtn, scheme }) => {  
   const [selectedIndicator, setSelectedIndicator] =
     useState('Budget Estimates');
   const [indicatorFiltered, setIndicatorFiltered] = useState([]);
   const [finalFiltered, setFinalFiltered] = useState([]);
   const [budgetTypes, setBudgetTypes] = useState([]);
   const [selectedBudgetType, setSelectedBudgetType] = useState('');
+  const [compareItem, setCompareItem] = useState(undefined);
+  const [selectedYear, setSelectedYear] = useState(['2019-20', '2021-22']);
+  const [schemeData, setSchemeData] = useState(scheme.ac);
 
   useEffect(() => {
     handleNewVizData('Budget Estimates');
   }, [fileData]);
+
+  useEffect(() => {
+    if (meta.sabha == 'lok') {
+      setSchemeData(scheme.pc);
+    } else setSchemeData(scheme.ac);
+  }, [meta]);
 
   // todo: make it dynamic lie scheme dashboard
   const IndicatorDesc = [
@@ -97,7 +102,6 @@ const ExplorerViz = ({ data, meta, fileData, handleReportBtn }) => {
   ];
 
   const yearData = ['2019-20', '2020-21', '2021-22', '2022-23'];
-  const selectedYear = ['2019-20', '2021-22'];
 
   // Run whenever a new indicator is selected
   useEffect(() => {
@@ -139,6 +143,19 @@ const ExplorerViz = ({ data, meta, fileData, handleReportBtn }) => {
   function handleYearSelector(e) {
     const elm = e.target;
 
+    const elmIndex = selectedYear.findIndex((e) => e === elm.id);
+    const tempArr = selectedYear;
+
+    // adding/removing from state array
+    if (elmIndex > -1) {
+      tempArr.splice(elmIndex, 1);
+    } else {
+      tempArr.push(elm.id);
+    }
+    console.log(tempArr);
+    setSelectedYear(tempArr);
+
+    // for ui changes only
     if (document.getElementById(elm.id)) {
       const isSelected = document
         .getElementById(elm.id)
@@ -152,6 +169,8 @@ const ExplorerViz = ({ data, meta, fileData, handleReportBtn }) => {
         );
     }
   }
+
+  // different heading based on report or compare mode
   const vizHeading =
     meta.type == 'report'
       ? 'Can select multiple indicator and do comparative analysis!'
@@ -162,7 +181,6 @@ const ExplorerViz = ({ data, meta, fileData, handleReportBtn }) => {
       <IndicatorMobile
         indicators={data.indicators}
         newIndicator={handleNewVizData}
-        meta={IndicatorDesc}
         selectedIndicator={selectedIndicator}
       />
       <div id="explorerVizWrapper">
@@ -177,10 +195,9 @@ const ExplorerViz = ({ data, meta, fileData, handleReportBtn }) => {
             />
           ) : (
             <Indicator
-              data={data.indicators}
               newIndicator={handleNewVizData}
               selectedIndicator={selectedIndicator}
-              meta={meta}
+              schemeData={schemeData}
             />
           )}
 
@@ -190,10 +207,16 @@ const ExplorerViz = ({ data, meta, fileData, handleReportBtn }) => {
                 {meta.type == 'report' && <Info fill="#1D7548" />}
                 <p>{vizHeading}</p>
               </HeaderTitle>
-              {meta.type == 'compare' && <ConstituencySelect />}
+              {meta.type == 'compare' && (
+                <ConstituencySelect
+                  fallBack={`${meta.constituency} (${meta.state})`}
+                  currentItem={compareItem}
+                  newCompare={(e) => setCompareItem(e)}
+                />
+              )}
             </VizHeader>
 
-            <VizGraph className="viz__graph" id="#barGraph">
+            <VizGraph className="viz__graph" id="reportViz">
               <YearSelector>
                 {yearData.map((item, index) => (
                   <button
@@ -225,7 +248,7 @@ const ExplorerViz = ({ data, meta, fileData, handleReportBtn }) => {
 
             <Source
               title={data.title}
-              currentViz="#barGraph"
+              currentViz="#reportViz"
               selectedBudgetType={selectedBudgetType}
               indicatorFiltered={indicatorFiltered}
             />

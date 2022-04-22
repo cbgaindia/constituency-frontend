@@ -15,11 +15,13 @@ import {
   HeaderControls,
   SchemesMenu,
 } from 'components/pages/shared/SchemeSelector/SchemeSelector';
+import { dataTransform } from 'utils/fetch';
 
 type Props = {
   data: any;
   meta: any;
   fileData: any;
+  scheme: any;
 };
 
 const headerData = {
@@ -28,17 +30,20 @@ const headerData = {
 };
 
 function verifyState(state) {
-  if (['UP', 'Bihar'].includes(state)) return true;
+  if (
+    ['UP', 'Chhattisgarh'].some((e) => e.toLowerCase() === state.toLowerCase())
+  )
+    return true;
   else return false;
 }
 
-const Explorer: React.FC<Props> = ({ data, fileData }) => {
+const Explorer: React.FC<Props> = ({ data, fileData, scheme }) => {
   const [showReport, setShowReport] = useState(false);
   const [meta, setMeta] = useState({});
 
   function handleReportBtn(bool, metaObj = {}) {
     setShowReport(bool);
-    setMeta(metaObj)
+    setMeta(metaObj);
   }
   return (
     <>
@@ -62,6 +67,7 @@ const Explorer: React.FC<Props> = ({ data, fileData }) => {
                   meta={meta}
                   fileData={fileData}
                   handleReportBtn={handleReportBtn}
+                  scheme={scheme}
                 />
               )}
 
@@ -71,6 +77,7 @@ const Explorer: React.FC<Props> = ({ data, fileData }) => {
                   meta={meta}
                   fileData={fileData}
                   handleReportBtn={handleReportBtn}
+                  scheme={scheme}
                 />
               )}
             </>
@@ -87,6 +94,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   // fetch dataset
   const dataRes = await fetchAPI(context.query.scheme);
   const state = context.query.state || '';
+  const scheme = await dataTransform('mgnrega');
 
   let data: any = {};
   let fileData: any = {};
@@ -122,6 +130,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       data,
       meta,
       fileData,
+      scheme,
     },
   };
 };

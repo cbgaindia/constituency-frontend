@@ -13,7 +13,7 @@ interface Props extends React.HTMLAttributes<HTMLElement> {
   /**
    * Button Content
    */
-   buttonSize?: 'sm' | 'md';
+  buttonSize?: 'sm' | 'md';
 
   /**
    * Button Content
@@ -29,6 +29,11 @@ interface Props extends React.HTMLAttributes<HTMLElement> {
    * custom class for button
    */
   buttonClass?: string;
+
+  /**
+   * closeWidget from parent
+   */
+  closeWidget?: boolean;
 
   /**
    * Button style
@@ -50,6 +55,7 @@ const Widget = ({
   buttonClass,
   icon,
   children,
+  closeWidget = false,
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const activatorRef = useRef(null);
@@ -62,6 +68,13 @@ const Widget = ({
       activatorRef.current.focus();
     }
   };
+
+  useEffect(() => {
+    if (closeWidget) {
+      setIsOpen(false);
+      activatorRef.current.focus();
+    }
+  }, [closeWidget]);
 
   const clickHandler = () => {
     setIsOpen(!isOpen);

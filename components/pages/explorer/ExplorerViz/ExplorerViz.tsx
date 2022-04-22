@@ -20,22 +20,25 @@ const SimpleBarLineChartViz = dynamic(
   { ssr: false, loading: () => <p>...</p> }
 );
 
-const MapViz = dynamic(() => import('components/viz/MapViz'), {
-  ssr: false,
-  loading: () => <p>...</p>,
-});
+function matchState(state) {
+  if (state.toLowerCase() === 'UP'.toLowerCase()) {
+    return 'Uttar Pradesh';
+  } else if (state.toLowerCase() === 'Chhattisgarh'.toLowerCase()) {
+    return 'Chhattisgarh';
+  } else return state;
+}
 
-const ExplorerViz = ({ data, meta, fileData, handleReportBtn }) => {
-  const [selectedIndicator, setSelectedIndicator] =
-    useState('Budget Estimates');
+const ExplorerViz = ({ data, meta, fileData, handleReportBtn, scheme }) => {
   const [indicatorFiltered, setIndicatorFiltered] = useState([]);
   const [finalFiltered, setFinalFiltered] = useState([]);
-  const [budgetTypes, setBudgetTypes] = useState([]);
-  const [selectedBudgetType, setSelectedBudgetType] = useState('');
   const [isTable, setIsTable] = useState(false);
   const [currentViz, setCurrentViz] = useState('#barGraph');
   const [selectedSabha, setSelectedSabha] = useState('lok');
   const [currentToggle, setCurrentToggle] = useState('viz');
+  const [schemeData, setSchemeData] = useState(scheme.ac);
+  const [selectedIndicator, setSelectedIndicator] = useState();
+  const [selectedYear, setSelectedYear] = useState(undefined);
+  const [financialYears, setFinancialYears] = useState(undefined);
 
   const barRef = useRef(null);
   const mapRef = useRef(null);
@@ -54,83 +57,34 @@ const ExplorerViz = ({ data, meta, fileData, handleReportBtn }) => {
   }
 
   useEffect(() => {
+    if (selectedSabha == 'lok') {
+      setSchemeData(scheme.pc);
+    } else setSchemeData(scheme.ac);
+
+    setSelectedIndicator(schemeData.metadata.indicators[0]);
+  }, [selectedSabha]);
+
+  useEffect(() => {
+    // setSelectedIndicator(schemeData.metadata.indicators[0]);
+    handleNewIndicator(selectedIndicator);
+  }, [selectedYear]);
+
+  useEffect(() => {
     // ceating tabbed interface for viz selector
     const tablist = document.querySelector('.viz__tabs');
     const panels = document.querySelectorAll('.viz__graph');
     tabbedInterface(tablist, panels);
 
-    handleNewVizData('Budget Estimates');
+    // fill up available financial years for state+sabha
+    const years = Object.keys(
+      Object.values(schemeData.data)[0]['state_Obj'][matchState(state)]
+    ).map((item) => ({
+      value: item,
+      title: item,
+    }));
+    setFinancialYears(years); // all years
+    setSelectedYear(years[0].value); // default year
   }, [fileData]);
-
-  // todo: make it dynamic lie scheme dashboard
-  const IndicatorDesc = [
-    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos quia, eligendi commodi aliquid',
-    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos quia, eligendi commodi aliquid',
-    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos quia, eligendi commodi aliquid',
-    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos quia, eligendi commodi aliquid',
-    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos quia, eligendi commodi aliquid',
-  ];
-
-  const crData = [
-    'Budget Estimates',
-    'Revised Estimates',
-    'Actual Expenditure',
-  ];
-
-  const mapData = [
-    { name: 'SAHARANPUR', value: 4822023 },
-    { name: 'KAIRANA', value: 731449 },
-    { name: 'MUZAFFARNAGAR', value: 6553255 },
-    { name: 'BIJNOR', value: 2949131 },
-    { name: 'NAGINA (SC)', value: 38041430 },
-    { name: 'MORADABAD', value: 5187582 },
-    { name: 'RAMPUR', value: 3590347 },
-    { name: 'SAMBHAL', value: 917092 },
-    { name: 'District of Columbia', value: 632323 },
-    { name: 'Florida', value: 19317568 },
-    { name: 'Georgia', value: 9919945 },
-    { name: 'Hawaii', value: 1392313 },
-    { name: 'Idaho', value: 1595728 },
-    { name: 'Illinois', value: 12875255 },
-    { name: 'Indiana', value: 6537334 },
-    { name: 'Iowa', value: 3074186 },
-    { name: 'Kansas', value: 2885905 },
-    { name: 'Kentucky', value: 4380415 },
-    { name: 'Louisiana', value: 4601893 },
-    { name: 'Maine', value: 1329192 },
-    { name: 'Maryland', value: 5884563 },
-    { name: 'Massachusetts', value: 6646144 },
-    { name: 'Michigan', value: 9883360 },
-    { name: 'Minnesota', value: 5379139 },
-    { name: 'Mississippi', value: 2984926 },
-    { name: 'Missouri', value: 6021988 },
-    { name: 'Montana', value: 1005141 },
-    { name: 'Nebraska', value: 1855525 },
-    { name: 'Nevada', value: 2758931 },
-    { name: 'New Hampshire', value: 1320718 },
-    { name: 'New Jersey', value: 8864590 },
-    { name: 'New Mexico', value: 2085538 },
-    { name: 'New York', value: 19570261 },
-    { name: 'North Carolina', value: 9752073 },
-    { name: 'North Dakota', value: 699628 },
-    { name: 'Ohio', value: 11544225 },
-    { name: 'Oklahoma', value: 3814820 },
-    { name: 'Oregon', value: 3899353 },
-    { name: 'Pennsylvania', value: 12763536 },
-    { name: 'Rhode Island', value: 1050292 },
-    { name: 'South Carolina', value: 4723723 },
-    { name: 'South Dakota', value: 833354 },
-    { name: 'Tennessee', value: 6456243 },
-    { name: 'Texas', value: 26059203 },
-    { name: 'Utah', value: 2855287 },
-    { name: 'Vermont', value: 626011 },
-    { name: 'Virginia', value: 8185867 },
-    { name: 'Washington', value: 6897012 },
-    { name: 'West Virginia', value: 1855413 },
-    { name: 'Wisconsin', value: 5726398 },
-    { name: 'Wyoming', value: 576412 },
-    { name: 'Puerto Rico', value: 3667084 },
-  ];
 
   const vizToggle = [
     {
@@ -188,8 +142,8 @@ const ExplorerViz = ({ data, meta, fileData, handleReportBtn }) => {
           selectedSabha={selectedSabha}
           state={state}
           selectedIndicator={selectedIndicator}
-          mapData={mapData}
           handleReportBtn={handleReport}
+          schemeData={finalFiltered}
         />
       ),
       ref: mapRef,
@@ -197,19 +151,17 @@ const ExplorerViz = ({ data, meta, fileData, handleReportBtn }) => {
     {
       id: 'barGraph',
       graph: (
-        <SimpleBarLineChartViz
-          color={'#00ABB7'}
-          dataset={barLineTransformer(finalFiltered, selectedIndicator)}
-          type="bar"
-          smooth={true}
-          showSymbol={true}
-          Title={
-            selectedIndicator +
-            (budgetTypes.length > 1 ? ' - ' + selectedBudgetType : '')
-          }
-          subTitle={data.title}
-          unit={crData.includes(selectedIndicator) ? 'Cr' : '%'}
-        />
+        // <SimpleBarLineChartViz
+        //   color={'#00ABB7'}
+        //   dataset={barLineTransformer(finalFiltered, selectedIndicator)}
+        //   type="bar"
+        //   smooth={true}
+        //   showSymbol={true}
+        //   Title={'s'}
+        //   subTitle={data.title}
+        //   unit={crData.includes(selectedIndicator) ? 'Cr' : '%'}
+        // />
+        <></>
       ),
       ref: barRef,
     },
@@ -220,12 +172,17 @@ const ExplorerViz = ({ data, meta, fileData, handleReportBtn }) => {
           headers={
             indicatorFiltered[0]
               ? Object.keys(indicatorFiltered[0])
-              : ['header1']
+              : ['table not available']
           }
-          rows={indicatorFiltered.map(Object.values)}
+          rows={
+            indicatorFiltered[0]
+              ? Object.values(Object.values(indicatorFiltered)[0])
+              : []
+          }
           caption="Table"
           sortable
         />
+        // <></>
       ),
     },
   ];
@@ -261,47 +218,34 @@ const ExplorerViz = ({ data, meta, fileData, handleReportBtn }) => {
     ],
   };
 
-  // Run whenever a new indicator is selected
-  useEffect(() => {
-    const budgetType = [
-      ...Array.from(new Set(indicatorFiltered.map((item) => item.budgetType))),
-    ];
-
-    if (budgetType.includes(selectedBudgetType))
-      handleDropdownChange(selectedBudgetType);
-    else if (selectedBudgetType == '') handleDropdownChange('Total');
-    else if (selectedBudgetType == 'NA' && budgetType.length > 1)
-      handleDropdownChange('Total');
-    else handleDropdownChange(budgetType[0]);
-  }, [indicatorFiltered]);
-
   function hideMenu(e) {
     setCurrentViz(e.target.getAttribute('href'));
     if (e.target.getAttribute('href') == '#tableView') setIsTable(true);
     else setIsTable(false);
   }
 
-  function handleNewVizData(val: any) {
+  function handleNewIndicator(val: any) {
     if (val) {
-      const filtered = filter_data_indicator(fileData, val);
-      const budgetType = [
-        ...Array.from(new Set(filtered.map((item) => item.budgetType))),
-      ];
+      // filter based on selected indicator for state + sabha
+      if (schemeData.data) {
+        const indicatorID = Object.keys(schemeData.data).find(
+          (item) => schemeData.data[item].slug === val
+        );
+        const filtered =
+          schemeData.data[indicatorID]['state_Obj'][matchState(state)];
 
-      const budgetTypeArray = budgetType.map((item) => {
-        return { title: item, value: item };
-      });
+        setFinalFiltered(filtered[selectedYear]);
+        setIndicatorFiltered(filtered);
+      }
 
       setSelectedIndicator(val);
-      setIndicatorFiltered(filtered);
-      setBudgetTypes(budgetTypeArray);
     }
   }
 
   function handleDropdownChange(val: any) {
-    const finalFiltered = filter_data_budgettype(indicatorFiltered, val);
-    setSelectedBudgetType(val);
-    setFinalFiltered(finalFiltered);
+    // const finalFiltered = filter_data_budgettype(indicatorFiltered, val);
+    setSelectedYear(val);
+    // setFinalFiltered(finalFiltered);
   }
 
   function handleToggler(e) {
@@ -313,12 +257,13 @@ const ExplorerViz = ({ data, meta, fileData, handleReportBtn }) => {
     }
   }
 
+  console.log(finalFiltered);
+
   return (
     <>
       <IndicatorMobile
         indicators={data.indicators}
-        newIndicator={handleNewVizData}
-        meta={IndicatorDesc}
+        newIndicator={handleNewIndicator}
         selectedIndicator={selectedIndicator}
       />
       <div id="explorerVizWrapper">
@@ -337,10 +282,9 @@ const ExplorerViz = ({ data, meta, fileData, handleReportBtn }) => {
         >
           {currentToggle !== 'editorial-notes' && (
             <Indicator
-              data={data.indicators}
-              meta={IndicatorDesc}
-              newIndicator={handleNewVizData}
+              newIndicator={handleNewIndicator}
               selectedIndicator={selectedIndicator}
+              schemeData={schemeData}
             />
           )}
 
@@ -363,13 +307,13 @@ const ExplorerViz = ({ data, meta, fileData, handleReportBtn }) => {
                     </li>
                   ))}
                 </VizTabs>
-                {budgetTypes.length > 1 && !isTable && (
+                {financialYears && !isTable && (
                   <VizMenu className="fill">
                     <Menu
-                      value={selectedBudgetType}
-                      options={budgetTypes}
+                      value={selectedYear}
+                      options={financialYears}
                       heading="Financial Year:"
-                      handleChange={handleDropdownChange}
+                      handleChange={(e) => handleDropdownChange(e)}
                     />
                   </VizMenu>
                 )}
@@ -410,7 +354,7 @@ const ExplorerViz = ({ data, meta, fileData, handleReportBtn }) => {
             <Source
               title={data.title}
               currentViz={currentViz}
-              selectedBudgetType={selectedBudgetType}
+              selectedBudgetType={'selectedBudgetType'}
               indicatorFiltered={indicatorFiltered}
             />
           </VizWrapper>

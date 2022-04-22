@@ -38,3 +38,23 @@ export function debounce(func, timeout = 1000) {
     }, timeout);
   };
 }
+
+export function handleSearch(query, obj) {
+  let newObj = [];
+  if (query.length > 0) {
+    Object.keys(obj).forEach((key) => {
+      // searching constituency from each state
+      const filteredCons = obj[key].cons.filter((item) =>
+        item.toLowerCase().includes(query.toLowerCase())
+      );
+
+      if (filteredCons.length) {
+        newObj[key] = {
+          state: obj[key].state,
+          cons: filteredCons,
+        };
+      }
+    });
+  }
+  return newObj;
+}
