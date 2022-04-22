@@ -15,10 +15,10 @@ const MapViz = ({
   sabha,
   data,
   newMapItem,
+  vizIndicators,
   // selectedItem,
 }) => {
   const [mapOptions, setMapOptions] = useState({});
-
   useEffect(() => {
     if (Object.keys(mapFile).length > 0) {
       const map = JSON.stringify(mapFile);
@@ -36,14 +36,7 @@ const MapViz = ({
           left: '16px',
           bottom: '16px',
           backgroundColor: '#FFFFFF',
-          pieces: [
-            { min: 0, max: 100, label: '000 to 100' },
-            { min: 100, max: 200, label: '100 to 200' },
-            { min: 200, max: 300, label: '200 to 300' },
-            { min: 300, max: 400, label: '300 to 400' },
-            { min: 400, max: 500, label: '400 to 500' },
-            { min: 500, max: 600, label: '500 to 600' },
-          ],
+          pieces: vizIndicators,
           inRange: {
             color: [
               '#4ABEBE',
@@ -95,13 +88,10 @@ const MapViz = ({
         ],
       };
       setMapOptions(options);
-      // setDataLoaded(false);
     }
   }, [selectedIndicator, data, mapFile]);
 
   function handleClick(e) {
-    // console.log(e);
-
     newMapItem(e.name);
   }
 

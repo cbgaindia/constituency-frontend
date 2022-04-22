@@ -6,8 +6,8 @@ import { LokSabha, VidhanSabha } from 'components/icons';
 
 const states = [
   {
-    title: 'Rajasthan',
-    value: 'rajasthan',
+    title: 'Chhattisgarh',
+    value: 'chhattisgarh',
   },
   {
     title: 'Uttar Pradesh',

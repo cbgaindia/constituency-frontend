@@ -36,8 +36,13 @@ const IndicatorCheckbox = ({ data, newIndicator, selectedIndicator }) => {
           isSelected == 'true' ? 'false' : 'true'
         );
     }
-
     newIndicator(elm.value);
+
+    const checkedIndicators = [];
+    indicatorRef.current.querySelectorAll('input').forEach((item) => {
+      if (item.checked) checkedIndicators.push(item.value);
+    });
+    console.log(checkedIndicators);
   }
 
   return (
@@ -71,18 +76,22 @@ const IndicatorCheckbox = ({ data, newIndicator, selectedIndicator }) => {
 export default IndicatorCheckbox;
 
 export const IndicatorWrapper = styled.div`
-  scrollbar-width: thin;
-  background-color: #fff;
-  filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.08));
-  border: 1px solid hsl(300, 10%, 94%);
+  background-color: var(--color-background-lighter);
+  filter: drop-shadow(var(--box-shadow-1));
+  border: var(--border-2);
   border-radius: 4px;
   height: max-content;
-  max-height: 776px;
-  padding: 1.5rem;
+  padding: 24px;
   height: 100%;
 
-  ::-webkit-scrollbar {
-    width: 5px;
+  fieldset {
+    overflow-y: auto;
+    max-height: 616px;
+    scrollbar-width: thin;
+
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
   }
 
   ${CheckboxItem} {

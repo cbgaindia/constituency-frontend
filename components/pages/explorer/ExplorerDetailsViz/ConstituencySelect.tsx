@@ -1,44 +1,90 @@
+import React, { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
 import { Button, Widget } from 'components/actions';
 import ButtonWrapper from 'components/actions/Button/ButtonComp';
 import { WidgetContent } from 'components/actions/Widget/Widget';
-import { Arrow, ArrowDown, ArrowTail } from 'components/icons';
-import React, { useRef } from 'react';
-import styled from 'styled-components';
+import { ArrowDown } from 'components/icons';
 import { sectionCollapse } from 'utils/helper';
 
 const items = [
   {
     state: 'Rajasthan',
-    cons: ['item1', 'item2', 'item3'],
+    cons: ['Sadulshahar', 'Ganganagar', 'Karanpur', 'Suratgarh'],
   },
   {
     state: 'Uttar Pradesh',
-    cons: ['item2', 'item3', 'item4'],
+    cons: ['Behat', 'Nakur', 'Saharanpur Nagar', 'Saharanpur'],
   },
   {
     state: 'Odisha',
-    cons: ['item4', 'item5', 'item6'],
+    cons: ['Padampur', 'Bijepur', 'Bargarh', 'Attabira'],
   },
 ];
 
-const ConstituencySelect = () => {
+function handleSearch(query, obj) {
+  let newObj = [];
+  if (query.length > 0) {
+    Object.keys(obj).forEach((key) => {
+      // searching constituency from each state
+      const filteredCons = obj[key].cons.filter((item) =>
+        item.toLowerCase().includes(query.toLowerCase())
+      );
+
+      if (filteredCons.length) {
+        newObj[key] = {
+          state: obj[key].state,
+          cons: filteredCons,
+        };
+      }
+    });
+
+    return newObj;
+  } else return obj;
+}
+
+const ConstituencySelect = ({ newCompare, currentItem, fallBack }) => {
+  const [states, setStates] = useState(items);
+  const [closeWidget, setCloseWidget] = useState(false);
+
+  useEffect(() => {
+    document
+      .getElementById('compareSelector')
+      .addEventListener('click', () => {
+        setCloseWidget(false);
+      });
+  }, []);
+
+  function handleCompareSearch(e) {
+    const val = e.target.value;
+    const searchedVal = handleSearch(val, items);
+    setStates(searchedVal);
+  }
+
+  function handleNewCompare(e) {
+    setCloseWidget(true);
+    newCompare(e.target.id);
+  }
+
   const selectorRef = useRef(null);
   return (
-    <Wrapper className="fill">
+    <Wrapper id="compareSelector" className="fill">
       <Widget
         icon={<ArrowDown />}
-        buttonContent="constituency search"
-        title="share menu"
+        buttonContent={currentItem ? currentItem : fallBack}
+        title="constituency menu"
         buttonStyle="custom"
+        buttonClass={currentItem ? 'selected' : undefined}
+        closeWidget={closeWidget}
       >
         <ConsList>
           <input
             id="searchInput"
             type="text"
             placeholder="Search here for constituency"
+            onChange={handleCompareSearch}
           />
           <StateList ref={selectorRef}>
-            {items.map((item: any, index) => (
+            {states.map((item: any, index) => (
               <>
                 <Button
                   kind="custom"
@@ -47,11 +93,21 @@ const ConstituencySelect = () => {
                   icon={<ArrowDown />}
                   onClick={(e) => sectionCollapse(e, selectorRef)}
                 >
-                  <span>{item.state}</span>
+                  <div>
+                    {item.state} <span>({item.cons.length})</span>
+                  </div>
                 </Button>
                 <ul hidden>
                   {item.cons.map((cons, index1) => (
-                    <li key={`cons-${index1}`}>{cons}</li>
+                    <li key={`cons-${index1}`}>
+                      <Button
+                        onClick={handleNewCompare}
+                        kind="custom"
+                        id={cons}
+                      >
+                        {cons}
+                      </Button>
+                    </li>
                   ))}
                 </ul>
               </>
@@ -72,6 +128,11 @@ const Wrapper = styled.div`
     border: var(--border-1);
     border-radius: 2px;
     justify-content: space-between;
+    color: var(--text-light-light);
+
+    &.selected {
+      color: var(--text-light-high);
+    }
   }
 
   ${WidgetContent} {
@@ -106,8 +167,18 @@ const StateList = styled.div`
   ${ButtonWrapper} {
     margin-top: 8px;
     background-color: var(--color-grey-600);
+    color: var(--text-light-high);
     border-radius: 2px;
     border: none;
+    line-height: 1.7;
+
+    div {
+      pointer-events: none;
+    }
+
+    span {
+      color: var(--text-light-light);
+    }
 
     svg {
       transition: transform 200ms ease;
@@ -124,7 +195,9 @@ const StateList = styled.div`
 
   ul {
     background-color: var(--color-grey-600);
-    padding: 0 12px 8px 8px;
+    padding-bottom: 8px;
+    max-height: 468px;
+    overflow-y: auto;
 
     li {
       margin-top: 8px;
@@ -133,8 +206,19 @@ const StateList = styled.div`
 
       &:first-child {
         margin-top: 0;
-        padding-top: 8px;
         border-top: var(--border-1);
+      }
+    }
+
+    button {
+      font-size: 0.875rem;
+      padding: 0;
+      font-weight: 400;
+      padding-inline: 12px 8px;
+      transition: background-color 200ms ease;
+
+      &:hover {
+        background-color: var(--color-grey-500);
       }
     }
   }

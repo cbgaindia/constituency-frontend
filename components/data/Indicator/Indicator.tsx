@@ -3,23 +3,16 @@ import { RadioItem } from 'components/layouts/Radio/Radio';
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
-const Indicator = ({ data, newIndicator, meta, selectedIndicator }) => {
+const Indicator = ({ newIndicator, selectedIndicator, schemeData }) => {
   const indicatorRef = useRef(null);
   useEffect(() => {
-    indicatorRef.current
-      .querySelector(`label`)
-      .setAttribute('data-selected', 'true');
-    (
-      document.querySelector(
-        `[data-id="${data[0]}"] > input`
-      ) as HTMLInputElement
-    ).checked = true;
-  }, []);
+    indicatorRef.current.querySelector(`label input`).checked = true;
+  }, [schemeData]);
 
   function handleIndicatorChange(e: any) {
     e.stopPropagation();
     const elm = e.target;
-    newIndicator(elm.value);
+    newIndicator(elm.id);
   }
 
   return (
@@ -27,26 +20,27 @@ const Indicator = ({ data, newIndicator, meta, selectedIndicator }) => {
       <h3>Indicators</h3>
       <fieldset ref={indicatorRef}>
         <legend className="sr-only">Choose Indicator:</legend>
-        {data &&
-          data.map(
-            (item, index) =>
+        {schemeData.data &&
+          Object.values(schemeData.data).map(
+            (item: any) =>
               item && (
                 <Radio
                   onClick={handleIndicatorChange}
                   color="var(--color-amazon-300)"
-                  data-id={item}
-                  data-selected={selectedIndicator == item ? 'true' : 'false'}
-                  id={item}
+                  data-selected={
+                    selectedIndicator == item.slug ? 'true' : 'false'
+                  }
+                  id={item.slug}
                   text={
                     <>
-                      {item}
+                      {item.name}
                       <Info>
-                        <p>{meta[index]}</p>
+                        <p>{item.description}</p>
                       </Info>
                     </>
                   }
                   name="indicators"
-                  key={`indicatorItem-${index}`}
+                  key={`indicatorItem-${item.slug}`}
                 />
               )
           )}
@@ -68,23 +62,34 @@ const Info = styled.div`
 `;
 
 export const IndicatorWrapper = styled.div`
-  scrollbar-width: thin;
-  background-color: #fff;
-  filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.08));
-  border: 1px solid hsl(300, 10%, 94%);
+  background-color: var(--color-background-lighter);
+  filter: drop-shadow(var(--box-shadow-1));
+  border: var(--border-2);
   border-radius: 4px;
   height: max-content;
-  max-height: 776px;
-  padding: 1.5rem;
+  padding: 24px;
   height: 100%;
 
-  ::-webkit-scrollbar {
-    width: 5px;
+  fieldset {
+    overflow-y: auto;
+    max-height: 616px;
+    scrollbar-width: thin;
+
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+  }
+
+  h3 {
+    font-weight: 700;
+    font-size: 1rem;
+    border-bottom: var(--border-2);
+    padding-bottom: 16px;
   }
 
   ${RadioItem} {
     line-height: 1.7;
-    margin-top: 1rem;
+    margin-top: 8px;
     color: var(--text-light-high);
     letter-spacing: 0.01em;
     padding: 8px;

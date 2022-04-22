@@ -10,14 +10,15 @@ const ExplorerMap = ({
   selectedSabha,
   state,
   selectedIndicator,
-  mapData,
   handleReportBtn,
+  schemeData,
 }) => {
   const [mapFile, setMapFile] = useState<any>({});
   const [mapValues, setMapvalues] = useState([]);
   const [searchItems, setSearchItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
+  const [mapIndicator, setMapIndicator] = useState(undefined);
 
   async function getMapFile() {
     const mapFile = await fetch(
@@ -31,14 +32,62 @@ const ExplorerMap = ({
   }, [selectedSabha, state]);
 
   useEffect(() => {
-    if (mapFile.features) {
-      const tempData = mapFile.features.map((item) => ({
+    setSelectedItem(undefined);
+  }, [selectedSabha, state, selectedIndicator]);
+
+  useEffect(() => {
+    const stateData = Object.values(schemeData).map(Number);
+    stateData.sort(function (a, b) {
+      return a - b;
+    });
+    const uniq = [...new Set(stateData)];
+    const binLength = Math.floor(uniq.length / 6);
+
+    const vizIndicators = [
+      {
+        min: uniq[0],
+        max: uniq[0 + binLength],
+        label: `${uniq[0]} to ${uniq[0 + binLength]}`,
+      },
+      {
+        min: uniq[binLength + 1],
+        max: uniq[binLength * 2],
+        label: `${uniq[binLength + 1]} to ${uniq[binLength * 2]}`,
+      },
+      {
+        min: uniq[2 * binLength + 1],
+        max: uniq[binLength * 3],
+        label: `${uniq[2 * binLength + 1]} to ${uniq[binLength * 3]}`,
+      },
+      {
+        min: uniq[3 * binLength + 1],
+        max: uniq[binLength * 4],
+        label: `${uniq[3 * binLength + 1]} to ${uniq[binLength * 4]}`,
+      },
+      {
+        min: uniq[4 * binLength + 1],
+        max: uniq[uniq.length - 1],
+        label: `${uniq[4 * binLength + 1]} to ${uniq[binLength * 4]}`,
+      },
+      {
+        min: uniq[5 * binLength + 1],
+        max: uniq[uniq.length - 1],
+        label: `${uniq[5 * binLength + 1]} to ${uniq[binLength * 4]}`,
+      },
+    ];
+    setMapIndicator(vizIndicators)
+  }, [schemeData]);
+
+  useEffect(() => {
+    if (mapFile.features && schemeData) {
+      const tempData = mapFile.features.map((item, index) => ({
         name: item.properties.name,
-        value: Math.round(Math.random() * (600 - 20) + 20),
+        value: schemeData[index] || 0,
       }));
+
       setMapvalues(tempData);
     }
-  }, [mapFile]);
+  }, [mapFile, schemeData, selectedSabha]);
 
   function handleSearch(query, obj) {
     let newObj = [];
@@ -65,10 +114,12 @@ const ExplorerMap = ({
     const myChart = echarts.getInstanceByDom(
       document.querySelector('#mapView .echarts-for-react')
     );
-    myChart.dispatchAction({
-      type: 'select',
-      name: e,
-    });
+    if (myChart) {
+      myChart.dispatchAction({
+        type: 'select',
+        name: e,
+      });
+    }
   }, []);
 
   function handlePanelClose() {
@@ -150,6 +201,7 @@ const ExplorerMap = ({
         sabha={selectedSabha}
         selectedIndicator={selectedIndicator}
         data={mapValues}
+        vizIndicators={mapIndicator}
         newMapItem={newMapItem}
       />
     </Wrapper>
