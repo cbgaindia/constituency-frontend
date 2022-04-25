@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import fscreen from 'fscreen';
 import { Button } from 'components/actions';
@@ -6,6 +7,7 @@ import { FullScreen, LokSabha, VidhanSabha } from 'components/icons';
 
 const Toggler = ({ handleNewToggle, selectedSabha, currentToggle }) => {
   const sabhaRef = useRef(null);
+  const router = useRouter();
 
   function handleSabhaClick(e) {
     const currentBtn = e.target;
@@ -16,6 +18,17 @@ const Toggler = ({ handleNewToggle, selectedSabha, currentToggle }) => {
     if (currentBtn !== selectedBtn) {
       const value = currentBtn.dataset.value;
       handleNewToggle(value);
+      router.push(
+        {
+          query: {
+            scheme: router.query.scheme,
+            state: router.query.state,
+            sabha: value,
+          },
+        },
+        undefined,
+        { shallow: true }
+      );
     }
   }
 
@@ -33,7 +46,11 @@ const Toggler = ({ handleNewToggle, selectedSabha, currentToggle }) => {
       <SabhaToggle>
         <h2>
           <Button
-            aria-pressed={currentToggle == 'viz' && selectedSabha === 'lok' ? 'true' : 'false'}
+            aria-pressed={
+              currentToggle == 'viz' && selectedSabha === 'lok'
+                ? 'true'
+                : 'false'
+            }
             data-value="lok"
             onClick={handleSabhaClick}
             icon={<LokSabha />}
@@ -46,7 +63,11 @@ const Toggler = ({ handleNewToggle, selectedSabha, currentToggle }) => {
 
         <h2>
           <Button
-            aria-pressed={currentToggle == 'viz' && selectedSabha === 'vidhan' ? 'true' : 'false'}
+            aria-pressed={
+              currentToggle == 'viz' && selectedSabha === 'vidhan'
+                ? 'true'
+                : 'false'
+            }
             data-value="vidhan"
             onClick={handleSabhaClick}
             icon={<VidhanSabha />}
@@ -77,7 +98,7 @@ const Toggler = ({ handleNewToggle, selectedSabha, currentToggle }) => {
           onClick={fullScreenMode}
         >
           Full screen mode
-          </Button>
+        </Button>
       </RightSide>
     </Wrapper>
   );

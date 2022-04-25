@@ -1,35 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { Button, Menu } from 'components/actions';
 import { MenuButton, MenuContent } from 'components/actions/Menu/MenuComp';
 import { LokSabha, VidhanSabha } from 'components/icons';
-
-const states = [
-  {
-    title: 'Chhattisgarh',
-    value: 'chhattisgarh',
-  },
-  {
-    title: 'Uttar Pradesh',
-    value: 'up',
-  },
-  {
-    title: 'Odisha',
-    value: 'odisha',
-  },
-  {
-    title: 'Gujrat',
-    value: 'gujrat',
-  },
-  {
-    title: 'Kerela',
-    value: 'kerela',
-  },
-  {
-    title: 'Tamil Nadu',
-    value: 'tamil_nadu',
-  },
-];
+import { useRouter } from 'next/router';
 
 const schemes = [
   {
@@ -79,21 +53,81 @@ const noScheme = {
   value: null,
 };
 
+function defaultState(item) {
+  return {
+    value: item,
+    title: item,
+  };
+}
+
 const SchemeSelector: React.FC<{
   sabha?: boolean;
   suggestion?: boolean;
   state?: string;
-}> = ({ sabha = true, suggestion = true, state }) => {
+  scheme?: any;
+  statesData: any;
+}> = ({ sabha = true, suggestion = true, state, scheme, statesData }) => {
+  const router = useRouter();
+
   const [selectedState, setSelectedState] = useState<any>(
-    state ? selectState(state) : noState
+    state ? defaultState(state) : noState
   );
-  const [selectedScheme, setSelectedScheme] = useState(noScheme);
-  const [selectedSabha, setSelectedSabha] = useState('Lok Sabha');
+  const [selectedScheme, setSelectedScheme] = useState(
+    scheme ? defaultState(scheme) : noScheme
+  );
+  const [selectedSabha, setSelectedSabha] = useState(
+    router.query.sabha ? router.query.sabha : 'lok'
+  );
+  const [stateSchemeData, setStateSchemeData] = useState({});
+  const [availableStates, setAvailableStates] = useState<any>({});
+  const [availableSchemes, setAvailableSchemes] = useState<any>({});
 
   const sabhaRef = useRef(null);
 
+  useEffect(() => {
+    const tempSchemeData = {};
+    statesData.map((state) => {
+      state.state.split(',').map((each_state) => {
+        if (each_state in tempSchemeData) {
+          tempSchemeData[each_state].push({
+            scheme_name: state.scheme_name,
+            scheme_slug: state.slug,
+          });
+        } else {
+          tempSchemeData[each_state] = [
+            { scheme_name: state.scheme_name, scheme_slug: state.slug },
+          ];
+        }
+        return null;
+      });
+      return null;
+    });
+    setStateSchemeData(tempSchemeData);
+
+    const availableStates = Object.keys(tempSchemeData).map((item) => ({
+      value: item,
+      title: item,
+    }));
+    if (!state) {
+      setSelectedState(availableStates[0]);
+    }
+    setAvailableStates(availableStates);
+  }, []);
+
+  useEffect(() => {
+    if (stateSchemeData[selectedState.value]) {
+      const tempSchemes = stateSchemeData[selectedState.value].map((item) => ({
+        value: item.scheme_slug,
+        title: item.scheme_name,
+      }));
+      setSelectedScheme(tempSchemes[0]);
+      setAvailableSchemes(tempSchemes);
+    }
+  }, [selectedState, stateSchemeData]);
+
   function handleMenuChange(val, array) {
-    const setState = array === states ? setSelectedState : setSelectedScheme;
+    const setState =
+      array === availableStates ? setSelectedState : setSelectedScheme;
 
     for (let i = 0; i < array.length; i++) {
       if (val === array[i].value) {
@@ -105,9 +139,9 @@ const SchemeSelector: React.FC<{
   }
 
   function selectState(val) {
-    for (let i = 0; i < states.length; i++) {
-      if (val.toLowerCase() === states[i].value) {
-        return states[i];
+    for (let i = 0; i < availableStates.length; i++) {
+      if (val.toLowerCase() === availableStates[i].value) {
+        return availableStates[i];
       }
     }
     return noState;
@@ -117,7 +151,6 @@ const SchemeSelector: React.FC<{
     const btn = e.target;
     const value = btn.dataset.value;
     setSelectedSabha(value);
-
     const selectedBtn = sabhaRef.current.querySelector(
       '[aria-pressed="true"]'
     ) as HTMLElement;
@@ -132,11 +165,19 @@ const SchemeSelector: React.FC<{
     if (selectedState.value == null || selectedScheme.value == null) {
       alert('Select state and scheme');
     } else {
-      const obj = {
-        state: selectedState.value,
-        scheme: selectedScheme.value,
-        sabha: selectedSabha,
-      };
+      router.push({
+        pathname: '/explorer',
+        query: { scheme: selectedScheme.value, state: selectedState.value },
+      });
+      // router.replace(
+      //   `/explorer?scheme=${selectedScheme.value}&state=${selectedState.value}`
+      // );
+      // const obj = {
+      //   state: selectedState.value,
+      //   scheme: selectedScheme.value,
+      //   sabha: selectedSabha,
+      // };
+      // console.log(obj);
     }
   }
 
@@ -146,7 +187,7 @@ const SchemeSelector: React.FC<{
         <HeaderToggle ref={sabhaRef}>
           <Button
             aria-pressed="true"
-            data-value="lok-sabha"
+            data-value="lok"
             onClick={handleSabhaClick}
             icon={<LokSabha />}
             iconSide="left"
@@ -156,7 +197,7 @@ const SchemeSelector: React.FC<{
           </Button>
           <Button
             aria-pressed="false"
-            data-value="vidhan-sabha"
+            data-value="vidhan"
             onClick={handleSabhaClick}
             icon={<VidhanSabha />}
             iconSide="left"
@@ -171,8 +212,8 @@ const SchemeSelector: React.FC<{
           className={`fill ${selectedState.value == null && 'not-selected'}`}
         >
           <Menu
-            options={states}
-            handleChange={(e) => handleMenuChange(e, states)}
+            options={availableStates}
+            handleChange={(e) => handleMenuChange(e, availableStates)}
             heading="Select State"
             value={selectedState.title}
             showLabel={false}
@@ -182,14 +223,19 @@ const SchemeSelector: React.FC<{
           className={`fill ${selectedScheme.value == null && 'not-selected'}`}
         >
           <Menu
-            options={schemes}
-            handleChange={(e) => handleMenuChange(e, schemes)}
+            options={availableSchemes}
+            handleChange={(e) => handleMenuChange(e, availableSchemes)}
             heading="Select any Scheme"
             value={selectedScheme.title}
             showLabel={false}
           />
         </SchemeMenu>
-        <Button kind="primary" onClick={handleSubmitClick}>
+        <Button
+          kind="primary"
+          href={`/explorer?scheme=${selectedScheme.value}&state=${
+            selectedState.value
+          }&sabha=${router.query.sabha ? router.query.sabha : selectedSabha}`}
+        >
           Explore
         </Button>
       </SchemesMenu>

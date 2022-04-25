@@ -11,7 +11,7 @@ export const navList = {
       name: 'State Page',
     },
     {
-      link: '/explorer?scheme=union-budget-data-for-the-infrastructure-facilities-for-judiciary&state=UP',
+      link: '/explorer?scheme=mgnrega&state=Uttar Pradesh',
       name: 'Explorer',
     },
     {

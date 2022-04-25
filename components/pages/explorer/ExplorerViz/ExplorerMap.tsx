@@ -36,46 +36,48 @@ const ExplorerMap = ({
   }, [selectedSabha, state, selectedIndicator]);
 
   useEffect(() => {
-    const stateData = Object.values(schemeData).map(Number);
-    stateData.sort(function (a, b) {
-      return a - b;
-    });
-    const uniq = [...new Set(stateData)];
-    const binLength = Math.floor(uniq.length / 6);
+    if (schemeData) {
+      const stateData = Object.values(schemeData).map(Number);
+      stateData.sort(function (a, b) {
+        return a - b;
+      });
+      const uniq = [...new Set(stateData)];
+      const binLength = Math.floor(uniq.length / 6);
 
-    const vizIndicators = [
-      {
-        min: uniq[0],
-        max: uniq[0 + binLength],
-        label: `${uniq[0]} to ${uniq[0 + binLength]}`,
-      },
-      {
-        min: uniq[binLength + 1],
-        max: uniq[binLength * 2],
-        label: `${uniq[binLength + 1]} to ${uniq[binLength * 2]}`,
-      },
-      {
-        min: uniq[2 * binLength + 1],
-        max: uniq[binLength * 3],
-        label: `${uniq[2 * binLength + 1]} to ${uniq[binLength * 3]}`,
-      },
-      {
-        min: uniq[3 * binLength + 1],
-        max: uniq[binLength * 4],
-        label: `${uniq[3 * binLength + 1]} to ${uniq[binLength * 4]}`,
-      },
-      {
-        min: uniq[4 * binLength + 1],
-        max: uniq[uniq.length - 1],
-        label: `${uniq[4 * binLength + 1]} to ${uniq[binLength * 4]}`,
-      },
-      {
-        min: uniq[5 * binLength + 1],
-        max: uniq[uniq.length - 1],
-        label: `${uniq[5 * binLength + 1]} to ${uniq[binLength * 4]}`,
-      },
-    ];
-    setMapIndicator(vizIndicators)
+      const vizIndicators = [
+        {
+          min: uniq[0],
+          max: uniq[0 + binLength],
+          label: `${uniq[0]} to ${uniq[0 + binLength]}`,
+        },
+        {
+          min: uniq[binLength + 1],
+          max: uniq[binLength * 2],
+          label: `${uniq[binLength + 1]} to ${uniq[binLength * 2]}`,
+        },
+        {
+          min: uniq[2 * binLength + 1],
+          max: uniq[binLength * 3],
+          label: `${uniq[2 * binLength + 1]} to ${uniq[binLength * 3]}`,
+        },
+        {
+          min: uniq[3 * binLength + 1],
+          max: uniq[binLength * 4],
+          label: `${uniq[3 * binLength + 1]} to ${uniq[binLength * 4]}`,
+        },
+        {
+          min: uniq[4 * binLength + 1],
+          max: uniq[uniq.length - 1],
+          label: `${uniq[4 * binLength + 1]} to ${uniq[binLength * 4]}`,
+        },
+        {
+          min: uniq[5 * binLength + 1],
+          max: uniq[uniq.length - 1],
+          label: `${uniq[5 * binLength + 1]} to ${uniq[binLength * 4]}`,
+        },
+      ];
+      setMapIndicator(vizIndicators);
+    }
   }, [schemeData]);
 
   useEffect(() => {

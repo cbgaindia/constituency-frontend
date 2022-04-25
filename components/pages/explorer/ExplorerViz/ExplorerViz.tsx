@@ -21,22 +21,24 @@ const SimpleBarLineChartViz = dynamic(
 );
 
 function matchState(state) {
-  if (state.toLowerCase() === 'UP'.toLowerCase()) {
+  if (state.toLowerCase() === 'Uttar Pradesh'.toLowerCase()) {
     return 'Uttar Pradesh';
   } else if (state.toLowerCase() === 'Chhattisgarh'.toLowerCase()) {
     return 'Chhattisgarh';
   } else return state;
 }
 
-const ExplorerViz = ({ data, meta, fileData, handleReportBtn, scheme }) => {
+const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
   const [indicatorFiltered, setIndicatorFiltered] = useState([]);
   const [finalFiltered, setFinalFiltered] = useState([]);
   const [isTable, setIsTable] = useState(false);
-  const [currentViz, setCurrentViz] = useState('#barGraph');
-  const [selectedSabha, setSelectedSabha] = useState('lok');
+  const [currentViz, setCurrentViz] = useState('#mapView');
+  const [selectedSabha, setSelectedSabha] = useState(
+    data.sabha ? data.sabha : 'lok'
+  );
   const [currentToggle, setCurrentToggle] = useState('viz');
   const [schemeData, setSchemeData] = useState(scheme.ac);
-  const [selectedIndicator, setSelectedIndicator] = useState();
+  const [selectedIndicator, setSelectedIndicator] = useState('');
   const [selectedYear, setSelectedYear] = useState(undefined);
   const [financialYears, setFinancialYears] = useState(undefined);
 
@@ -44,30 +46,6 @@ const ExplorerViz = ({ data, meta, fileData, handleReportBtn, scheme }) => {
   const mapRef = useRef(null);
 
   const { state } = data;
-
-  function handleReport(bool, cons, type) {
-    const metaObj = {
-      sabha: selectedSabha,
-      state: state,
-      constituency: cons,
-      type: type,
-    };
-
-    handleReportBtn(bool, metaObj);
-  }
-
-  useEffect(() => {
-    if (selectedSabha == 'lok') {
-      setSchemeData(scheme.pc);
-    } else setSchemeData(scheme.ac);
-
-    setSelectedIndicator(schemeData.metadata.indicators[0]);
-  }, [selectedSabha]);
-
-  useEffect(() => {
-    // setSelectedIndicator(schemeData.metadata.indicators[0]);
-    handleNewIndicator(selectedIndicator);
-  }, [selectedYear]);
 
   useEffect(() => {
     // ceating tabbed interface for viz selector
@@ -84,8 +62,80 @@ const ExplorerViz = ({ data, meta, fileData, handleReportBtn, scheme }) => {
     }));
     setFinancialYears(years); // all years
     setSelectedYear(years[0].value); // default year
-  }, [fileData]);
+  }, [data]);
 
+  useEffect(() => {
+    if (selectedSabha == 'lok') {
+      setSchemeData(scheme.pc);
+    } else setSchemeData(scheme.ac);
+  }, [selectedSabha]);
+
+  useEffect(() => {
+    handleNewIndicator(schemeData.metadata.indicators[0]);
+  }, [schemeData]);
+
+  useEffect(() => {
+    handleNewIndicator(selectedIndicator);
+  }, [selectedYear]);
+
+  function handleReport(bool, cons, type) {
+    const metaObj = {
+      sabha: selectedSabha,
+      state: state,
+      constituency: cons,
+      type: type,
+    };
+
+    handleReportBtn(bool, metaObj);
+  }
+
+  function hideMenu(e) {
+    setCurrentViz(e.target.getAttribute('href'));
+    if (e.target.getAttribute('href') == '#tableView') setIsTable(true);
+    else setIsTable(false);
+  }
+
+  function handleNewIndicator(val: any) {
+    if (val) {
+      // filter based on selected indicator for state + sabha
+      if (schemeData.data) {
+        const indicatorID = Object.keys(schemeData.data).find(
+          (item) => schemeData.data[item].slug === val
+        );
+        const filtered =
+          schemeData.data[indicatorID]['state_Obj'][matchState(state)];
+
+        setFinalFiltered(filtered[selectedYear]);
+        setIndicatorFiltered(filtered);
+      }
+
+      setSelectedIndicator(val);
+    }
+  }
+
+  function handleDropdownChange(val: any) {
+    // const finalFiltered = filter_data_budgettype(indicatorFiltered, val);
+    setSelectedYear(val);
+    // setFinalFiltered(finalFiltered);
+  }
+
+  function handleToggler(e) {
+    if (e == 'editorial-notes') {
+      setCurrentToggle(e);
+    } else {
+      setCurrentToggle('viz');
+      setSelectedSabha(e);
+    }
+  }
+
+  const tableHeader = ['Constituency'];
+  if (financialYears) {
+    financialYears.forEach((element) =>
+      tableHeader.push(
+        `${selectedIndicator.replace('-', ' ')} ${element.title}`
+      )
+    );
+  }
   const vizToggle = [
     {
       name: 'Map View',
@@ -169,11 +219,7 @@ const ExplorerViz = ({ data, meta, fileData, handleReportBtn, scheme }) => {
       id: 'tableView',
       graph: (
         <Table
-          headers={
-            indicatorFiltered[0]
-              ? Object.keys(indicatorFiltered[0])
-              : ['table not available']
-          }
+          headers={schemeData.metadata ? tableHeader : ['table not available']}
           rows={
             indicatorFiltered[0]
               ? Object.values(Object.values(indicatorFiltered)[0])
@@ -186,6 +232,7 @@ const ExplorerViz = ({ data, meta, fileData, handleReportBtn, scheme }) => {
       ),
     },
   ];
+  // console.log(schemeData.metadata.indicators);
 
   const schemeNotes = {
     heading:
@@ -218,52 +265,13 @@ const ExplorerViz = ({ data, meta, fileData, handleReportBtn, scheme }) => {
     ],
   };
 
-  function hideMenu(e) {
-    setCurrentViz(e.target.getAttribute('href'));
-    if (e.target.getAttribute('href') == '#tableView') setIsTable(true);
-    else setIsTable(false);
-  }
-
-  function handleNewIndicator(val: any) {
-    if (val) {
-      // filter based on selected indicator for state + sabha
-      if (schemeData.data) {
-        const indicatorID = Object.keys(schemeData.data).find(
-          (item) => schemeData.data[item].slug === val
-        );
-        const filtered =
-          schemeData.data[indicatorID]['state_Obj'][matchState(state)];
-
-        setFinalFiltered(filtered[selectedYear]);
-        setIndicatorFiltered(filtered);
-      }
-
-      setSelectedIndicator(val);
-    }
-  }
-
-  function handleDropdownChange(val: any) {
-    // const finalFiltered = filter_data_budgettype(indicatorFiltered, val);
-    setSelectedYear(val);
-    // setFinalFiltered(finalFiltered);
-  }
-
-  function handleToggler(e) {
-    if (e == 'editorial-notes') {
-      setCurrentToggle(e);
-    } else {
-      setCurrentToggle('viz');
-      setSelectedSabha(e);
-    }
-  }
-
   return (
     <>
-      <IndicatorMobile
+      {/* <IndicatorMobile
         indicators={data.indicators}
         newIndicator={handleNewIndicator}
         selectedIndicator={selectedIndicator}
-      />
+      /> */}
       <div id="explorerVizWrapper">
         <Toggler
           handleNewToggle={handleToggler}
@@ -432,6 +440,7 @@ export const VizTabs = styled.ul`
       margin-bottom: -3px;
       margin-right: 5px;
       fill: hsla(0, 0%, 0%, 0.32);
+      pointer-events: none;
 
       &.svg-stroke {
         stroke: hsla(0, 0%, 0%, 0.32);

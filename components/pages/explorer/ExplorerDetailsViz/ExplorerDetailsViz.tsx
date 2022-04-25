@@ -10,7 +10,7 @@ import { barLineTransformer, SimpleBarLineChartViz } from 'components/viz';
 import IndicatorCheckbox from './IndicatorCheckbox';
 import ConstituencySelect from './ConstituencySelect';
 
-const ExplorerViz = ({ data, meta, fileData, handleReportBtn, scheme }) => {  
+const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {  
   const [selectedIndicator, setSelectedIndicator] =
     useState('Budget Estimates');
   const [indicatorFiltered, setIndicatorFiltered] = useState([]);
@@ -23,7 +23,7 @@ const ExplorerViz = ({ data, meta, fileData, handleReportBtn, scheme }) => {
 
   useEffect(() => {
     handleNewVizData('Budget Estimates');
-  }, [fileData]);
+  }, []);
 
   useEffect(() => {
     if (meta.sabha == 'lok') {
@@ -119,18 +119,18 @@ const ExplorerViz = ({ data, meta, fileData, handleReportBtn, scheme }) => {
 
   function handleNewVizData(val: any) {
     if (val) {
-      const filtered = filter_data_indicator(fileData, val);
-      const budgetType = [
-        ...Array.from(new Set(filtered.map((item) => item.budgetType))),
-      ];
+      // const filtered = filter_data_indicator(fileData, val);
+      // const budgetType = [
+      //   ...Array.from(new Set(filtered.map((item) => item.budgetType))),
+      // ];
 
-      const budgetTypeArray = budgetType.map((item) => {
-        return { title: item, value: item };
-      });
+      // const budgetTypeArray = budgetType.map((item) => {
+      //   return { title: item, value: item };
+      // });
 
       setSelectedIndicator(val);
-      setIndicatorFiltered(filtered);
-      setBudgetTypes(budgetTypeArray);
+      // setIndicatorFiltered(filtered);
+      // setBudgetTypes(budgetTypeArray);
     }
   }
 
@@ -152,7 +152,6 @@ const ExplorerViz = ({ data, meta, fileData, handleReportBtn, scheme }) => {
     } else {
       tempArr.push(elm.id);
     }
-    console.log(tempArr);
     setSelectedYear(tempArr);
 
     // for ui changes only

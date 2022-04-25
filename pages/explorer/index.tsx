@@ -15,13 +15,13 @@ import {
   HeaderControls,
   SchemesMenu,
 } from 'components/pages/shared/SchemeSelector/SchemeSelector';
-import { dataTransform } from 'utils/fetch';
+import { dataTransform, fetchQuery } from 'utils/fetch';
 
 type Props = {
   data: any;
   meta: any;
-  fileData: any;
   scheme: any;
+  statesData: any;
 };
 
 const headerData = {
@@ -31,13 +31,15 @@ const headerData = {
 
 function verifyState(state) {
   if (
-    ['UP', 'Chhattisgarh'].some((e) => e.toLowerCase() === state.toLowerCase())
+    ['Uttar Pradesh', 'Chhattisgarh'].some(
+      (e) => e.toLowerCase() === state.toLowerCase()
+    )
   )
     return true;
   else return false;
 }
 
-const Explorer: React.FC<Props> = ({ data, fileData, scheme }) => {
+const Explorer: React.FC<Props> = ({ data, scheme, statesData }) => {
   const [showReport, setShowReport] = useState(false);
   const [meta, setMeta] = useState({});
 
@@ -56,6 +58,8 @@ const Explorer: React.FC<Props> = ({ data, fileData, scheme }) => {
             suggestion={false}
             sabha={false}
             state={data.state}
+            scheme={data.scheme}
+            statesData={statesData}
           />
 
           {Object.keys(data).length !== 0 && verifyState(data.state) ? (
@@ -65,7 +69,6 @@ const Explorer: React.FC<Props> = ({ data, fileData, scheme }) => {
                 <ExplorerViz
                   data={data}
                   meta={meta}
-                  fileData={fileData}
                   handleReportBtn={handleReportBtn}
                   scheme={scheme}
                 />
@@ -75,7 +78,6 @@ const Explorer: React.FC<Props> = ({ data, fileData, scheme }) => {
                 <ExplorerDetailsViz
                   data={data}
                   meta={meta}
-                  fileData={fileData}
                   handleReportBtn={handleReportBtn}
                   scheme={scheme}
                 />
@@ -91,46 +93,31 @@ const Explorer: React.FC<Props> = ({ data, fileData, scheme }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  // fetch dataset
-  const dataRes = await fetchAPI(context.query.scheme);
-  const state = context.query.state || '';
-  const scheme = await dataTransform('mgnrega');
+  const { state, schemeName, sabha } = context.query;
+  const scheme = await dataTransform(context.query.scheme || '');
+
+  const stateList = await fetchQuery(
+    'schemeType',
+    'Centrally Sponsored Scheme'
+  );
 
   let data: any = {};
-  let fileData: any = {};
   const meta = {};
 
-  if (dataRes.success) {
-    data = explorerPopulation(dataRes.result);
-
-    // fetch and parse metadata csv
-    const metaRes = await resourceGetter(data.metaUrl);
-    metaRes.forEach((elm) => {
-      meta[elm[0]] = elm[1] || '';
-    });
-
-    // fetch and parse data csv
-    fileData = await resourceGetter(data.dataUrl, true);
-
-    // generate indicators
-    const indicators = [
-      ...Array.from(
-        new Set(
-          fileData.map((item: { indicators: any }) => item.indicators || null)
-        )
-      ),
-    ];
-
-    data.indicators = indicators;
-    data.state = state;
-  }
+  data.state = state || '';
+  data.scheme = schemeName || '';
+  data.sabha = sabha || '';
 
   return {
     props: {
       data,
       meta,
-      fileData,
       scheme,
+      statesData: stateList.map((scheme) => ({
+        state: scheme.extras[3].value,
+        scheme_name: scheme.extras[0].value,
+        slug: scheme.extras[2].value,
+      })),
     },
   };
 };

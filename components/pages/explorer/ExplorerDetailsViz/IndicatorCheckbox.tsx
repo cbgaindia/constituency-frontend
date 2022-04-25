@@ -42,7 +42,6 @@ const IndicatorCheckbox = ({ data, newIndicator, selectedIndicator }) => {
     indicatorRef.current.querySelectorAll('input').forEach((item) => {
       if (item.checked) checkedIndicators.push(item.value);
     });
-    console.log(checkedIndicators);
   }
 
   return (

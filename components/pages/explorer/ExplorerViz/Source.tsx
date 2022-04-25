@@ -8,7 +8,7 @@ const Source = ({
   currentViz,
   selectedBudgetType,
   indicatorFiltered,
-}) => {
+}) => {  
   return (
     <ExplorerSource>
       <SourceText>

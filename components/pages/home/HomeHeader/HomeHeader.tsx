@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import SchemeSelector from 'components/pages/shared/SchemeSelector';
 import { HeaderControls } from 'components/pages/shared/SchemeSelector/SchemeSelector';
 
-const HomeHeader = () => {
+const HomeHeader = ({ statesData }) => {
   return (
     <Header>
       <div className="container">
@@ -14,7 +14,7 @@ const HomeHeader = () => {
           </span>{' '}
           <span className="gradient-amazon">for schemes</span>
         </h1>
-        <SchemeSelector />
+        <SchemeSelector statesData={statesData} />
       </div>
     </Header>
   );

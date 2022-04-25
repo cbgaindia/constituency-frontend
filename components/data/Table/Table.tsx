@@ -34,7 +34,7 @@ const sortRowsByIndex = (rows, sortedIndex, sortedDirection) =>
     }
   });
 
-const Table = ({ headers, rows, caption, sortable }) => {
+const Table = ({ headers, rows, caption, sortable }) => {  
   const container = useRef(null);
   //The captionID is calculated and stored as init value of a ref.
   //This ensures that the ID remains constant for all renders.

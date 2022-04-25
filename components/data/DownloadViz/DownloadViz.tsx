@@ -70,10 +70,10 @@ function createDummyCanvas(srcCanvas) {
   return destinationCanvas.toDataURL('image/jpeg', 0.8);
 }
 
-const DownloadViz = ({ viz, type, name, indicator }) => {
+const DownloadViz = ({ viz, type, name, indicator }) => {  
   function svg2img() {
     const canvas = document.querySelector(
-      `${viz} > .echarts-for-react canvas`
+      `${viz} .echarts-for-react canvas`
     ) as HTMLCanvasElement;
     const myChart = createDummyCanvas(canvas);
 
