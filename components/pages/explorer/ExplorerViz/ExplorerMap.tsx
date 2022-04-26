@@ -79,12 +79,12 @@ const ExplorerMap = ({
       setMapIndicator(vizIndicators);
     }
   }, [schemeData]);
-
   useEffect(() => {
     if (mapFile.features && schemeData) {
-      const tempData = mapFile.features.map((item, index) => ({
-        name: item.properties.name,
-        value: schemeData[index] || 0,
+      const tempData = Object.keys(schemeData).map((item) => ({
+        name: item,
+        value: schemeData[item] || 0,
+        mapName: mapFile.features[item]?.properties['GEO_NAME'],
       }));
 
       setMapvalues(tempData);

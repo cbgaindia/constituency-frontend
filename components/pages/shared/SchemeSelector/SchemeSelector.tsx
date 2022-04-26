@@ -120,7 +120,8 @@ const SchemeSelector: React.FC<{
         value: item.scheme_slug,
         title: item.scheme_name,
       }));
-      setSelectedScheme(tempSchemes[0]);
+      // if()
+      // setSelectedScheme(tempSchemes[0]);
       setAvailableSchemes(tempSchemes);
     }
   }, [selectedState, stateSchemeData]);
@@ -169,15 +170,6 @@ const SchemeSelector: React.FC<{
         pathname: '/explorer',
         query: { scheme: selectedScheme.value, state: selectedState.value },
       });
-      // router.replace(
-      //   `/explorer?scheme=${selectedScheme.value}&state=${selectedState.value}`
-      // );
-      // const obj = {
-      //   state: selectedState.value,
-      //   scheme: selectedScheme.value,
-      //   sabha: selectedSabha,
-      // };
-      // console.log(obj);
     }
   }
 
@@ -232,8 +224,8 @@ const SchemeSelector: React.FC<{
         </SchemeMenu>
         <Button
           kind="primary"
-          href={`/explorer?scheme=${selectedScheme.value}&state=${
-            selectedState.value
+          href={`/explorer?scheme=${selectedScheme.value || 'mgnrega'}&state=${
+            selectedState.value || 'Bihar'
           }&sabha=${router.query.sabha ? router.query.sabha : selectedSabha}`}
         >
           Explore

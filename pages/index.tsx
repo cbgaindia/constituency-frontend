@@ -20,9 +20,9 @@ export default function Home({ statesData }) {
       <HomePage>
         <HomeHeader statesData={statesData} />
         <HomeAbout />
-        <HomeHighlight />
+        {/* <HomeHighlight /> */}
         <HomeStates />
-        <HomeQuiz />
+        {/* <HomeQuiz /> */}
         <BGSpace />
       </HomePage>
     </>

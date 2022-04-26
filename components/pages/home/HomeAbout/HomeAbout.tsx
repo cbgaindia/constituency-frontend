@@ -26,9 +26,9 @@ const HomeAbout = () => {
             ever since the 1500s, when an unknown printer took a galley of type
             and scrambled it to make a type specimen book.
           </p>
-          <Button kind="secondary" size="sm" href="#">
+          {/* <Button kind="secondary" size="sm" href="#">
             Know More
-          </Button>
+          </Button> */}
         </ContentWrapper>
       </div>
     </About>
@@ -45,7 +45,7 @@ const About = styled.section`
     flex-wrap: wrap;
     align-items: center;
     gap: 64px;
-    padding-top: 104px;
+    padding-block: 104px;
   }
 
   .yt-lite {

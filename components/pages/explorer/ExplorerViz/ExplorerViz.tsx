@@ -232,7 +232,6 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
       ),
     },
   ];
-  // console.log(schemeData.metadata.indicators);
 
   const schemeNotes = {
     heading:

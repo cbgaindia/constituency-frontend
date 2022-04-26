@@ -21,7 +21,11 @@ const MapViz = ({
   const [mapOptions, setMapOptions] = useState({});
   useEffect(() => {
     if (Object.keys(mapFile).length > 0) {
-      const map = JSON.stringify(mapFile);
+      const map = mapFile;
+      map.features.forEach(
+        (obj) => (obj.properties['GEO_NO'] = String(obj.properties['GEO_NO']))
+      );
+      
       echarts.registerMap(sabha, map, {});
 
       const options = {
@@ -30,6 +34,13 @@ const MapViz = ({
           trigger: 'item',
           showDelay: 0,
           transitionDuration: 0.2,
+          formatter: function (params) {
+            console.log(params);
+            
+            if (params.data)
+              return `${params.data.mapName}: ${params.data.value}`;
+            else return 'No data';
+          },
         },
         visualMap: {
           type: 'piecewise',
@@ -47,7 +58,7 @@ const MapViz = ({
               '#173B3B',
             ],
           },
-          text: ['Units: ₹ Lakhs'],
+          text: ['Units: ₹ Crores'],
           padding: 8,
           showLabel: true,
         },
@@ -57,6 +68,7 @@ const MapViz = ({
             type: 'map',
             roam: true,
             map: sabha,
+            nameProperty: 'GEO_NO',
             zoom: 1.3,
             itemStyle: {
               borderColor: '#ffffff',

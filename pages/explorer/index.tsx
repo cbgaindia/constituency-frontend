@@ -31,15 +31,22 @@ const headerData = {
 
 function verifyState(state) {
   if (
-    ['Uttar Pradesh', 'Chhattisgarh'].some(
-      (e) => e.toLowerCase() === state.toLowerCase()
-    )
+    [
+      'Uttar Pradesh',
+      'Chhattisgarh',
+      'Bihar',
+      'Odisha',
+      'Maharashtra',
+      'Jharkhand',
+    ].some((e) => e.toLowerCase() === state.toLowerCase())
   )
     return true;
   else return false;
 }
 
-const Explorer: React.FC<Props> = ({ data, scheme, statesData }) => {
+const Explorer: React.FC<Props> = ({ data, scheme, statesData }) => {  
+  console.log(scheme);
+  
   const [showReport, setShowReport] = useState(false);
   const [meta, setMeta] = useState({});
 
