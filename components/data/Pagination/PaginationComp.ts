@@ -2,10 +2,10 @@ import styled from 'styled-components';
 
 export const PaginationComp = styled.div`
   margin-top: 1rem;
-  padding: 1.5rem;
+  padding: 20px;
   background-color: #fff;
   border-radius: 12px;
-  border: var(--border-2);
+  /* border: var(--border-2); */
   align-items: center;
   gap: 1rem;
   font-weight: var(--font-weight-medium);
@@ -49,12 +49,13 @@ export const PaginationJump = styled.div`
 `;
 
 export const ButtonsLabel = styled.span`
-  color: var(--text-light-light);
+  color: var(--text-light-medium);
   font-weight: normal;
   line-height: 140%;
 
   span {
-    font-weight: 500;
+    font-weight: 600;
+    color: var(--text-light-high);
 
     @media (max-width: 620px) {
       margin: 0 5px;
