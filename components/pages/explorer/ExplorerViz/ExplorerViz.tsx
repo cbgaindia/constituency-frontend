@@ -1,11 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import styled from 'styled-components';
-import {
-  tabbedInterface,
-  filter_data_indicator,
-  filter_data_budgettype,
-} from 'utils/explorer';
+import { tabbedInterface } from 'utils/explorer';
 
 import { barLineTransformer } from 'components/viz';
 
@@ -30,7 +26,7 @@ function matchState(state) {
 
 const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
   const [indicatorFiltered, setIndicatorFiltered] = useState([]);
-  const [finalFiltered, setFinalFiltered] = useState([]);
+  const [filtered, setFiltered] = useState([]);
   const [isTable, setIsTable] = useState(false);
   const [currentViz, setCurrentViz] = useState('#mapView');
   const [selectedSabha, setSelectedSabha] = useState(
@@ -41,6 +37,7 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
   const [selectedIndicator, setSelectedIndicator] = useState('');
   const [selectedYear, setSelectedYear] = useState(undefined);
   const [financialYears, setFinancialYears] = useState(undefined);
+  const [tableData, setTableData] = useState<any>({});
 
   const barRef = useRef(null);
   const mapRef = useRef(null);
@@ -52,7 +49,9 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
     const tablist = document.querySelector('.viz__tabs');
     const panels = document.querySelectorAll('.viz__graph');
     tabbedInterface(tablist, panels);
+  }, []);
 
+  useEffect(() => {
     // fill up available financial years for state+sabha
     const years = Object.keys(
       Object.values(schemeData.data)[0]['state_Obj'][matchState(state)]
@@ -62,7 +61,36 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
     }));
     setFinancialYears(years); // all years
     setSelectedYear(years[0].value); // default year
-  }, [data]);
+
+    // setting tabular data
+    const tableHeader = [{ Header: 'Constituency', accessor: 'constHeader' }];
+    if (years) {
+      years.forEach((element) =>
+        tableHeader.push({
+          Header: `${selectedIndicator.replaceAll('-', ' ')} ${element.title}`,
+          accessor: `${selectedIndicator}-${element.title}`,
+        })
+      );
+    }
+
+    const rowData = [];
+    if (filtered[selectedYear]) {
+      Object.values(filtered[selectedYear]).forEach((item, index) => {
+        rowData.push({
+          [tableHeader[0].accessor]: 'Cons Name',
+          [tableHeader[1].accessor]: filtered[years[0].title][index + 1],
+          [tableHeader[2].accessor]: filtered[years[1].title][index + 1],
+        });
+      });
+    }
+
+    const tableData: any = {};
+
+    tableData.header = tableHeader;
+    tableData.rows = rowData;
+
+    setTableData(tableData);
+  }, [filtered]);
 
   useEffect(() => {
     if (selectedSabha == 'lok') {
@@ -105,7 +133,7 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
         const filtered =
           schemeData.data[indicatorID]['state_Obj'][matchState(state)];
 
-        setFinalFiltered(filtered[selectedYear]);
+        setFiltered(filtered);
         setIndicatorFiltered(filtered);
       }
 
@@ -114,9 +142,7 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
   }
 
   function handleDropdownChange(val: any) {
-    // const finalFiltered = filter_data_budgettype(indicatorFiltered, val);
     setSelectedYear(val);
-    // setFinalFiltered(finalFiltered);
   }
 
   function handleToggler(e) {
@@ -128,14 +154,6 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
     }
   }
 
-  const tableHeader = ['Constituency'];
-  if (financialYears) {
-    financialYears.forEach((element) =>
-      tableHeader.push(
-        `${selectedIndicator.replace('-', ' ')} ${element.title}`
-      )
-    );
-  }
   const vizToggle = [
     {
       name: 'Map View',
@@ -193,7 +211,7 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
           state={state}
           selectedIndicator={selectedIndicator}
           handleReportBtn={handleReport}
-          schemeData={finalFiltered}
+          schemeData={filtered[selectedYear]}
         />
       ),
       ref: mapRef,
@@ -203,7 +221,7 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
       graph: (
         // <SimpleBarLineChartViz
         //   color={'#00ABB7'}
-        //   dataset={barLineTransformer(finalFiltered, selectedIndicator)}
+        //   dataset={barLineTransformer(filtered[selectedYear], selectedIndicator)}
         //   type="bar"
         //   smooth={true}
         //   showSymbol={true}
@@ -217,18 +235,17 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
     },
     {
       id: 'tableView',
-      graph: (
+      graph: tableData.rows ? (
         <Table
-          headers={schemeData.metadata ? tableHeader : ['table not available']}
-          rows={
-            indicatorFiltered[0]
-              ? Object.values(Object.values(indicatorFiltered)[0])
-              : []
+          header={
+            tableData.header ? tableData.header : ['table not available']
           }
-          caption="Table"
-          sortable
+          rows={tableData.rows ? tableData.rows : []}
+          // caption="Table"
+          // sortable
         />
-        // <></>
+      ) : (
+        <></>
       ),
     },
   ];

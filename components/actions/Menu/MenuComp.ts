@@ -84,7 +84,7 @@ export const MenuContent = styled.ul<MenuProps>`
   background-color: var(--color-background-lighter);
   border: var(--border-1);
   box-shadow: var(--box-shadow-1);
-  border-radius: 0px 0px 4px 4px;
+  border-radius: ${(props: any) => (props.top == true ? '4px 4px 0 0' : '0 0 4px 4px')};
   padding: 8px;
 
   max-height: 300px;

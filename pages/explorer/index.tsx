@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import styled from 'styled-components';
-import { fetchAPI, explorerPopulation, fetchFromTags } from 'utils/explorer';
-import { resourceGetter } from 'utils/resourceParser';
 
 import {
   ExplorerDetailsViz,
@@ -44,9 +42,7 @@ function verifyState(state) {
   else return false;
 }
 
-const Explorer: React.FC<Props> = ({ data, scheme, statesData }) => {  
-  console.log(scheme);
-  
+const Explorer: React.FC<Props> = ({ data, scheme, statesData }) => {
   const [showReport, setShowReport] = useState(false);
   const [meta, setMeta] = useState({});
 

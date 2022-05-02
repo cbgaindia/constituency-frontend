@@ -1,213 +1,265 @@
-import React, { Fragment, useRef, useState, useEffect, useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
+import { useTable, usePagination, useSortBy } from 'react-table';
+import { ArrowDown, SortIcon } from 'components/icons';
+import { truncate } from 'utils/helper';
+import { Button, Menu } from 'components/actions';
+import PaginationComp, {
+  ButtonsLabel,
+  PaginationButtons,
+  PaginationJump,
+} from '../Pagination/PaginationComp';
+import {
+  MenuButton,
+  MenuContent,
+  MenuLabel,
+} from 'components/actions/Menu/MenuComp';
 
-const Arrow = ({ sortDir, isCurrent }) => {
-  const ascending = sortDir === 'ascending';
-  return (
-    <svg viewBox="0 0 100 200" width="100" height="200">
-      {!(!ascending && isCurrent) && <polyline points="20 50, 50 20, 80 50" />}
-      <line x1="50" y1="20" x2="50" y2="180" />
-      {!(ascending && isCurrent) && (
-        <polyline points="20 150, 50 180, 80 150" />
-      )}
-    </svg>
+const paginationItems = [
+  {
+    title: '10',
+    value: '10',
+  },
+  {
+    title: '20',
+    value: '20',
+  },
+  {
+    title: '50',
+    value: '50',
+  },
+];
+
+const ReactTable = ({ columns, data }) => {
+  const [totalRows, setTotalRows] = useState('10');
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    prepareRow,
+    page, // Instead of using 'rows', we'll use page,
+    // which has only the rows for the active page
+
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    state: { pageIndex, pageSize },
+  } = useTable(
+    {
+      columns,
+      data,
+      initialState: { pageIndex: 0 },
+    },
+    useSortBy,
+    usePagination
   );
-};
-
-//Function can be seen as general and not needed in the component
-//scope. This also removes the need to declare it in the
-//dependency arrays of hooks such as useMemo.
-const sortRowsByIndex = (rows, sortedIndex, sortedDirection) =>
-  rows.slice(0).sort((a, b) => {
-    if (sortedDirection === 'ascending') {
-      return a[sortedIndex] > b[sortedIndex]
-        ? 1
-        : a[sortedIndex] < b[sortedIndex]
-        ? -1
-        : 0;
-    } else {
-      return a[sortedIndex] < b[sortedIndex]
-        ? 1
-        : a[sortedIndex] > b[sortedIndex]
-        ? -1
-        : 0;
-    }
-  });
-
-const Table = ({ headers, rows, caption, sortable }) => {  
-  const container = useRef(null);
-  //The captionID is calculated and stored as init value of a ref.
-  //This ensures that the ID remains constant for all renders.
-  const captionID = useRef(`caption-${rows[0]}`);
-  const [tabIndex, setTabIndex] = useState(null);
-  //The following two state vars could be combined into an object,
-  //but keeping them separate makes the usage cleaner. It is a matter
-  //of taste.
-  const [sortedBy, setSortedBy] = useState(null);
-  const [sortDir, setSortDir] = useState('none');
-
-  //Declaring useEffect with an empty deps array is the same
-  //as componentDidMount in React class components.
-  useEffect(() => {
-    const { scrollWidth, clientWidth } = container.current;
-    const scrollable = scrollWidth > clientWidth;
-    setTabIndex(scrollable ? '0' : null);
-  }, [headers]);
-
-  //The sorted rows are calculated directly from the prop. There is no need to
-  //repeat it on state. However, in a real world table example one would probably
-  //not want to recalc this with every render. So the useMemo hook is used to
-  //memoize the return value unless the related state changes.
-  const sortedRows = useMemo(
-    () => sortRowsByIndex(rows, sortedBy, sortDir),
-    [rows, sortedBy, sortDir]
-  );
-
-  const sortBy = (i) => {
-    let updatedSortDir;
-    const ascending = sortDir === 'ascending';
-    if (i === sortedBy) {
-      updatedSortDir = !ascending ? 'ascending' : 'descending';
-    } else {
-      updatedSortDir = 'ascending';
-    }
-    setSortedBy(i);
-    setSortDir(updatedSortDir);
-  };
+  console.log('totalRows', totalRows);
 
   return (
-    <Fragment>
-      <TableWrapper
-        className="table-container"
-        ref={container}
-        tabIndex={tabIndex}
-        aria-labelledby={captionID.current}
-        role="group"
-      >
-        <table>
-          <caption id={captionID.current}>
-            <span className="sr-only">{caption}</span>
-            {tabIndex === '0' && (
-              <div>
-                <small>(scroll to see more)</small>
-              </div>
-            )}
-          </caption>
-          <tbody>
-            <tr>
-              {headers.map((header, i) => (
+    <Wrapper>
+      <TableWrapper {...getTableProps()}>
+        <THead>
+          {headerGroups.map((headerGroup, index) => (
+            <tr
+              key={`table-tr-${index}`}
+              {...headerGroup.getHeaderGroupProps()}
+            >
+              {headerGroup.headers.map((column, j) => (
                 <th
-                  role="columnheader"
-                  scope="col"
-                  key={i}
-                  // aria-sort={sortedBy === i ? sortDir : "none"}
+                  key={`table-th-${j}`}
+                  {...column.getHeaderProps(column.getSortByToggleProps())}
                 >
-                  {header}
-                  {sortable && (
-                    <button onClick={() => sortBy(i)}>
-                      <span className="sr-only">
-                        sort by {header} in{' '}
-                        {sortDir !== 'ascending' ? 'ascending' : 'descending'}{' '}
-                        order
-                      </span>
-                      <Arrow sortDir={sortDir} isCurrent={sortedBy === i} />
-                    </button>
-                  )}
+                  {column.render('Header')}{' '}
+                  <Button
+                    // icon={<SortIcon fill="#000000" />}
+                    icon={
+                      column.isSorted ? (
+                        column.isSortedDesc ? (
+                          <ArrowDown fill="#000000" />
+                        ) : (
+                          <ArrowDown
+                            fill="#000000"
+                            style={{ transform: 'rotate(180deg)' }}
+                          />
+                        )
+                      ) : (
+                        <SortIcon fill="#000000" />
+                      )
+                    }
+                    iconOnly
+                    kind="custom"
+                  >
+                    Sort
+                  </Button>
                 </th>
               ))}
             </tr>
-            {sortedRows.map((row, i) => (
-              <tr key={i}>
-                {row.map((cell, i) => (
-                  <td key={i}>{cell}</td>
-                ))}
+          ))}
+        </THead>
+        <TBody {...getTableBodyProps()}>
+          {page.map((row, i) => {
+            prepareRow(row);
+            return (
+              <tr key={`table-tr1-${i}`} {...row.getRowProps()}>
+                {row.cells.map((cell, j) => {
+                  return (
+                    <td key={`table-td-${j}`} {...cell.getCellProps()}>
+                      {cell.render('Cell')}
+                    </td>
+                  );
+                })}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            );
+          })}
+        </TBody>
       </TableWrapper>
-    </Fragment>
+      <PaginationComp className="pagination">
+        <Menu
+          options={paginationItems}
+          heading="Rows:"
+          handleChange={(e) => {
+            setTotalRows(e);
+            setPageSize(Number(e));
+          }}
+          value={totalRows}
+          top={true}
+          position="left"
+        />
+
+        <PaginationJump>
+          <label className="label-green" htmlFor="jumpNumber">
+            Jump to: &nbsp;
+            <input
+              type="text"
+              id="jumpNumber"
+              defaultValue={pageIndex + 1}
+              onChange={(e) => {
+                const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                gotoPage(page);
+              }}
+            />
+          </label>
+        </PaginationJump>
+
+        <PaginationButtons>
+          <ButtonsLabel>
+            Page No. {<span>{pageIndex + 1}</span>} of{' '}
+            {<span>{pageOptions.length}</span>}
+          </ButtonsLabel>
+          <div>
+            <Button
+              onClick={() => previousPage()}
+              kind="custom"
+              className="pagination__back"
+              icon={<ArrowDown />}
+              iconOnly={true}
+            >
+              Previous Page
+            </Button>
+            <Button
+              onClick={() => nextPage()}
+              className="pagination__next"
+              icon={<ArrowDown />}
+              iconOnly={true}
+            >
+              Next Page
+            </Button>
+          </div>
+        </PaginationButtons>
+      </PaginationComp>
+    </Wrapper>
   );
+};
+
+const Table = ({ rows, header }) => {
+  const columns = useMemo(() => header, [header]);
+  const data = useMemo(() => rows, [rows]);
+
+  return columns.length ? <ReactTable columns={columns} data={data} /> : <></>;
 };
 
 export default Table;
 
-export const TableWrapper = styled.div`
-  table {
-    border-collapse: collapse;
-    background-color: var(--color-grey-600);
+const Wrapper = styled.div`
+  ${PaginationComp} {
+    position: sticky;
+    bottom: 0;
+    border-top: var(--border-1);
+    border-radius: 0;
+    padding-bottom: 0;
   }
+
+  ${MenuLabel} {
+    color: var(--color-primary);
+    font-size: 1rem;
+    font-weight: var(--font-weight-medium);
+  }
+
+  ${MenuButton} {
+    min-width: 80px;
+  }
+
+  ${MenuContent} {
+    max-width: 80px;
+  }
+`;
+
+export const TableWrapper = styled.table`
+  border-collapse: collapse;
+  line-height: 1.38;
+  width: 100%;
+  min-height: 494px;
 
   th,
   td {
-    // border: 2px solid #000;
-    padding: 0.75rem;
+    padding: 8px 12px;
     text-align: left;
-  }
-
-  th {
-    font-weight: bold;
-    white-space: nowrap;
-  }
-
-  th {
-    background-color: var(--color-grey-600);
-  }
-
-  tr:first-of-type th:not(:last-child) {
-    border-right-color: #fff;
-  }
-
-  tr:first-child th:first-child,
-  tr:not(:first-child):not(:last-child) th {
-    border-bottom-color: #fff !important;
   }
 
   caption {
-    margin-bottom: 0.5rem;
+    margin-bottom: 8px;
     font-style: italic;
     text-align: left;
   }
+`;
 
-  dl {
+const THead = styled.thead`
+  position: sticky;
+  top: 0;
+  background-color: var(--color-grey-600);
+  border-radius: 4px;
+  display: block;
+
+  tr {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  th {
+    font-weight: 600;
+    text-transform: capitalize;
     display: flex;
-    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
   }
+`;
 
-  dl > * {
-    flex: 0 0 50%;
-    margin: 0;
-  }
+const TBody = styled.tbody`
+  display: block;
 
-  dt {
-    padding-right: 0.5rem;
-  }
+  tr {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    width: 100%;
 
-  dt {
-    font-weight: bold;
-  }
-
-  th button {
-    background-color: var(--color-grey-500);
-    border: 0;
-    padding: 0.125rem 0.5rem;
-    border-radius: 0.25rem;
-    font-weight: bold;
-    vertical-align: middle;
-    margin-left: 1rem;
-  }
-
-  h3 {
-    padding: 0.5rem;
-  }
-
-  th svg {
-    stroke: currentColor;
-    stroke-width: 20;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    fill: none;
-    width: 0.5rem;
-    height: 1.5em;
+    &:not(:last-child) {
+      border-bottom: var(--border-2);
+    }
   }
 `;

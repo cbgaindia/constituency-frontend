@@ -34,9 +34,7 @@ const MapViz = ({
           trigger: 'item',
           showDelay: 0,
           transitionDuration: 0.2,
-          formatter: function (params) {
-            console.log(params);
-            
+          formatter: function (params) {            
             if (params.data)
               return `${params.data.mapName}: ${params.data.value}`;
             else return 'No data';
