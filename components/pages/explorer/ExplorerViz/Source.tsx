@@ -7,8 +7,8 @@ const Source = ({
   title,
   currentViz,
   selectedBudgetType,
-  indicatorFiltered,
-}) => {  
+  selectedIndicator,
+}) => {
   return (
     <ExplorerSource>
       <SourceText>
@@ -31,11 +31,7 @@ const Source = ({
         <DownloadViz
           viz={currentViz}
           type={selectedBudgetType}
-          indicator={
-            indicatorFiltered[0]
-              ? indicatorFiltered[0]['indicators']
-              : 'Budget Estimates'
-          }
+          indicator={selectedIndicator ? selectedIndicator : 'Opening Balance'}
           name={title}
         />
       </SourceButtons>

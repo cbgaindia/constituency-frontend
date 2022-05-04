@@ -95,9 +95,11 @@ const ExplorerMap = ({
     let newObj = [];
     setSearchQuery(query);
     if (query.length > 0) {
+      console.log(obj);
+
       Object.keys(obj).forEach(() => {
         newObj = obj.filter((item) =>
-          JSON.stringify(item, ['name'])
+          JSON.stringify(item, ['mapName'])
             .toLowerCase()
             .includes(query.toLowerCase())
         );
@@ -107,7 +109,7 @@ const ExplorerMap = ({
   }
 
   const newMapItem = useCallback((e) => {
-    setSelectedItem(e);
+    setSelectedItem(e.mapName);
     setSearchItems([]);
     setSearchQuery('');
     (document.getElementById('searchInput') as HTMLInputElement).value = '';
@@ -119,7 +121,7 @@ const ExplorerMap = ({
     if (myChart) {
       myChart.dispatchAction({
         type: 'select',
-        name: e,
+        name: e.name,
       });
     }
   }, []);
@@ -150,9 +152,15 @@ const ExplorerMap = ({
               <li key={`searchItems-${index}`}>
                 <button
                   id={items.name}
-                  onClick={(e: any) => newMapItem(e.target.id)}
+                  data-name={items.mapName}
+                  onClick={(e: any) =>
+                    newMapItem({
+                      name: e.target.id,
+                      mapName: e.target.dataset.name,
+                    })
+                  }
                 >
-                  {items.name}
+                  {items.mapName}
                 </button>
               </li>
             ))}

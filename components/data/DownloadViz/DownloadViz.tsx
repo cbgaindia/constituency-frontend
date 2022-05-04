@@ -5,8 +5,10 @@ import { Download } from 'components/icons';
 import { Button } from 'components/actions';
 
 function fileName(type, name, indicator, format) {
+  console.log(type, name, indicator, format);
+  
   // splitting the string to find the required part of title
-  const shortName = stripTitle(name);
+  const shortName = name;
 
   // If there is no type, eg: table, don;t add it to the name
   if (type != 'NA' && format != 'csv')

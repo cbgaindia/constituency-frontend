@@ -96,8 +96,8 @@ const Explorer: React.FC<Props> = ({ data, scheme, statesData }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { state, schemeName, sabha } = context.query;
-  const scheme = await dataTransform(context.query.scheme || '');
+  const { state, scheme, sabha } = context.query;
+  const schemeData = await dataTransform(context.query.scheme || '');
 
   const stateList = await fetchQuery(
     'schemeType',
@@ -105,17 +105,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   );
 
   let data: any = {};
-  const meta = {};
 
   data.state = state || '';
-  data.scheme = schemeName || '';
+  data.scheme = scheme || '';
   data.sabha = sabha || '';
 
   return {
     props: {
       data,
-      meta,
-      scheme,
+      scheme: schemeData,
       statesData: stateList.map((scheme) => ({
         state: scheme.extras[3].value,
         scheme_name: scheme.extras[0].value,

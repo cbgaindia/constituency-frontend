@@ -59,7 +59,6 @@ const ReactTable = ({ columns, data }) => {
     useSortBy,
     usePagination
   );
-  console.log('totalRows', totalRows);
 
   return (
     <Wrapper>

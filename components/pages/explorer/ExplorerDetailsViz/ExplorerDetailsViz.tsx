@@ -1,143 +1,54 @@
 import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
-import { filter_data_indicator, filter_data_budgettype } from 'utils/explorer';
 
 import { Indicator, IndicatorMobile } from 'components/data';
 import Source from '../ExplorerViz/Source';
 import Toggler from './Toggler';
 import { Info } from 'components/icons';
-import { barLineTransformer, SimpleBarLineChartViz } from 'components/viz';
-import IndicatorCheckbox from './IndicatorCheckbox';
+import { SimpleBarLineChartViz } from 'components/viz';
 import ConstituencySelect from './ConstituencySelect';
 
-const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {  
+const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
   const [selectedIndicator, setSelectedIndicator] =
-    useState('Budget Estimates');
-  const [indicatorFiltered, setIndicatorFiltered] = useState([]);
-  const [finalFiltered, setFinalFiltered] = useState([]);
+    useState('opening-balance');
   const [budgetTypes, setBudgetTypes] = useState([]);
   const [selectedBudgetType, setSelectedBudgetType] = useState('');
   const [compareItem, setCompareItem] = useState(undefined);
-  const [selectedYear, setSelectedYear] = useState(['2019-20', '2021-22']);
+  const [selectedYear, setSelectedYear] = useState(['2018-19', '2019-20']);
+  const [filteredData, setFilteredData] = useState([]);
   const [schemeData, setSchemeData] = useState(scheme.ac);
+  const [barData, setBarData] = useState([]);
 
   useEffect(() => {
-    handleNewVizData('Budget Estimates');
+    handleNewVizData(selectedIndicator);
   }, []);
 
   useEffect(() => {
-    if (meta.sabha == 'lok') {
+    // creating available years array
+    const fObj = Object.values(schemeData.data).find(
+      (o: any) => o.slug.toLowerCase() === selectedIndicator.toLowerCase()
+    );
+    const stateData = fObj['state_Obj'][data.state];
+    setFilteredData(stateData);
+  }, [selectedIndicator]);
+
+  useEffect(() => {
+    if (filteredData) {
+      const barValues = selectedYear.map((year) => filteredData[year]['5']); // 5 is hard coded
+      setBarData(barValues);
+    }
+  }, [selectedYear, filteredData]);
+
+  useEffect(() => {
+    if (data.sabha == 'lok') {
       setSchemeData(scheme.pc);
     } else setSchemeData(scheme.ac);
-  }, [meta]);
-
-  // todo: make it dynamic lie scheme dashboard
-  const IndicatorDesc = [
-    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos quia, eligendi commodi aliquid',
-    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos quia, eligendi commodi aliquid',
-    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos quia, eligendi commodi aliquid',
-    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos quia, eligendi commodi aliquid',
-    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos quia, eligendi commodi aliquid',
-  ];
-
-  // const mapData = [
-  //   { name: 'SAHARANPUR', value: 4822023 },
-  //   { name: 'KAIRANA', value: 731449 },
-  //   { name: 'MUZAFFARNAGAR', value: 6553255 },
-  //   { name: 'BIJNOR', value: 2949131 },
-  //   { name: 'NAGINA (SC)', value: 38041430 },
-  //   { name: 'MORADABAD', value: 5187582 },
-  //   { name: 'RAMPUR', value: 3590347 },
-  //   { name: 'SAMBHAL', value: 917092 },
-  //   { name: 'District of Columbia', value: 632323 },
-  //   { name: 'Florida', value: 19317568 },
-  //   { name: 'Georgia', value: 9919945 },
-  //   { name: 'Hawaii', value: 1392313 },
-  //   { name: 'Idaho', value: 1595728 },
-  //   { name: 'Illinois', value: 12875255 },
-  //   { name: 'Indiana', value: 6537334 },
-  //   { name: 'Iowa', value: 3074186 },
-  //   { name: 'Kansas', value: 2885905 },
-  //   { name: 'Kentucky', value: 4380415 },
-  //   { name: 'Louisiana', value: 4601893 },
-  //   { name: 'Maine', value: 1329192 },
-  //   { name: 'Maryland', value: 5884563 },
-  //   { name: 'Massachusetts', value: 6646144 },
-  //   { name: 'Michigan', value: 9883360 },
-  //   { name: 'Minnesota', value: 5379139 },
-  //   { name: 'Mississippi', value: 2984926 },
-  //   { name: 'Missouri', value: 6021988 },
-  //   { name: 'Montana', value: 1005141 },
-  //   { name: 'Nebraska', value: 1855525 },
-  //   { name: 'Nevada', value: 2758931 },
-  //   { name: 'New Hampshire', value: 1320718 },
-  //   { name: 'New Jersey', value: 8864590 },
-  //   { name: 'New Mexico', value: 2085538 },
-  //   { name: 'New York', value: 19570261 },
-  //   { name: 'North Carolina', value: 9752073 },
-  //   { name: 'North Dakota', value: 699628 },
-  //   { name: 'Ohio', value: 11544225 },
-  //   { name: 'Oklahoma', value: 3814820 },
-  //   { name: 'Oregon', value: 3899353 },
-  //   { name: 'Pennsylvania', value: 12763536 },
-  //   { name: 'Rhode Island', value: 1050292 },
-  //   { name: 'South Carolina', value: 4723723 },
-  //   { name: 'South Dakota', value: 833354 },
-  //   { name: 'Tennessee', value: 6456243 },
-  //   { name: 'Texas', value: 26059203 },
-  //   { name: 'Utah', value: 2855287 },
-  //   { name: 'Vermont', value: 626011 },
-  //   { name: 'Virginia', value: 8185867 },
-  //   { name: 'Washington', value: 6897012 },
-  //   { name: 'West Virginia', value: 1855413 },
-  //   { name: 'Wisconsin', value: 5726398 },
-  //   { name: 'Wyoming', value: 576412 },
-  //   { name: 'Puerto Rico', value: 3667084 },
-  // ];
-
-  const crData = [
-    'Budget Estimates',
-    'Revised Estimates',
-    'Actual Expenditure',
-  ];
-
-  const yearData = ['2019-20', '2020-21', '2021-22', '2022-23'];
-
-  // Run whenever a new indicator is selected
-  useEffect(() => {
-    const budgetType = [
-      ...Array.from(new Set(indicatorFiltered.map((item) => item.budgetType))),
-    ];
-
-    if (budgetType.includes(selectedBudgetType))
-      handleDropdownChange(selectedBudgetType);
-    else if (selectedBudgetType == '') handleDropdownChange('Total');
-    else if (selectedBudgetType == 'NA' && budgetType.length > 1)
-      handleDropdownChange('Total');
-    else handleDropdownChange(budgetType[0]);
-  }, [indicatorFiltered]);
+  }, [data]);
 
   function handleNewVizData(val: any) {
     if (val) {
-      // const filtered = filter_data_indicator(fileData, val);
-      // const budgetType = [
-      //   ...Array.from(new Set(filtered.map((item) => item.budgetType))),
-      // ];
-
-      // const budgetTypeArray = budgetType.map((item) => {
-      //   return { title: item, value: item };
-      // });
-
       setSelectedIndicator(val);
-      // setIndicatorFiltered(filtered);
-      // setBudgetTypes(budgetTypeArray);
     }
-  }
-
-  function handleDropdownChange(val: any) {
-    const finalFiltered = filter_data_budgettype(indicatorFiltered, val);
-    setSelectedBudgetType(val);
-    setFinalFiltered(finalFiltered);
   }
 
   function handleYearSelector(e) {
@@ -152,7 +63,7 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
     } else {
       tempArr.push(elm.id);
     }
-    setSelectedYear(tempArr);
+    setSelectedYear([...tempArr]);
 
     // for ui changes only
     if (document.getElementById(elm.id)) {
@@ -177,28 +88,20 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
 
   return (
     <>
-      <IndicatorMobile
+      {/* <IndicatorMobile
         indicators={data.indicators}
         newIndicator={handleNewVizData}
         selectedIndicator={selectedIndicator}
-      />
+      /> */}
       <div id="explorerVizWrapper">
         <Toggler handleReportBtn={handleReportBtn} meta={meta} />
 
         <Wrapper>
-          {meta.type == 'report' ? (
-            <IndicatorCheckbox
-              data={data.indicators}
-              newIndicator={handleNewVizData}
-              selectedIndicator={selectedIndicator}
-            />
-          ) : (
-            <Indicator
-              newIndicator={handleNewVizData}
-              selectedIndicator={selectedIndicator}
-              schemeData={schemeData}
-            />
-          )}
+          <Indicator
+            newIndicator={handleNewVizData}
+            selectedIndicator={selectedIndicator}
+            schemeData={schemeData}
+          />
 
           <VizWrapper>
             <VizHeader>
@@ -217,22 +120,24 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
 
             <VizGraph className="viz__graph" id="reportViz">
               <YearSelector>
-                {yearData.map((item, index) => (
-                  <button
-                    onClick={handleYearSelector}
-                    data-selected={
-                      selectedYear.includes(item) ? 'true' : 'false'
-                    }
-                    key={`year-${index}`}
-                    id={item}
-                  >
-                    {item}
-                  </button>
-                ))}
+                {filteredData &&
+                  Object.keys(filteredData).map((item, index) => (
+                    <button
+                      onClick={handleYearSelector}
+                      data-selected={
+                        selectedYear.includes(item) ? 'true' : 'false'
+                      }
+                      key={`year-${index}`}
+                      id={item}
+                    >
+                      {item}
+                    </button>
+                  ))}
               </YearSelector>
               <SimpleBarLineChartViz
                 color={'#00ABB7'}
-                dataset={barLineTransformer(finalFiltered, selectedIndicator)}
+                dataset={barData}
+                years={selectedYear}
                 type="bar"
                 smooth={true}
                 showSymbol={true}
@@ -241,15 +146,15 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
                   (budgetTypes.length > 1 ? ' - ' + selectedBudgetType : '')
                 }
                 subTitle={data.title}
-                unit={crData.includes(selectedIndicator) ? 'Cr' : '%'}
+                unit={'Cr'}
               />
             </VizGraph>
 
             <Source
-              title={data.title}
+              title={meta.constituency}
               currentViz="#reportViz"
               selectedBudgetType={selectedBudgetType}
-              indicatorFiltered={indicatorFiltered}
+              selectedIndicator={selectedIndicator}
             />
           </VizWrapper>
         </Wrapper>

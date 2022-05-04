@@ -277,7 +277,7 @@ export async function dataTransform(id) {
             fiscal_year[dataParse[j][4].trim()] = {
               ...fiscal_year[dataParse[j][4].trim()],
               [dataParse[j][3]]: Number.isNaN(parseFloat(dataParse[j][i]))
-                ? ''
+                ? '0'
                 : parseFloat(dataParse[j][i]).toFixed(2),
             };
           }

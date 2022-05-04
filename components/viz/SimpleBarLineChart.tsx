@@ -16,7 +16,7 @@ function seriesMaker(color, dataset, type, smooth, showSymbol, unit) {
   const SetSeries = [];
 
   SetSeries.push({
-    data: dataset[1],
+    data: dataset,
     type: type,
     itemStyle: {
       color: color,
@@ -45,6 +45,7 @@ interface SimpleBarLineChartProps {
   Title: string;
   subTitle: string;
   unit: string;
+  years: any;
 }
 
 const SimpleBarLineChartViz: React.FC<SimpleBarLineChartProps> = ({
@@ -55,14 +56,20 @@ const SimpleBarLineChartViz: React.FC<SimpleBarLineChartProps> = ({
   showSymbol,
   Title,
   subTitle,
+  years,
   unit,
 }) => {
+
+  years.sort((a, b) => {
+    if (Number(a.split('-')[0]) > Number(b.split('-')[0])) return 1;
+  });
+
   const series = seriesMaker(color, dataset, type, smooth, showSymbol, unit);
   const options = {
     tooltip: {
       trigger: 'axis',
       formatter: function (params) {
-        return `${Title.split('-')[0]} - <br />
+        return `${Title.replaceAll('-', ' ')} - <br />
         ${params[0].name}: ${params[0].data} ${unit}<br />`;
       },
     },
@@ -72,8 +79,8 @@ const SimpleBarLineChartViz: React.FC<SimpleBarLineChartProps> = ({
     },
     xAxis: {
       type: 'category',
-      data: dataset[0],
-      name: dataset[2][0],
+      data: years.sort(),
+      // name: dataset[2][0],
       axisLine: {
         symbol: ['none', 'arrow'],
       },
@@ -82,7 +89,7 @@ const SimpleBarLineChartViz: React.FC<SimpleBarLineChartProps> = ({
     },
     yAxis: {
       type: 'value',
-      name: dataset[2][1],
+      // name: dataset[2][1],
       axisLine: { onZero: false, show: true, symbol: ['none', 'arrow'] },
       nameLocation: 'middle',
       nameGap: 50,

@@ -25,7 +25,7 @@ const MapViz = ({
       map.features.forEach(
         (obj) => (obj.properties['GEO_NO'] = String(obj.properties['GEO_NO']))
       );
-      
+
       echarts.registerMap(sabha, map, {});
 
       const options = {
@@ -34,7 +34,7 @@ const MapViz = ({
           trigger: 'item',
           showDelay: 0,
           transitionDuration: 0.2,
-          formatter: function (params) {            
+          formatter: function (params) {
             if (params.data)
               return `${params.data.mapName}: ${params.data.value}`;
             else return 'No data';
@@ -102,7 +102,7 @@ const MapViz = ({
   }, [selectedIndicator, data, mapFile]);
 
   function handleClick(e) {
-    newMapItem(e.name);
+    newMapItem(e.data);
   }
 
   const onEvents = { click: handleClick };
