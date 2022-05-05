@@ -13,25 +13,28 @@ import {
 import ReactEChartsCore from 'echarts-for-react/lib/core';
 
 function seriesMaker(color, dataset, type, smooth, showSymbol, unit) {
-  const SetSeries = [];
-
-  SetSeries.push({
-    data: dataset,
-    type: type,
-    itemStyle: {
-      color: color,
-    },
-    smooth: smooth,
-    showSymbol: showSymbol,
-    label: {
-      normal: {
-        show: true,
-        position: 'top',
-        formatter: function (d) {
-          return d.data + ' ' + unit;
+  const SetSeries = dataset.map((data) => {
+    return {
+      data: data,
+      type: type,
+      itemStyle: {
+        color: color,
+      },
+      smooth: smooth,
+      showSymbol: showSymbol,
+      emphasis: {
+        focus: 'series',
+      },
+      label: {
+        normal: {
+          show: true,
+          position: 'top',
+          formatter: function (d) {
+            return d.data + ' ' + unit;
+          },
         },
       },
-    },
+    };
   });
   return SetSeries;
 }
@@ -46,6 +49,7 @@ interface SimpleBarLineChartProps {
   subTitle: string;
   unit: string;
   years: any;
+  stacked: boolean;
 }
 
 const SimpleBarLineChartViz: React.FC<SimpleBarLineChartProps> = ({
@@ -58,8 +62,8 @@ const SimpleBarLineChartViz: React.FC<SimpleBarLineChartProps> = ({
   subTitle,
   years,
   unit,
+  stacked,
 }) => {
-
   years.sort((a, b) => {
     if (Number(a.split('-')[0]) > Number(b.split('-')[0])) return 1;
   });

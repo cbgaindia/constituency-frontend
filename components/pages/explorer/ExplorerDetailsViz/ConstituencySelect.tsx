@@ -52,7 +52,7 @@ const ConstituencySelect = ({
 
   function handleNewCompare(e) {
     setCloseWidget(true);
-    newCompare(e.target.id);
+    newCompare(e.target.id, e.target.dataset.state, e.target.dataset.code);
   }
 
   const selectorRef = useRef(null);
@@ -60,10 +60,10 @@ const ConstituencySelect = ({
     <Wrapper id="compareSelector" className="fill">
       <Widget
         icon={<ArrowDown />}
-        buttonContent={currentItem ? currentItem : fallBack}
+        buttonContent={currentItem.cons ? currentItem.cons : fallBack}
         title="constituency menu"
         buttonStyle="custom"
-        buttonClass={currentItem ? 'selected' : undefined}
+        buttonClass={currentItem.cons ? 'selected' : undefined}
         closeWidget={closeWidget}
       >
         <ConsList>
@@ -79,7 +79,7 @@ const ConstituencySelect = ({
                 <>
                   <Button
                     kind="custom"
-                    key={`selector-${index}`}
+                    key={`${item}-selector-${index}`}
                     aria-expanded="false"
                     icon={<ArrowDown />}
                     onClick={(e) => sectionCollapse(e, selectorRef)}
@@ -94,6 +94,8 @@ const ConstituencySelect = ({
                         <Button
                           onClick={handleNewCompare}
                           kind="custom"
+                          data-state={item}
+                          data-code={cons.constCode}
                           id={cons.constName}
                         >
                           {cons.constName}

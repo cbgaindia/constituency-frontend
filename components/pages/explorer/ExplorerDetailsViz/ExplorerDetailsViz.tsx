@@ -13,18 +13,19 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
     useState('opening-balance');
   const [budgetTypes, setBudgetTypes] = useState([]);
   const [selectedBudgetType, setSelectedBudgetType] = useState('');
-  const [compareItem, setCompareItem] = useState(undefined);
+  const [compareItem, setCompareItem] = useState<any>({});
   const [selectedYear, setSelectedYear] = useState(['2018-19', '2019-20']);
   const [filteredData, setFilteredData] = useState([]);
+  const [allStateData, setAllStateData] = useState([]);
   const [schemeData, setSchemeData] = useState(scheme.ac);
   const [allStates, setAllStates] = useState({});
   const [barData, setBarData] = useState([]);
+  const [stackedBar, setBarStacked] = useState([]);
 
   useEffect(() => {
-    handleNewVizData(selectedIndicator);    
+    handleNewVizData(selectedIndicator);
     setAllStates(schemeData.metadata.consList);
   }, [schemeData]);
-console.log(allStates);
 
   useEffect(() => {
     // creating available years array
@@ -32,19 +33,38 @@ console.log(allStates);
       (o: any) => o.slug.toLowerCase() === selectedIndicator.toLowerCase()
     );
     const stateData = fObj['state_Obj'][data.state];
-
+    setAllStateData(fObj['state_Obj']);
     setFilteredData(stateData);
   }, [selectedIndicator]);
 
   useEffect(() => {
-    if (Object.keys(filteredData).length) {
-      const barValues = selectedYear.map(
-        (year) => filteredData[year][meta.code]
-      );
-
-      setBarData(barValues);
+    if (Object.keys(filteredData).length) {      
+      // for compare section
+      if (compareItem.state) {
+        const barValues1 = selectedYear.map((year) => [
+          filteredData[year][meta.code],
+        ]);
+        const barValues2 = selectedYear.map((year) => [
+          allStateData[compareItem.state][year][compareItem.code],
+        ]);
+        const barValues = [barValues1, barValues2];
+        setBarStacked(barValues);
+      } else {  // for report section
+        const barValues = [
+          selectedYear.map((year) => filteredData[year][meta.code]),
+        ];
+        setBarData(barValues);
+      }
     }
-  }, [selectedYear, filteredData]);
+  }, [selectedYear, filteredData, compareItem]);
+
+  function newCompare(cons, state, code) {
+    setCompareItem({
+      state,
+      code,
+      cons,
+    });
+  }
 
   useEffect(() => {
     if (data.sabha == 'lok') {
@@ -121,7 +141,7 @@ console.log(allStates);
                   fallBack={`${meta.constituency} (${meta.state})`}
                   currentItem={compareItem}
                   allStates={allStates}
-                  newCompare={(e) => setCompareItem(e)}
+                  newCompare={newCompare}
                 />
               )}
             </VizHeader>
@@ -144,8 +164,9 @@ console.log(allStates);
               </YearSelector>
               <SimpleBarLineChartViz
                 color={'#00ABB7'}
-                dataset={barData}
+                dataset={meta.type == 'compare' ? stackedBar : barData}
                 years={selectedYear}
+                stacked={meta.type == 'compare' ? true : false}
                 type="bar"
                 smooth={true}
                 showSymbol={true}

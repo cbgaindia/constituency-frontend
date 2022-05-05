@@ -96,7 +96,6 @@ const ExplorerMap = ({
     let newObj = [];
     setSearchQuery(query);
     if (query.length > 0) {
-      console.log(obj);
 
       Object.keys(obj).forEach(() => {
         newObj = obj.filter((item) =>

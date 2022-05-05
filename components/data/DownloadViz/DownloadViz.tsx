@@ -4,9 +4,7 @@ import { stripTitle } from 'utils/explorer';
 import { Download } from 'components/icons';
 import { Button } from 'components/actions';
 
-function fileName(type, name, indicator, format) {
-  console.log(type, name, indicator, format);
-  
+function fileName(type, name, indicator, format) {  
   // splitting the string to find the required part of title
   const shortName = name;
 

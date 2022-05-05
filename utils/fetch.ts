@@ -189,7 +189,6 @@ export async function dataTransform(id) {
           };
         }
       });
-      console.log(dataParse[2]);
 
       // creating list of constituencies
       const consList = {};
