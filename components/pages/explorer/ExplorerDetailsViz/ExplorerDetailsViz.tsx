@@ -17,11 +17,14 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
   const [selectedYear, setSelectedYear] = useState(['2018-19', '2019-20']);
   const [filteredData, setFilteredData] = useState([]);
   const [schemeData, setSchemeData] = useState(scheme.ac);
+  const [allStates, setAllStates] = useState({});
   const [barData, setBarData] = useState([]);
 
   useEffect(() => {
-    handleNewVizData(selectedIndicator);
-  }, []);
+    handleNewVizData(selectedIndicator);    
+    setAllStates(schemeData.metadata.consList);
+  }, [schemeData]);
+console.log(allStates);
 
   useEffect(() => {
     // creating available years array
@@ -29,12 +32,16 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
       (o: any) => o.slug.toLowerCase() === selectedIndicator.toLowerCase()
     );
     const stateData = fObj['state_Obj'][data.state];
+
     setFilteredData(stateData);
   }, [selectedIndicator]);
 
   useEffect(() => {
-    if (filteredData) {
-      const barValues = selectedYear.map((year) => filteredData[year]['5']); // 5 is hard coded
+    if (Object.keys(filteredData).length) {
+      const barValues = selectedYear.map(
+        (year) => filteredData[year][meta.code]
+      );
+
       setBarData(barValues);
     }
   }, [selectedYear, filteredData]);
@@ -83,7 +90,7 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
   // different heading based on report or compare mode
   const vizHeading =
     meta.type == 'report'
-      ? 'Can select multiple indicator and do comparative analysis!'
+      ? 'Select indicator and do comparative analysis!'
       : 'Select a Vidhan Sabha Constituency to Compare:';
 
   return (
@@ -113,6 +120,7 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
                 <ConstituencySelect
                   fallBack={`${meta.constituency} (${meta.state})`}
                   currentItem={compareItem}
+                  allStates={allStates}
                   newCompare={(e) => setCompareItem(e)}
                 />
               )}

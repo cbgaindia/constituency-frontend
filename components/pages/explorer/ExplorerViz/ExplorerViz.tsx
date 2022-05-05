@@ -106,12 +106,13 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
     handleNewIndicator(selectedIndicator);
   }, [selectedYear]);
 
-  function handleReport(bool, cons, type) {
+  function handleReport(bool, cons, code, type) {
     const metaObj = {
       sabha: selectedSabha,
       state: state,
       constituency: cons,
       type: type,
+      code: code,
     };
 
     handleReportBtn(bool, metaObj);

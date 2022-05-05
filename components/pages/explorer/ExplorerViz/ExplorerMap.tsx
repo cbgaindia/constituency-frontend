@@ -17,6 +17,7 @@ const ExplorerMap = ({
   const [mapValues, setMapvalues] = useState([]);
   const [searchItems, setSearchItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState('');
+  const [selectedCode, setSelectedCode] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [mapIndicator, setMapIndicator] = useState(undefined);
 
@@ -110,6 +111,7 @@ const ExplorerMap = ({
 
   const newMapItem = useCallback((e) => {
     setSelectedItem(e.mapName);
+    setSelectedCode(e.name);
     setSearchItems([]);
     setSearchQuery('');
     (document.getElementById('searchInput') as HTMLInputElement).value = '';
@@ -190,14 +192,18 @@ const ExplorerMap = ({
               <Button
                 kind="secondary-outline"
                 size="sm"
-                onClick={() => handleReportBtn(true, selectedItem, 'report')}
+                onClick={() =>
+                  handleReportBtn(true, selectedItem, selectedCode, 'report')
+                }
               >
                 Generate Report Card
               </Button>
               <Button
                 kind="secondary"
                 size="sm"
-                onClick={() => handleReportBtn(true, selectedItem, 'compare')}
+                onClick={() =>
+                  handleReportBtn(true, selectedItem, selectedCode, 'compare')
+                }
               >
                 Compare Constituency
               </Button>

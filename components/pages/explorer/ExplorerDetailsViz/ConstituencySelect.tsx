@@ -6,35 +6,16 @@ import { WidgetContent } from 'components/actions/Widget/Widget';
 import { ArrowDown } from 'components/icons';
 import { sectionCollapse } from 'utils/helper';
 
-const items = [
-  {
-    state: 'Rajasthan',
-    cons: ['Sadulshahar', 'Ganganagar', 'Karanpur', 'Suratgarh'],
-  },
-  {
-    state: 'Uttar Pradesh',
-    cons: ['Behat', 'Nakur', 'Saharanpur Nagar', 'Saharanpur'],
-  },
-  {
-    state: 'Odisha',
-    cons: ['Padampur', 'Bijepur', 'Bargarh', 'Attabira'],
-  },
-];
-
 function handleSearch(query, obj) {
   let newObj = [];
   if (query.length > 0) {
     Object.keys(obj).forEach((key) => {
       // searching constituency from each state
-      const filteredCons = obj[key].cons.filter((item) =>
-        item.toLowerCase().includes(query.toLowerCase())
+      const filteredCons = obj[key].filter((item) =>
+        item.constName.toLowerCase().includes(query.toLowerCase())
       );
-
       if (filteredCons.length) {
-        newObj[key] = {
-          state: obj[key].state,
-          cons: filteredCons,
-        };
+        newObj[key] = filteredCons;
       }
     });
 
@@ -42,8 +23,13 @@ function handleSearch(query, obj) {
   } else return obj;
 }
 
-const ConstituencySelect = ({ newCompare, currentItem, fallBack }) => {
-  const [states, setStates] = useState(items);
+const ConstituencySelect = ({
+  newCompare,
+  currentItem,
+  fallBack,
+  allStates,
+}) => {
+  const [states, setStates] = useState({});
   const [closeWidget, setCloseWidget] = useState(false);
 
   useEffect(() => {
@@ -54,9 +40,13 @@ const ConstituencySelect = ({ newCompare, currentItem, fallBack }) => {
       });
   }, []);
 
+  useEffect(() => {
+    setStates(allStates);
+  }, [allStates]);
+
   function handleCompareSearch(e) {
     const val = e.target.value;
-    const searchedVal = handleSearch(val, items);
+    const searchedVal = handleSearch(val, allStates);
     setStates(searchedVal);
   }
 
@@ -84,34 +74,35 @@ const ConstituencySelect = ({ newCompare, currentItem, fallBack }) => {
             onChange={handleCompareSearch}
           />
           <StateList ref={selectorRef}>
-            {states.map((item: any, index) => (
-              <>
-                <Button
-                  kind="custom"
-                  key={`selector-${index}`}
-                  aria-expanded="false"
-                  icon={<ArrowDown />}
-                  onClick={(e) => sectionCollapse(e, selectorRef)}
-                >
-                  <div>
-                    {item.state} <span>({item.cons.length})</span>
-                  </div>
-                </Button>
-                <ul hidden>
-                  {item.cons.map((cons, index1) => (
-                    <li key={`cons-${index1}`}>
-                      <Button
-                        onClick={handleNewCompare}
-                        kind="custom"
-                        id={cons}
-                      >
-                        {cons}
-                      </Button>
-                    </li>
-                  ))}
-                </ul>
-              </>
-            ))}
+            {Object.keys(states).length &&
+              Object.keys(states).map((item: any, index) => (
+                <>
+                  <Button
+                    kind="custom"
+                    key={`selector-${index}`}
+                    aria-expanded="false"
+                    icon={<ArrowDown />}
+                    onClick={(e) => sectionCollapse(e, selectorRef)}
+                  >
+                    <div>
+                      {item} <span>({Object.keys(states[item]).length})</span>
+                    </div>
+                  </Button>
+                  <ul hidden>
+                    {states[item].map((cons, index1) => (
+                      <li key={`cons-${index1}`}>
+                        <Button
+                          onClick={handleNewCompare}
+                          kind="custom"
+                          id={cons.constName}
+                        >
+                          {cons.constName}
+                        </Button>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              ))}
           </StateList>
         </ConsList>
       </Widget>
@@ -164,6 +155,9 @@ const ConsList = styled.div`
 `;
 
 const StateList = styled.div`
+  max-height: 310px;
+  overflow-y: auto;
+
   ${ButtonWrapper} {
     margin-top: 8px;
     background-color: var(--color-grey-600);

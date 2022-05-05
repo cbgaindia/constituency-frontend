@@ -42,7 +42,7 @@ function verifyState(state) {
   else return false;
 }
 
-const Explorer: React.FC<Props> = ({ data, scheme, statesData }) => {
+const Explorer: React.FC<Props> = ({ data, scheme, statesData }) => {  
   const [showReport, setShowReport] = useState(false);
   const [meta, setMeta] = useState({});
 

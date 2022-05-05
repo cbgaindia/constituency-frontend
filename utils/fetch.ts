@@ -189,6 +189,29 @@ export async function dataTransform(id) {
           };
         }
       });
+      console.log(dataParse[2]);
+
+      // creating list of constituencies
+      const consList = {};
+      dataParse.map((item, index) => {
+        if (consList[item[0]]) {
+          if (item[3] == dataParse[index - 1][3]) return;
+          consList[item[0]].push({
+            constName: item[2],
+            constCode: item[3],
+          });
+        } else {
+          if (item[0] == 'state_ut_name') return;
+          else
+            consList[item[0]] = [
+              {
+                constName: item[2],
+                constCode: item[3],
+              },
+            ];
+        }
+      });
+
       obj.ac.metadata = {
         description: metaObj['scheme-description'] || '',
         name: name || '',
@@ -198,6 +221,7 @@ export async function dataTransform(id) {
         note: metaObj['note:'] || '',
         slug,
         indicators: [],
+        consList: consList || [],
       };
 
       // Tabular Data
@@ -212,7 +236,7 @@ export async function dataTransform(id) {
             fiscal_year[dataParse[j][4].trim()] = {
               ...fiscal_year[dataParse[j][4].trim()],
               [dataParse[j][3]]: Number.isNaN(parseFloat(dataParse[j][i]))
-                ? ''
+                ? '0'
                 : parseFloat(dataParse[j][i]).toFixed(2),
             };
           }
@@ -254,6 +278,27 @@ export async function dataTransform(id) {
         }
       });
 
+      // creating list of constituencies
+      const consList = {};
+      dataParse.map((item, index) => {
+        if (consList[item[0]]) {
+          if (item[3] == dataParse[index - 1][3]) return;
+          consList[item[0]].push({
+            constName: item[2],
+            constCode: item[3],
+          });
+        } else {
+          if (item[0] == 'state_ut_name') return;
+          else
+            consList[item[0]] = [
+              {
+                constName: item[2],
+                constCode: item[3],
+              },
+            ];
+        }
+      });
+
       obj.pc.metadata = {
         description: metaObj['scheme-description'] || '',
         name: name || '',
@@ -263,6 +308,7 @@ export async function dataTransform(id) {
         note: metaObj['note:'] || '',
         slug,
         indicators: [],
+        consList: consList || [],
       };
 
       // Tabular Data
