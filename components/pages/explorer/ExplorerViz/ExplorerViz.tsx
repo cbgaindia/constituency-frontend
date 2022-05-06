@@ -75,11 +75,11 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
     }
 
     const rowData = [];
-    if (filtered[selectedYear]) {
+    if (filtered[selectedYear]) {      
       Object.values(filtered[selectedYear]).forEach((item, index) => {
         const tempObj = {
           [tableHeader[0].accessor]:
-            schemeData.metadata.consList[state][index].constName,
+            schemeData.metadata.consList[state][index]?.constName,
         };
 
         Object.keys(filtered).map(
