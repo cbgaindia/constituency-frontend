@@ -5,7 +5,7 @@ import { Indicator, IndicatorMobile } from 'components/data';
 import Source from '../ExplorerViz/Source';
 import Toggler from './Toggler';
 import { Info } from 'components/icons';
-import { SimpleBarLineChartViz } from 'components/viz';
+import { GroupBarChart, SimpleBarLineChartViz } from 'components/viz';
 import ConstituencySelect from './ConstituencySelect';
 
 const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
@@ -38,21 +38,37 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
   }, [selectedIndicator]);
 
   useEffect(() => {
-    if (Object.keys(filteredData).length) {      
+    if (Object.keys(filteredData).length) {
       // for compare section
       if (compareItem.state) {
-        const barValues1 = selectedYear.map((year) => [
-          filteredData[year][meta.code],
-        ]);
-        const barValues2 = selectedYear.map((year) => [
-          allStateData[compareItem.state][year][compareItem.code],
-        ]);
-        const barValues = [barValues1, barValues2];
+        const barValues1 = [meta.constituency];
+        const barValues2 = [compareItem.cons];
+
+        const headerArr = ['Constituency'];
+        Object.keys(filteredData).map((year) => {
+          headerArr.push(year);
+          barValues1.push(filteredData[year][meta.code]);
+          barValues2.push(filteredData[year][compareItem.code]);
+        });
+
+        const barValues = [headerArr, barValues1, barValues2];
+
         setBarStacked(barValues);
-      } else {  // for report section
-        const barValues = [
-          selectedYear.map((year) => filteredData[year][meta.code]),
-        ];
+      } else {
+        const barValues1 = [meta.constituency];
+
+        const headerArr = ['Constituency'];
+        Object.keys(filteredData).map((year) => {
+          headerArr.push(year);
+          barValues1.push(filteredData[year][meta.code]);
+        });
+
+        const barValues = [headerArr, barValues1];
+
+        // for report section
+        // const barValues = [
+        //   selectedYear.map((year) => filteredData[year][meta.code]),
+        // ];
         setBarData(barValues);
       }
     }
@@ -147,7 +163,7 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
             </VizHeader>
 
             <VizGraph className="viz__graph" id="reportViz">
-              <YearSelector>
+              {/* <YearSelector>
                 {filteredData &&
                   Object.keys(filteredData).map((item, index) => (
                     <button
@@ -161,22 +177,37 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
                       {item}
                     </button>
                   ))}
-              </YearSelector>
-              <SimpleBarLineChartViz
-                color={'#00ABB7'}
-                dataset={meta.type == 'compare' ? stackedBar : barData}
-                years={selectedYear}
-                stacked={meta.type == 'compare' ? true : false}
-                type="bar"
-                smooth={true}
-                showSymbol={true}
-                Title={
-                  selectedIndicator +
-                  (budgetTypes.length > 1 ? ' - ' + selectedBudgetType : '')
-                }
-                subTitle={data.title}
-                unit={'Cr'}
-              />
+              </YearSelector> */}
+              {meta.type == 'report' ? (
+                barData.length &&
+                <GroupBarChart
+                  yAxisLabel="Value (in crores)"
+                  xAxisLabel="Constituency"
+                  theme={['#4965B2', '#ED8686', '#69BC99']}
+                  dataset={barData}
+                  stack={false}
+                  Title=""
+                  subTitle=""
+                  left="10%"
+                  type="bar"
+                  smooth={true}
+                />
+              ) : (
+                stackedBar.length && (
+                  <GroupBarChart
+                    yAxisLabel="Value (in crores)"
+                    xAxisLabel="Constituencies"
+                    theme={['#4965B2', '#ED8686', '#69BC99']}
+                    dataset={stackedBar}
+                    stack={false}
+                    Title=""
+                    subTitle=""
+                    left="10%"
+                    type="bar"
+                    smooth={true}
+                  />
+                )
+              )}
             </VizGraph>
 
             <Source

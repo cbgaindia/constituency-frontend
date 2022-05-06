@@ -10,6 +10,7 @@ import { Menu } from 'components/actions';
 import Source from './Source';
 import Toggler from './Toggler';
 import ExplorerMap from './ExplorerMap';
+import LobSabha from 'components/icons/LokSabha';
 
 const SimpleBarLineChartViz = dynamic(
   () => import('components/viz/SimpleBarLineChart'),
@@ -76,11 +77,17 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
     const rowData = [];
     if (filtered[selectedYear]) {
       Object.values(filtered[selectedYear]).forEach((item, index) => {
-        rowData.push({
-          [tableHeader[0].accessor]: 'Cons Name',
-          [tableHeader[1].accessor]: filtered[years[0].title][index + 1],
-          [tableHeader[2].accessor]: filtered[years[1].title][index + 1],
-        });
+        const tempObj = {
+          [tableHeader[0].accessor]:
+            schemeData.metadata.consList[state][index].constName,
+        };
+
+        Object.keys(filtered).map(
+          (item1, index1) =>
+            (tempObj[tableHeader[index1 + 1].accessor] =
+              filtered[item1][index + 1])
+        );
+        rowData.push(tempObj);
       });
     }
 

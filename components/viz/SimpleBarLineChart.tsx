@@ -29,8 +29,8 @@ function seriesMaker(color, dataset, type, smooth, showSymbol, unit) {
         normal: {
           show: true,
           position: 'top',
-          formatter: function (d) {
-            return d.data + ' ' + unit;
+          formatter: function () {
+            return ''; //d.data;
           },
         },
       },
@@ -70,16 +70,20 @@ const SimpleBarLineChartViz: React.FC<SimpleBarLineChartProps> = ({
 
   const series = seriesMaker(color, dataset, type, smooth, showSymbol, unit);
   const options = {
+    legend: {
+      top: '27%',
+    },
+    grid: {
+      show: false,
+      top: '30%',
+      left: '8%',
+    },
     tooltip: {
       trigger: 'axis',
       formatter: function (params) {
         return `${Title.replaceAll('-', ' ')} - <br />
         ${params[0].name}: ${params[0].data} ${unit}<br />`;
       },
-    },
-    grid: {
-      show: false,
-      top: '20%',
     },
     xAxis: {
       type: 'category',
