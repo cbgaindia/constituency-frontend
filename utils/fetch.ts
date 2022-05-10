@@ -9,9 +9,9 @@ export const fetchDatasets = async (variables) => {
 
   variables.fq
     ? (variables.fq = variables.fq.concat(
-        ` AND (tags:scheme-category AND groups:budgets-for-justice)`
+        ` AND private:false`
       ))
-    : (variables.fq = `(tags:scheme-category AND groups:budgets-for-justice)`);
+    : (variables.fq = `private:false`);
 
   // creating a string of parameter from object of variables for CKAN API use
   const varArray = Object.keys(variables).map((key) => {
@@ -21,7 +21,7 @@ export const fetchDatasets = async (variables) => {
   const varString =
     varArray.length > 0
       ? varArray.join('&')
-      : `fq=(tags:scheme-category AND groups:budgets-for-justice)`;
+      : `fq=private:false`;
 
   const response = await fetch(
     `${process.env.CKAN_URL}/package_search?${varString}`
@@ -29,22 +29,6 @@ export const fetchDatasets = async (variables) => {
   const data = await response.json();
   return data;
 };
-
-export async function fetchFilters(list, variable, page) {
-  try {
-    // if filters and searc found in url, also use those
-    // const queryVars = `fq=${variable.fq ? `type:${page}` : `type:${page}`}&q=${
-    //   variable.q ? variable.q : ''
-    // }`;
-
-    const fetchData = await fetch(
-      `${process.env.CKAN_URL}/package_search?facet.field=[${list}]`
-    ).then((res) => res.json());
-    return fetchData.result.search_facets;
-  } catch (error) {
-    throw new Error(error);
-  }
-}
 
 export function convertToCkanSearchQuery(query) {
   const ckanQuery = {
@@ -115,7 +99,7 @@ export function convertToCkanSearchQuery(query) {
 
 export async function fetchQuery(query, value) {
   const queryRes = await fetch(
-    `http://3.109.56.211/api/3/action/package_search?fq=${query}:"${value}"+organization:constituency-wise-scheme-data&rows=50`
+    `http://3.109.56.211/api/3/action/package_search?fq=${query}:"${value}" AND organization:constituency-wise-scheme-data AND  private:false&rows=50`
   ).then((res) => res.json());
 
   return queryRes.result.results;

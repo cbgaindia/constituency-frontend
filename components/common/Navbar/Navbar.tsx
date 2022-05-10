@@ -21,7 +21,7 @@ const Nav = ({ data }) => {
     <>
       <NavbarWrapper>
         <div className="container">
-          <div className={data.logo && 'header__logo'}>
+          <Logo className={data.logo && 'header__logo'}>
             <Link href="/">
               <a>
                 {data.logo ? (
@@ -37,7 +37,23 @@ const Nav = ({ data }) => {
                 )}
               </a>
             </Link>
-          </div>
+
+            <Separator />
+
+            <a
+              className="obi"
+              rel="noopener noreferrer"
+              href="https://openbudgetsindia.org/"
+            >
+              <Image
+                src="/assets/icons/obi_header.png"
+                alt="Open Budgets India"
+                layout="fixed"
+                width={201}
+                height={28}
+              />
+            </a>
+          </Logo>
 
           <Navlinks>
             <h2 className="sr-only">Navigation menu</h2>
@@ -138,6 +154,21 @@ export const NavbarWrapper = styled.header`
     font-size: 1.5rem;
     line-height: 1.5;
   }
+`;
+
+const Logo = styled.div`
+  display: flex;
+  align-items: center;
+
+  .obi {
+    margin-top: 8px;
+  }
+`;
+
+const Separator = styled.span`
+  border-right: 1px solid rgba(255, 255, 255, 0.4);
+  margin: 0 16px;
+  height: 28px;
 `;
 
 const Navlinks = styled.nav`

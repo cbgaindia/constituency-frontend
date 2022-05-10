@@ -4,6 +4,7 @@ import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
 import { Button } from 'components/actions';
 import { HomeTitle } from 'styles/Global';
+import { about } from 'data/home';
 
 const HomeAbout = () => {
   return (
@@ -11,7 +12,7 @@ const HomeAbout = () => {
       <div className="container">
         <VideoWrapper>
           <LiteYouTubeEmbed
-            id="inKrfwhHHic"
+            id={about.video}
             title="Budget Forum | Open Budgets India"
             params="disablekb=1"
             noCookie
@@ -20,12 +21,7 @@ const HomeAbout = () => {
         <ContentWrapper>
           <HomeTitle className="gradient-maple">Introduction</HomeTitle>
           <h2>About the platform</h2>
-          <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industrys standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book.
-          </p>
+          <p>{about.desc}</p>
           {/* <Button kind="secondary" size="sm" href="#">
             Know More
           </Button> */}
@@ -76,11 +72,10 @@ const About = styled.section`
 `;
 
 const VideoWrapper = styled.div`
-
-flex-basis: 0;
+  flex-basis: 0;
   flex-grow: 999;
   min-inline-size: 40%;
-  
+
   border-radius: 4px;
 `;
 

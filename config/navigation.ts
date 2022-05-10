@@ -4,33 +4,45 @@ export const navList = {
   links: [
     {
       link: '/about',
-      name: 'About',
+      name: 'About Us',
     },
     {
-      link: '/state/up',
-      name: 'State Page',
+      link: '#states',
+      name: 'States',
+      submenu: [
+        {
+          link: '/state/bihar',
+          name: 'Bihar',
+        },
+        {
+          link: '/state/chhattisgarh',
+          name: 'Chhattisgarh',
+        },
+        {
+          link: '/state/jharkhand',
+          name: 'Jharkhand',
+        },
+        {
+          link: '/state/maharashtra',
+          name: 'Maharashtra',
+        },
+        {
+          link: '/state/odisha',
+          name: 'Odisha',
+        },
+        {
+          link: '/state/uttar pradesh',
+          name: 'Uttar Pradesh',
+        },
+      ],
     },
     {
       link: '/explorer?scheme=mgnrega&state=Uttar Pradesh',
       name: 'Explorer',
     },
     {
-      link: '#dataexplorer',
-      name: 'Dashboards',
-      submenu: [
-        {
-          link: '#',
-          name: 'Budget Summary',
-        },
-        {
-          link: '#',
-          name: 'Summary',
-        },
-        {
-          link: '#',
-          name: 'Data Story',
-        },
-      ],
+      link: 'https://drive.google.com/drive/folders/1_Qm_yDHBlcSTvoYdV0bc9b79DRF-pzJs',
+      name: 'Methodology and Resources',
     },
   ],
 };

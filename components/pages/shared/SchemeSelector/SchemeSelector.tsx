@@ -5,45 +5,6 @@ import { MenuButton, MenuContent } from 'components/actions/Menu/MenuComp';
 import { LokSabha, VidhanSabha } from 'components/icons';
 import { useRouter } from 'next/router';
 
-const schemes = [
-  {
-    title: 'Beti Bachao Beti Padhao (BBBP)',
-    value: 'bbbp',
-  },
-  {
-    title: 'Integrated Child Development Services (ICDS)',
-    value: 'icds',
-  },
-  {
-    title: 'Integrated Child Protection Scheme (ICPS)',
-    value: 'icps',
-  },
-  {
-    title:
-      'Mahatma Gandhi National Rural Employment Guarantee Scheme (MGNREGS)',
-    value: 'mgnregs',
-  },
-  {
-    title: 'National Health Mission (NHM)',
-    value: 'nhm',
-  },
-  {
-    title: 'Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)',
-    value: 'pmkisan',
-  },
-];
-
-const trending = [
-  {
-    text: 'Uttar Pradesh x Manrega',
-    link: '#',
-  },
-  {
-    text: 'Rajasthan x Beti Bachao Beti Padhao',
-    link: '#',
-  },
-];
-
 const noState = {
   title: 'Select a state...',
   value: null,
@@ -63,10 +24,18 @@ function defaultState(item) {
 const SchemeSelector: React.FC<{
   sabha?: boolean;
   suggestion?: boolean;
+  trending?: any;
   state?: string;
   scheme?: any;
   statesData: any;
-}> = ({ sabha = true, suggestion = true, state, scheme, statesData }) => {
+}> = ({
+  sabha = true,
+  suggestion = true,
+  state,
+  scheme,
+  statesData,
+  trending,
+}) => {
   const router = useRouter();
 
   const [selectedState, setSelectedState] = useState<any>(
@@ -79,8 +48,8 @@ const SchemeSelector: React.FC<{
     router.query.sabha ? router.query.sabha : 'lok'
   );
   const [stateSchemeData, setStateSchemeData] = useState({});
-  const [availableStates, setAvailableStates] = useState<any>({});
-  const [availableSchemes, setAvailableSchemes] = useState<any>({});
+  const [availableStates, setAvailableStates] = useState<any>([]);
+  const [availableSchemes, setAvailableSchemes] = useState<any>([]);
 
   const sabhaRef = useRef(null);
 
@@ -108,6 +77,12 @@ const SchemeSelector: React.FC<{
       value: item,
       title: item,
     }));
+
+    // sort
+    availableStates.sort((a, b) =>
+      a.title > b.title ? 1 : b.title > a.title ? -1 : 0
+    );
+
     if (!state) {
       setSelectedState(availableStates[0]);
     }
@@ -120,8 +95,12 @@ const SchemeSelector: React.FC<{
         value: item.scheme_slug,
         title: item.scheme_name,
       }));
-      // if()
-      // setSelectedScheme(tempSchemes[0]);
+
+      // sort
+      tempSchemes.sort((a, b) =>
+        a.value > b.value ? 1 : b.value > a.value ? -1 : 0
+      );
+      
       setAvailableSchemes(tempSchemes);
     }
   }, [selectedState, stateSchemeData]);
@@ -139,15 +118,6 @@ const SchemeSelector: React.FC<{
     setState(array[0]);
   }
 
-  function selectState(val) {
-    for (let i = 0; i < availableStates.length; i++) {
-      if (val.toLowerCase() === availableStates[i].value) {
-        return availableStates[i];
-      }
-    }
-    return noState;
-  }
-
   function handleSabhaClick(e) {
     const btn = e.target;
     const value = btn.dataset.value;
@@ -159,17 +129,6 @@ const SchemeSelector: React.FC<{
     if (btn !== selectedBtn) {
       selectedBtn.setAttribute('aria-pressed', 'false');
       btn.setAttribute('aria-pressed', 'true');
-    }
-  }
-
-  function handleSubmitClick() {
-    if (selectedState.value == null || selectedScheme.value == null) {
-      alert('Select state and scheme');
-    } else {
-      router.push({
-        pathname: '/explorer',
-        query: { scheme: selectedScheme.value, state: selectedState.value },
-      });
     }
   }
 
