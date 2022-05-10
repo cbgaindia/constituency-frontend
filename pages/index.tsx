@@ -23,7 +23,7 @@ export default function Home({ statesData }) {
         {/* <HomeHighlight /> */}
         <HomeStates />
         {/* <HomeQuiz /> */}
-        <BGSpace />
+        {/* <BGSpace /> */}
       </HomePage>
     </>
   );
