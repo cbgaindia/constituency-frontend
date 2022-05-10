@@ -3,12 +3,16 @@ import Head from 'next/head';
 import { PartnerCard, TeamCard } from 'components/pages/about';
 import { Header } from 'components/layouts';
 import AboutPage from './AboutPage';
+import { HeaderWrapper } from 'components/layouts/Header';
+import styled from 'styled-components';
 
 const About = () => {
   const headerData = {
     title: 'About Open Budgets India',
-    content:
+    content: [
       'The platform, Open Budgets India, has resulted from collective efforts by many organisations and individuals. Increasingly, people across the country are keen to understand and participate meaningfully in discussions on government budgets. But, the limited availability of relevant and accessible information on budgets in India at different levels has been a hindrance in this regard.',
+      'In this context, our endeavour is to strengthen the discourse and demand for availability of all budget information in the public domain in a timely and accessible manner, at all levels of government in the country.  The Open Budgets India platform is a comprehensive and user-friendly open data portal that can facilitate free, easy and timely access to relevant data on government budgets in India.',
+    ],
   };
 
   const partners = [
@@ -17,12 +21,13 @@ const About = () => {
       title: 'Lead Partner',
       img: '/assets/images/ocp.png',
       desc: [
-        'CBGA is an independent non-profit organisation enhancing transparency and accountability in governance through rigorous analysis of policies and budgets, and fostering people\'s participation in public policy processes by demystifying them.',
-        'Envisioned by a group of civil society leaders and academicians, CBGA was started in 2002 as a programme of National Centre for Advocacy Studies (NCAS). It was set up as an independent organisation in 2005 with the mandate to promote transparent, accountable and participatory governance, and a people-centred perspective in preparation and implementation of budgets in India.'
+        "CBGA is an independent non-profit organisation enhancing transparency and accountability in governance through rigorous analysis of policies and budgets, and fostering people's participation in public policy processes by demystifying them.",
+        'Envisioned by a group of civil society leaders and academicians, CBGA was started in 2002 as a programme of National Centre for Advocacy Studies (NCAS). It was set up as an independent organisation in 2005 with the mandate to promote transparent, accountable and participatory governance, and a people-centred perspective in preparation and implementation of budgets in India.',
       ],
       email: 'info@cbgaindia.org',
       github: 'https://github.com/cbgaindia',
-      linkedin: 'https://www.linkedin.com/company/centre-for-budget-and-governance-accountability-cbga-/',
+      linkedin:
+        'https://www.linkedin.com/company/centre-for-budget-and-governance-accountability-cbga-/',
       twitter: 'https://twitter.com/CBGAIndia',
       class: 'partners--dark-img',
     },
@@ -89,7 +94,18 @@ const About = () => {
       <Head>
         <title>About Us | OPub</title>
       </Head>
-      <Header data={headerData} />
+
+      <HeaderWrapper>
+        <div className="container">
+          <h2>{headerData.title}</h2>
+          <AboutPara>
+            {headerData.content.map((item, index) => (
+              <p key={`header-content-${index}`}>{item}</p>
+            ))}
+          </AboutPara>
+        </div>
+      </HeaderWrapper>
+
       <AboutPage className="container">
         <h3 className="partners__heading">Partners</h3>
         <ul className="partners">
@@ -123,3 +139,9 @@ const About = () => {
 };
 
 export default About;
+
+const AboutPara = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`
