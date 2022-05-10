@@ -6,12 +6,26 @@ import AboutPage from './AboutPage';
 
 const About = () => {
   const headerData = {
-    title: 'The Team',
+    title: 'About Open Budgets India',
     content:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
+      'The platform, Open Budgets India, has resulted from collective efforts by many organisations and individuals. Increasingly, people across the country are keen to understand and participate meaningfully in discussions on government budgets. But, the limited availability of relevant and accessible information on budgets in India at different levels has been a hindrance in this regard.',
   };
 
   const partners = [
+    {
+      name: 'Centre for Budget Governance and Accountability',
+      title: 'Lead Partner',
+      img: '/assets/images/ocp.png',
+      desc: [
+        'CBGA is an independent non-profit organisation enhancing transparency and accountability in governance through rigorous analysis of policies and budgets, and fostering people\'s participation in public policy processes by demystifying them.',
+        'Envisioned by a group of civil society leaders and academicians, CBGA was started in 2002 as a programme of National Centre for Advocacy Studies (NCAS). It was set up as an independent organisation in 2005 with the mandate to promote transparent, accountable and participatory governance, and a people-centred perspective in preparation and implementation of budgets in India.'
+      ],
+      email: 'info@cbgaindia.org',
+      github: 'https://github.com/cbgaindia',
+      linkedin: 'https://www.linkedin.com/company/centre-for-budget-and-governance-accountability-cbga-/',
+      twitter: 'https://twitter.com/CBGAIndia',
+      class: 'partners--dark-img',
+    },
     {
       name: 'CivicDataLab',
       title: 'Technology Partner',
@@ -22,23 +36,9 @@ const About = () => {
         'We aim to grow data and tech literacy of governments, non-profits, think-tanks, media houses, universities, and more to enable data-driven decision making at scale.',
       ],
       email: 'info@civicdatalab.in',
-      github: '/',
-      linkedin: '/',
-      twitter: '/',
-      class: 'partners--dark-img',
-    },
-    {
-      name: 'Open Contracting Partnership',
-      title: 'Platform Owner',
-      img: '/assets/images/ocp.png',
-      desc: [
-        'The Open Contracting Partnership is an independent non-profit public charity 501(c)(3) working in over 50 countries.',
-        'We are a silo-busting collaboration across governments, businesses, civil society, and technologists to open up and transform government contracting worldwide. Bringing open data and open government together, we make sure public money is spent openly, fairly and effectively on public contracts, the single biggest item of spending by most governments. They are a government’s number one corruption risk and they are vital to make sure citizens get the services that they deserve.',
-      ],
-      email: 'info@civicdatalab.in',
-      github: '/',
-      linkedin: '/',
-      twitter: '/',
+      github: 'github.com/civicDataLab/',
+      linkedin: 'https://www.linkedin.com/company/civicdatalab/',
+      twitter: 'twitter.com/civicDatalab/',
       class: 'partners--dark-img',
     },
   ];
@@ -101,7 +101,7 @@ const About = () => {
             );
           })}
         </ul>
-        <section className="about__team">
+        {/* <section className="about__team">
           <h3>
             <span /> members
           </h3>
@@ -116,7 +116,7 @@ const About = () => {
               );
             })}
           </ul>
-        </section>
+        </section> */}
       </AboutPage>
     </div>
   );

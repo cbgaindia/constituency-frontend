@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const PartnersCard = styled.div`
-  background-color: #fff;
+  background-color: var(--color-background-lighter);
   padding: 1.5rem !important;
   border-radius: 12px;
   filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.08));
@@ -9,7 +9,7 @@ const PartnersCard = styled.div`
 
   .partners__header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
   }
 
   h4 {
@@ -21,7 +21,7 @@ const PartnersCard = styled.div`
   small {
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: $text-light-light;
+    color: var(--text-light-medium);
     font-weight: 500;
   }
 

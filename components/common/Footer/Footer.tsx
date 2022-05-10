@@ -128,6 +128,7 @@ export default Footer;
 const Wrapper = styled.footer`
   background-color: var(--nav-bg);
   color: var(--text-dark-high);
+  margin-top: 80px;
 
   a {
     text-decoration: underline;
