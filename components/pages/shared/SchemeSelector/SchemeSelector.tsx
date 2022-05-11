@@ -1,5 +1,4 @@
-import React, { useState, useRef, useEffect, useContext } from 'react';
-import { GlobalContext } from 'pages/_app';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { Button, Menu } from 'components/actions';
 import { MenuButton, MenuContent } from 'components/actions/Menu/MenuComp';
@@ -29,7 +28,15 @@ const SchemeSelector: React.FC<{
   trending?: any;
   state?: string;
   scheme?: any;
-}> = ({ sabha = true, suggestion = true, state, scheme, trending }) => {
+  stateData?: any;
+}> = ({
+  sabha = true,
+  suggestion = true,
+  state,
+  scheme,
+  trending,
+  stateData,
+}) => {
   const router = useRouter();
 
   const [selectedState, setSelectedState] = useState<any>(
@@ -41,13 +48,13 @@ const SchemeSelector: React.FC<{
   const [selectedSabha, setSelectedSabha] = useState(
     router.query.sabha ? router.query.sabha : 'lok'
   );
+  const [stateScheme, setStateScheme] = useState<any>([]);
   const [availableStates, setAvailableStates] = useState<any>([]);
   const [availableSchemes, setAvailableSchemes] = useState<any>([]);
-  const { stateScheme } = useContext(GlobalContext);
   const sabhaRef = useRef(null);
 
   useEffect(() => {
-    const availableStates = Object.keys(stateScheme).map((item) => ({
+    const availableStates = Object.keys(stateData).map((item) => ({
       value: item,
       title: item,
     }));
@@ -58,14 +65,16 @@ const SchemeSelector: React.FC<{
     );
 
     if (!state) {
-      setSelectedState(availableStates[0]);
+      setSelectedState([0]);
     }
     setAvailableStates(availableStates);
   }, []);
 
   useEffect(() => {
-    if (stateScheme[selectedState.value]) {
-      const tempSchemes = stateScheme[selectedState.value].map((item) => ({
+    console.log(stateData, selectedState);
+
+    if (stateData[selectedState.value]) {
+      const tempSchemes = stateData[selectedState.value].map((item) => ({
         value: item.scheme_slug,
         title: item.scheme_name,
       }));
@@ -75,9 +84,12 @@ const SchemeSelector: React.FC<{
         a.value > b.value ? 1 : b.value > a.value ? -1 : 0
       );
 
+      console.log(stateData, tempSchemes);
+      
+
       setAvailableSchemes(tempSchemes);
     }
-  }, [selectedState, stateScheme]);
+  }, [selectedState, stateData]);
 
   function handleMenuChange(val, array) {
     const setState =

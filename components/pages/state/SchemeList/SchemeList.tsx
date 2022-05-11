@@ -3,9 +3,7 @@ import Link from 'next/link';
 import styled from 'styled-components';
 import SchemesData from 'utils/schemesData';
 
-const SchemeList = ({ data, state }) => {
-  console.log(SchemesData);
-  
+const SchemeList = ({ data, state }) => {  
   return (
     <Wrapper>
       <span className="gradient-maple">Drilldown Further</span>

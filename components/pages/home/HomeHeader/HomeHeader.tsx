@@ -4,7 +4,7 @@ import SchemeSelector from 'components/pages/shared/SchemeSelector';
 import { HeaderControls } from 'components/pages/shared/SchemeSelector/SchemeSelector';
 import { trending } from 'data/home';
 
-const HomeHeader = () => {
+const HomeHeader = ({ stateData }) => {
   return (
     <Header>
       <div className="container">
@@ -15,7 +15,7 @@ const HomeHeader = () => {
           </span>{' '}
           <span className="gradient-amazon">for schemes</span>
         </h1>
-        <SchemeSelector trending={trending} />
+        <SchemeSelector trending={trending} stateData={stateData} />
       </div>
     </Header>
   );

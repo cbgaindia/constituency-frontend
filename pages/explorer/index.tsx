@@ -13,11 +13,11 @@ import {
   HeaderControls,
   SchemesMenu,
 } from 'components/pages/shared/SchemeSelector/SchemeSelector';
-import { dataTransform } from 'utils/fetch';
+import { dataTransform, stateDataFetch, stateSchemeFetch } from 'utils/fetch';
 
 type Props = {
   data: any;
-  meta: any;
+  stateData: any;
   scheme: any;
 };
 
@@ -41,7 +41,7 @@ function verifyState(state) {
   else return false;
 }
 
-const Explorer: React.FC<Props> = ({ data, scheme }) => {  
+const Explorer: React.FC<Props> = ({ data, scheme, stateData }) => {  
   const [showReport, setShowReport] = useState(false);
   const [meta, setMeta] = useState({});
 
@@ -61,6 +61,7 @@ const Explorer: React.FC<Props> = ({ data, scheme }) => {
             sabha={false}
             state={data.state}
             scheme={data.scheme}
+            stateData={stateData}
           />
 
           {Object.keys(data).length !== 0 && verifyState(data.state) ? (
@@ -96,7 +97,7 @@ const Explorer: React.FC<Props> = ({ data, scheme }) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { state, scheme, sabha } = context.query;
   const schemeData = await dataTransform(context.query.scheme || '');
-
+  const stateData = await stateSchemeFetch();
   let data: any = {};
 
   data.state = state || '';
@@ -107,6 +108,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: {
       data,
       scheme: schemeData,
+      stateData
     },
   };
 };

@@ -361,14 +361,14 @@ export async function stateSchemeFetch() {
     return null;
   });
 
-  // lower-casing objkect keys
-  var theKeys = Object.getOwnPropertyNames(stateScheme);
-  var lookup = {};
-  theKeys.forEach(function (key) {
-    lookup[key.toLowerCase()] = stateScheme[key];
-  });
+  // // lower-casing objkect keys
+  // var theKeys = Object.getOwnPropertyNames(stateScheme);
+  // var lookup = {};
+  // theKeys.forEach(function (key) {
+  //   lookup[key.toLowerCase()] = stateScheme[key];
+  // });
 
-  return lookup;
+  return stateScheme;
 }
 
 export async function stateDataFetch() {

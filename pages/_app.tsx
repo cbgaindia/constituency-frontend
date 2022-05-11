@@ -1,13 +1,10 @@
-import React, { useEffect, createContext } from 'react';
-import App from 'next/app';
+import React, { useEffect } from 'react';
 import NextNprogress from 'nextjs-progressbar';
 import { GlobalStyle } from 'styles/Global';
 import { DEFAULT_THEME } from 'config/theme';
 import Layout from 'config/layout';
 import Router from 'next/router';
-import { stateDataFetch, stateSchemeFetch } from 'utils/fetch';
 
-export const GlobalContext = createContext<any>({});
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
     const handleRouteChange = (url) => {
@@ -43,19 +40,9 @@ function MyApp({ Component, pageProps }) {
         options={{ easing: 'ease', speed: 300, showSpinner: false }}
       />
       <GlobalStyle />
-      <GlobalContext.Provider value={{ stateScheme, stateData }}>
-        <Component {...pageProps} />
-      </GlobalContext.Provider>
+      <Component {...pageProps} />
     </Layout>
   );
 }
-
-MyApp.getInitialProps = async (ctx) => {
-  const appProps = await App.getInitialProps(ctx);
-  const stateScheme = await stateSchemeFetch();
-  const stateData = await stateDataFetch();
-
-  return { ...appProps, pageProps: { stateScheme, stateData } };
-};
 
 export default MyApp;

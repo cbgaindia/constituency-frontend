@@ -67,7 +67,7 @@ const MapViz = ({
             roam: true,
             map: sabha,
             nameProperty: 'GEO_NO',
-            zoom: 1.3,
+            zoom: 1.2,
             itemStyle: {
               borderColor: '#ffffff',
               borderWidth: 0.8,
@@ -90,8 +90,8 @@ const MapViz = ({
               },
             },
             scaleLimit: {
-              min: 0.8,
-              max: 3,
+              min: 1.2,
+              max: 1.2,
             },
             data: data,
           },

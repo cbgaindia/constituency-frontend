@@ -1,8 +1,7 @@
-import React, { useContext } from 'react';
-import Head from 'next/head';
+import React from 'react';
+import { stateSchemeFetch } from 'utils/fetch';
 import { GetServerSideProps } from 'next';
-import { GlobalContext } from 'pages/_app';
-import { fetchQuery } from 'utils/fetch';
+import Head from 'next/head';
 import styled from 'styled-components';
 import {
   HomeAbout,
@@ -12,15 +11,14 @@ import {
   HomeStates,
 } from 'components/pages/home';
 
-export default function Home() {
-  const statesData = useContext(GlobalContext);
+export default function Home({ stateData }) {
   return (
     <>
       <Head>
         <title>Constituency Dashboard</title>
       </Head>
       <HomePage>
-        <HomeHeader />
+        <HomeHeader stateData={stateData} />
         <HomeAbout />
         {/* <HomeHighlight /> */}
         <HomeStates />
@@ -32,18 +30,11 @@ export default function Home() {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const stateList = await fetchQuery(
-    'schemeType',
-    'Centrally Sponsored Scheme'
-  );
+  const stateData = await stateSchemeFetch();
 
   return {
     props: {
-      statesData: stateList.map((scheme) => ({
-        state: scheme.extras[3].value,
-        scheme_name: scheme.extras[0].value,
-        slug: scheme.extras[2].value,
-      })),
+      stateData,
     },
   };
 };

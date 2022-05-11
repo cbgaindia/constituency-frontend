@@ -1,23 +1,23 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import styled from 'styled-components';
-import { GlobalContext } from 'pages/_app';
 
 import Header from 'components/pages/state/Header';
 import SchemeList from 'components/pages/state/SchemeList';
 import { Button } from 'components/actions';
 import { Banner } from 'components/layouts';
+import { stateDataFetch, stateSchemeFetch } from 'utils/fetch';
 
 type Props = {
-  data: any;
+  stateScheme: any;
+  stateData: any;
   query: any;
 };
 
-const Datasets: React.FC<Props> = ({ query }) => {
+const Datasets: React.FC<Props> = ({ query, stateScheme, stateData }) => {
   const [currentState, setCurrentState] = useState<any>();
   const state = query.stateName;
-  const { stateData, stateScheme } = useContext(GlobalContext);
 
   useEffect(() => {
     setCurrentState(
@@ -45,7 +45,7 @@ const Datasets: React.FC<Props> = ({ query }) => {
       <Wrapper className="container">
         <Header data={currentState} />
         <SchemeList
-          data={stateScheme[currentState.State.toLowerCase()]}
+          data={stateScheme[currentState.State]}
           state={currentState.State}
         />
         {/* <Banner details={bannerDetails} /> */}
@@ -58,9 +58,13 @@ const Datasets: React.FC<Props> = ({ query }) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const query = context.query || {};
+  const stateScheme = await stateSchemeFetch();
+  const stateData = await stateDataFetch();
   return {
     props: {
       query,
+      stateScheme,
+      stateData,
     },
   };
 };
