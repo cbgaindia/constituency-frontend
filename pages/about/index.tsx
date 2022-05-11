@@ -19,7 +19,7 @@ const About = () => {
     {
       name: 'Centre for Budget Governance and Accountability',
       title: 'Lead Partner',
-      img: '/assets/images/ocp.png',
+      img: '/assets/images/cbga_logo.png',
       desc: [
         "CBGA is an independent non-profit organisation enhancing transparency and accountability in governance through rigorous analysis of policies and budgets, and fostering people's participation in public policy processes by demystifying them.",
         'Envisioned by a group of civil society leaders and academicians, CBGA was started in 2002 as a programme of National Centre for Advocacy Studies (NCAS). It was set up as an independent organisation in 2005 with the mandate to promote transparent, accountable and participatory governance, and a people-centred perspective in preparation and implementation of budgets in India.',
@@ -29,7 +29,6 @@ const About = () => {
       linkedin:
         'https://www.linkedin.com/company/centre-for-budget-and-governance-accountability-cbga-/',
       twitter: 'https://twitter.com/CBGAIndia',
-      class: 'partners--dark-img',
     },
     {
       name: 'CivicDataLab',

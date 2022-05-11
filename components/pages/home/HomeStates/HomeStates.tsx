@@ -31,9 +31,9 @@ const states = [
     link: 'odisha',
   },
   {
-    img: '/assets/states/up.svg',
+    img: '/assets/states/uttar pradesh.svg',
     title: 'Uttar Pradesh',
-    link: 'up',
+    link: 'uttar pradesh',
   },
 ];
 

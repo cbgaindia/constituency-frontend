@@ -2,55 +2,58 @@ import { Share } from 'components/actions';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-const summaryCards = [
-  {
-    text: 'Total Receipts',
-    value: '₹ 4,20,672 Cr.',
-  },
-  {
-    text: 'Total Expenditure',
-    value: '₹ 5,50,271 Cr.',
-  },
-  {
-    text: 'Fiscal Deficit',
-    value: '₹ 21,73,990 Cr.',
-  },
-  {
-    text: 'GSDP',
-    value: '₹ 21,73,990 Cr.',
-  },
-];
-
 const Header = ({ data }) => {
+  const summaryCards = [
+    {
+      text: 'Total Receipts',
+      value: `₹ ${data['Total Receipts']} Cr.`,
+    },
+    {
+      text: 'Total Expenditure',
+      value: `₹ ${data['Total Expenditure']} Cr.`,
+    },
+    {
+      text: 'Fiscal Deficit',
+      value: `₹ ${data['Fiscal Deficit']} Cr.`,
+    },
+    {
+      text: 'GSDP (in current prices)',
+      value: `₹ ${data['GSDP']} Cr.`,
+    },
+  ];
+
   return (
     <HeaderWrapper>
       <article>
-        <Image
-          src={'/assets/states/up.svg'}
-          width={264}
-          height={180}
-          alt=""
-          className="img-cover"
-        />
+        {data.State && (
+          <Image
+            src={`/assets/states/${data.State.toLowerCase()}.svg`}
+            width={264}
+            height={180}
+            alt=""
+            className="img-cover"
+          />
+        )}
+
         <CardContent>
           <div>
             <p>
               Lok Sabha:
-              <span>73</span>
+              <span>{data['Lok Sabha']}</span>
             </p>
             <p>
               Vidhan Sabha:
-              <span>26</span>
+              <span>{data['Vidhan Sabha']}</span>
             </p>
           </div>
           <p>
             Population (2011):
-            <span>199,812,341</span>
+            <span>{data['Population (2011)']} Cr</span>
           </p>
           <p>
             Area:
             <span>
-              240,928 km<sup>2</sup>
+              {data.Area} km<sup>2</sup>
             </span>
           </p>
         </CardContent>
@@ -58,15 +61,14 @@ const Header = ({ data }) => {
       <div>
         <Main>
           <div>
-            <h1 className="gradient-amazon">{data.title}</h1>
-            <Share title={data.title} />
+            <h1 className="gradient-amazon">{data.State}</h1>
+            <Share title={data.State} />
           </div>
-          <p>{data.content}</p>
+          <p>{data.Description}</p>
         </Main>
         <Summary>
           <div>
-            <h2>Summary</h2>
-            <span>Financial Year 2022-23</span>
+            <h2>Budget 2022-23 Highlights</h2>
           </div>
           <ul>
             {summaryCards.map((item, index) => (
@@ -180,8 +182,6 @@ const Summary = styled.div`
     }
 
     h2 {
-      border-right: 3px solid var(--text-light-disabled);
-      padding-right: 12px;
       line-height: 1;
 
       @media screen and (max-width: 436px) {

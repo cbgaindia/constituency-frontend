@@ -1,9 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
+import { GlobalContext } from 'pages/_app';
 import styled from 'styled-components';
 import { Button, Menu } from 'components/actions';
 import { MenuButton, MenuContent } from 'components/actions/Menu/MenuComp';
 import { LokSabha, VidhanSabha } from 'components/icons';
 import { useRouter } from 'next/router';
+import { MenuWrapper } from 'components/actions/Menu';
 
 const noState = {
   title: 'Select a state...',
@@ -27,15 +29,7 @@ const SchemeSelector: React.FC<{
   trending?: any;
   state?: string;
   scheme?: any;
-  statesData: any;
-}> = ({
-  sabha = true,
-  suggestion = true,
-  state,
-  scheme,
-  statesData,
-  trending,
-}) => {
+}> = ({ sabha = true, suggestion = true, state, scheme, trending }) => {
   const router = useRouter();
 
   const [selectedState, setSelectedState] = useState<any>(
@@ -47,33 +41,13 @@ const SchemeSelector: React.FC<{
   const [selectedSabha, setSelectedSabha] = useState(
     router.query.sabha ? router.query.sabha : 'lok'
   );
-  const [stateSchemeData, setStateSchemeData] = useState({});
   const [availableStates, setAvailableStates] = useState<any>([]);
   const [availableSchemes, setAvailableSchemes] = useState<any>([]);
-
+  const { stateScheme } = useContext(GlobalContext);
   const sabhaRef = useRef(null);
 
   useEffect(() => {
-    const tempSchemeData = {};
-    statesData.map((state) => {
-      state.state.split(',').map((each_state) => {
-        if (each_state in tempSchemeData) {
-          tempSchemeData[each_state].push({
-            scheme_name: state.scheme_name,
-            scheme_slug: state.slug,
-          });
-        } else {
-          tempSchemeData[each_state] = [
-            { scheme_name: state.scheme_name, scheme_slug: state.slug },
-          ];
-        }
-        return null;
-      });
-      return null;
-    });
-    setStateSchemeData(tempSchemeData);
-
-    const availableStates = Object.keys(tempSchemeData).map((item) => ({
+    const availableStates = Object.keys(stateScheme).map((item) => ({
       value: item,
       title: item,
     }));
@@ -90,8 +64,8 @@ const SchemeSelector: React.FC<{
   }, []);
 
   useEffect(() => {
-    if (stateSchemeData[selectedState.value]) {
-      const tempSchemes = stateSchemeData[selectedState.value].map((item) => ({
+    if (stateScheme[selectedState.value]) {
+      const tempSchemes = stateScheme[selectedState.value].map((item) => ({
         value: item.scheme_slug,
         title: item.scheme_name,
       }));
@@ -100,10 +74,10 @@ const SchemeSelector: React.FC<{
       tempSchemes.sort((a, b) =>
         a.value > b.value ? 1 : b.value > a.value ? -1 : 0
       );
-      
+
       setAvailableSchemes(tempSchemes);
     }
-  }, [selectedState, stateSchemeData]);
+  }, [selectedState, stateScheme]);
 
   function handleMenuChange(val, array) {
     const setState =
@@ -270,6 +244,12 @@ const HeaderToggle = styled.div`
 
 const StateMenu = styled.div`
   flex-basis: 208px;
+
+  ${MenuWrapper} {
+    button {
+      text-transform: capitalize;
+    }
+  }
 `;
 
 const SchemeMenu = styled.div`

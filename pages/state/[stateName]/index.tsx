@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import styled from 'styled-components';
-
-import { fetchDatasets, convertToCkanSearchQuery } from 'utils/fetch';
+import { GlobalContext } from 'pages/_app';
 
 import Header from 'components/pages/state/Header';
 import SchemeList from 'components/pages/state/SchemeList';
@@ -15,9 +14,16 @@ type Props = {
   query: any;
 };
 
-const Datasets: React.FC<Props> = ({ data, query }) => {
+const Datasets: React.FC<Props> = ({ query }) => {
+  const [currentState, setCurrentState] = useState<any>();
   const state = query.stateName;
-  const { results } = data.result;
+  const { stateData, stateScheme } = useContext(GlobalContext);
+
+  useEffect(() => {
+    setCurrentState(
+      stateData.find((o) => o.State.toLowerCase() == state.toLowerCase())
+    );
+  }, [stateData]);
 
   const bannerDetails = {
     heading:
@@ -30,43 +36,30 @@ const Datasets: React.FC<Props> = ({ data, query }) => {
     image: '/assets/images/banner.png',
   };
 
-  function stateName(id) {
-    switch (id) {
-      case 'up':
-        return 'uttar pradesh';
-      default:
-        return id;
-    }
-  }
-
-  const headerData = {
-    title: stateName(state),
-    content:
-      'It is the most populated state in India, as well as the most populous country subdivision in the world. The state is bordered by Rajasthan to the west, Haryana, Himachal Pradesh and Delhi to the northwest, Uttarakhand and an international border with Nepal to the north, Bihar to the east, Madhya Pradesh to the south, and touches the states of Jharkhand and Chhattisgarh to the southeast.',
-  };
-
-  return (
+  return currentState ? (
     <>
       <Head>
-        <title>{stateName(state)} | Constituency Dashboard</title>
+        <title>{currentState.State || 'State'} | Constituency Dashboard</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Wrapper className="container">
-        <Header data={headerData} />
-        <SchemeList data={results} url={state} />
-        <Banner details={bannerDetails} />
+        <Header data={currentState} />
+        <SchemeList
+          data={stateScheme[currentState.State.toLowerCase()]}
+          state={currentState.State}
+        />
+        {/* <Banner details={bannerDetails} /> */}
       </Wrapper>
     </>
+  ) : (
+    <></>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const query = context.query || {};
-  const variables = convertToCkanSearchQuery(query);
-  const data = await fetchDatasets(variables);
   return {
     props: {
-      data,
       query,
     },
   };
@@ -75,7 +68,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 export default Datasets;
 
 const Wrapper = styled.main`
-  .banner{
+  .banner {
     margin-top: 32px;
     margin-bottom: 212px;
   }

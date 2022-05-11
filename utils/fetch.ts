@@ -8,9 +8,7 @@ export const fetchDatasets = async (variables) => {
   }
 
   variables.fq
-    ? (variables.fq = variables.fq.concat(
-        ` AND private:false`
-      ))
+    ? (variables.fq = variables.fq.concat(` AND private:false`))
     : (variables.fq = `private:false`);
 
   // creating a string of parameter from object of variables for CKAN API use
@@ -19,9 +17,7 @@ export const fetchDatasets = async (variables) => {
   });
 
   const varString =
-    varArray.length > 0
-      ? varArray.join('&')
-      : `fq=private:false`;
+    varArray.length > 0 ? varArray.join('&') : `fq=private:false`;
 
   const response = await fetch(
     `${process.env.CKAN_URL}/package_search?${varString}`
@@ -105,7 +101,7 @@ export async function fetchQuery(query, value) {
   return queryRes.result.results;
 }
 
-export async function fetchSheets(link) {
+export async function fetchSheets(link, aoa = true) {
   const result = [];
   await fetch(link)
     .then((res) => {
@@ -120,7 +116,7 @@ export async function fetchSheets(link) {
         const data = workbook.Sheets[bookName];
 
         const dataParse = xlsxUtil.sheet_to_json(data, {
-          header: 1,
+          header: aoa ? 1 : undefined,
           blankrows: false,
         });
         result.push(dataParse);
@@ -333,4 +329,57 @@ export async function dataTransform(id) {
     });
   }
   return obj;
+}
+
+export async function stateSchemeFetch() {
+  const stateList = await fetchQuery(
+    'schemeType',
+    'Centrally Sponsored Scheme'
+  );
+
+  const statesData = stateList.map((scheme) => ({
+    state: scheme.extras[3].value,
+    scheme_name: scheme.extras[0].value,
+    slug: scheme.extras[2].value,
+  }));
+
+  const stateScheme = {};
+  statesData.map((state) => {
+    state.state.split(',').map((each_state) => {
+      if (each_state in stateScheme) {
+        stateScheme[each_state].push({
+          scheme_name: state.scheme_name,
+          scheme_slug: state.slug,
+        });
+      } else {
+        stateScheme[each_state] = [
+          { scheme_name: state.scheme_name, scheme_slug: state.slug },
+        ];
+      }
+      return null;
+    });
+    return null;
+  });
+
+  // lower-casing objkect keys
+  var theKeys = Object.getOwnPropertyNames(stateScheme);
+  var lookup = {};
+  theKeys.forEach(function (key) {
+    lookup[key.toLowerCase()] = stateScheme[key];
+  });
+
+  return lookup;
+}
+
+export async function stateDataFetch() {
+  const data = await fetch(
+    'http://3.109.56.211/api/3/action/package_search?fq=organization:constituency-wise-scheme-data%20AND%20schemeType:%22State%20Info%22'
+  ).then((res) => res.json());
+
+  const sheet = await fetchSheets(
+    data.result.results[0].resources[0].url,
+    false
+  );
+
+  return sheet[0];
 }

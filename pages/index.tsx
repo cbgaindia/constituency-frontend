@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Head from 'next/head';
 import { GetServerSideProps } from 'next';
+import { GlobalContext } from 'pages/_app';
 import { fetchQuery } from 'utils/fetch';
 import styled from 'styled-components';
 import {
@@ -11,14 +12,15 @@ import {
   HomeStates,
 } from 'components/pages/home';
 
-export default function Home({ statesData }) {
+export default function Home() {
+  const statesData = useContext(GlobalContext);
   return (
     <>
       <Head>
         <title>Constituency Dashboard</title>
       </Head>
       <HomePage>
-        <HomeHeader statesData={statesData} />
+        <HomeHeader />
         <HomeAbout />
         {/* <HomeHighlight /> */}
         <HomeStates />

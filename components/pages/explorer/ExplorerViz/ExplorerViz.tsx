@@ -1,29 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
-import dynamic from 'next/dynamic';
 import styled from 'styled-components';
 import { tabbedInterface } from 'utils/explorer';
-
-import { barLineTransformer } from 'components/viz';
 
 import { Indicator, IndicatorMobile, Table } from 'components/data';
 import { Menu } from 'components/actions';
 import Source from './Source';
 import Toggler from './Toggler';
 import ExplorerMap from './ExplorerMap';
-import LobSabha from 'components/icons/LokSabha';
-
-const SimpleBarLineChartViz = dynamic(
-  () => import('components/viz/SimpleBarLineChart'),
-  { ssr: false, loading: () => <p>...</p> }
-);
-
-function matchState(state) {
-  if (state.toLowerCase() === 'Uttar Pradesh'.toLowerCase()) {
-    return 'Uttar Pradesh';
-  } else if (state.toLowerCase() === 'Chhattisgarh'.toLowerCase()) {
-    return 'Chhattisgarh';
-  } else return state;
-}
+import { capitalize } from 'utils/helper';
 
 const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
   const [indicatorFiltered, setIndicatorFiltered] = useState([]);
@@ -55,7 +39,7 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
   useEffect(() => {
     // fill up available financial years for state+sabha
     const years = Object.keys(
-      Object.values(schemeData.data)[0]['state_Obj'][matchState(state)]
+      Object.values(schemeData.data)[0]['state_Obj'][capitalize(state)]
     ).map((item) => ({
       value: item,
       title: item,
@@ -75,11 +59,11 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
     }
 
     const rowData = [];
-    if (filtered[selectedYear]) {      
+    if (filtered[selectedYear]) {
       Object.values(filtered[selectedYear]).forEach((item, index) => {
         const tempObj = {
           [tableHeader[0].accessor]:
-            schemeData.metadata.consList[state][index]?.constName,
+            schemeData.metadata.consList[capitalize(state)][index]?.constName,
         };
 
         Object.keys(filtered).map(
@@ -139,7 +123,7 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
           (item) => schemeData.data[item].slug === val
         );
         const filtered =
-          schemeData.data[indicatorID]['state_Obj'][matchState(state)];
+          schemeData.data[indicatorID]['state_Obj'][capitalize(state)];
 
         setFiltered(filtered);
         setIndicatorFiltered(filtered);

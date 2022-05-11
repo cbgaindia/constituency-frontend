@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
 
-const SchemeList = ({ data, url }) => {
+const SchemeList = ({ data, state }) => {
   return (
     <Wrapper>
       <span className="gradient-maple">Drilldown Further</span>
@@ -10,7 +10,7 @@ const SchemeList = ({ data, url }) => {
       <ul>
         {data.map((item, index) => (
           <Card key={`schemeList-${index}`}>
-            <Link href={`/explorer`}>
+            <Link href={`/explorer?scheme=${item.scheme_slug}&state=${state}`}>
               <a>
                 <figure>
                   <Image
@@ -21,7 +21,7 @@ const SchemeList = ({ data, url }) => {
                     className="img-contain"
                   />
                 </figure>
-                <h3>National Health Mission (NHM)</h3>
+                <h3>{item.scheme_name}</h3>
               </a>
             </Link>
           </Card>

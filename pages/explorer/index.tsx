@@ -13,13 +13,12 @@ import {
   HeaderControls,
   SchemesMenu,
 } from 'components/pages/shared/SchemeSelector/SchemeSelector';
-import { dataTransform, fetchQuery } from 'utils/fetch';
+import { dataTransform } from 'utils/fetch';
 
 type Props = {
   data: any;
   meta: any;
   scheme: any;
-  statesData: any;
 };
 
 const headerData = {
@@ -42,7 +41,7 @@ function verifyState(state) {
   else return false;
 }
 
-const Explorer: React.FC<Props> = ({ data, scheme, statesData }) => {  
+const Explorer: React.FC<Props> = ({ data, scheme }) => {  
   const [showReport, setShowReport] = useState(false);
   const [meta, setMeta] = useState({});
 
@@ -62,7 +61,6 @@ const Explorer: React.FC<Props> = ({ data, scheme, statesData }) => {
             sabha={false}
             state={data.state}
             scheme={data.scheme}
-            statesData={statesData}
           />
 
           {Object.keys(data).length !== 0 && verifyState(data.state) ? (
@@ -99,11 +97,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { state, scheme, sabha } = context.query;
   const schemeData = await dataTransform(context.query.scheme || '');
 
-  const stateList = await fetchQuery(
-    'schemeType',
-    'Centrally Sponsored Scheme'
-  );
-
   let data: any = {};
 
   data.state = state || '';
@@ -114,11 +107,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: {
       data,
       scheme: schemeData,
-      statesData: stateList.map((scheme) => ({
-        state: scheme.extras[3].value,
-        scheme_name: scheme.extras[0].value,
-        slug: scheme.extras[2].value,
-      })),
     },
   };
 };
