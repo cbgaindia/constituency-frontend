@@ -1,8 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
+import SchemesData from 'utils/schemesData';
 
 const SchemeList = ({ data, state }) => {
+  console.log(SchemesData);
+  
   return (
     <Wrapper>
       <span className="gradient-maple">Drilldown Further</span>
@@ -14,7 +17,7 @@ const SchemeList = ({ data, state }) => {
               <a>
                 <figure>
                   <Image
-                    src={'/assets/schemes/nhm.png'}
+                    src={SchemesData[item.scheme_slug].logo}
                     alt=""
                     width={88}
                     height={88}
