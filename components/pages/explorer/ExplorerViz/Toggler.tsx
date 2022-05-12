@@ -43,6 +43,7 @@ const Toggler = ({ handleNewToggle, selectedSabha, currentToggle }) => {
 
   return (
     <Wrapper ref={sabhaRef}>
+      {/* add a menu for mobile */}
       <SabhaToggle>
         <h2>
           <Button
@@ -96,6 +97,7 @@ const Toggler = ({ handleNewToggle, selectedSabha, currentToggle }) => {
           iconOnly={true}
           kind="custom"
           onClick={fullScreenMode}
+          id="fullScreen"
         >
           Full screen mode
         </Button>
@@ -111,8 +113,9 @@ const Wrapper = styled.div`
   margin-top: 32px;
   border-radius: 4px;
   display: flex;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   justify-content: space-between;
+  overflow-x: auto;
 
   button {
     font-weight: 600;
@@ -120,6 +123,7 @@ const Wrapper = styled.div`
     padding: 20px 24px;
     color: var(--text-light-light);
     border-right: var(--border-2);
+    min-width: 160px;
 
     &[data-value='editorial-notes'] {
       border-inline: var(--border-2);
@@ -142,10 +146,16 @@ const Wrapper = styled.div`
 
 const SabhaToggle = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
 `;
 
 const RightSide = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
+
+  @media screen and (max-width: 640px) {
+    #fullScreen {
+      display: none;
+    }
+  }
 `;

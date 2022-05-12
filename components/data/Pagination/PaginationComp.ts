@@ -20,7 +20,7 @@ export const PaginationComp = styled.div`
     }
   }
 
-  @media (max-width: 370px) {
+  @media (max-width: 480px) {
     display: flex;
     flex-wrap: wrap;
   }
@@ -64,8 +64,9 @@ export const ButtonsLabel = styled.span`
 `;
 
 export const PaginationButtons = styled.div`
-  margin-left: 20px;
+  gap: 20px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 
@@ -92,7 +93,7 @@ export const PaginationButtons = styled.div`
 
   .pagination__back {
     background-color: var(--text-light-disabled);
-    margin-left: 1rem;
+    /* margin-left: 1rem; */
 
     &:active {
       transform: scale(0.9);

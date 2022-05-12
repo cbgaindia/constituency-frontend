@@ -421,9 +421,15 @@ export const VizTabs = styled.ul`
 
 export const VizGraph = styled.div`
   margin: 0 2rem 2rem;
-  height: 500px;
+  height: 580px;
   overflow-y: auto;
   overflow-x: auto;
+
+  &#tableView {
+    @media (max-width: 640px) {
+      height: 800px;
+    }
+  }
 `;
 
 const SchemeNotes = styled.div`
