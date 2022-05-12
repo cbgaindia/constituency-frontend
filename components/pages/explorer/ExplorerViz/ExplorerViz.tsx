@@ -24,7 +24,6 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
   const [financialYears, setFinancialYears] = useState(undefined);
   const [tableData, setTableData] = useState<any>({});
 
-  const barRef = useRef(null);
   const mapRef = useRef(null);
 
   const { state } = data;
@@ -38,49 +37,56 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
 
   useEffect(() => {
     // fill up available financial years for state+sabha
-    const years = Object.keys(
-      Object.values(schemeData.data)[0]['state_Obj'][capitalize(state)]
-    ).map((item) => ({
-      value: item,
-      title: item,
-    }));
-    setFinancialYears(years); // all years
-    setSelectedYear(years[0].value); // default year
+    if (schemeData.data) {
+      const years = Object.keys(
+        Object.values(schemeData.data)[0]['state_Obj'][capitalize(state)]
+      ).map((item) => ({
+        value: item,
+        title: item,
+      }));
+      setFinancialYears(years); // all years
+      setSelectedYear(years[0].value); // default year
 
-    // setting tabular data
-    const tableHeader = [{ Header: 'Constituency', accessor: 'constHeader' }];
-    if (years) {
-      years.forEach((element) =>
-        tableHeader.push({
-          Header: `${selectedIndicator.replaceAll('-', ' ')} ${element.title}`,
-          accessor: `${selectedIndicator}-${element.title}`,
-        })
-      );
-    }
-
-    const rowData = [];
-    if (filtered[selectedYear]) {
-      Object.values(filtered[selectedYear]).forEach((item, index) => {
-        const tempObj = {
-          [tableHeader[0].accessor]:
-            schemeData.metadata.consList[capitalize(state)][index]?.constName,
-        };
-
-        Object.keys(filtered).map(
-          (item1, index1) =>
-            (tempObj[tableHeader[index1 + 1].accessor] =
-              filtered[item1][index + 1])
+      // setting tabular data
+      const tableHeader = [
+        { Header: 'Constituency', accessor: 'constHeader' },
+      ];
+      if (years) {
+        years.forEach((element) =>
+          tableHeader.push({
+            Header: `${selectedIndicator.replaceAll('-', ' ')} ${
+              element.title
+            }`,
+            accessor: `${selectedIndicator}-${element.title}`,
+          })
         );
-        rowData.push(tempObj);
-      });
+      }
+
+      const rowData = [];
+      if (filtered[selectedYear]) {
+        Object.values(filtered[selectedYear]).forEach((item, index) => {
+          const tempObj = {
+            [tableHeader[0].accessor]:
+              schemeData.metadata.consList[capitalize(state)][index]
+                ?.constName,
+          };
+
+          Object.keys(filtered).map(
+            (item1, index1) =>
+              (tempObj[tableHeader[index1 + 1].accessor] =
+                filtered[item1][index + 1])
+          );
+          rowData.push(tempObj);
+        });
+      }
+
+      const tableData: any = {};
+
+      tableData.header = tableHeader;
+      tableData.rows = rowData;
+
+      setTableData(tableData);
     }
-
-    const tableData: any = {};
-
-    tableData.header = tableHeader;
-    tableData.rows = rowData;
-
-    setTableData(tableData);
   }, [filtered]);
 
   useEffect(() => {
@@ -90,7 +96,7 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
   }, [selectedSabha]);
 
   useEffect(() => {
-    handleNewIndicator(schemeData.metadata.indicators[0]);
+    handleNewIndicator(schemeData.metadata?.indicators[0]);
   }, [schemeData]);
 
   useEffect(() => {
@@ -182,7 +188,7 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
   const vizItems = [
     {
       id: 'mapView',
-      graph: (
+      graph: schemeData.data ? (
         <ExplorerMap
           selectedSabha={selectedSabha}
           state={state}
@@ -190,6 +196,8 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
           handleReportBtn={handleReport}
           schemeData={filtered[selectedYear]}
         />
+      ) : (
+        <p>No data</p>
       ),
       ref: mapRef,
     },
@@ -210,37 +218,6 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
     },
   ];
 
-  const schemeNotes = {
-    heading:
-      'MGNREGS aims to enhance livelihood security of the rural masses with a provision of at least 100 days of wage employment in financial year to every rural household whose adult member volunteers to do unskilled manual work. This is one of the world’s largest public sector employment programmes, providing guaranteed income through employment.',
-    indicators: [
-      {
-        title: 'Opening Balance',
-        format: '₹ lakhs',
-        text: 'Amount reported as balance under the scheme by the end of the previous Financial Year (FY)',
-        note: 'NA',
-      },
-      {
-        title: 'Total Available Fund',
-        format: '₹ lakhs',
-        text: 'Based on the demand from the states / UTs funds are made available by the Union Government for the scheme',
-        note: 'Total Available Fund includes Opening Balance as per Utilisation Certificate.',
-      },
-      {
-        title: 'Total Expenditure on Wages',
-        format: '₹ lakhs',
-        text: 'Total expenditure incurred on wage payments to labourers',
-        note: 'Does not include material cost, administrative expenditure or tax payments',
-      },
-      {
-        title: 'Total Expenditure on Materials',
-        format: '₹ lakhs',
-        text: 'Total expenditure incurred on procuring materials',
-        note: 'Does not include wage payments, administrative expenditure or tax payments',
-      },
-    ],
-  };
-
   return (
     <>
       {/* <IndicatorMobile
@@ -255,92 +232,96 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
           currentToggle={currentToggle}
         />
 
-        <Wrapper
-          className={
-            currentToggle === 'editorial-notes'
-              ? 'inactive-sidebar'
-              : undefined
-          }
-        >
-          {currentToggle !== 'editorial-notes' && (
-            <Indicator
-              newIndicator={handleNewIndicator}
-              selectedIndicator={selectedIndicator}
-              schemeData={schemeData}
-            />
-          )}
+        {
+          <Wrapper
+            className={
+              currentToggle === 'editorial-notes'
+                ? 'inactive-sidebar'
+                : undefined
+            }
+          >
+            {currentToggle !== 'editorial-notes' && (
+              <Indicator
+                newIndicator={handleNewIndicator}
+                selectedIndicator={selectedIndicator}
+                schemeData={schemeData}
+              />
+            )}
 
-          <VizWrapper>
-            <div
-              className={
-                currentToggle === 'editorial-notes'
-                  ? 'inactive-viz'
-                  : undefined
-              }
-            >
-              <VizHeader>
-                <VizTabs className="viz__tabs">
-                  {vizToggle.map((item, index) => (
-                    <li key={`toggleItem-${index}`}>
-                      <a href={item.id} onClick={(e) => hideMenu(e)}>
-                        {item.icon}
-                        {item.name}
-                      </a>
-                    </li>
-                  ))}
-                </VizTabs>
-                {financialYears && !isTable && (
-                  <VizMenu className="fill">
-                    <Menu
-                      value={selectedYear}
-                      options={financialYears}
-                      heading="Financial Year:"
-                      handleChange={(e) => handleDropdownChange(e)}
-                    />
-                  </VizMenu>
-                )}
-              </VizHeader>
+            <VizWrapper>
+              <div
+                className={
+                  currentToggle === 'editorial-notes'
+                    ? 'inactive-viz'
+                    : undefined
+                }
+              >
+                <VizHeader>
+                  <VizTabs className="viz__tabs">
+                    {vizToggle.map((item, index) => (
+                      <li key={`toggleItem-${index}`}>
+                        <a href={item.id} onClick={(e) => hideMenu(e)}>
+                          {item.icon}
+                          {item.name}
+                        </a>
+                      </li>
+                    ))}
+                  </VizTabs>
+                  {financialYears && !isTable && (
+                    <VizMenu className="fill">
+                      <Menu
+                        value={selectedYear}
+                        options={financialYears}
+                        heading="Financial Year:"
+                        handleChange={(e) => handleDropdownChange(e)}
+                      />
+                    </VizMenu>
+                  )}
+                </VizHeader>
 
-              {vizItems.map((item, index) => (
-                <VizGraph
-                  className="viz__graph"
-                  key={`vizItem-${index}`}
-                  id={item.id}
-                >
-                  {item.graph}
-                </VizGraph>
-              ))}
-            </div>
-            <SchemeNotes
-              className={
-                currentToggle !== 'editorial-notes'
-                  ? 'inactive-viz'
-                  : undefined
-              }
-            >
-              <p>{schemeNotes.heading}</p>
-              <div>
-                {schemeNotes.indicators.map((item, index) => (
-                  <NotesInidicator key={`indicatorScheme-${index}`}>
-                    <NotesTitle>
-                      <h3>{item.title}</h3> ({item.format})
-                    </NotesTitle>
-                    <p>{item.text}</p>
-                    <IndicatorNotes>
-                      <strong>Note:</strong> {item.note}
-                    </IndicatorNotes>
-                  </NotesInidicator>
+                {vizItems.map((item, index) => (
+                  <VizGraph
+                    className="viz__graph"
+                    key={`vizItem-${index}`}
+                    id={item.id}
+                  >
+                    {item.graph}
+                  </VizGraph>
                 ))}
               </div>
-            </SchemeNotes>
-            <Source
-              title={data.title}
-              currentViz={currentViz}
-              selectedBudgetType={'selectedBudgetType'}
-              selectedIndicator={selectedIndicator}
-            />
-          </VizWrapper>
-        </Wrapper>
+              <SchemeNotes
+                className={
+                  currentToggle !== 'editorial-notes'
+                    ? 'inactive-viz'
+                    : undefined
+                }
+              >
+                <p>{schemeData.metadata?.description}</p>
+                <div>
+                  {schemeData.data &&
+                    Object.values(schemeData.data).map((item: any, index) => (
+                      <NotesInidicator key={`indicator-${item.slug}`}>
+                        <NotesTitle>
+                          <h3>{item.name}</h3> ({item.unit})
+                        </NotesTitle>
+                        <p>{item.description}</p>
+                        <IndicatorNotes>
+                          <strong>Note:</strong> {item.note || 'NA'}
+                        </IndicatorNotes>
+                      </NotesInidicator>
+                    ))}
+                </div>
+              </SchemeNotes>
+              <Source
+                title={data.title}
+                currentViz={currentViz}
+                selectedBudgetType={'selectedBudgetType'}
+                selectedIndicator={selectedIndicator}
+                source={schemeData.metadata?.source}
+              />
+            </VizWrapper>
+          </Wrapper>
+        }
       </div>
     </>
   );

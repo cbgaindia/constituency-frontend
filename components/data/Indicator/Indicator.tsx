@@ -6,7 +6,8 @@ import styled from 'styled-components';
 const Indicator = ({ newIndicator, selectedIndicator, schemeData }) => {
   const indicatorRef = useRef(null);
   useEffect(() => {
-    indicatorRef.current.querySelector(`label input`).checked = true;
+    if (schemeData.data)
+      indicatorRef.current.querySelector(`label input`).checked = true;
   }, [schemeData]);
 
   function handleIndicatorChange(e: any) {

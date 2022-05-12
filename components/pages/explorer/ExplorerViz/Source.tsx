@@ -8,22 +8,13 @@ const Source = ({
   currentViz,
   selectedBudgetType,
   selectedIndicator,
+  source,
 }) => {
   return (
     <ExplorerSource>
       <SourceText>
         <strong>Data Source: </strong>
-        <p>
-          Union Budget documents (2016-17 to 2021-22) sourced from{' '}
-          <a
-            href="https://openbudgetsindia.org/"
-            rel="noreferrer"
-            target="_blank"
-          >
-            Open Budgets India
-            <span className="sr-only"> :opens in new window</span>
-          </a>
-        </p>
+        <p>{source}</p>
       </SourceText>
 
       <SourceButtons>

@@ -2,89 +2,54 @@ import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Document, Drop } from 'components/icons';
 import { tabbedInterface } from 'utils/explorer';
-import { Menu } from 'components/actions';
-import { MenuComp, MenuLabel } from 'components/actions/Menu/MenuComp';
+import { Summary } from 'components/pages/state/Header/Header';
 
-const data = {
-  tabs: [
+const ExplorerHeader = ({ stateData, schemeDesc }) => {
+  const data = {
+    tabs: [
+      {
+        id: 'state-overflow',
+        text: 'State Overview',
+        icon: <Drop />,
+      },
+      {
+        id: 'scheme-overflow',
+        text: 'Scheme Overview',
+        icon: <Document />,
+      },
+    ],
+
+    items: [
+      {
+        id: 'state-overflow',
+        content: stateData.Description,
+      },
+      {
+        id: 'scheme-overflow',
+        content: schemeDesc,
+      },
+    ],
+  };
+
+  const summaryCards = [
     {
-      id: 'state-overflow',
-      text: 'State Overview',
-      icon: <Drop />,
+      text: 'Total Receipts',
+      value: `₹ ${stateData['Total Receipts']} Cr.`,
     },
     {
-      id: 'scheme-overflow',
-      text: 'Scheme Overview',
-      icon: <Document />,
-    },
-  ],
-
-  items: [
-    {
-      id: 'state-overflow',
-      content:
-        'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using "Content here, content here", making it look like readable English. Many desktop ',
-      summaryCards: [
-        {
-          text: 'Total Receipts',
-          value: '₹ 4,20,672 Cr.',
-        },
-        {
-          text: 'Total Expenditure',
-          value: '₹ 5,50,271 Cr.',
-        },
-        {
-          text: 'Fiscal Deficit',
-          value: '₹ 21,73,990 Cr.',
-        },
-        {
-          text: 'GSDP',
-          value: '₹ 21,73,990 Cr.',
-        },
-      ],
+      text: 'Total Expenditure',
+      value: `₹ ${stateData['Total Expenditure']} Cr.`,
     },
     {
-      id: 'scheme-overflow',
-      content:
-        'Publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for  will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).',
-      summaryCards: [
-        {
-          text: 'Total Receipts',
-          value: '₹ 4,20,672 Cr.',
-        },
-        {
-          text: 'Total Expenditure',
-          value: '₹ 5,50,271 Cr.',
-        },
-        {
-          text: 'Fiscal Deficit',
-          value: '₹ 21,73,990 Cr.',
-        },
-        {
-          text: 'GSDP',
-          value: '₹ 21,73,990 Cr.',
-        },
-      ],
+      text: 'Fiscal Deficit',
+      value: `₹ ${stateData['Fiscal Deficit']} Cr.`,
     },
-  ],
-};
+    {
+      text: 'GSDP (in current prices)',
+      value: `₹ ${stateData['GSDP']} Cr.`,
+    },
+  ];
 
-const financialYear = [
-  {
-    value: '2019-20',
-    title: '2019-20',
-  },
-  {
-    value: '2018-19',
-    title: '2018-19',
-  },
-  {
-    value: '2020-21',
-    title: '2020-21',
-  },
-];
-
-const ExplorerHeader = () => {
   const TabbedRef = useRef(null);
 
   useEffect(() => {
@@ -106,35 +71,28 @@ const ExplorerHeader = () => {
             </li>
           ))}
         </Tabs>
-
         <Sections>
-          {data.items.map((item, index) => (
-            <section key={`ss-item-${index}`} id={item.id}>
+          {data.items.map((item) => (
+            <section key={item.id} id={item.id}>
               <p>{item.content}</p>
-              <Summary>
-                <div>
-                  <h2>Summary</h2>
-                  <Menu
-                    options={financialYear}
-                    heading="Financial Year"
-                    handleChange={() => {}}
-                    value={financialYear[0].title}
-                    className="fill"
-                  />
-                </div>
-                <SummaryCard>
-                  {item.summaryCards.map((itemCard, index) => (
-                    <li key={`summary-${index}`}>
-                      <div></div>
-                      <strong>{itemCard.value}</strong>
-                      <span>{itemCard.text}</span>
-                    </li>
-                  ))}
-                </SummaryCard>
-              </Summary>
             </section>
           ))}
         </Sections>
+
+        <Summary>
+          <div>
+            <h2>Budget 2022-23 Highlights</h2>
+          </div>
+          <ul>
+            {summaryCards.map((item, index) => (
+              <li key={`summary-${index}`}>
+                <div></div>
+                <strong>{item.value}</strong>
+                <span>{item.text}</span>
+              </li>
+            ))}
+          </ul>
+        </Summary>
       </Wrapper>
     </>
   );
@@ -183,42 +141,42 @@ const Sections = styled.div`
   }
 `;
 
-const Summary = styled.div`
-  margin-top: 32px;
+// const Summary = styled.div`
+//   margin-top: 32px;
 
-  > div {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
+//   > div {
+//     display: flex;
+//     align-items: center;
+//     flex-wrap: wrap;
+//     gap: 8px;
 
-    .fill {
-      max-width: 250px;
-    }
+//     .fill {
+//       max-width: 250px;
+//     }
 
-    ${MenuLabel} {
-      font-weight: 600;
-      font-size: 1rem;
-      color: var(--text-light-high);
-    }
+//     ${MenuLabel} {
+//       font-weight: 600;
+//       font-size: 1rem;
+//       color: var(--text-light-high);
+//     }
 
-    h2 {
-      font-weight: 600;
-      font-size: 1rem;
-      border-right: 2px solid var(--text-light-disabled);
-      padding-right: 8px;
-      line-height: 1;
+//     h2 {
+//       font-weight: 600;
+//       font-size: 1rem;
+//       border-right: 2px solid var(--text-light-disabled);
+//       padding-right: 8px;
+//       line-height: 1;
 
-      @media screen and (max-width: 436px) {
-        line-height: 1.7;
-        border-right-color: transparent;
+//       @media screen and (max-width: 436px) {
+//         line-height: 1.7;
+//         border-right-color: transparent;
 
-        border-bottom: 3px solid var(--text-light-disabled);
-        padding-bottom: 12px;
-      }
-    }
-  }
-`;
+//         border-bottom: 3px solid var(--text-light-disabled);
+//         padding-bottom: 12px;
+//       }
+//     }
+//   }
+// `;
 
 const SummaryCard = styled.ul`
   margin-top: 20px;

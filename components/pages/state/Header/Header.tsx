@@ -166,7 +166,7 @@ const Main = styled.section`
   }
 `;
 
-const Summary = styled.div`
+export const Summary = styled.div`
   margin-top: 24px;
 
   > div {

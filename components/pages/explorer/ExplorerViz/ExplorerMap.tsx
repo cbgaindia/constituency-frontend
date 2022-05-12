@@ -29,7 +29,13 @@ const ExplorerMap = ({
   }
 
   useEffect(() => {
-    getMapFile();
+    let isMounted = true;
+    if (isMounted) getMapFile();
+
+    // cleanup toggles value, if unmounted
+    return () => {
+      isMounted = false;
+    };
   }, [selectedSabha, state]);
 
   useEffect(() => {
@@ -96,7 +102,6 @@ const ExplorerMap = ({
     let newObj = [];
     setSearchQuery(query);
     if (query.length > 0) {
-
       Object.keys(obj).forEach(() => {
         newObj = obj.filter((item) =>
           JSON.stringify(item, ['mapName'])

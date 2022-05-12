@@ -215,6 +215,7 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
               currentViz="#reportViz"
               selectedBudgetType={selectedBudgetType}
               selectedIndicator={selectedIndicator}
+              source={schemeData.metadata.source}
             />
           </VizWrapper>
         </Wrapper>

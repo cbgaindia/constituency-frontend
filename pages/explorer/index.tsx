@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import styled from 'styled-components';
@@ -19,6 +19,7 @@ type Props = {
   data: any;
   stateData: any;
   scheme: any;
+  stateScheme: any;
 };
 
 const headerData = {
@@ -41,9 +42,21 @@ function verifyState(state) {
   else return false;
 }
 
-const Explorer: React.FC<Props> = ({ data, scheme, stateData }) => {  
+const Explorer: React.FC<Props> = ({
+  data,
+  scheme,
+  stateData,
+  stateScheme,
+}) => {
   const [showReport, setShowReport] = useState(false);
   const [meta, setMeta] = useState({});
+  const [currentState, setCurrentState] = useState<any>();
+
+  useEffect(() => {
+    setCurrentState(
+      stateData.find((o) => o.State.toLowerCase() == data.state.toLowerCase())
+    );
+  }, [stateData]);
 
   function handleReportBtn(bool, metaObj = {}) {
     setShowReport(bool);
@@ -61,12 +74,19 @@ const Explorer: React.FC<Props> = ({ data, scheme, stateData }) => {
             sabha={false}
             state={data.state}
             scheme={data.scheme}
-            stateData={stateData}
+            stateData={stateScheme}
           />
 
-          {Object.keys(data).length !== 0 && verifyState(data.state) ? (
+          {Object.keys(data).length !== 0 &&
+          verifyState(data.state) &&
+          currentState ? (
             <>
-              <ExplorerHeader />
+              <ExplorerHeader
+                stateData={currentState}
+                schemeDesc={
+                  scheme[Object.keys(scheme)[0]].metadata['description']
+                }
+              />
               {!showReport && (
                 <ExplorerViz
                   data={data}
@@ -97,7 +117,8 @@ const Explorer: React.FC<Props> = ({ data, scheme, stateData }) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { state, scheme, sabha } = context.query;
   const schemeData = await dataTransform(context.query.scheme || '');
-  const stateData = await stateSchemeFetch();
+  const stateScheme = await stateSchemeFetch();
+  const stateData = await stateDataFetch();
   let data: any = {};
 
   data.state = state || '';
@@ -108,7 +129,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: {
       data,
       scheme: schemeData,
-      stateData
+      stateData,
+      stateScheme,
     },
   };
 };
