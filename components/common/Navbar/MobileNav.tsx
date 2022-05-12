@@ -36,7 +36,7 @@ const MobileNav = ({ data }) => {
           </Button>
 
           <div className={data.logo && 'header__logo'}>
-          <Link href="/">
+            <Link href="/">
               <a>
                 {data.logo ? (
                   <Image
@@ -97,7 +97,7 @@ const MobileNav = ({ data }) => {
                                 className="submenu-item"
                               >
                                 <Link href={item.link}>
-                                  <a>
+                                  <a onClick={mobileNavHandler}>
                                     {item.name}
                                     <ArrowTail width={24} height={24} />
                                   </a>
@@ -272,5 +272,6 @@ export const SubMenu = styled.ul`
 
   svg {
     fill: var(--text-dark-high);
+    transform: rotate(180deg);
   }
 `;

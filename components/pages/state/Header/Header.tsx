@@ -97,6 +97,8 @@ export const HeaderWrapper = styled.div`
   article {
     flex-basis: 280px;
     flex-grow: 1;
+    top: 10px;
+    position: sticky;
 
     display: flex;
     flex-direction: column;
@@ -105,6 +107,10 @@ export const HeaderWrapper = styled.div`
     padding: 8px 8px 16px;
     filter: drop-shadow(var(--box-shadow-1));
     border-radius: 4px;
+
+    @media (max-width: 673px) {
+      order: 1;
+    }
   }
 
   > div {
