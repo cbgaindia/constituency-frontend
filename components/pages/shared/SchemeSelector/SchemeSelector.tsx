@@ -82,6 +82,7 @@ const SchemeSelector: React.FC<{
         a.value > b.value ? 1 : b.value > a.value ? -1 : 0
       );
 
+      setSelectedScheme(tempSchemes[0]);
       setAvailableSchemes(tempSchemes);
     }
   }, [selectedState, stateData]);
@@ -164,7 +165,7 @@ const SchemeSelector: React.FC<{
         </SchemeMenu>
         <Button
           kind="primary"
-          href={`/explorer?scheme=${selectedScheme.value || 'mgnrega'}&state=${
+          href={`/explorer?scheme=${selectedScheme.value || 'mdm'}&state=${
             selectedState.value || 'Bihar'
           }&sabha=${router.query.sabha ? router.query.sabha : selectedSabha}`}
         >

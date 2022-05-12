@@ -59,56 +59,60 @@ const Nav = ({ data }) => {
             <h2 className="sr-only">Navigation menu</h2>
             <ul>
               {data.links &&
-                data.links.map((navItem: any, index: number) => (
-                  <li
-                    key={`menu-${index}`}
-                    className={navItem.submenu && 'has-submenu'}
-                  >
-                    {navItem.submenu ? (
-                      <>
-                        <Navitem
-                          onClick={(e) => submenuClick(e)}
-                          aria-haspopup="true"
-                          aria-expanded="false"
-                          as="button"
+                data.links.map((navItem: any, index: number) => {
+                  return (
+                    <li
+                      key={`menu-${index}`}
+                      className={navItem.submenu && 'has-submenu'}
+                    >
+                      {navItem.submenu ? (
+                        <>
+                          <Navitem
+                            onClick={(e) => submenuClick(e)}
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                            as="button"
+                          >
+                            {navItem.name} <ArrowDown width={24} height={24} />
+                          </Navitem>
+                          {navItem.submenu.length > 0 && (
+                            <ul>
+                              {navItem.submenu.map((item, num) => (
+                                <li
+                                  key={`sub-${index}-${num}`}
+                                  className="submenu-item"
+                                >
+                                  <Link href={item.link}>
+                                    <a>
+                                      {item.name}
+                                      <ArrowTail width={24} height={24} />
+                                    </a>
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </>
+                      ) : (
+                        <Link
+                          key={`navItemDesktop-${index}`}
+                          href={navItem.link}
+                          passHref
                         >
-                          {navItem.name} <ArrowDown width={24} height={24} />
-                        </Navitem>
-                        {navItem.submenu.length > 0 && (
-                          <ul>
-                            {navItem.submenu.map((item, num) => (
-                              <li
-                                key={`sub-${index}-${num}`}
-                                className="submenu-item"
-                              >
-                                <Link href={item.link}>
-                                  <a>
-                                    {item.name}
-                                    <ArrowTail width={24} height={24} />
-                                  </a>
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        )}
-                      </>
-                    ) : (
-                      <Link
-                        key={`navItemDesktop-${index}`}
-                        href={navItem.link}
-                        passHref
-                      >
-                        <Navitem
-                          className={
-                            router.pathname.includes(navItem.link) && 'active'
-                          }
-                        >
-                          {navItem.name}
-                        </Navitem>
-                      </Link>
-                    )}
-                  </li>
-                ))}
+                          <Navitem
+                            className={
+                              router.pathname.includes(
+                                navItem.link.split('?')[0]
+                              ) && 'active'
+                            }
+                          >
+                            {navItem.name}
+                          </Navitem>
+                        </Link>
+                      )}
+                    </li>
+                  );
+                })}
             </ul>
           </Navlinks>
         </div>
