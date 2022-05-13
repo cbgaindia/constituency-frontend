@@ -76,7 +76,6 @@ const ReactTable = ({ columns, data }) => {
                 >
                   {column.render('Header')}{' '}
                   <Button
-                    // icon={<SortIcon fill="#000000" />}
                     icon={
                       column.isSorted ? (
                         column.isSortedDesc ? (
@@ -186,12 +185,18 @@ const Table = ({ rows, header }) => {
 export default Table;
 
 const Wrapper = styled.div`
+  height: 100%;
   ${PaginationComp} {
     position: sticky;
     bottom: 0;
     border-top: var(--border-1);
     border-radius: 0;
     padding-bottom: 0;
+
+    @media (max-width: 480px) {
+      display: flex;
+      flex-wrap: wrap;
+    }
   }
 
   ${MenuLabel} {
@@ -214,6 +219,8 @@ export const TableWrapper = styled.table`
   line-height: 1.38;
   width: 100%;
   min-height: 494px;
+  overflow-y: auto;
+  overflow-x: auto;
 
   th,
   td {
@@ -229,33 +236,43 @@ export const TableWrapper = styled.table`
 `;
 
 const THead = styled.thead`
-  position: sticky;
-  top: 0;
+  /* position: sticky;
+  top: 0; */
   background-color: var(--color-grey-600);
   border-radius: 4px;
-  display: block;
+  /* display: block; */
 
   tr {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    /* display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); */
   }
 
   th {
     font-weight: 600;
     text-transform: capitalize;
-    display: flex;
+    /* display: flex; */
     align-items: center;
     gap: 16px;
+
+    white-space: nowrap;
+
+    button {
+      display: inline-block;
+      vertical-align: middle;
+      width: 44px;
+      height: 44px;
+    }
   }
 `;
 
 const TBody = styled.tbody`
-  display: block;
+  /* display: block; */
 
   tr {
-    display: grid;
+    /* display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    width: 100%;
+    width: 100%; */
+    white-space: nowrap;
 
     &:not(:last-child) {
       border-bottom: var(--border-2);

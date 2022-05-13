@@ -54,6 +54,7 @@ const SourceText = styled.div`
   flex-basis: 35%;
   flex-grow: 1;
   font-size: 14px;
+  flex-basis: 60%;
 
   p {
     color: var(--text-light-medium);

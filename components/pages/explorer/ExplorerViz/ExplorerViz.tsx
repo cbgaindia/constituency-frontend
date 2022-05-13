@@ -403,11 +403,11 @@ export const VizGraph = styled.div`
   margin: 0 2rem 2rem;
   height: 580px;
   overflow-y: auto;
-  overflow-x: auto;
+  /* overflow-x: auto; */
 
   &#tableView {
     @media (max-width: 640px) {
-      height: 800px;
+      height: 750px;
     }
   }
 `;
