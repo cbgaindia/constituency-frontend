@@ -3,12 +3,9 @@ import { Toggletip } from 'components/layouts';
 import styled from 'styled-components';
 import { Button, Modal } from 'components/actions';
 import Radio from 'components/layouts/Radio';
+import { Info } from 'components/icons';
 
-const IndicatorMobile = ({
-  indicators,
-  newIndicator,
-  selectedIndicator,
-}) => {
+const IndicatorMobile = ({ indicators, newIndicator, selectedIndicator }) => {
   const [sortIsOpen, setSortIsOpen] = useState(false);
   const [selectedSort, setSelectedSort] = useState(
     `${selectedIndicator} mobile`
@@ -59,7 +56,8 @@ const IndicatorMobile = ({
 
   function applySortChange() {
     newIndicator(
-      (document.getElementById(`${selectedSort} mobile`) as HTMLInputElement).dataset.value
+      (document.getElementById(`${selectedSort} mobile`) as HTMLInputElement)
+        .dataset.value
     );
     handleSortClick();
   }
@@ -105,22 +103,30 @@ const IndicatorMobile = ({
         <Wrapper>
           <Fieldset id="modalSort-mobile">
             <legend className="sr-only">Select Indicator</legend>
-            {indicators.map((elm, index) => {
-              return (
-                <Radio
-                  text={
-                    <>
-                      {elm}
-                    </>
-                  }
-                  id={`${elm} mobile`}
-                  data-value={elm}
-                  name="sort-group"
-                  key={`sort-${index}`}
-                  color="var(--color-amazon-300)"
-                />
-              );
-            })}
+            {Object.values(indicators).map(
+              (item: any) =>
+                item && (
+                  <Radio
+                    // onClick={handleIndicatorChange}
+                    color="var(--color-amazon-300)"
+                    data-selected={
+                      selectedIndicator == item.slug ? 'true' : 'false'
+                    }
+                    id={`${item.slug} mobile`}
+                    data-value={item.slug}
+                    text={
+                      <>
+                        {item.name}
+                        <Info>
+                          <p>{item.description}</p>
+                        </Info>
+                      </>
+                    }
+                    name="indicators-mobile"
+                    key={`indicatorItem-${item.slug}`}
+                  />
+                )
+            )}
           </Fieldset>
           <DataAlterFooter cancel={cancelSortChange} apply={applySortChange} />
         </Wrapper>

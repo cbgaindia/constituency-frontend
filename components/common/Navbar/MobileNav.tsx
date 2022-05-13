@@ -137,7 +137,7 @@ export const MobileHeader = styled.header`
   align-items: center;
   background-color: var(--nav-bg);
 
-  @media (max-width: 800px) {
+  @media (max-width: 1096px) {
     display: block;
   }
 

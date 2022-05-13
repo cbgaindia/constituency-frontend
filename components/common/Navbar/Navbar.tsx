@@ -129,7 +129,7 @@ export const NavbarWrapper = styled.header`
   color: var(--text-dark-high);
   padding: 13px;
 
-  @media (max-width: 800px) {
+  @media (max-width: 1096px) {
     display: none;
   }
 
@@ -212,7 +212,7 @@ const Navitem = styled.a`
     box-shadow: inset 0 -2px 0 0 #fff;
     font-weight: 500;
 
-    @media (max-width: 800px) {
+    @media (max-width: 1096px) {
       box-shadow: inset 3px 0 0 0 #fff;
     }
   }

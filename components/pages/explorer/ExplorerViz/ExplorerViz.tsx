@@ -128,9 +128,9 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
         const indicatorID = Object.keys(schemeData.data).find(
           (item) => schemeData.data[item].slug === val
         );
+
         const filtered =
           schemeData.data[indicatorID]['state_Obj'][capitalize(state)];
-
         setFiltered(filtered);
         setIndicatorFiltered(filtered);
       }
@@ -188,17 +188,18 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
   const vizItems = [
     {
       id: 'mapView',
-      graph: schemeData.data ? (
-        <ExplorerMap
-          selectedSabha={selectedSabha}
-          state={state}
-          selectedIndicator={selectedIndicator}
-          handleReportBtn={handleReport}
-          schemeData={filtered[selectedYear]}
-        />
-      ) : (
-        <p>No data</p>
-      ),
+      graph:
+        schemeData.data && currentToggle == 'viz' ? (
+          <ExplorerMap
+            selectedSabha={selectedSabha}
+            state={state}
+            selectedIndicator={selectedIndicator}
+            handleReportBtn={handleReport}
+            schemeData={filtered[selectedYear]}
+          />
+        ) : (
+          <p>No data</p>
+        ),
       ref: mapRef,
     },
     {
@@ -209,8 +210,6 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
             tableData.header ? tableData.header : ['table not available']
           }
           rows={tableData.rows ? tableData.rows : []}
-          // caption="Table"
-          // sortable
         />
       ) : (
         <></>
@@ -220,16 +219,16 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
 
   return (
     <>
-      {/* <IndicatorMobile
-        indicators={data.indicators}
-        newIndicator={handleNewIndicator}
-        selectedIndicator={selectedIndicator}
-      /> */}
       <div id="explorerVizWrapper">
         <Toggler
           handleNewToggle={handleToggler}
           selectedSabha={selectedSabha}
           currentToggle={currentToggle}
+        />
+        <IndicatorMobile
+          indicators={schemeData.data}
+          newIndicator={handleNewIndicator}
+          selectedIndicator={selectedIndicator}
         />
 
         {

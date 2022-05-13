@@ -81,7 +81,7 @@ const ExplorerHeader = ({ stateData, schemeDesc }) => {
 
         <Summary>
           <div>
-            <h2>Budget 2022-23 Highlights</h2>
+            <h2>State Budget 2022-23 Highlights</h2>
           </div>
           <ul>
             {summaryCards.map((item, index) => (
