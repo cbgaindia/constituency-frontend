@@ -43,6 +43,7 @@ const Toggler = ({ handleReportBtn, meta }) => {
           iconOnly={true}
           kind="custom"
           onClick={fullScreenMode}
+          id="fullScreen"
         >
           Full screen mode
         </Button>
@@ -58,7 +59,7 @@ const Wrapper = styled.div`
   margin-top: 32px;
   border-radius: 4px;
   display: flex;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   justify-content: space-between;
 
   button {
@@ -89,7 +90,6 @@ const Wrapper = styled.div`
 
 const LeftSide = styled.div`
   display: flex;
-  flex-wrap: wrap;
 
   > button {
     gap: 8px;
@@ -110,7 +110,8 @@ const LeftSide = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-left: 20px;
+    margin-left: 16px;
+    padding-block: 16px;
 
     h2 {
       font-weight: 700;
@@ -129,4 +130,8 @@ const RightSide = styled.div`
   display: flex;
   flex-wrap: wrap;
   border-left: var(--border-2);
+
+  @media screen and (max-width: 640px) {
+    display: none;
+  }
 `;

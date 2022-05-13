@@ -6,7 +6,6 @@ import { DownloadViz } from 'components/data';
 const Source = ({
   title,
   currentViz,
-  selectedBudgetType,
   selectedIndicator,
   source,
 }) => {
@@ -21,7 +20,6 @@ const Source = ({
         <Share buttonSize="sm" title="share viz" />
         <DownloadViz
           viz={currentViz}
-          type={selectedBudgetType}
           indicator={selectedIndicator ? selectedIndicator : 'Opening Balance'}
           name={title}
         />

@@ -11,12 +11,8 @@ import ConstituencySelect from './ConstituencySelect';
 const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
   const [selectedIndicator, setSelectedIndicator] =
     useState('opening-balance');
-  const [budgetTypes, setBudgetTypes] = useState([]);
-  const [selectedBudgetType, setSelectedBudgetType] = useState('');
   const [compareItem, setCompareItem] = useState<any>({});
-  const [selectedYear, setSelectedYear] = useState(['2018-19', '2019-20']);
   const [filteredData, setFilteredData] = useState([]);
-  const [allStateData, setAllStateData] = useState([]);
   const [schemeData, setSchemeData] = useState(scheme.ac);
   const [allStates, setAllStates] = useState({});
   const [barData, setBarData] = useState([]);
@@ -33,7 +29,6 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
       (o: any) => o.slug.toLowerCase() === selectedIndicator.toLowerCase()
     );
     const stateData = fObj['state_Obj'][data.state];
-    setAllStateData(fObj['state_Obj']);
     setFilteredData(stateData);
   }, [selectedIndicator]);
 
@@ -72,7 +67,7 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
         setBarData(barValues);
       }
     }
-  }, [selectedYear, filteredData, compareItem]);
+  }, [filteredData, compareItem]);
 
   function newCompare(cons, state, code) {
     setCompareItem({
@@ -94,35 +89,6 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
     }
   }
 
-  function handleYearSelector(e) {
-    const elm = e.target;
-
-    const elmIndex = selectedYear.findIndex((e) => e === elm.id);
-    const tempArr = selectedYear;
-
-    // adding/removing from state array
-    if (elmIndex > -1) {
-      tempArr.splice(elmIndex, 1);
-    } else {
-      tempArr.push(elm.id);
-    }
-    setSelectedYear([...tempArr]);
-
-    // for ui changes only
-    if (document.getElementById(elm.id)) {
-      const isSelected = document
-        .getElementById(elm.id)
-        .getAttribute('data-selected');
-
-      document
-        .getElementById(elm.id)
-        .setAttribute(
-          'data-selected',
-          isSelected == 'true' ? 'false' : 'true'
-        );
-    }
-  }
-
   // different heading based on report or compare mode
   const vizHeading =
     meta.type == 'report'
@@ -131,14 +97,13 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
 
   return (
     <>
-      {/* <IndicatorMobile
-        indicators={data.indicators}
-        newIndicator={handleNewVizData}
-        selectedIndicator={selectedIndicator}
-      /> */}
       <div id="explorerVizWrapper">
         <Toggler handleReportBtn={handleReportBtn} meta={meta} />
-
+        <IndicatorMobile
+          indicators={schemeData.data}
+          newIndicator={handleNewVizData}
+          selectedIndicator={selectedIndicator}
+        />
         <Wrapper>
           <Indicator
             newIndicator={handleNewVizData}
@@ -179,19 +144,31 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
                   ))}
               </YearSelector> */}
               {meta.type == 'report' ? (
-                barData.length &&
-                <GroupBarChart
-                  yAxisLabel="Value (in crores)"
-                  xAxisLabel="Constituency"
-                  theme={['#4965B2', '#ED8686', '#69BC99']}
-                  dataset={barData}
-                  stack={false}
-                  Title=""
-                  subTitle=""
-                  left="10%"
-                  type="bar"
-                  smooth={true}
-                />
+                barData.length && (
+                  <GroupBarChart
+                    yAxisLabel="Value (in crores)"
+                    xAxisLabel="Constituency"
+                    theme={['#4965B2', '#ED8686', '#69BC99']}
+                    dataset={barData}
+                    stack={false}
+                    Title=""
+                    subTitle=""
+                    left="10%"
+                    type="bar"
+                    smooth={true}
+                  />
+                )
+              ) : !compareItem.state ? (
+                <NoCompareItem>
+                  <Info id="infoSvg" fill="#317EB9" height="112" width="112" />
+                  <div>
+                    <p>Choose any constituency to compare with</p>
+                    <span>
+                      {meta.constituency} - {meta.state} ({meta.sabha} Sabha
+                      Constituency)
+                    </span>
+                  </div>
+                </NoCompareItem>
               ) : (
                 stackedBar.length && (
                   <GroupBarChart
@@ -213,7 +190,6 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
             <Source
               title={meta.constituency}
               currentViz="#reportViz"
-              selectedBudgetType={selectedBudgetType}
               selectedIndicator={selectedIndicator}
               source={schemeData.metadata.source}
             />
@@ -279,35 +255,30 @@ export const VizGraph = styled.div`
   overflow-y: auto;
   overflow-x: auto;
   position: relative;
+
+  #infoSvg path {
+    transform: scale(5);
+  }
 `;
 
-const YearSelector = styled.div`
-  position: absolute;
+const NoCompareItem = styled.div`
   display: flex;
-  gap: 1px;
-  filter: drop-shadow(var(--box-shadow-1));
-  background-color: var(--color-background-lighter);
-  z-index: 1;
-  right: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+  padding: 0 8px;
+  height: 100%;
+  background-color: var(--color-background-light);
 
-  button {
-    padding: 4px 16px;
-    line-height: 1.7;
-    font-weight: 600;
-    font-size: 0.75rem;
-    color: var(--text-light-light);
-    transition: background-color 250ms ease, color 250ms ease;
+  p,
+  span {
+    font-weight: 700;
+    color: var(--text-light-medium);
+  }
 
-    &[data-selected='true'] {
-      background-color: var(--color-amazon-00);
-      color: var(--color-amazon-300);
-    }
-
-    &:first-child {
-      border-radius: 2px 0px 0px 2px;
-    }
-    &:last-child {
-      border-radius: 0px 2px 2px 0px;
-    }
+  span {
+    text-transform: capitalize;
   }
 `;

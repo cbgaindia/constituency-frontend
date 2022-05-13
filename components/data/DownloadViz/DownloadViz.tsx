@@ -4,13 +4,13 @@ import { stripTitle } from 'utils/explorer';
 import { Download } from 'components/icons';
 import { Button } from 'components/actions';
 
-function fileName(type, name, indicator, format) {  
+function fileName(name, indicator, format) {  
   // splitting the string to find the required part of title
   const shortName = name;
 
   // If there is no type, eg: table, don;t add it to the name
-  if (type != 'NA' && format != 'csv')
-    return `${shortName} - ${indicator} - ${type}.${format}`;
+  if (format != 'csv')
+    return `${shortName} - ${indicator}.${format}`;
   else return `${shortName} - ${indicator}.${format}`;
 }
 
@@ -70,19 +70,19 @@ function createDummyCanvas(srcCanvas) {
   return destinationCanvas.toDataURL('image/jpeg', 0.8);
 }
 
-const DownloadViz = ({ viz, type, name, indicator }) => {  
+const DownloadViz = ({ viz,  name, indicator }) => {  
   function svg2img() {
     const canvas = document.querySelector(
       `${viz} .echarts-for-react canvas`
     ) as HTMLCanvasElement;
     const myChart = createDummyCanvas(canvas);
 
-    saveAs(myChart, fileName(type, name, indicator, 'jpeg'));
+    saveAs(myChart, fileName(name, indicator, 'jpeg'));
   }
 
   function downloadSelector(viz) {
     if (viz == '#tableView')
-      export_table_to_csv(fileName(type, name, indicator, 'csv'));
+      export_table_to_csv(fileName(name, indicator, 'csv'));
     else svg2img();
   }
 
