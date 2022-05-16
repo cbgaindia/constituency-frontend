@@ -5,12 +5,13 @@ import { Indicator, IndicatorMobile } from 'components/data';
 import Source from '../ExplorerViz/Source';
 import Toggler from './Toggler';
 import { Info } from 'components/icons';
-import { GroupBarChart, SimpleBarLineChartViz } from 'components/viz';
+import { GroupBarChart } from 'components/viz';
 import ConstituencySelect from './ConstituencySelect';
 
 const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
-  const [selectedIndicator, setSelectedIndicator] =
-    useState('opening-balance');
+  const [selectedIndicator, setSelectedIndicator] = useState(
+    scheme.ac.data['indicator_01'].slug
+  );
   const [compareItem, setCompareItem] = useState<any>({});
   const [filteredData, setFilteredData] = useState([]);
   const [schemeData, setSchemeData] = useState(scheme.ac);
@@ -28,8 +29,11 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
     const fObj = Object.values(schemeData.data).find(
       (o: any) => o.slug.toLowerCase() === selectedIndicator.toLowerCase()
     );
-    const stateData = fObj['state_Obj'][data.state];
-    setFilteredData(stateData);
+
+    if (fObj) {
+      const stateData = fObj['state_Obj'][data.state];
+      setFilteredData(stateData);
+    }
   }, [selectedIndicator]);
 
   useEffect(() => {
