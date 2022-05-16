@@ -20,6 +20,7 @@ type Props = {
   stateData: any;
   scheme: any;
   stateScheme: any;
+  constDesc: any
 };
 
 function verifyState(state) {
@@ -42,6 +43,7 @@ const Explorer: React.FC<Props> = ({
   scheme,
   stateData,
   stateScheme,
+  constDesc
 }) => {
   const [showReport, setShowReport] = useState(false);
   const [meta, setMeta] = useState({});
@@ -49,7 +51,7 @@ const Explorer: React.FC<Props> = ({
   const [consDesc, setConsDesc] = useState<any>();
 
   async function consDescFetch() {
-    const constDesc = await stateDataFetch('const_desc');
+    // const constDesc = await stateDataFetch('const_desc');
     const ac = constDesc[0];
     const pc = constDesc[1];
     const finalObj = {
@@ -78,6 +80,7 @@ const Explorer: React.FC<Props> = ({
           item['Final Description'];
       }
     });
+    // return finalObj
     setConsDesc(finalObj);
   }
 
@@ -150,6 +153,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const schemeData = await dataTransform(context.query.scheme || '');
   const stateScheme = await stateSchemeFetch();
   const stateData = await stateDataFetch('State Info');
+  const constDesc = await stateDataFetch('const_desc');
   let data: any = {};
 
   data.state = state || '';
@@ -162,6 +166,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       scheme: schemeData,
       stateData: stateData[0],
       stateScheme,
+      constDesc
     },
   };
 };
