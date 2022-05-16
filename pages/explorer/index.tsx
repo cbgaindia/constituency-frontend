@@ -20,7 +20,6 @@ type Props = {
   stateData: any;
   scheme: any;
   stateScheme: any;
-  constDesc: any;
 };
 
 function verifyState(state) {
@@ -43,7 +42,6 @@ const Explorer: React.FC<Props> = ({
   scheme,
   stateData,
   stateScheme,
-  constDesc,
 }) => {
   const [showReport, setShowReport] = useState(false);
   const [meta, setMeta] = useState({});
@@ -152,7 +150,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const schemeData = await dataTransform(context.query.scheme || '');
   const stateScheme = await stateSchemeFetch();
   const stateData = await stateDataFetch('State Info');
-  const constDesc = await stateDataFetch('const_desc');
   let data: any = {};
 
   data.state = state || '';
