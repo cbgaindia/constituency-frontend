@@ -247,6 +247,10 @@ const HeaderTitle = styled.div`
   p {
     letter-spacing: 0.01em;
   }
+
+  svg {
+    min-width: 24px;
+  }
 `;
 
 export const VizGraph = styled.div`

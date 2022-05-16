@@ -10,7 +10,7 @@ import ExplorerMap from './ExplorerMap';
 import { capitalize } from 'utils/helper';
 import { Globe, TableIcon } from 'components/icons';
 
-const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
+const ExplorerViz = ({ data, meta, handleReportBtn, scheme, consDesc }) => {
   const [indicatorFiltered, setIndicatorFiltered] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [isTable, setIsTable] = useState(false);
@@ -177,6 +177,7 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
             selectedIndicator={selectedIndicator}
             handleReportBtn={handleReport}
             schemeData={filtered[selectedYear]}
+            consDesc={consDesc[selectedSabha][state]}
           />
         ) : (
           <p>No data</p>

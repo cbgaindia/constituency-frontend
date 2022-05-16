@@ -20,11 +20,7 @@ type Props = {
   stateData: any;
   scheme: any;
   stateScheme: any;
-};
-
-const headerData = {
-  content:
-    'It is the most populated state in India, as well as the most populous country subdivision in the world. The state is bordered by Rajasthan to the west, Haryana, Himachal Pradesh and Delhi to the northwest, Uttarakhand and an international border with Nepal to the north, Bihar to the east, Madhya Pradesh to the south, and touches the states of Jharkhand and Chhattisgarh to the southeast.',
+  constDesc: any;
 };
 
 function verifyState(state) {
@@ -47,12 +43,48 @@ const Explorer: React.FC<Props> = ({
   scheme,
   stateData,
   stateScheme,
+  constDesc,
 }) => {
   const [showReport, setShowReport] = useState(false);
   const [meta, setMeta] = useState({});
   const [currentState, setCurrentState] = useState<any>();
+  const [consDesc, setConsDesc] = useState<any>();
+
+  async function consDescFetch() {
+    const constDesc = await stateDataFetch('const_desc');
+    const ac = constDesc[0];
+    const pc = constDesc[1];
+    const finalObj = {
+      vidhan: {},
+      lok: {},
+    };
+
+    // refactor into a function
+    ac.forEach((item) => {
+      if (!finalObj.vidhan[item.state_name]) {
+        finalObj.vidhan[item.state_name] = {
+          [item.constituency_code]: item['Final Description'],
+        };
+      } else {
+        finalObj.vidhan[item.state_name][item.constituency_code] =
+          item['Final Description'];
+      }
+    });
+    pc.forEach((item) => {
+      if (!finalObj.lok[item.state_name]) {
+        finalObj.lok[item.state_name] = {
+          [item.constituency_code]: item['Final Description'],
+        };
+      } else {
+        finalObj.lok[item.state_name][item.constituency_code] =
+          item['Final Description'];
+      }
+    });
+    setConsDesc(finalObj);
+  }
 
   useEffect(() => {
+    consDescFetch();
     setCurrentState(
       stateData.find((o) => o.State.toLowerCase() == data.state.toLowerCase())
     );
@@ -87,12 +119,13 @@ const Explorer: React.FC<Props> = ({
                   scheme[Object.keys(scheme)[0]].metadata['description']
                 }
               />
-              {!showReport && (
+              {!showReport && consDesc && (
                 <ExplorerViz
                   data={data}
                   meta={meta}
                   handleReportBtn={handleReportBtn}
                   scheme={scheme}
+                  consDesc={consDesc}
                 />
               )}
 
@@ -118,7 +151,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { state, scheme, sabha } = context.query;
   const schemeData = await dataTransform(context.query.scheme || '');
   const stateScheme = await stateSchemeFetch();
-  const stateData = await stateDataFetch();
+  const stateData = await stateDataFetch('State Info');
+  const constDesc = await stateDataFetch('const_desc');
   let data: any = {};
 
   data.state = state || '';
@@ -129,7 +163,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: {
       data,
       scheme: schemeData,
-      stateData,
+      stateData: stateData[0],
       stateScheme,
     },
   };

@@ -113,15 +113,17 @@ export async function fetchSheets(link, aoa = true) {
       const workbook = read(file, { type: 'array' });
 
       workbook.SheetNames.forEach((bookName) => {
+
         const data = workbook.Sheets[bookName];
 
         const dataParse = xlsxUtil.sheet_to_json(data, {
           header: aoa ? 1 : undefined,
           blankrows: false,
         });
+
         result.push(dataParse);
       });
-    });
+    });    
   return result;
 }
 
@@ -371,9 +373,9 @@ export async function stateSchemeFetch() {
   return stateScheme;
 }
 
-export async function stateDataFetch() {
+export async function stateDataFetch(id) {
   const data = await fetch(
-    'http://3.109.56.211/api/3/action/package_search?fq=organization:constituency-wise-scheme-data%20AND%20schemeType:%22State%20Info%22'
+    `http://3.109.56.211/api/3/action/package_search?fq=organization:constituency-wise-scheme-data%20AND%20schemeType:"${id}"`
   ).then((res) => res.json());
 
   const sheet = await fetchSheets(
@@ -381,5 +383,5 @@ export async function stateDataFetch() {
     false
   );
 
-  return sheet[0];
+  return sheet;
 }

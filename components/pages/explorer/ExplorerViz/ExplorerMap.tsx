@@ -12,6 +12,7 @@ const ExplorerMap = ({
   selectedIndicator,
   handleReportBtn,
   schemeData,
+  consDesc,
 }) => {
   const [mapFile, setMapFile] = useState<any>({});
   const [mapValues, setMapvalues] = useState([]);
@@ -88,10 +89,12 @@ const ExplorerMap = ({
   }, [schemeData]);
   useEffect(() => {
     if (mapFile.features && schemeData) {
-      const tempData = Object.keys(schemeData).map((item) => ({
+      const tempData = Object.keys(schemeData).map((item: any) => ({
         name: item,
         value: schemeData[item] || 0,
-        mapName: mapFile.features[item]?.properties['GEO_NAME'],
+        mapName: mapFile.features.filter((obj) => {
+          return obj?.properties['GEO_NO'] === item;
+        })[0]?.properties['GEO_NAME'],
       }));
 
       setMapvalues(tempData);
@@ -186,11 +189,7 @@ const ExplorerMap = ({
               </Button>
             </div>
 
-            <p>
-              {selectedItem} is a Vidhan Sabha constituency of Sundergarh
-              district, Odisha. Area of this constituency include Biramitrapur,
-              Kuarmunda block, Nuagaon block and part of Bisra block.
-            </p>
+            <p>{consDesc[selectedCode]}</p>
 
             <SearchButtons>
               <Button
