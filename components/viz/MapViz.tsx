@@ -9,15 +9,7 @@ import { MapChart } from 'echarts/charts';
 import { CanvasRenderer } from 'echarts/renderers';
 import ReactEChartsCore from 'echarts-for-react/lib/core';
 
-const MapViz = ({
-  selectedIndicator,
-  mapFile,
-  sabha,
-  data,
-  newMapItem,
-  vizIndicators,
-  // selectedItem,
-}) => {
+const MapViz = ({ meta, mapFile, data, newMapItem, vizIndicators }) => {
   const [mapOptions, setMapOptions] = useState({});
   useEffect(() => {
     if (Object.keys(mapFile).length > 0) {
@@ -26,7 +18,7 @@ const MapViz = ({
         (obj) => (obj.properties['GEO_NO'] = String(obj.properties['GEO_NO']))
       );
 
-      echarts.registerMap(sabha, map, {});
+      echarts.registerMap(meta.sabha, map, {});
 
       const options = {
         backgroundColor: '#EBF0EE',
@@ -56,16 +48,18 @@ const MapViz = ({
               '#173B3B',
             ],
           },
-          text: ['Units: ₹ Crores'],
+          text: [`Units: ${meta.unit}`],
           padding: 8,
           showLabel: true,
         },
         series: [
           {
-            name: selectedIndicator ? selectedIndicator : 'Indicator',
+            name: meta.selectedIndicator
+              ? meta.selectedIndicator
+              : 'Indicator',
             type: 'map',
             roam: true,
-            map: sabha,
+            map: meta.sabha,
             nameProperty: 'GEO_NO',
             zoom: 1.2,
             itemStyle: {
@@ -99,7 +93,7 @@ const MapViz = ({
       };
       setMapOptions(options);
     }
-  }, [selectedIndicator, data, mapFile]);
+  }, [meta.selectedIndicator, data, mapFile]);
 
   function handleClick(e) {
     newMapItem(e.data);

@@ -7,13 +7,12 @@ import styled from 'styled-components';
 import { debounce } from 'utils/helper';
 
 const ExplorerMap = ({
-  selectedSabha,
-  state,
-  selectedIndicator,
+  meta,
   handleReportBtn,
   schemeData,
   consDesc,
 }) => {
+  
   const [mapFile, setMapFile] = useState<any>({});
   const [mapValues, setMapvalues] = useState([]);
   const [searchItems, setSearchItems] = useState([]);
@@ -24,7 +23,7 @@ const ExplorerMap = ({
 
   async function getMapFile() {
     const mapFile = await fetch(
-      `assets/maps/${selectedSabha}/${state}.json`
+      `assets/maps/${meta.selectedSabha}/${meta.state}.json`
     ).then((res) => res.json());
     setMapFile(mapFile);
   }
@@ -37,11 +36,11 @@ const ExplorerMap = ({
     return () => {
       isMounted = false;
     };
-  }, [selectedSabha, state]);
+  }, [meta.selectedSabha, meta.state]);
 
   useEffect(() => {
     setSelectedItem(undefined);
-  }, [selectedSabha, state, selectedIndicator]);
+  }, [meta.selectedSabha, meta.state, meta.selectedIndicator]);
 
   useEffect(() => {
     if (schemeData) {
@@ -99,7 +98,7 @@ const ExplorerMap = ({
 
       setMapvalues(tempData);
     }
-  }, [mapFile, schemeData, selectedSabha]);
+  }, [mapFile, schemeData, meta.selectedSabha]);
 
   function handleSearch(query, obj) {
     let newObj = [];
@@ -217,8 +216,7 @@ const ExplorerMap = ({
 
       <MapViz
         mapFile={mapFile}
-        sabha={selectedSabha}
-        selectedIndicator={selectedIndicator}
+        meta={meta}
         data={mapValues}
         vizIndicators={mapIndicator}
         newMapItem={newMapItem}

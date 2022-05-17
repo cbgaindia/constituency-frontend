@@ -10,8 +10,7 @@ import ExplorerMap from './ExplorerMap';
 import { capitalize } from 'utils/helper';
 import { Globe, TableIcon } from 'components/icons';
 
-const ExplorerViz = ({ data, meta, handleReportBtn, scheme, consDesc }) => {
-  const [indicatorFiltered, setIndicatorFiltered] = useState([]);
+const ExplorerViz = ({ data, handleReportBtn, scheme, consDesc }) => {
   const [filtered, setFiltered] = useState([]);
   const [isTable, setIsTable] = useState(false);
   const [currentViz, setCurrentViz] = useState('#mapView');
@@ -24,6 +23,7 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme, consDesc }) => {
   const [selectedYear, setSelectedYear] = useState(undefined);
   const [financialYears, setFinancialYears] = useState(undefined);
   const [tableData, setTableData] = useState<any>({});
+  const [unit, setUnit] = useState('');
 
   const mapRef = useRef(null);
 
@@ -107,10 +107,11 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme, consDesc }) => {
   function handleReport(bool, cons, code, type) {
     const metaObj = {
       sabha: selectedSabha,
-      state: state,
+      state,
       constituency: cons,
-      type: type,
-      code: code,
+      type,
+      code,
+      unit,
     };
 
     handleReportBtn(bool, metaObj);
@@ -132,8 +133,8 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme, consDesc }) => {
 
         const filtered =
           schemeData.data[indicatorID]['state_Obj'][capitalize(state)];
+        setUnit(schemeData.data[indicatorID].unit);
         setFiltered(filtered);
-        setIndicatorFiltered(filtered);
       }
 
       setSelectedIndicator(val);
@@ -172,9 +173,7 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme, consDesc }) => {
       graph:
         schemeData.data && currentToggle == 'viz' ? (
           <ExplorerMap
-            selectedSabha={selectedSabha}
-            state={state}
-            selectedIndicator={selectedIndicator}
+            meta={{ selectedSabha, state, selectedIndicator, unit }}
             handleReportBtn={handleReport}
             schemeData={filtered[selectedYear]}
             consDesc={consDesc[selectedSabha][state]}

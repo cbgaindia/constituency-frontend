@@ -95,6 +95,7 @@ const Explorer: React.FC<Props> = ({
     setShowReport(bool);
     setMeta(metaObj);
   }
+  
   return (
     <>
       <Head>
@@ -123,7 +124,6 @@ const Explorer: React.FC<Props> = ({
               {!showReport && consDesc && (
                 <ExplorerViz
                   data={data}
-                  meta={meta}
                   handleReportBtn={handleReportBtn}
                   scheme={scheme}
                   consDesc={consDesc}

@@ -8,7 +8,7 @@ import { Info } from 'components/icons';
 import { GroupBarChart } from 'components/viz';
 import ConstituencySelect from './ConstituencySelect';
 
-const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
+const ExplorerDetailsViz = ({ data, meta, handleReportBtn, scheme }) => {
   const [selectedIndicator, setSelectedIndicator] = useState(
     scheme.ac.data['indicator_01'].slug
   );
@@ -150,7 +150,7 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
               {meta.type == 'report' ? (
                 barData.length && (
                   <GroupBarChart
-                    yAxisLabel="Value (in crores)"
+                    yAxisLabel={`Value (in ${meta.unit})`}
                     xAxisLabel="Constituency"
                     theme={['#4965B2', '#ED8686', '#69BC99']}
                     dataset={barData}
@@ -176,7 +176,7 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
               ) : (
                 stackedBar.length && (
                   <GroupBarChart
-                    yAxisLabel="Value (in crores)"
+                    yAxisLabel={`Value (in ${meta.unit})`}
                     xAxisLabel="Constituencies"
                     theme={['#4965B2', '#ED8686', '#69BC99']}
                     dataset={stackedBar}
@@ -204,7 +204,7 @@ const ExplorerViz = ({ data, meta, handleReportBtn, scheme }) => {
   );
 };
 
-export default ExplorerViz;
+export default ExplorerDetailsViz;
 
 export const Wrapper = styled.section`
   display: grid;
