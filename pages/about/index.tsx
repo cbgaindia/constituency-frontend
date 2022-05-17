@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { PartnerCard, TeamCard } from 'components/pages/about';
 import { HeaderWrapper } from 'components/layouts/Header';
 import styled from 'styled-components';
+import { Seo } from 'components/common';
 
 const About = () => {
   const headerData = {
@@ -86,11 +87,13 @@ const About = () => {
     },
   ];
 
+  const seo = {
+    title: 'About Us | Constituency Dashboard',
+  };
+
   return (
     <div>
-      <Head>
-        <title>About Us | OPub</title>
-      </Head>
+      <Seo seo={seo} />
 
       <HeaderWrapper>
         <div className="container">
@@ -141,7 +144,7 @@ const AboutPara = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
-`
+`;
 
 const AboutPage = styled.main`
   .partners__heading {
