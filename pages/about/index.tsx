@@ -88,7 +88,8 @@ const About = () => {
   ];
 
   const seo = {
-    title: 'About Us | Constituency Dashboard',
+    title: 'About - Constituency Dashboard',
+    description: 'Co-created by CBGA and CivicDataLab',
   };
 
   return (

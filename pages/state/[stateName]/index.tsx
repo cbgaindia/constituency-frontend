@@ -8,6 +8,7 @@ import SchemeList from 'components/pages/state/SchemeList';
 import { Button } from 'components/actions';
 import { Banner } from 'components/layouts';
 import { stateDataFetch, stateSchemeFetch } from 'utils/fetch';
+import { Seo } from 'components/common';
 
 type Props = {
   stateScheme: any;
@@ -36,23 +37,34 @@ const Datasets: React.FC<Props> = ({ query, stateScheme, stateData }) => {
     image: '/assets/images/banner.png',
   };
 
-  return currentState ? (
+  // regext is to capitalise the string
+  const seo = {
+    title: `${state.replace(/\b\w/g, (c) =>
+      c.toUpperCase()
+    )} - Constituency Dashboard`,
+    description: `Explore scheme-wise fiscal information at the level of Lok Sabha and Vidhan Sabha constituencies in the state of ${state}`,
+  };
+  return (
     <>
-      <Head>
-        <title>{currentState.State || 'State'} | Constituency Dashboard</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Wrapper className="container">
-        <Header data={currentState} />
-        <SchemeList
-          data={stateScheme[currentState.State]}
-          state={currentState.State}
-        />
-        {/* <Banner details={bannerDetails} /> */}
-      </Wrapper>
+      <Seo seo={seo} />
+      {currentState ? (
+        <>
+          <Head>
+            <link rel="icon" href="/favicon.ico" />
+          </Head>
+          <Wrapper className="container">
+            <Header data={currentState} />
+            <SchemeList
+              data={stateScheme[currentState.State]}
+              state={currentState.State}
+            />
+            {/* <Banner details={bannerDetails} /> */}
+          </Wrapper>
+        </>
+      ) : (
+        <></>
+      )}
     </>
-  ) : (
-    <></>
   );
 };
 

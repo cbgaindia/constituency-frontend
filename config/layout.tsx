@@ -4,7 +4,6 @@ import { navList } from 'config/navigation';
 const Layout: React.FC = ({ children }) => {
   return (
     <>
-      <Seo />
       <Skiplink />
       <Navbar data={navList} />
       {children}

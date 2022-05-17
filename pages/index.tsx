@@ -10,13 +10,18 @@ import {
   HomeQuiz,
   HomeStates,
 } from 'components/pages/home';
+import { Seo } from 'components/common';
 
 export default function Home({ stateData }) {
+  const seo = {
+    title: 'Welcome - Constituency Dashboard',
+    description:
+      'A unique, one-of-its-kind dashboard that opens up constituency-wise fiscal information for several centrally sponsored and central sector schemes.',
+  };
+
   return (
     <>
-      <Head>
-        <title>Constituency Dashboard</title>
-      </Head>
+      <Seo seo={seo} />
       <HomePage>
         <HomeHeader stateData={stateData} />
         <HomeAbout />
@@ -40,8 +45,3 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 const HomePage = styled.main``;
-const BGSpace = styled.div`
-  height: 304px;
-  width: 100%;
-  background-color: #d9e2de;
-`;

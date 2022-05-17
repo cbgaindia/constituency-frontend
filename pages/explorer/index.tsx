@@ -14,13 +14,14 @@ import {
   SchemesMenu,
 } from 'components/pages/shared/SchemeSelector/SchemeSelector';
 import { dataTransform, stateDataFetch, stateSchemeFetch } from 'utils/fetch';
+import { Seo } from 'components/common';
 
 type Props = {
   data: any;
   stateData: any;
   scheme: any;
   stateScheme: any;
-  constDesc: any
+  constDesc: any;
 };
 
 function verifyState(state) {
@@ -43,7 +44,7 @@ const Explorer: React.FC<Props> = ({
   scheme,
   stateData,
   stateScheme,
-  constDesc
+  constDesc,
 }) => {
   const [showReport, setShowReport] = useState(false);
   const [meta, setMeta] = useState({});
@@ -95,12 +96,15 @@ const Explorer: React.FC<Props> = ({
     setShowReport(bool);
     setMeta(metaObj);
   }
-  
+
+  const seo = {
+    title: 'Explorer - Constituency Dashboard',
+    description:
+      'Explore scheme-wise fiscal information at the level of Lok Sabha and Vidhan Sabha constituencies',
+  };
   return (
     <>
-      <Head>
-        <title>Explorer | Constituency Dashboard</title>
-      </Head>
+      <Seo seo={seo} />
       <Wrapper>
         <div className="container">
           <SchemeSelector
@@ -166,7 +170,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       scheme: schemeData,
       stateData: stateData[0],
       stateScheme,
-      constDesc
+      constDesc,
     },
   };
 };
