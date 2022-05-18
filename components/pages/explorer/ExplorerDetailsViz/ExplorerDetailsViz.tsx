@@ -157,7 +157,7 @@ const ExplorerDetailsViz = ({ data, meta, handleReportBtn, scheme }) => {
                     stack={false}
                     Title=""
                     subTitle=""
-                    left="10%"
+                    left="60vw"
                     type="bar"
                     smooth={true}
                   />
@@ -183,7 +183,7 @@ const ExplorerDetailsViz = ({ data, meta, handleReportBtn, scheme }) => {
                     stack={false}
                     Title=""
                     subTitle=""
-                    left="10%"
+                    left="60vw"
                     type="bar"
                     smooth={true}
                   />

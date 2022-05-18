@@ -11,9 +11,6 @@ import {
 } from 'echarts/components';
 import ReactEChartsCore from 'echarts-for-react/lib/core';
 
-//  To import all the things at once
-// import ReactEcharts from 'echarts-for-react';
-
 interface BarChartProps {
   xAxisLabel: string;
   yAxisLabel: string;
@@ -66,8 +63,8 @@ const GroupBarChart: React.FC<BarChartProps> = ({
           normal: {
             show: true,
             position: 'top',
-            formatter: function () {
-              return ''; //d.data;
+            formatter: function (d) {              
+              return d.data[columnLength];
             },
           },
         },
@@ -77,6 +74,7 @@ const GroupBarChart: React.FC<BarChartProps> = ({
 
     setSeries(vizSeries);
   }, [dataset]);
+console.log(dataset);
 
   // setting option
   useEffect(() => {
@@ -108,7 +106,7 @@ const GroupBarChart: React.FC<BarChartProps> = ({
         name: yAxisLabel,
         axisLine: { onZero: false, show: true, symbol: ['none', 'arrow'] },
         nameLocation: 'middle',
-        nameGap: 50,
+        nameGap: 45,
         nameRotate: 90,
       },
       title: {
@@ -140,7 +138,7 @@ const GroupBarChart: React.FC<BarChartProps> = ({
       notMerge={true}
       lazyUpdate={true}
       style={{
-        height: '550px',
+        height: '500px',
       }}
     />
   );

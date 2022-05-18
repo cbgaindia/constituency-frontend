@@ -178,7 +178,9 @@ export const Wrapper = styled.div`
 export const Fieldset = styled.fieldset`
   padding-top: 0;
   height: 40vh;
-  padding: 0;
+  padding-left: 5px;
+  padding-bottom: 12px;
+  overflow-y: auto;
 
   input {
     margin-right: 12px;

@@ -1,18 +1,12 @@
 import * as echarts from 'echarts/core';
-import { Button } from 'components/actions';
+import { Button, Modal } from 'components/actions';
 import { Cross } from 'components/icons';
 import { MapViz } from 'components/viz';
 import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { debounce } from 'utils/helper';
 
-const ExplorerMap = ({
-  meta,
-  handleReportBtn,
-  schemeData,
-  consDesc,
-}) => {
-  
+const ExplorerMap = ({ meta, handleReportBtn, schemeData, consDesc }) => {
   const [mapFile, setMapFile] = useState<any>({});
   const [mapValues, setMapvalues] = useState([]);
   const [searchItems, setSearchItems] = useState([]);
@@ -28,6 +22,7 @@ const ExplorerMap = ({
     setMapFile(mapFile);
   }
 
+  // fetch map file on render, sabha and state change
   useEffect(() => {
     let isMounted = true;
     if (isMounted) getMapFile();
@@ -38,10 +33,12 @@ const ExplorerMap = ({
     };
   }, [meta.selectedSabha, meta.state]);
 
+  // on state change, close the consitituency details popup
   useEffect(() => {
     setSelectedItem(undefined);
   }, [meta.selectedSabha, meta.state, meta.selectedIndicator]);
 
+  // preparing data for echarts component
   useEffect(() => {
     if (schemeData) {
       const stateData = Object.values(schemeData).map(Number);
@@ -86,6 +83,8 @@ const ExplorerMap = ({
       setMapIndicator(vizIndicators);
     }
   }, [schemeData]);
+
+  // changing map chart values on sabha change
   useEffect(() => {
     if (mapFile.features && schemeData) {
       const tempData = Object.keys(schemeData).map((item: any) => ({
@@ -175,42 +174,49 @@ const ExplorerMap = ({
           </SearchResult>
         )}
         {selectedItem && searchQuery.length == 0 && (
-          <SelectedCons>
-            <div>
-              <h3>{selectedItem}</h3>
-              <Button
-                icon={<Cross fill="#888F8B" />}
-                iconOnly={true}
-                kind="custom"
-                onClick={handlePanelClose}
-              >
-                close
-              </Button>
-            </div>
+          <>
+            <SelectedCons>
+              <div>
+                <h3>{selectedItem}</h3>
+                <Button
+                  icon={<Cross fill="#888F8B" />}
+                  iconOnly={true}
+                  kind="custom"
+                  onClick={handlePanelClose}
+                >
+                  close
+                </Button>
+              </div>
 
-            <p>{consDesc[selectedCode]}</p>
+              <p>{consDesc[selectedCode]}</p>
 
-            <SearchButtons>
-              <Button
-                kind="secondary-outline"
-                size="sm"
-                onClick={() =>
-                  handleReportBtn(true, selectedItem, selectedCode, 'report')
-                }
-              >
-                Generate Report Card
-              </Button>
-              <Button
-                kind="secondary"
-                size="sm"
-                onClick={() =>
-                  handleReportBtn(true, selectedItem, selectedCode, 'compare')
-                }
-              >
-                Compare Constituency
-              </Button>
-            </SearchButtons>
-          </SelectedCons>
+              <SearchButtons>
+                <Button
+                  kind="secondary-outline"
+                  size="sm"
+                  onClick={() =>
+                    handleReportBtn(true, selectedItem, selectedCode, 'report')
+                  }
+                >
+                  Generate Report Card
+                </Button>
+                <Button
+                  kind="secondary"
+                  size="sm"
+                  onClick={() =>
+                    handleReportBtn(
+                      true,
+                      selectedItem,
+                      selectedCode,
+                      'compare'
+                    )
+                  }
+                >
+                  Compare Constituency
+                </Button>
+              </SearchButtons>
+            </SelectedCons>
+          </>
         )}
       </SearchWrapper>
 
