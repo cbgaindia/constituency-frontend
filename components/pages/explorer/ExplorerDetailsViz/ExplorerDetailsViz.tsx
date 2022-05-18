@@ -9,6 +9,8 @@ import { GroupBarChart } from 'components/viz';
 import ConstituencySelect from './ConstituencySelect';
 
 const ExplorerDetailsViz = ({ data, meta, handleReportBtn, scheme }) => {
+  console.log('meta', meta);
+
   const [selectedIndicator, setSelectedIndicator] = useState(
     scheme.ac.data['indicator_01'].slug
   );
@@ -192,10 +194,16 @@ const ExplorerDetailsViz = ({ data, meta, handleReportBtn, scheme }) => {
             </VizGraph>
 
             <Source
-              title={meta.constituency}
-              currentViz="#reportViz"
-              selectedIndicator={selectedIndicator}
-              source={schemeData.metadata.source}
+              meta={{
+                scheme: data.scheme,
+                state: meta.state,
+                constituency: meta.constituency,
+                indicator: selectedIndicator
+                  ? selectedIndicator
+                  : 'Opening Balance',
+              }}
+              currentViz={'#reportViz'}
+              source={schemeData.metadata?.source}
             />
           </VizWrapper>
         </Wrapper>

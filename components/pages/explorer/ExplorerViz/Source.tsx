@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Share } from 'components/actions';
-import { DownloadViz } from 'components/data';
+// import { DownloadViz } from 'components/data';
+import dynamic from 'next/dynamic';
 
-const Source = ({
-  title,
-  currentViz,
-  selectedIndicator,
-  source,
-}) => {
+const DownloadViz = dynamic(() => import('components/data/DownloadViz'), {
+  ssr: false,
+});
+
+const Source = ({ meta, currentViz, source }) => {
   return (
     <ExplorerSource>
       <SourceText>
@@ -18,11 +18,12 @@ const Source = ({
 
       <SourceButtons>
         <Share buttonSize="sm" title="share viz" />
-        <DownloadViz
-          viz={currentViz}
-          indicator={selectedIndicator ? selectedIndicator : 'Opening Balance'}
-          name={title}
-        />
+        {typeof window !== 'undefined' && (
+          <DownloadViz
+            viz={currentViz}
+            meta={meta}
+          />
+        )}
       </SourceButtons>
     </ExplorerSource>
   );

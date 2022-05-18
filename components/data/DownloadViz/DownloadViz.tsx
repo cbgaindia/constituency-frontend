@@ -1,17 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { saveAs } from 'file-saver';
-import { stripTitle } from 'utils/explorer';
 import { Download } from 'components/icons';
 import { Button } from 'components/actions';
 
-function fileName(name, indicator, format) {  
-  // splitting the string to find the required part of title
-  const shortName = name;
-
+function fileName(meta) {
   // If there is no type, eg: table, don;t add it to the name
-  if (format != 'csv')
-    return `${shortName} - ${indicator}.${format}`;
-  else return `${shortName} - ${indicator}.${format}`;
+  if (meta.constituency)
+    return `${meta.constituency}, ${meta.state}, ${meta.scheme}, ${meta.indicator}`.toLowerCase();
+  else return `${meta.state}, ${meta.scheme}, ${meta.indicator}`.toLowerCase();
 }
 
 function download_csv(csv, filename) {
@@ -52,7 +48,6 @@ export function export_table_to_csv(filename: any) {
 
 function createDummyCanvas(srcCanvas) {
   //create a dummy CANVAS
-
   const destinationCanvas = document.createElement('canvas');
   destinationCanvas.width = srcCanvas.width;
   destinationCanvas.height = srcCanvas.height;
@@ -70,19 +65,37 @@ function createDummyCanvas(srcCanvas) {
   return destinationCanvas.toDataURL('image/jpeg', 0.8);
 }
 
-const DownloadViz = ({ viz,  name, indicator }) => {  
+const DownloadViz = ({ viz, meta }) => {
+  let watermarkSSR;
+  useEffect(() => {
+    import('watermarkjs').then((x) => (watermarkSSR = x.default));
+  }, [viz, meta]);
+
   function svg2img() {
     const canvas = document.querySelector(
       `${viz} .echarts-for-react canvas`
     ) as HTMLCanvasElement;
     const myChart = createDummyCanvas(canvas);
 
-    saveAs(myChart, fileName(name, indicator, 'jpeg'));
+    if (typeof window !== 'undefined') {
+      watermarkSSR([myChart])
+        .image(
+          watermarkSSR.text.lowerRight(
+            fileName(meta),
+            '24px sans-serif',
+            '#000',
+            0.8
+          )
+        )
+        .then((img) =>
+          saveAs(img.src, `${fileName(meta)}.jpeg`.toLowerCase())
+        );
+    }
   }
 
   function downloadSelector(viz) {
     if (viz == '#tableView')
-      export_table_to_csv(fileName(name, indicator, 'csv'));
+      export_table_to_csv(`${fileName(meta)}.csv`.toLowerCase());
     else svg2img();
   }
 

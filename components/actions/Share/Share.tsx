@@ -31,6 +31,7 @@ const Share: React.FC<{ title: string; buttonSize?: 'sm' | 'md' }> = ({
       });
     }
   }
+console.log(`https://twitter.com/intent/tweet?url=https://constituencyv2.openbudgetsindia.org${router.asPath}`.replaceAll('&', '%26'));
 
   return (
     <>
@@ -46,7 +47,7 @@ const Share: React.FC<{ title: string; buttonSize?: 'sm' | 'md' }> = ({
             <a
               target="_blank"
               rel="noreferrer"
-              href={`https://www.facebook.com/sharer.php?u=https://budgets.justicehub.in/datasets/${router.query.explorer}`}
+              href={`https://www.facebook.com/sharer.php?u=https://constituencyv2.openbudgetsindia.org${router.asPath}`.replaceAll('&', '%26')}
             >
               <Facebook />
               <span>Facebook</span>
@@ -57,7 +58,7 @@ const Share: React.FC<{ title: string; buttonSize?: 'sm' | 'md' }> = ({
             <a
               target="_blank"
               rel="noreferrer"
-              href={`https://twitter.com/intent/tweet?url=https://budgets.justicehub.in/datasets/${router.query.explorer}`}
+              href={`https://twitter.com/intent/tweet?url=https://constituencyv2.openbudgetsindia.org${router.asPath}`.replaceAll('&', '%26')}
             >
               <Twitter />
               <span>Twitter</span>
@@ -68,7 +69,7 @@ const Share: React.FC<{ title: string; buttonSize?: 'sm' | 'md' }> = ({
             <a
               target="_blank"
               rel="noreferrer"
-              href={`https://www.linkedin.com/shareArticle?url=https://budgets.justicehub.in/datasets/${router.query.explorer}`}
+              href={`https://www.linkedin.com/shareArticle?url=https://constituencyv2.openbudgetsindia.org${router.asPath}`.replaceAll('&', '%26')}
             >
               <Linkedin />
               <span>LinkedIn</span>
@@ -79,7 +80,7 @@ const Share: React.FC<{ title: string; buttonSize?: 'sm' | 'md' }> = ({
             <a
               target="_blank"
               rel="noreferrer"
-              href={`https://www.reddit.com/submit?url=https://budgets.justicehub.in/datasets/${router.query.explorer}`}
+              href={`https://www.reddit.com/submit?url=https://constituencyv2.openbudgetsindia.org${router.asPath}`.replaceAll('&', '%26')}
             >
               <Reddit />
               <span>Reddit</span>

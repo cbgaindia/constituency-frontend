@@ -4,11 +4,16 @@ import { tabbedInterface } from 'utils/explorer';
 
 import { Indicator, IndicatorMobile, Table } from 'components/data';
 import { Menu } from 'components/actions';
-import Source from './Source';
+// import Source from './Source';
 import Toggler from './Toggler';
 import ExplorerMap from './ExplorerMap';
 import { capitalize } from 'utils/helper';
 import { Globe, TableIcon } from 'components/icons';
+import dynamic from 'next/dynamic';
+
+const Source = dynamic(() => import('./Source'), {
+  ssr: false,
+});
 
 const ExplorerViz = ({ data, handleReportBtn, scheme, consDesc }) => {
   const [filtered, setFiltered] = useState([]);
@@ -293,9 +298,14 @@ const ExplorerViz = ({ data, handleReportBtn, scheme, consDesc }) => {
                 </div>
               </SchemeNotes>
               <Source
-                title={data.title}
                 currentViz={currentViz}
-                selectedIndicator={selectedIndicator}
+                meta={{
+                  scheme: data.scheme,
+                  state: data.state,
+                  indicator: selectedIndicator
+                    ? selectedIndicator
+                    : 'Opening Balance',
+                }}
                 source={schemeData.metadata?.source}
               />
             </VizWrapper>

@@ -3,11 +3,7 @@ import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import styled from 'styled-components';
 
-import {
-  ExplorerDetailsViz,
-  ExplorerHeader,
-  ExplorerViz,
-} from 'components/pages/explorer';
+import { ExplorerDetailsViz, ExplorerHeader } from 'components/pages/explorer';
 import SchemeSelector from 'components/pages/shared/SchemeSelector';
 import {
   HeaderControls,
@@ -15,6 +11,18 @@ import {
 } from 'components/pages/shared/SchemeSelector/SchemeSelector';
 import { dataTransform, stateDataFetch, stateSchemeFetch } from 'utils/fetch';
 import { Seo } from 'components/common';
+import dynamic from 'next/dynamic';
+
+const ExplorerViz = dynamic(
+  () => import('components/pages/explorer/ExplorerViz'),
+  {
+    ssr: false,
+  }
+);
+
+const DownloadViz = dynamic(() => import('components/data/DownloadViz'), {
+  ssr: false,
+});
 
 type Props = {
   data: any;
