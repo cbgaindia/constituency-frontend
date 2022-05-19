@@ -12,9 +12,7 @@ import {
 } from 'components/pages/home';
 import { Seo } from 'components/common';
 
-export default function Home({ stateData }) {
-  console.log(stateData);
-  
+export default function Home({ stateData }) {  
   const seo = {
     title: 'Welcome - Constituency Dashboard',
     description:

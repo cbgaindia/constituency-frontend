@@ -22,6 +22,13 @@ function defaultState(item) {
   };
 }
 
+function defaultScheme(item) {
+  return {
+    value: item,
+    title: 'Loading...',
+  };
+}
+
 const SchemeSelector: React.FC<{
   sabha?: boolean;
   suggestion?: boolean;
@@ -43,12 +50,11 @@ const SchemeSelector: React.FC<{
     state ? defaultState(state) : noState
   );
   const [selectedScheme, setSelectedScheme] = useState(
-    scheme ? defaultState(scheme) : noScheme
+    scheme ? defaultScheme(scheme) : noScheme
   );
   const [selectedSabha, setSelectedSabha] = useState(
     router.query.sabha ? router.query.sabha : 'lok'
   );
-  const [stateScheme, setStateScheme] = useState<any>([]);
   const [availableStates, setAvailableStates] = useState<any>([]);
   const [availableSchemes, setAvailableSchemes] = useState<any>([]);
   const sabhaRef = useRef(null);
@@ -69,6 +75,7 @@ const SchemeSelector: React.FC<{
     }
     setAvailableStates(availableStates);
   }, []);
+  console.log(scheme, selectedScheme);
 
   useEffect(() => {
     if (stateData[selectedState.value]) {

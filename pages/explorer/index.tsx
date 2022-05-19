@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
-import Head from 'next/head';
 import styled from 'styled-components';
 
 import { ExplorerDetailsViz, ExplorerHeader } from 'components/pages/explorer';
@@ -19,10 +18,6 @@ const ExplorerViz = dynamic(
     ssr: false,
   }
 );
-
-const DownloadViz = dynamic(() => import('components/data/DownloadViz'), {
-  ssr: false,
-});
 
 type Props = {
   data: any;
@@ -58,6 +53,7 @@ const Explorer: React.FC<Props> = ({
   const [meta, setMeta] = useState({});
   const [currentState, setCurrentState] = useState<any>();
   const [consDesc, setConsDesc] = useState<any>();
+console.log(data);
 
   async function consDescFetch() {
     // const constDesc = await stateDataFetch('const_desc');
@@ -89,7 +85,6 @@ const Explorer: React.FC<Props> = ({
           item['Final Description'];
       }
     });
-    // return finalObj
     setConsDesc(finalObj);
   }
 

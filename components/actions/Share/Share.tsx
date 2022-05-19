@@ -31,7 +31,6 @@ const Share: React.FC<{ title: string; buttonSize?: 'sm' | 'md' }> = ({
       });
     }
   }
-console.log(`https://twitter.com/intent/tweet?url=https://constituencyv2.openbudgetsindia.org${router.asPath}`.replaceAll('&', '%26'));
 
   return (
     <>
@@ -47,7 +46,10 @@ console.log(`https://twitter.com/intent/tweet?url=https://constituencyv2.openbud
             <a
               target="_blank"
               rel="noreferrer"
-              href={`https://www.facebook.com/sharer.php?u=https://constituencyv2.openbudgetsindia.org${router.asPath}`.replaceAll('&', '%26')}
+              href={`https://www.facebook.com/sharer.php?u=https://constituencyv2.openbudgetsindia.org${router.asPath}`.replaceAll(
+                '&',
+                '%26'
+              )}
             >
               <Facebook />
               <span>Facebook</span>
@@ -58,7 +60,10 @@ console.log(`https://twitter.com/intent/tweet?url=https://constituencyv2.openbud
             <a
               target="_blank"
               rel="noreferrer"
-              href={`https://twitter.com/intent/tweet?url=https://constituencyv2.openbudgetsindia.org${router.asPath}`.replaceAll('&', '%26')}
+              href={`https://twitter.com/intent/tweet?url=https://constituencyv2.openbudgetsindia.org${router.asPath}`.replaceAll(
+                '&',
+                '%26'
+              )}
             >
               <Twitter />
               <span>Twitter</span>
@@ -69,7 +74,10 @@ console.log(`https://twitter.com/intent/tweet?url=https://constituencyv2.openbud
             <a
               target="_blank"
               rel="noreferrer"
-              href={`https://www.linkedin.com/shareArticle?url=https://constituencyv2.openbudgetsindia.org${router.asPath}`.replaceAll('&', '%26')}
+              href={`https://www.linkedin.com/sharing/share-offsite/?mini=true&url=https://constituencyv2.openbudgetsindia.org${router.asPath.replaceAll(
+                '=',
+                '%3D'
+              )}`}
             >
               <Linkedin />
               <span>LinkedIn</span>
@@ -80,7 +88,10 @@ console.log(`https://twitter.com/intent/tweet?url=https://constituencyv2.openbud
             <a
               target="_blank"
               rel="noreferrer"
-              href={`https://www.reddit.com/submit?url=https://constituencyv2.openbudgetsindia.org${router.asPath}`.replaceAll('&', '%26')}
+              href={`https://www.reddit.com/submit?url=https://constituencyv2.openbudgetsindia.org${router.asPath}`.replaceAll(
+                '&',
+                '%26'
+              )}
             >
               <Reddit />
               <span>Reddit</span>
@@ -89,7 +100,7 @@ console.log(`https://twitter.com/intent/tweet?url=https://constituencyv2.openbud
           </li>
           <li id="share-native" hidden>
             <button onClick={() => shareButtonHandler()}>
-              <Reddit />
+              <ShareIcon />
               <span>Share via...</span>
             </button>
           </li>

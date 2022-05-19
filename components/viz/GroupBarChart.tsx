@@ -74,7 +74,6 @@ const GroupBarChart: React.FC<BarChartProps> = ({
 
     setSeries(vizSeries);
   }, [dataset]);
-console.log(dataset);
 
   // setting option
   useEffect(() => {

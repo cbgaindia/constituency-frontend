@@ -69,7 +69,9 @@ const IndicatorMobile = ({ indicators, newIndicator, selectedIndicator }) => {
   return (
     <>
       <IndicatorMobileWrapper className="indicator-mobile">
-        <span className="indicator-mobile__text">Alter Indicators</span>
+        <span className="indicator-mobile__text">
+          {selectedIndicator.replaceAll('-', ' ')}
+        </span>
         <div className="indicator-mobile__buttons">
           <button type="button" onClick={handleSortClick}>
             <div className="indicator-mobile__svg">
@@ -107,7 +109,6 @@ const IndicatorMobile = ({ indicators, newIndicator, selectedIndicator }) => {
               (item: any) =>
                 item && (
                   <Radio
-                    // onClick={handleIndicatorChange}
                     color="var(--color-amazon-300)"
                     data-selected={
                       selectedIndicator == item.slug ? 'true' : 'false'
@@ -247,6 +248,7 @@ export const IndicatorMobileWrapper = styled.div`
     line-height: 130%;
     font-size: 1.25rem;
     font-weight: 500;
+    text-transform: capitalize;
 
     @media (max-width: 480px) {
       font-size: 1rem;

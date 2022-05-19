@@ -9,7 +9,6 @@ import { GroupBarChart } from 'components/viz';
 import ConstituencySelect from './ConstituencySelect';
 
 const ExplorerDetailsViz = ({ data, meta, handleReportBtn, scheme }) => {
-  console.log('meta', meta);
 
   const [selectedIndicator, setSelectedIndicator] = useState(
     scheme.ac.data['indicator_01'].slug
