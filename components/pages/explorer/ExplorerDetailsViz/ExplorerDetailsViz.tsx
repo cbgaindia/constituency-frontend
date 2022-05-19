@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import styled from 'styled-components';
 
 import { Indicator, IndicatorMobile } from 'components/data';
@@ -7,35 +7,35 @@ import Toggler from './Toggler';
 import { Info } from 'components/icons';
 import { GroupBarChart } from 'components/viz';
 import ConstituencySelect from './ConstituencySelect';
+import { MyContext } from 'pages/explorer';
 
-const ExplorerDetailsViz = ({ data, meta, handleReportBtn, scheme }) => {
+const ExplorerDetailsViz = ({ meta, scheme }) => {
+  const { dispatch } = useContext(MyContext);
 
-  const [selectedIndicator, setSelectedIndicator] = useState(
-    scheme.ac.data['indicator_01'].slug
-  );
   const [compareItem, setCompareItem] = useState<any>({});
   const [filteredData, setFilteredData] = useState([]);
-  const [schemeData, setSchemeData] = useState(scheme.ac);
   const [allStates, setAllStates] = useState({});
   const [barData, setBarData] = useState([]);
   const [stackedBar, setBarStacked] = useState([]);
 
+  const { indicator, schemeData } = meta;
+
   useEffect(() => {
-    handleNewVizData(selectedIndicator);
+    handleNewVizData(indicator);
     setAllStates(schemeData.metadata.consList);
   }, [schemeData]);
 
   useEffect(() => {
     // creating available years array
     const fObj = Object.values(schemeData.data).find(
-      (o: any) => o.slug.toLowerCase() === selectedIndicator.toLowerCase()
+      (o: any) => o.slug.toLowerCase() === indicator.toLowerCase()
     );
 
     if (fObj) {
-      const stateData = fObj['state_Obj'][data.state];
+      const stateData = fObj['state_Obj'][meta.state];
       setFilteredData(stateData);
     }
-  }, [selectedIndicator]);
+  }, [indicator]);
 
   useEffect(() => {
     if (Object.keys(filteredData).length) {
@@ -47,8 +47,8 @@ const ExplorerDetailsViz = ({ data, meta, handleReportBtn, scheme }) => {
         const headerArr = ['Constituency'];
         Object.keys(filteredData).map((year) => {
           headerArr.push(year);
-          barValues1.push(filteredData[year][meta.code]);
-          barValues2.push(filteredData[year][compareItem.code]);
+          barValues1.push(filteredData[year][meta.consCode]);
+          barValues2.push(filteredData[year][compareItem.consCode]);
         });
 
         const barValues = [headerArr, barValues1, barValues2];
@@ -60,15 +60,9 @@ const ExplorerDetailsViz = ({ data, meta, handleReportBtn, scheme }) => {
         const headerArr = ['Constituency'];
         Object.keys(filteredData).map((year) => {
           headerArr.push(year);
-          barValues1.push(filteredData[year][meta.code]);
+          barValues1.push(filteredData[year][meta.consCode]);
         });
-
         const barValues = [headerArr, barValues1];
-
-        // for report section
-        // const barValues = [
-        //   selectedYear.map((year) => filteredData[year][meta.code]),
-        // ];
         setBarData(barValues);
       }
     }
@@ -77,52 +71,49 @@ const ExplorerDetailsViz = ({ data, meta, handleReportBtn, scheme }) => {
   function newCompare(cons, state, code) {
     setCompareItem({
       state,
-      code,
+      consCode: code,
       cons,
     });
   }
 
-  useEffect(() => {
-    if (data.sabha == 'lok') {
-      setSchemeData(scheme.pc);
-    } else setSchemeData(scheme.ac);
-  }, [data]);
-
   function handleNewVizData(val: any) {
     if (val) {
-      setSelectedIndicator(val);
+      dispatch({
+        type: 'SET_MULTIPLE',
+        payload: { indicator: val },
+      });
     }
   }
 
   // different heading based on report or compare mode
   const vizHeading =
-    meta.type == 'report'
+    meta.vizType == 'report'
       ? 'Select indicator and do comparative analysis!'
       : 'Select a Vidhan Sabha Constituency to Compare:';
 
   return (
     <>
       <div id="explorerVizWrapper">
-        <Toggler handleReportBtn={handleReportBtn} meta={meta} />
+        <Toggler meta={meta} />
         <IndicatorMobile
           indicators={schemeData.data}
           newIndicator={handleNewVizData}
-          selectedIndicator={selectedIndicator}
+          selectedIndicator={indicator}
         />
         <Wrapper>
           <Indicator
             newIndicator={handleNewVizData}
-            selectedIndicator={selectedIndicator}
+            selectedIndicator={indicator}
             schemeData={schemeData}
           />
 
           <VizWrapper>
             <VizHeader>
               <HeaderTitle>
-                {meta.type == 'report' && <Info fill="#1D7548" />}
+                {meta.vizType == 'report' && <Info fill="#1D7548" />}
                 <p>{vizHeading}</p>
               </HeaderTitle>
-              {meta.type == 'compare' && (
+              {meta.vizType == 'compare' && (
                 <ConstituencySelect
                   fallBack={`${meta.constituency} (${meta.state})`}
                   currentItem={compareItem}
@@ -133,22 +124,7 @@ const ExplorerDetailsViz = ({ data, meta, handleReportBtn, scheme }) => {
             </VizHeader>
 
             <VizGraph className="viz__graph" id="reportViz">
-              {/* <YearSelector>
-                {filteredData &&
-                  Object.keys(filteredData).map((item, index) => (
-                    <button
-                      onClick={handleYearSelector}
-                      data-selected={
-                        selectedYear.includes(item) ? 'true' : 'false'
-                      }
-                      key={`year-${index}`}
-                      id={item}
-                    >
-                      {item}
-                    </button>
-                  ))}
-              </YearSelector> */}
-              {meta.type == 'report' ? (
+              {meta.vizType == 'report' ? (
                 barData.length && (
                   <GroupBarChart
                     yAxisLabel={`Value (in ${meta.unit})`}
@@ -194,12 +170,10 @@ const ExplorerDetailsViz = ({ data, meta, handleReportBtn, scheme }) => {
 
             <Source
               meta={{
-                scheme: data.scheme,
+                scheme: meta.scheme,
                 state: meta.state,
                 constituency: meta.constituency,
-                indicator: selectedIndicator
-                  ? selectedIndicator
-                  : 'Opening Balance',
+                indicator: indicator ? indicator : 'Opening Balance',
               }}
               currentViz={'#reportViz'}
               source={schemeData.metadata?.source}

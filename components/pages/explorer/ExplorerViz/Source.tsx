@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Share } from 'components/actions';
-// import { DownloadViz } from 'components/data';
 import dynamic from 'next/dynamic';
 
 const DownloadViz = dynamic(() => import('components/data/DownloadViz'), {

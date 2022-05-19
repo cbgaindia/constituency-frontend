@@ -76,7 +76,7 @@ const ConstituencySelect = ({
           <StateList ref={selectorRef}>
             {Object.keys(states).length &&
               Object.keys(states).map((item: any, index) => (
-                <>
+                <React.Fragment key={item}>
                   <Button
                     kind="custom"
                     key={`${item}-selector-${index}`}
@@ -103,7 +103,7 @@ const ConstituencySelect = ({
                       </li>
                     ))}
                   </ul>
-                </>
+                </React.Fragment>
               ))}
           </StateList>
         </ConsList>

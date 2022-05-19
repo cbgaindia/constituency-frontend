@@ -60,12 +60,10 @@ const GroupBarChart: React.FC<BarChartProps> = ({
         stack: stackTrue,
         smooth: smooth,
         label: {
-          normal: {
-            show: true,
-            position: 'top',
-            formatter: function (d) {              
-              return d.data[columnLength];
-            },
+          show: true,
+          position: 'top',
+          formatter: function (d) {
+            return d.data[columnLength];
           },
         },
         // animation: false,

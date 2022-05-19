@@ -75,7 +75,6 @@ const SchemeSelector: React.FC<{
     }
     setAvailableStates(availableStates);
   }, []);
-  console.log(scheme, selectedScheme);
 
   useEffect(() => {
     if (stateData[selectedState.value]) {

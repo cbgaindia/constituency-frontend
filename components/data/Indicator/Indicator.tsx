@@ -6,9 +6,11 @@ import styled from 'styled-components';
 const Indicator = ({ newIndicator, selectedIndicator, schemeData }) => {
   const indicatorRef = useRef(null);
   useEffect(() => {
-    if (schemeData.data)
-      indicatorRef.current.querySelector(`label input`).checked = true;
-  }, [schemeData]);
+    if (selectedIndicator)
+      indicatorRef.current.querySelector(
+        `[value="${selectedIndicator}"]`
+      ).checked = true;
+  }, [selectedIndicator]);
 
   function handleIndicatorChange(e: any) {
     e.stopPropagation();

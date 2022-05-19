@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { GetServerSideProps } from 'next';
 import styled from 'styled-components';
 
@@ -42,6 +42,20 @@ function verifyState(state) {
   else return false;
 }
 
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'CONS_DESC':
+      return { ...state, consDesc: action.payload };
+    case 'VIZ_TYPE':
+      return { ...state, vizType: action.payload };
+    case 'SET_MULTIPLE':
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+export const MyContext = React.createContext(null);
+
 const Explorer: React.FC<Props> = ({
   data,
   scheme,
@@ -49,11 +63,24 @@ const Explorer: React.FC<Props> = ({
   stateScheme,
   constDesc,
 }) => {
-  const [showReport, setShowReport] = useState(false);
-  const [meta, setMeta] = useState({});
-  const [currentState, setCurrentState] = useState<any>();
-  const [consDesc, setConsDesc] = useState<any>();
-console.log(data);
+  const initalState = {
+    state: data.state || '',
+    scheme: data.scheme || '',
+    schemeData: {},
+    sabha: data.sabha || 'lok',
+    indicator: '',
+    year: '',
+    unit: '',
+    constituency: '',
+    consCode: '',
+    vizType: 'map',
+    headerData: stateData.find(
+      (o) => o.State.toLowerCase() == data.state.toLowerCase()
+    ),
+    consDesc: {},
+  };
+
+  const [state, dispatch] = React.useReducer(reducer, initalState);
 
   async function consDescFetch() {
     // const constDesc = await stateDataFetch('const_desc');
@@ -85,20 +112,12 @@ console.log(data);
           item['Final Description'];
       }
     });
-    setConsDesc(finalObj);
+    dispatch({ type: 'CONS_DESC', payload: finalObj });
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     consDescFetch();
-    setCurrentState(
-      stateData.find((o) => o.State.toLowerCase() == data.state.toLowerCase())
-    );
-  }, [stateData]);
-
-  function handleReportBtn(bool, metaObj = {}) {
-    setShowReport(bool);
-    setMeta(metaObj);
-  }
+  }, [constDesc]);
 
   const seo = {
     title: 'Explorer - Constituency Dashboard',
@@ -106,7 +125,7 @@ console.log(data);
       'Explore scheme-wise fiscal information at the level of Lok Sabha and Vidhan Sabha constituencies',
   };
   return (
-    <>
+    <MyContext.Provider value={{ state, dispatch }}>
       <Seo seo={seo} />
       <Wrapper>
         <div className="container">
@@ -118,51 +137,40 @@ console.log(data);
             stateData={stateScheme}
           />
 
-          {Object.keys(data).length !== 0 &&
-          verifyState(data.state) &&
-          currentState ? (
+          {Object.keys(data).length !== 0 && verifyState(data.state) && (
             <>
               <ExplorerHeader
-                stateData={currentState}
+                stateData={state.headerData}
                 schemeDesc={
                   scheme[Object.keys(scheme)[0]].metadata['description']
                 }
               />
-              {!showReport && consDesc && (
-                <ExplorerViz
-                  data={data}
-                  handleReportBtn={handleReportBtn}
-                  scheme={scheme}
-                  consDesc={consDesc}
-                />
+              {state.vizType === 'map' && (
+                <ExplorerViz schemeRaw={scheme} meta={state} />
               )}
 
-              {showReport && (
-                <ExplorerDetailsViz
-                  data={data}
-                  meta={meta}
-                  handleReportBtn={handleReportBtn}
-                  scheme={scheme}
-                />
+              {state.vizType !== 'map' && (
+                <ExplorerDetailsViz meta={state} scheme={scheme} />
               )}
             </>
-          ) : (
-            <></>
           )}
         </div>
       </Wrapper>
-    </>
+    </MyContext.Provider>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { state, scheme, sabha } = context.query;
-  const schemeData = await dataTransform(context.query.scheme || '');
-  const stateScheme = await stateSchemeFetch();
-  const stateData = await stateDataFetch('State Info');
-  const constDesc = await stateDataFetch('const_desc');
-  let data: any = {};
 
+  const [schemeData, stateScheme, stateData, constDesc] = await Promise.all([
+    dataTransform(context.query.scheme || ''),
+    stateSchemeFetch(),
+    stateDataFetch('State Info'),
+    stateDataFetch('const_desc'),
+  ]);
+
+  const data: any = {};
   data.state = state || '';
   data.scheme = scheme || '';
   data.sabha = sabha || '';

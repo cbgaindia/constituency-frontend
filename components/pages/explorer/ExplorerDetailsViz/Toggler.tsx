@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import fscreen from 'fscreen';
 import { Button } from 'components/actions';
 import { ArrowTail, FullScreen } from 'components/icons';
+import { MyContext } from 'pages/explorer';
 
-const Toggler = ({ handleReportBtn, meta }) => {
+const Toggler = ({ meta }) => {
+  const { dispatch } = useContext(MyContext);
+
   function fullScreenMode() {
     if (fscreen.fullscreenElement !== null) {
       fscreen.exitFullscreen();
@@ -18,7 +21,12 @@ const Toggler = ({ handleReportBtn, meta }) => {
     <Wrapper>
       <LeftSide>
         <Button
-          onClick={() => handleReportBtn(false)}
+          onClick={() =>
+            dispatch({
+              type: 'VIZ_TYPE',
+              payload: 'map',
+            })
+          }
           icon={<ArrowTail />}
           iconSide="left"
           kind="custom"

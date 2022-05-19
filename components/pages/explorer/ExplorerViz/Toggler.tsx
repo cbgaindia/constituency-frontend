@@ -20,7 +20,7 @@ const menuItems = {
   },
 };
 
-const Toggler = ({ handleNewToggle, selectedSabha, currentToggle }) => {
+const Toggler = ({ handleNewToggle, sabha }) => {
   const [selectedMode, setSelectedMode] = useState('Lok Sabha');
   const sabhaRef = useRef(null);
   const router = useRouter();
@@ -73,11 +73,7 @@ const Toggler = ({ handleNewToggle, selectedSabha, currentToggle }) => {
         <SabhaToggle>
           <h2>
             <Button
-              aria-pressed={
-                currentToggle == 'viz' && selectedSabha === 'lok'
-                  ? 'true'
-                  : 'false'
-              }
+              aria-pressed={sabha === 'lok' ? 'true' : 'false'}
               data-value="lok"
               onClick={handleSabhaClick}
               icon={<LokSabha />}
@@ -90,11 +86,7 @@ const Toggler = ({ handleNewToggle, selectedSabha, currentToggle }) => {
 
           <h2>
             <Button
-              aria-pressed={
-                currentToggle == 'viz' && selectedSabha === 'vidhan'
-                  ? 'true'
-                  : 'false'
-              }
+              aria-pressed={sabha === 'vidhan' ? 'true' : 'false'}
               data-value="vidhan"
               onClick={handleSabhaClick}
               icon={<VidhanSabha />}
@@ -108,9 +100,7 @@ const Toggler = ({ handleNewToggle, selectedSabha, currentToggle }) => {
         <RightSide>
           <h2>
             <Button
-              aria-pressed={
-                currentToggle === 'editorial-notes' ? 'true' : 'false'
-              }
+              aria-pressed={sabha === 'editorial-notes' ? 'true' : 'false'}
               data-value="editorial-notes"
               onClick={handleSabhaClick}
               kind="custom"

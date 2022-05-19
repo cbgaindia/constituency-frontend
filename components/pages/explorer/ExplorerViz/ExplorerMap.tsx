@@ -2,11 +2,14 @@ import * as echarts from 'echarts/core';
 import { Button, Modal } from 'components/actions';
 import { Cross } from 'components/icons';
 import { MapViz } from 'components/viz';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { debounce } from 'utils/helper';
+import { MyContext } from 'pages/explorer';
 
-const ExplorerMap = ({ meta, handleReportBtn, schemeData, consDesc }) => {
+const ExplorerMap = ({ meta, schemeData, consDesc }) => {
+  const { dispatch } = useContext(MyContext);
+
   const [mapFile, setMapFile] = useState<any>({});
   const [mapValues, setMapvalues] = useState([]);
   const [searchItems, setSearchItems] = useState([]);
@@ -17,7 +20,7 @@ const ExplorerMap = ({ meta, handleReportBtn, schemeData, consDesc }) => {
 
   async function getMapFile() {
     const mapFile = await fetch(
-      `assets/maps/${meta.selectedSabha}/${meta.state}.json`
+      `assets/maps/${meta.sabha}/${meta.state}.json`
     ).then((res) => res.json());
     setMapFile(mapFile);
   }
@@ -31,12 +34,12 @@ const ExplorerMap = ({ meta, handleReportBtn, schemeData, consDesc }) => {
     return () => {
       isMounted = false;
     };
-  }, [meta.selectedSabha, meta.state]);
+  }, [meta.sabha, meta.state]);
 
   // on state change, close the consitituency details popup
   useEffect(() => {
     setSelectedItem(undefined);
-  }, [meta.selectedSabha, meta.state, meta.selectedIndicator]);
+  }, [meta.sabha, meta.state, meta.selectedIndicator]);
 
   // preparing data for echarts component
   useEffect(() => {
@@ -97,7 +100,7 @@ const ExplorerMap = ({ meta, handleReportBtn, schemeData, consDesc }) => {
 
       setMapvalues(tempData);
     }
-  }, [mapFile, schemeData, meta.selectedSabha]);
+  }, [mapFile, schemeData, meta.sabha]);
 
   function handleSearch(query, obj) {
     let newObj = [];
@@ -195,7 +198,14 @@ const ExplorerMap = ({ meta, handleReportBtn, schemeData, consDesc }) => {
                   kind="secondary-outline"
                   size="sm"
                   onClick={() =>
-                    handleReportBtn(true, selectedItem, selectedCode, 'report')
+                    dispatch({
+                      type: 'SET_MULTIPLE',
+                      payload: {
+                        consCode: selectedCode,
+                        constituency: selectedItem,
+                        vizType: 'report',
+                      },
+                    })
                   }
                 >
                   Generate Report Card
@@ -204,12 +214,14 @@ const ExplorerMap = ({ meta, handleReportBtn, schemeData, consDesc }) => {
                   kind="secondary"
                   size="sm"
                   onClick={() =>
-                    handleReportBtn(
-                      true,
-                      selectedItem,
-                      selectedCode,
-                      'compare'
-                    )
+                    dispatch({
+                      type: 'SET_MULTIPLE',
+                      payload: {
+                        consCode: selectedCode,
+                        constituency: selectedItem,
+                        vizType: 'compare',
+                      },
+                    })
                   }
                 >
                   Compare Constituency

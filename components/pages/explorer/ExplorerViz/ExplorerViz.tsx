@@ -1,38 +1,34 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import styled from 'styled-components';
+import dynamic from 'next/dynamic';
 import { tabbedInterface } from 'utils/explorer';
 
 import { Indicator, IndicatorMobile, Table } from 'components/data';
 import { Menu } from 'components/actions';
-// import Source from './Source';
 import Toggler from './Toggler';
 import ExplorerMap from './ExplorerMap';
 import { capitalize } from 'utils/helper';
 import { Globe, TableIcon } from 'components/icons';
-import dynamic from 'next/dynamic';
+import { MyContext } from 'pages/explorer';
 
 const Source = dynamic(() => import('./Source'), {
   ssr: false,
 });
 
-const ExplorerViz = ({ data, handleReportBtn, scheme, consDesc }) => {
+const ExplorerViz = ({ meta, schemeRaw }) => {
+  const { dispatch } = useContext(MyContext);
+
   const [filtered, setFiltered] = useState([]);
   const [isTable, setIsTable] = useState(false);
   const [currentViz, setCurrentViz] = useState('#mapView');
-  const [selectedSabha, setSelectedSabha] = useState(
-    data.sabha ? data.sabha : 'lok'
-  );
-  const [currentToggle, setCurrentToggle] = useState('viz');
-  const [schemeData, setSchemeData] = useState(scheme.ac);
-  const [selectedIndicator, setSelectedIndicator] = useState('');
-  const [selectedYear, setSelectedYear] = useState(undefined);
+
   const [financialYears, setFinancialYears] = useState(undefined);
   const [tableData, setTableData] = useState<any>({});
-  const [unit, setUnit] = useState('');
 
   const mapRef = useRef(null);
 
-  const { state } = data;
+  const { state, consDesc, scheme, indicator, unit, schemeData, year } = meta;
+  const { sabha } = meta || 'lok';
 
   useEffect(() => {
     // ceating tabbed interface for viz selector
@@ -51,7 +47,11 @@ const ExplorerViz = ({ data, handleReportBtn, scheme, consDesc }) => {
         title: item,
       }));
       setFinancialYears(years); // all years
-      setSelectedYear(years[0].value); // default year
+
+      dispatch({
+        type: 'SET_MULTIPLE',
+        payload: { year: year ? year : years[0].value },
+      });
 
       // setting tabular data
       const tableHeader = [
@@ -60,17 +60,15 @@ const ExplorerViz = ({ data, handleReportBtn, scheme, consDesc }) => {
       if (years) {
         years.forEach((element) =>
           tableHeader.push({
-            Header: `${selectedIndicator.replaceAll('-', ' ')} ${
-              element.title
-            }`,
-            accessor: `${selectedIndicator}-${element.title}`,
+            Header: `${indicator.replaceAll('-', ' ')} ${element.title}`,
+            accessor: `${indicator}-${element.title}`,
           })
         );
       }
 
       const rowData = [];
-      if (filtered[selectedYear]) {
-        Object.values(filtered[selectedYear]).forEach((item, index) => {
+      if (filtered[meta.year]) {
+        Object.values(filtered[meta.year]).forEach((item, index) => {
           const tempObj = {
             [tableHeader[0].accessor]:
               schemeData.metadata.consList[capitalize(state)][index]
@@ -96,31 +94,21 @@ const ExplorerViz = ({ data, handleReportBtn, scheme, consDesc }) => {
   }, [filtered]);
 
   useEffect(() => {
-    if (selectedSabha == 'lok') {
-      setSchemeData(scheme.pc);
-    } else setSchemeData(scheme.ac);
-  }, [selectedSabha]);
+    if (sabha == 'lok') {
+      dispatch({
+        type: 'SET_MULTIPLE',
+        payload: { schemeData: schemeRaw.pc },
+      });
+    } else
+      dispatch({
+        type: 'SET_MULTIPLE',
+        payload: { schemeData: schemeRaw.ac },
+      });
+  }, [sabha]);
 
   useEffect(() => {
     handleNewIndicator(schemeData.metadata?.indicators[0]);
   }, [schemeData]);
-
-  useEffect(() => {
-    handleNewIndicator(selectedIndicator);
-  }, [selectedYear]);
-
-  function handleReport(bool, cons, code, type) {
-    const metaObj = {
-      sabha: selectedSabha,
-      state,
-      constituency: cons,
-      type,
-      code,
-      unit,
-    };
-
-    handleReportBtn(bool, metaObj);
-  }
 
   function hideMenu(e) {
     setCurrentViz(e.target.getAttribute('href'));
@@ -129,6 +117,8 @@ const ExplorerViz = ({ data, handleReportBtn, scheme, consDesc }) => {
   }
 
   function handleNewIndicator(val: any) {
+    console.log(val);
+
     if (val) {
       // filter based on selected indicator for state + sabha
       if (schemeData.data) {
@@ -138,25 +128,25 @@ const ExplorerViz = ({ data, handleReportBtn, scheme, consDesc }) => {
 
         const filtered =
           schemeData.data[indicatorID]['state_Obj'][capitalize(state)];
-        setUnit(schemeData.data[indicatorID].unit);
+        dispatch({
+          type: 'SET_MULTIPLE',
+          payload: { unit: schemeData.data[indicatorID].unit },
+        });
         setFiltered(filtered);
       }
 
-      setSelectedIndicator(val);
+      dispatch({
+        type: 'SET_MULTIPLE',
+        payload: { indicator: val },
+      });
     }
-  }
-
-  function handleDropdownChange(val: any) {
-    setSelectedYear(val);
   }
 
   function handleToggler(e) {
-    if (e == 'editorial-notes') {
-      setCurrentToggle(e);
-    } else {
-      setCurrentToggle('viz');
-      setSelectedSabha(e);
-    }
+    dispatch({
+      type: 'SET_MULTIPLE',
+      payload: { sabha: e },
+    });
   }
 
   const vizToggle = [
@@ -176,12 +166,11 @@ const ExplorerViz = ({ data, handleReportBtn, scheme, consDesc }) => {
     {
       id: 'mapView',
       graph:
-        schemeData.data && currentToggle == 'viz' ? (
+        schemeData.data && (sabha == 'lok' || sabha == 'vidhan') ? (
           <ExplorerMap
-            meta={{ selectedSabha, state, selectedIndicator, unit }}
-            handleReportBtn={handleReport}
-            schemeData={filtered[selectedYear]}
-            consDesc={consDesc[selectedSabha][state]}
+            meta={{ sabha, state, indicator, unit }}
+            schemeData={filtered[meta.year]}
+            consDesc={consDesc[sabha][state]}
           />
         ) : (
           <p>No data</p>
@@ -206,29 +195,23 @@ const ExplorerViz = ({ data, handleReportBtn, scheme, consDesc }) => {
   return (
     <>
       <div id="explorerVizWrapper">
-        <Toggler
-          handleNewToggle={handleToggler}
-          selectedSabha={selectedSabha}
-          currentToggle={currentToggle}
-        />
+        <Toggler handleNewToggle={handleToggler} sabha={sabha} />
         <IndicatorMobile
           indicators={schemeData.data}
-          newIndicator={handleNewIndicator}
-          selectedIndicator={selectedIndicator}
+          newIndicator={(e) => handleNewIndicator(e)}
+          selectedIndicator={indicator}
         />
 
         {
           <Wrapper
             className={
-              currentToggle === 'editorial-notes'
-                ? 'inactive-sidebar'
-                : undefined
+              sabha === 'editorial-notes' ? 'inactive-sidebar' : undefined
             }
           >
-            {currentToggle !== 'editorial-notes' && (
+            {sabha !== 'editorial-notes' && (
               <Indicator
-                newIndicator={handleNewIndicator}
-                selectedIndicator={selectedIndicator}
+                newIndicator={(e) => handleNewIndicator(e)}
+                selectedIndicator={indicator}
                 schemeData={schemeData}
               />
             )}
@@ -236,9 +219,7 @@ const ExplorerViz = ({ data, handleReportBtn, scheme, consDesc }) => {
             <VizWrapper>
               <div
                 className={
-                  currentToggle === 'editorial-notes'
-                    ? 'inactive-viz'
-                    : undefined
+                  sabha === 'editorial-notes' ? 'inactive-viz' : undefined
                 }
               >
                 <VizHeader>
@@ -255,10 +236,15 @@ const ExplorerViz = ({ data, handleReportBtn, scheme, consDesc }) => {
                   {financialYears && !isTable && (
                     <VizMenu className="fill">
                       <Menu
-                        value={selectedYear}
+                        value={meta.year}
                         options={financialYears}
                         heading="Financial Year:"
-                        handleChange={(e) => handleDropdownChange(e)}
+                        handleChange={(e) =>
+                          dispatch({
+                            type: 'SET_MULTIPLE',
+                            payload: { year: e },
+                          })
+                        }
                       />
                     </VizMenu>
                   )}
@@ -276,15 +262,13 @@ const ExplorerViz = ({ data, handleReportBtn, scheme, consDesc }) => {
               </div>
               <SchemeNotes
                 className={
-                  currentToggle !== 'editorial-notes'
-                    ? 'inactive-viz'
-                    : undefined
+                  sabha !== 'editorial-notes' ? 'inactive-viz' : undefined
                 }
               >
                 <p>{schemeData.metadata?.description}</p>
                 <div>
                   {schemeData.data &&
-                    Object.values(schemeData.data).map((item: any, index) => (
+                    Object.values(schemeData.data).map((item: any) => (
                       <NotesInidicator key={`indicator-${item.slug}`}>
                         <NotesTitle>
                           <h3>{item.name}</h3> ({item.unit})
@@ -300,11 +284,9 @@ const ExplorerViz = ({ data, handleReportBtn, scheme, consDesc }) => {
               <Source
                 currentViz={currentViz}
                 meta={{
-                  scheme: data.scheme,
-                  state: data.state,
-                  indicator: selectedIndicator
-                    ? selectedIndicator
-                    : 'Opening Balance',
+                  scheme,
+                  state,
+                  indicator: indicator ? indicator : 'Opening Balance',
                 }}
                 source={schemeData.metadata?.source}
               />

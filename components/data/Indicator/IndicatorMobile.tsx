@@ -105,29 +105,30 @@ const IndicatorMobile = ({ indicators, newIndicator, selectedIndicator }) => {
         <Wrapper>
           <Fieldset id="modalSort-mobile">
             <legend className="sr-only">Select Indicator</legend>
-            {Object.values(indicators).map(
-              (item: any) =>
-                item && (
-                  <Radio
-                    color="var(--color-amazon-300)"
-                    data-selected={
-                      selectedIndicator == item.slug ? 'true' : 'false'
-                    }
-                    id={`${item.slug} mobile`}
-                    data-value={item.slug}
-                    text={
-                      <>
-                        {item.name}
-                        <Info>
-                          <p>{item.description}</p>
-                        </Info>
-                      </>
-                    }
-                    name="indicators-mobile"
-                    key={`indicatorItem-${item.slug}`}
-                  />
-                )
-            )}
+            {indicators &&
+              Object.values(indicators).map(
+                (item: any) =>
+                  item && (
+                    <Radio
+                      color="var(--color-amazon-300)"
+                      data-selected={
+                        selectedIndicator == item.slug ? 'true' : 'false'
+                      }
+                      id={`${item.slug} mobile`}
+                      data-value={item.slug}
+                      text={
+                        <>
+                          {item.name}
+                          <Info>
+                            <p>{item.description}</p>
+                          </Info>
+                        </>
+                      }
+                      name="indicators-mobile"
+                      key={`indicatorItem-${item.slug}`}
+                    />
+                  )
+              )}
           </Fieldset>
           <DataAlterFooter cancel={cancelSortChange} apply={applySortChange} />
         </Wrapper>
