@@ -107,7 +107,7 @@ const ExplorerViz = ({ meta, schemeRaw }) => {
   }, [sabha]);
 
   useEffect(() => {
-    handleNewIndicator(schemeData.metadata?.indicators[0]);
+    handleNewIndicator(indicator || schemeData.metadata?.indicators[0]);
   }, [schemeData]);
 
   function hideMenu(e) {

@@ -125,21 +125,23 @@ const ExplorerMap = ({ meta, schemeData, consDesc }) => {
   }
 
   const newMapItem = useCallback((e) => {
-    setSelectedItem(e.mapName);
-    setSelectedCode(e.name);
-    setSearchItems([]);
-    setSearchQuery('');
-    (document.getElementById('searchInput') as HTMLInputElement).value = '';
+    if (e) {
+      setSelectedItem(e.mapName);
+      setSelectedCode(e.name);
+      setSearchItems([]);
+      setSearchQuery('');
+      (document.getElementById('searchInput') as HTMLInputElement).value = '';
 
-    // overriding map highlight on constituency selection
-    const myChart = echarts.getInstanceByDom(
-      document.querySelector('#mapView .echarts-for-react')
-    );
-    if (myChart) {
-      myChart.dispatchAction({
-        type: 'select',
-        name: e.name,
-      });
+      // overriding map highlight on constituency selection
+      const myChart = echarts.getInstanceByDom(
+        document.querySelector('#mapView .echarts-for-react')
+      );
+      if (myChart) {
+        myChart.dispatchAction({
+          type: 'select',
+          name: e.name,
+        });
+      }
     }
   }, []);
 

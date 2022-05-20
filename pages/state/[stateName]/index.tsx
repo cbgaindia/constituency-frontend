@@ -70,8 +70,11 @@ const Datasets: React.FC<Props> = ({ query, stateScheme, stateData }) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const query = context.query || {};
-  const stateScheme = await stateSchemeFetch();
-  const stateData = await stateDataFetch('State Info');
+  const [stateScheme, stateData] = await Promise.all([
+    stateSchemeFetch(),
+    stateDataFetch('State Info'),
+  ]);
+
   return {
     props: {
       query,

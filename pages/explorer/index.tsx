@@ -75,7 +75,8 @@ const Explorer: React.FC<Props> = ({
     consCode: '',
     vizType: 'map',
     headerData: stateData.find(
-      (o) => o.State.toLowerCase() == data.state.toLowerCase()
+      (o: { State: string }) =>
+        o.State.toLowerCase() == data.state.toLowerCase()
     ),
     consDesc: {},
   };
