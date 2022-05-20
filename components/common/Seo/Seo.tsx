@@ -15,44 +15,49 @@ const Seo: React.FC<{ seo?: any }> = ({ seo }) => {
 
   const url = `https://constituencyv2.openbudgetsindia.org`;
   return (
-    <Head>
-      {title && (
-        <>
-          <title>{title}</title>
-          <meta property="og:title" content={title} />
-          <meta name="twitter:title" content={title} />
-        </>
-      )}
-      {description && (
-        <>
-          <meta name="description" content={description} />
-          <meta property="og:description" content={description} />
-          <meta name="twitter:description" content={description} />
-        </>
-      )}
-      {url && (
-        <>
-          <meta property="og:url" content={url} />
-          <meta property="twitter:url" content={url} />
-        </>
-      )}
+    <>
+      <Head>
+        {title && (
+          <>
+            <title>{title}</title>
+            <meta property="og:title" content={title} />
+            <meta name="twitter:title" content={title} />
+          </>
+        )}
+        {description && (
+          <>
+            <meta name="description" content={description} />
+            <meta property="og:description" content={description} />
+            <meta name="twitter:description" content={description} />
+          </>
+        )}
+        {url && (
+          <>
+            <meta property="og:url" content={url} />
+            <meta property="twitter:url" content={url} />
+          </>
+        )}
 
-      {/* type */}
-      <meta property="og:type" content="website" />
-      <meta property="twitter:card" content="summary_large_image" />
+        {/* type */}
+        <meta property="og:type" content="website" />
+        <meta property="twitter:card" content="summary_large_image" />
 
-      {/* Image */}
-      <meta
-        property="og:image"
-        content={`${url}/assets/images/constituency_home.png`}
-      />
-    <meta
-        property="twitter:image"
-        content={`${url}/assets/images/constituency_home.png`}
-      />
+        {/* Image */}
+        <meta
+          property="og:image"
+          content={`${url}/assets/images/constituency_home.png`}
+        />
+        <meta
+          property="twitter:image"
+          content={`${url}/assets/images/constituency_home.png`}
+        />
 
-      <meta name="application-name" content="Constituency Dashboard" />
-    </Head>
+        <meta name="application-name" content="Constituency Dashboard" />
+      </Head>
+      <div className="sr-only">
+        <span id="maincontent">-</span>
+      </div>
+    </>
   );
 };
 

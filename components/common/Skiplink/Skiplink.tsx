@@ -15,7 +15,8 @@ export default Skiplink;
 const Wrapper = styled.a`
   background: #4b4797;
   color: white;
-  height: 30px;
+  /* height: 30px; */
+  z-index: 10;
   left: 50%;
   padding: 8px;
   position: absolute;

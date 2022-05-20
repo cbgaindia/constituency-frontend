@@ -15,7 +15,7 @@ const Indicator = ({ newIndicator, selectedIndicator, schemeData }) => {
   function handleIndicatorChange(e: any) {
     e.stopPropagation();
     const elm = e.target;
-    newIndicator(elm.id);
+    newIndicator(elm.id || elm.value);
   }
 
   return (

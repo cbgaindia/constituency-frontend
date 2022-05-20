@@ -1,5 +1,4 @@
 import React from 'react';
-import Head from 'next/head';
 import { PartnerCard, TeamCard } from 'components/pages/about';
 import { HeaderWrapper } from 'components/layouts/Header';
 import styled from 'styled-components';
@@ -46,70 +45,26 @@ const About = () => {
     },
   ];
 
-  const team = [
-    {
-      name: 'Gaurav Godhwani',
-      title: 'Lead',
-      image: '/images/contributors/gaurav.jpg',
-      github: 'https://github.com/gggodhwani',
-      linkedin: 'https://www.linkedin.com/in/gggodhwani',
-      twitter: 'https://twitter.com/gggodhwani',
-    },
-    {
-      name: 'Kabeer',
-      title: 'Project Lead',
-      image: '/images/contributors/kabeer.jpg',
-      github: 'https://github.com/Kabeer3',
-      linkedin: 'https://www.linkedin.com/in/kabeer-arora-69827661/',
-      twitter: 'https://twitter.com/kabeer3391',
-    },
-    {
-      name: 'Shreya Agrawal',
-      title: 'Data Engineer',
-      image: '/images/contributors/shreya.jpg',
-      github: 'https://github.com/shreyaagrawal0809',
-      linkedin: 'https://github.com/shreyaagrawal0809',
-      twitter: 'https://twitter.com/shreya_0809',
-    },
-    {
-      name: 'Abhinav',
-      title: 'Backend Engineer',
-      image: '/images/contributors/abhinav.jpg',
-      github: 'https://github.com/Abhi2102',
-    },
-    {
-      name: 'Shoaib Ahmed',
-      title: 'Frontend Engineer',
-      image: '/images/contributors/shoaib.jpg',
-      github: 'https://github.com/pixeledcode',
-      linkedin: 'https://www.linkedin.com/in/pixeledcode',
-      twitter: 'https://twitter.com/PixeledCode',
-    },
-  ];
-
   const seo = {
     title: 'About - Constituency Dashboard',
     description: 'Co-created by CBGA and CivicDataLab',
   };
 
   return (
-    <div>
+    <Wrapper className="container">
       <Seo seo={seo} />
-
       <HeaderWrapper>
-        <div className="container">
-          <h2>{headerData.title}</h2>
-          <AboutPara>
-            {headerData.content.map((item, index) => (
-              <p key={`header-content-${index}`}>{item}</p>
-            ))}
-          </AboutPara>
-        </div>
+        <h2>{headerData.title}</h2>
+        <Description>
+          {headerData.content.map((item, index) => (
+            <p key={`header-content-${index}`}>{item}</p>
+          ))}
+        </Description>
       </HeaderWrapper>
 
-      <AboutPage className="container">
-        <h3 className="partners__heading">Partners</h3>
-        <ul className="partners">
+      <CardsWrapper>
+        <h3>Partners</h3>
+        <Cards>
           {partners.map((item, key) => {
             return (
               <li key={`partners-${key}`}>
@@ -117,113 +72,51 @@ const About = () => {
               </li>
             );
           })}
-        </ul>
-        {/* <section className="about__team">
-          <h3>
-            <span /> members
-          </h3>
-          <p>Meet the doers &amp; builders</p>
-
-          <ul>
-            {team.map((item, key) => {
-              return (
-                <li key={`team-${key}`}>
-                  <TeamCard card={item} />
-                </li>
-              );
-            })}
-          </ul>
-        </section> */}
-      </AboutPage>
-    </div>
+        </Cards>
+      </CardsWrapper>
+    </Wrapper>
   );
 };
 
 export default About;
 
-const AboutPara = styled.div`
+const Wrapper = styled.main`
+  ${HeaderWrapper} {
+    margin-top: 48px;
+  }
+`;
+
+const Description = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
 `;
 
-const AboutPage = styled.main`
-  .partners__heading {
-    margin-top: 1.5rem;
+const CardsWrapper = styled.div`
+  > h3 {
+    margin-top: 24px;
     font-size: 1.25rem;
     font-weight: 500;
-    line-height: 130%;
-    color: #000;
+    line-height: 1.3;
   }
+`;
 
-  .partners {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 2rem;
-    justify-content: space-between;
-    align-items: stretch;
-    gap: 30px;
+const Cards = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 32px;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 30px;
 
-    li {
-      flex-basis: 48%;
-      flex-grow: 1;
+  li {
+    flex-basis: 48%;
+    flex-grow: 1;
 
-      > div {
-        display: grid;
-        height: 100%;
-        grid-template-rows: max-content 1fr max-content;
-      }
-    }
-  }
-
-  .about__team {
-    margin-top: 4rem;
-
-    h3 {
-      font-size: 1.25rem;
-      font-weight: 500;
-      line-height: 130%;
-      color: rgba(0, 0, 0, 0.32);
-
-      span {
-        background: #4965b2;
-        border-radius: 2px;
-        width: 3rem;
-        display: inline-block;
-        height: 3px;
-        margin-right: 0.5rem;
-      }
-    }
-
-    p {
-      font-size: 2.5rem;
-      line-height: 130%;
-      margin-top: 10px;
-    }
-
-    ul {
-      margin-top: 3rem;
-      background-color: #fff;
-      border-radius: 12px;
-      border: 1px solid #f1eef1;
-      padding: 0 6rem 5rem;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-
-      @media (max-width: 1145px) {
-        padding: 0;
-        gap: 35px;
-      }
-    }
-
-    li {
-      display: flex;
-      flex-basis: 33.3%;
-      @media (max-width: 720px) {
-        flex-basis: 38%;
-      }
-      justify-content: center;
+    > div {
+      display: grid;
+      height: 100%;
+      grid-template-rows: max-content 1fr max-content;
     }
   }
 `;
