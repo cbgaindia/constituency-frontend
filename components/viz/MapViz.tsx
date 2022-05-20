@@ -9,7 +9,7 @@ import { MapChart } from 'echarts/charts';
 import { CanvasRenderer } from 'echarts/renderers';
 import ReactEChartsCore from 'echarts-for-react/lib/core';
 
-const MapViz = ({ meta, mapFile, data, newMapItem, vizIndicators }) => {
+const MapViz = ({ meta, mapFile, data, newMapItem, vizIndicators, color }) => {
   const [mapOptions, setMapOptions] = useState({});
   useEffect(() => {
     if (Object.keys(mapFile).length > 0) {
@@ -19,7 +19,6 @@ const MapViz = ({ meta, mapFile, data, newMapItem, vizIndicators }) => {
       );
 
       echarts.registerMap(meta.sabha, map, {});
-
       const options = {
         backgroundColor: '#EBF0EE',
         tooltip: {
@@ -39,16 +38,9 @@ const MapViz = ({ meta, mapFile, data, newMapItem, vizIndicators }) => {
           backgroundColor: '#FFFFFF',
           pieces: vizIndicators,
           inRange: {
-            color: [
-              '#4ABEBE',
-              '#41A8A8',
-              '#368B8B',
-              '#286767',
-              '#1F5151',
-              '#173B3B',
-            ],
+            color: vizIndicators[0].max ? color : ['#494D44'],
           },
-          text: [`Units: ${meta.unit}`],
+          text: vizIndicators[0].max && [`Units: ${meta.unit}`],
           padding: 8,
           showLabel: true,
         },
@@ -84,8 +76,8 @@ const MapViz = ({ meta, mapFile, data, newMapItem, vizIndicators }) => {
               },
             },
             scaleLimit: {
-              min: 1.2,
-              max: 1.2,
+              min: 1,
+              max: 1,
             },
             data: data,
           },

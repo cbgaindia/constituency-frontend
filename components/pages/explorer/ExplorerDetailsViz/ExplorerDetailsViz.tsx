@@ -93,94 +93,92 @@ const ExplorerDetailsViz = ({ meta, scheme }) => {
 
   return (
     <>
-      <div id="explorerVizWrapper">
-        <Toggler meta={meta} />
-        <IndicatorMobile
-          indicators={schemeData.data}
+      <Toggler meta={meta} />
+      <IndicatorMobile
+        indicators={schemeData.data}
+        newIndicator={handleNewVizData}
+        selectedIndicator={indicator}
+      />
+      <Wrapper>
+        <Indicator
           newIndicator={handleNewVizData}
           selectedIndicator={indicator}
+          schemeData={schemeData}
         />
-        <Wrapper>
-          <Indicator
-            newIndicator={handleNewVizData}
-            selectedIndicator={indicator}
-            schemeData={schemeData}
-          />
 
-          <VizWrapper>
-            <VizHeader>
-              <HeaderTitle>
-                {meta.vizType == 'report' && <Info fill="#1D7548" />}
-                <p>{vizHeading}</p>
-              </HeaderTitle>
-              {meta.vizType == 'compare' && (
-                <ConstituencySelect
-                  fallBack={`${meta.constituency} (${meta.state})`}
-                  currentItem={compareItem}
-                  allStates={allStates}
-                  newCompare={newCompare}
+        <VizWrapper>
+          <VizHeader>
+            <HeaderTitle>
+              {meta.vizType == 'report' && <Info fill="#1D7548" />}
+              <p>{vizHeading}</p>
+            </HeaderTitle>
+            {meta.vizType == 'compare' && (
+              <ConstituencySelect
+                fallBack={`${meta.constituency} (${meta.state})`}
+                currentItem={compareItem}
+                allStates={allStates}
+                newCompare={newCompare}
+              />
+            )}
+          </VizHeader>
+
+          <VizGraph className="viz__graph" id="reportViz">
+            {meta.vizType == 'report' ? (
+              barData.length && (
+                <GroupBarChart
+                  yAxisLabel={`Value (in ${meta.unit})`}
+                  xAxisLabel="Constituency"
+                  theme={['#4965B2', '#ED8686', '#69BC99']}
+                  dataset={barData}
+                  stack={false}
+                  Title=""
+                  subTitle=""
+                  left="60vw"
+                  type="bar"
+                  smooth={true}
                 />
-              )}
-            </VizHeader>
+              )
+            ) : !compareItem.state ? (
+              <NoCompareItem>
+                <Info id="infoSvg" fill="#317EB9" height="112" width="112" />
+                <div>
+                  <p>Choose any constituency to compare with</p>
+                  <span>
+                    {meta.constituency} - {meta.state} ({meta.sabha} Sabha
+                    Constituency)
+                  </span>
+                </div>
+              </NoCompareItem>
+            ) : (
+              stackedBar.length && (
+                <GroupBarChart
+                  yAxisLabel={`Value (in ${meta.unit})`}
+                  xAxisLabel="Constituencies"
+                  theme={['#4965B2', '#ED8686', '#69BC99']}
+                  dataset={stackedBar}
+                  stack={false}
+                  Title=""
+                  subTitle=""
+                  left="60vw"
+                  type="bar"
+                  smooth={true}
+                />
+              )
+            )}
+          </VizGraph>
 
-            <VizGraph className="viz__graph" id="reportViz">
-              {meta.vizType == 'report' ? (
-                barData.length && (
-                  <GroupBarChart
-                    yAxisLabel={`Value (in ${meta.unit})`}
-                    xAxisLabel="Constituency"
-                    theme={['#4965B2', '#ED8686', '#69BC99']}
-                    dataset={barData}
-                    stack={false}
-                    Title=""
-                    subTitle=""
-                    left="60vw"
-                    type="bar"
-                    smooth={true}
-                  />
-                )
-              ) : !compareItem.state ? (
-                <NoCompareItem>
-                  <Info id="infoSvg" fill="#317EB9" height="112" width="112" />
-                  <div>
-                    <p>Choose any constituency to compare with</p>
-                    <span>
-                      {meta.constituency} - {meta.state} ({meta.sabha} Sabha
-                      Constituency)
-                    </span>
-                  </div>
-                </NoCompareItem>
-              ) : (
-                stackedBar.length && (
-                  <GroupBarChart
-                    yAxisLabel={`Value (in ${meta.unit})`}
-                    xAxisLabel="Constituencies"
-                    theme={['#4965B2', '#ED8686', '#69BC99']}
-                    dataset={stackedBar}
-                    stack={false}
-                    Title=""
-                    subTitle=""
-                    left="60vw"
-                    type="bar"
-                    smooth={true}
-                  />
-                )
-              )}
-            </VizGraph>
-
-            <Source
-              meta={{
-                scheme: meta.scheme,
-                state: meta.state,
-                constituency: meta.constituency,
-                indicator: indicator ? indicator : 'Opening Balance',
-              }}
-              currentViz={'#reportViz'}
-              source={schemeData.metadata?.source}
-            />
-          </VizWrapper>
-        </Wrapper>
-      </div>
+          <Source
+            meta={{
+              scheme: meta.scheme,
+              state: meta.state,
+              constituency: meta.constituency,
+              indicator: indicator ? indicator : 'Opening Balance',
+            }}
+            currentViz={'#reportViz'}
+            source={schemeData.metadata?.source}
+          />
+        </VizWrapper>
+      </Wrapper>
     </>
   );
 };

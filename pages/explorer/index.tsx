@@ -145,13 +145,15 @@ const Explorer: React.FC<Props> = ({
                   scheme[Object.keys(scheme)[0]].metadata['description']
                 }
               />
-              {state.vizType === 'map' && (
-                <ExplorerViz schemeRaw={scheme} meta={state} />
-              )}
+              <div id="explorerVizWrapper">
+                {state.vizType === 'map' && (
+                  <ExplorerViz schemeRaw={scheme} meta={state} />
+                )}
 
-              {state.vizType !== 'map' && (
-                <ExplorerDetailsViz meta={state} scheme={scheme} />
-              )}
+                {state.vizType !== 'map' && (
+                  <ExplorerDetailsViz meta={state} scheme={scheme} />
+                )}
+              </div>
             </>
           )}
         </div>

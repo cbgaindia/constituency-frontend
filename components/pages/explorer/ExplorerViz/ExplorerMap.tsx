@@ -1,5 +1,5 @@
 import * as echarts from 'echarts/core';
-import { Button, Modal } from 'components/actions';
+import { Button } from 'components/actions';
 import { Cross } from 'components/icons';
 import { MapViz } from 'components/viz';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
@@ -50,39 +50,46 @@ const ExplorerMap = ({ meta, schemeData, consDesc }) => {
       });
       const uniq = [...new Set(stateData)];
       const binLength = Math.floor(uniq.length / 6);
-
-      const vizIndicators = [
-        {
-          min: uniq[0],
-          max: uniq[0 + binLength],
-          label: `${uniq[0]} to ${uniq[0 + binLength]}`,
-        },
-        {
-          min: uniq[binLength + 1],
-          max: uniq[binLength * 2],
-          label: `${uniq[binLength + 1]} to ${uniq[binLength * 2]}`,
-        },
-        {
-          min: uniq[2 * binLength + 1],
-          max: uniq[binLength * 3],
-          label: `${uniq[2 * binLength + 1]} to ${uniq[binLength * 3]}`,
-        },
-        {
-          min: uniq[3 * binLength + 1],
-          max: uniq[binLength * 4],
-          label: `${uniq[3 * binLength + 1]} to ${uniq[binLength * 4]}`,
-        },
-        {
-          min: uniq[4 * binLength + 1],
-          max: uniq[uniq.length - 1],
-          label: `${uniq[4 * binLength + 1]} to ${uniq[binLength * 4]}`,
-        },
-        {
-          min: uniq[5 * binLength + 1],
-          max: uniq[uniq.length - 1],
-          label: `${uniq[5 * binLength + 1]} to ${uniq[binLength * 4]}`,
-        },
-      ];
+      const vizIndicators = binLength
+        ? [
+            {
+              min: uniq[0],
+              max: uniq[0 + binLength],
+              label: `${uniq[0]} to ${uniq[0 + binLength]}`,
+            },
+            {
+              min: uniq[binLength + 1],
+              max: uniq[binLength * 2],
+              label: `${uniq[binLength + 1]} to ${uniq[binLength * 2]}`,
+            },
+            {
+              min: uniq[2 * binLength + 1],
+              max: uniq[binLength * 3],
+              label: `${uniq[2 * binLength + 1]} to ${uniq[binLength * 3]}`,
+            },
+            {
+              min: uniq[3 * binLength + 1],
+              max: uniq[binLength * 4],
+              label: `${uniq[3 * binLength + 1]} to ${uniq[binLength * 4]}`,
+            },
+            {
+              min: uniq[4 * binLength + 1],
+              max: uniq[uniq.length - 1],
+              label: `${uniq[4 * binLength + 1]} to ${uniq[binLength * 4]}`,
+            },
+            {
+              min: uniq[5 * binLength + 1],
+              max: uniq[uniq.length - 1],
+              label: `${uniq[5 * binLength + 1]} to ${uniq[binLength * 4]}`,
+            },
+          ]
+        : [
+            {
+              min: 0,
+              max: 0,
+              label: `data not found`,
+            },
+          ];
       setMapIndicator(vizIndicators);
     }
   }, [schemeData]);
@@ -238,6 +245,14 @@ const ExplorerMap = ({ meta, schemeData, consDesc }) => {
         data={mapValues}
         vizIndicators={mapIndicator}
         newMapItem={newMapItem}
+        color={[
+          '#4ABEBE',
+          '#41A8A8',
+          '#368B8B',
+          '#286767',
+          '#1F5151',
+          '#173B3B',
+        ]}
       />
     </Wrapper>
   );
