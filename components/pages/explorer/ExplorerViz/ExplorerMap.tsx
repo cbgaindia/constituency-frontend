@@ -245,14 +245,6 @@ const ExplorerMap = ({ meta, schemeData, consDesc }) => {
         data={mapValues}
         vizIndicators={mapIndicator}
         newMapItem={newMapItem}
-        color={[
-          '#4ABEBE',
-          '#41A8A8',
-          '#368B8B',
-          '#286767',
-          '#1F5151',
-          '#173B3B',
-        ]}
       />
     </Wrapper>
   );

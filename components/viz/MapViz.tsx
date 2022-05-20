@@ -9,7 +9,7 @@ import { MapChart } from 'echarts/charts';
 import { CanvasRenderer } from 'echarts/renderers';
 import ReactEChartsCore from 'echarts-for-react/lib/core';
 
-const MapViz = ({ meta, mapFile, data, newMapItem, vizIndicators, color }) => {
+const MapViz = ({ meta, mapFile, data, newMapItem, vizIndicators }) => {
   const [mapOptions, setMapOptions] = useState({});
   useEffect(() => {
     if (Object.keys(mapFile).length > 0) {
@@ -38,7 +38,16 @@ const MapViz = ({ meta, mapFile, data, newMapItem, vizIndicators, color }) => {
           backgroundColor: '#FFFFFF',
           pieces: vizIndicators,
           inRange: {
-            color: vizIndicators[0].max ? color : ['#494D44'],
+            color: vizIndicators[0].max
+              ? [
+                  '#4ABEBE',
+                  '#41A8A8',
+                  '#368B8B',
+                  '#286767',
+                  '#1F5151',
+                  '#173B3B',
+                ]
+              : ['#494D44'],
           },
           text: vizIndicators[0].max && [`Units: ${meta.unit}`],
           padding: 8,
