@@ -18,10 +18,7 @@ const Source = ({ meta, currentViz, source }) => {
       <SourceButtons>
         <Share buttonSize="sm" title="share viz" />
         {typeof window !== 'undefined' && (
-          <DownloadViz
-            viz={currentViz}
-            meta={meta}
-          />
+          <DownloadViz viz={currentViz} meta={meta} />
         )}
       </SourceButtons>
     </ExplorerSource>
@@ -40,14 +37,6 @@ const ExplorerSource = styled.div`
   align-items: flex-start;
   padding: 1rem 0;
   margin: 0 1.5rem;
-
-  button,
-  a {
-    svg {
-      width: 10px;
-      margin-left: 8px;
-    }
-  }
 `;
 
 const SourceText = styled.div`
@@ -67,4 +56,11 @@ const SourceButtons = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+
+  > div > button {
+    svg {
+      width: 10px;
+      margin-left: 8px;
+    }
+  }
 `;

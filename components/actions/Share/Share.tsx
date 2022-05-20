@@ -7,8 +7,9 @@ import {
   Twitter,
   ShareIcon,
 } from 'components/icons';
-import { Widget } from 'components/actions';
+import { Widget, Button } from 'components/actions';
 import styled from 'styled-components';
+import { WidgetContent } from '../Widget/Widget';
 
 const Share: React.FC<{ title: string; buttonSize?: 'sm' | 'md' }> = ({
   title,
@@ -99,10 +100,15 @@ const Share: React.FC<{ title: string; buttonSize?: 'sm' | 'md' }> = ({
             </a>
           </li>
           <li id="share-native" hidden>
-            <button onClick={() => shareButtonHandler()}>
-              <ShareIcon />
+            <Button
+              kind="custom"
+              size="sm"
+              icon={<ShareIcon fill="#4965B2" />}
+              iconSide="left"
+              onClick={() => shareButtonHandler()}
+            >
               <span>Share via...</span>
-            </button>
+            </Button>
           </li>
         </ShareComp>
       </Widget>
@@ -120,24 +126,28 @@ const ShareComp = styled.ul`
   a,
   button {
     font-weight: 500 !important;
+    font-size: 0.875rem;
     color: hsla(0, 0%, 0%, 0.87);
-    line-height: 175%;
-    padding: 8px 16px;
+    line-height: 1.75;
+    padding: 8px 12px;
     display: flex;
+    gap: 12px;
     align-items: center;
-    justify-content: flex-start;
     text-decoration-color: transparent;
 
-    svg {
-      margin-right: 12px;
-      flex-basis: 1.5rem;
-      width: 1.5rem;
+    svg { 
+      width: 18px;
       pointer-events: none;
+      margin-left: 0;
     }
 
     &:hover {
       text-decoration-color: currentColor;
       background-color: #eee;
+    }
+
+    span {
+      width: max-content;
     }
   }
 `;
