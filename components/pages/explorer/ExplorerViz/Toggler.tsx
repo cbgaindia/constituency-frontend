@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react';
-import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import fscreen from 'fscreen';
 import { Button, Menu } from 'components/actions';
 import { FullScreen, LokSabha, VidhanSabha } from 'components/icons';
+import queryString from 'query-string';
 
 const menuItems = {
   lok: {
@@ -23,21 +23,18 @@ const menuItems = {
 const Toggler = ({ handleNewToggle, sabha }) => {
   const [selectedMode, setSelectedMode] = useState('Lok Sabha');
   const sabhaRef = useRef(null);
-  const router = useRouter();
 
   function changeMode(value) {
-    handleNewToggle(value);
-    router.push(
+    const q = queryString.parse(location.search);
+    q.sabha = value;
+    window.history.replaceState(
       {
-        query: {
-          scheme: router.query.scheme,
-          state: router.query.state,
-          sabha: value,
-        },
+        sabha: value,
       },
-      undefined,
-      { shallow: true }
+      '',
+      `/explorer?${queryString.stringify(q)}`
     );
+    handleNewToggle(value);
   }
 
   function handleSabhaClick(e) {

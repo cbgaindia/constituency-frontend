@@ -1,5 +1,3 @@
-import fscreen from 'fscreen';
-
 export function sectionCollapse(e: any, wrapperRef) {
   const btn = e.target;
 
@@ -71,13 +69,4 @@ export function capitalize(state) {
   }
   // Directly return the joined string
   return splitStr.join(' ');
-}
-
-export function fullScreenMode(id) {
-  if (fscreen.fullscreenElement !== null) {
-    fscreen.exitFullscreen();
-  } else {
-    const elmWrapper = document.getElementById(id);
-    if (elmWrapper) fscreen.requestFullscreen(elmWrapper);
-  }
 }
