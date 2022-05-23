@@ -1,16 +1,17 @@
 import * as echarts from 'echarts/core';
+import useSWR from 'swr';
 import { Button } from 'components/actions';
 import { Cross } from 'components/icons';
 import { MapViz } from 'components/viz';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { debounce } from 'utils/helper';
+import { debounce, fetcher, swrFetch } from 'utils/helper';
 import { MyContext } from 'pages/explorer';
 
 const ExplorerMap = ({ meta, schemeData, consDesc }) => {
   const { dispatch } = useContext(MyContext);
 
-  const [mapFile, setMapFile] = useState<any>({});
+  // const [mapFile, setMapFile] = useState<any>({});
   const [mapValues, setMapvalues] = useState([]);
   const [searchItems, setSearchItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState('');
@@ -18,23 +19,9 @@ const ExplorerMap = ({ meta, schemeData, consDesc }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [mapIndicator, setMapIndicator] = useState(undefined);
 
-  async function getMapFile() {
-    const mapFile = await fetch(
-      `assets/maps/${meta.sabha}/${meta.state}.json`
-    ).then((res) => res.json());
-    setMapFile(mapFile);
-  }
-
-  // fetch map file on render, sabha and state change
-  useEffect(() => {
-    let isMounted = true;
-    if (isMounted) getMapFile();
-
-    // cleanup toggles value, if unmounted
-    return () => {
-      isMounted = false;
-    };
-  }, [meta.sabha, meta.state]);
+  const { data, isLoading } = swrFetch(
+    `assets/maps/${meta.sabha}/${meta.state}.json`
+  );
 
   // on state change, close the consitituency details popup
   useEffect(() => {
@@ -92,22 +79,22 @@ const ExplorerMap = ({ meta, schemeData, consDesc }) => {
           ];
       setMapIndicator(vizIndicators);
     }
-  }, [schemeData]);
+  }, [schemeData, data]);
 
   // changing map chart values on sabha change
   useEffect(() => {
-    if (mapFile.features && schemeData) {
+    if (data && schemeData) {
       const tempData = Object.keys(schemeData).map((item: any) => ({
         name: item,
         value: schemeData[item] || 0,
-        mapName: mapFile.features.filter((obj) => {
+        mapName: data.features.filter((obj) => {
           return obj?.properties['GEO_NO'] === item;
         })[0]?.properties['GEO_NAME'],
       }));
 
       setMapvalues(tempData);
     }
-  }, [mapFile, schemeData, meta.sabha]);
+  }, [data, schemeData, meta.sabha]);
 
   function handleSearch(query, obj) {
     let newObj = [];
@@ -241,13 +228,19 @@ const ExplorerMap = ({ meta, schemeData, consDesc }) => {
         )}
       </SearchWrapper>
 
-      <MapViz
-        mapFile={mapFile}
-        meta={meta}
-        data={mapValues}
-        vizIndicators={mapIndicator}
-        newMapItem={newMapItem}
-      />
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        mapIndicator && (
+          <MapViz
+            mapFile={data}
+            meta={meta}
+            data={mapValues}
+            vizIndicators={mapIndicator}
+            newMapItem={newMapItem}
+          />
+        )
+      )}
     </Wrapper>
   );
 };

@@ -1,3 +1,5 @@
+import useSWR from 'swr';
+
 export function sectionCollapse(e: any, wrapperRef) {
   const btn = e.target;
 
@@ -202,4 +204,20 @@ export function tabbedInterface(tablist, panels) {
   tabs[0].removeAttribute('tabindex');
   tabs[0].setAttribute('aria-selected', 'true');
   panels[0].hidden = false;
+}
+
+export const fetcher = (arg: any, ...args: any) =>
+  fetch(arg, ...args).then((res) => res.json());
+
+export function swrFetch(id) {
+  const fetcher = (arg: any, ...args: any) =>
+    fetch(arg, ...args).then((res) => res.json());
+
+  const { data, error } = useSWR(id, fetcher);
+
+  return {
+    data: data,
+    isLoading: !error && !data,
+    isError: error,
+  };
 }
