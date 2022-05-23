@@ -2,7 +2,7 @@
 <h2 align="center">Part of the <a href="https://openbudgetsindia.org/">Open Budgets India</a> Project</h2>
 <br/>
 <p align="center">
-<img alt="" src="https://github.com/CivicDataLab/opub/tree/constituency/public/assets/images/readme.png"/>
+<img alt="" src="https://github.com/CivicDataLab/opub/raw/constituency/public/assets/images/readme.png"  />
 <br/>
 <br/>
 <a href="https://github.com/CivicDataLab/opub/blob/main/LICENSE">
