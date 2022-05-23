@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Document, Drop } from 'components/icons';
-import { tabbedInterface } from 'utils/explorer';
+import { tabbedInterface } from 'utils/helper';
 import { Summary } from 'components/pages/state/Header/Header';
 
 const ExplorerHeader = ({ stateData, schemeDesc }) => {

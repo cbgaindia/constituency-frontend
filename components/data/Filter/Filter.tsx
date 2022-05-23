@@ -10,7 +10,7 @@ import {
 import { Cross } from 'components/icons';
 import Chevron from 'components/icons/Chevron';
 import { filterChange, selectedFilterClass } from './filter.helper';
-import { sectionCollapse, simplifyNaming, truncate } from 'utils/helper';
+import { sectionCollapse, truncate } from 'utils/helper';
 
 const dataObj = {};
 const filterSearch = {};
@@ -19,8 +19,7 @@ const Filter: React.FC<{
   data: any;
   newFilters: any;
   fq: any;
-  simpleNames?: any;
-}> = ({ data, newFilters, fq, simpleNames }) => {
+}> = ({ data, newFilters, fq }) => {
   const [filterResult, setFilterResult] = useState({});
   const filterRef = useRef(null);
 
@@ -67,20 +66,14 @@ const Filter: React.FC<{
             aria-expanded="false"
             onClick={(e) => sectionCollapse(e, filterRef)}
           >
-            {simpleNames
-              ? simplifyNaming(data[filter].title, simpleNames)
-              : data[filter].title}
+            {data[filter].title}
             <Chevron />
           </FilterHeading>
 
           <FilterContent hidden>
             <FilterSearch
               type="text"
-              placeholder={`search ${
-                simpleNames
-                  ? simplifyNaming(data[filter].title, simpleNames)
-                  : data[filter].title
-              }`}
+              placeholder={`search ${data[filter].title}`}
               onChange={(e) => handleFilterSearch(e.target.value, filter)}
             />
             {filterResult[filter] &&

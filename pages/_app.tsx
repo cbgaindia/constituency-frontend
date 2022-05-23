@@ -6,13 +6,14 @@ import NextNprogress from 'nextjs-progressbar';
 import { GlobalStyle } from 'styles/Global';
 import { DEFAULT_THEME } from 'config/theme';
 import Layout from 'config/layout';
+import { pageview } from 'utils/ga';
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
     const handleRouteChange = (url) => {
-      // if (process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS) ga.pageview(url);
+      if (process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS) pageview(url);
 
-      // change focus to top
+      // change focus to top on every page change
       if (url.includes('#')) {
         let idPresent = url.split('#').pop();
         (document.querySelector(`#${idPresent}`) as HTMLElement).focus();
@@ -30,7 +31,6 @@ function MyApp({ Component, pageProps }) {
     };
   });
 
-  const { stateScheme, stateData } = pageProps;
   return (
     <>
       <Head>

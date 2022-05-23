@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { tabbedInterface } from 'utils/explorer';
+import { tabbedInterface } from 'utils/helper';
 import {
   Fieldset,
   FilterAlter,
@@ -11,7 +11,6 @@ import {
 } from './MobileAlterComp';
 import { Button, Modal } from 'components/actions';
 import { FilterIcon, SortIcon } from 'components/icons';
-import { simplifyNaming } from 'utils/helper';
 
 const sort = [
   {
@@ -40,7 +39,6 @@ const MobileAlter: React.FC<{
   sortShow?: boolean;
   newIndicator?: any;
   indicators?: any;
-  simpleNames?: any;
 }> = ({
   data,
   newData,
@@ -48,7 +46,6 @@ const MobileAlter: React.FC<{
   sortShow,
   newIndicator,
   indicators,
-  simpleNames,
 }) => {
   const displaySort = sortShow == false ? false : true;
 
@@ -372,9 +369,7 @@ const MobileAlter: React.FC<{
                         data-id={data[filter].title}
                         id={`filterTab${index}`}
                       >
-                        {simpleNames
-                          ? simplifyNaming(data[filter].title, simpleNames)
-                          : data[filter].title}
+                        {data[filter].title}
                       </a>
                     </li>
                   ))}

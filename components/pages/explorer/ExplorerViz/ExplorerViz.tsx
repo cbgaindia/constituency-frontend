@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, useContext } from 'react';
 import styled from 'styled-components';
 import dynamic from 'next/dynamic';
-import { tabbedInterface } from 'utils/explorer';
+import { tabbedInterface } from 'utils/helper';
 
 import { Indicator, IndicatorMobile, Table } from 'components/data';
 import { Menu } from 'components/actions';

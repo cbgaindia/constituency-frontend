@@ -1,7 +1,6 @@
 import React from 'react';
 import { stateSchemeFetch } from 'utils/fetch';
 import { GetServerSideProps } from 'next';
-import Head from 'next/head';
 import styled from 'styled-components';
 import {
   HomeAbout,
@@ -34,7 +33,7 @@ export default function Home({ stateData }) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const stateData = await stateSchemeFetch();
 
   return {

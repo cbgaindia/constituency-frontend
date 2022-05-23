@@ -26,73 +26,6 @@ export const fetchDatasets = async (variables) => {
   return data;
 };
 
-export function convertToCkanSearchQuery(query) {
-  const ckanQuery = {
-    q: '',
-    fq: '',
-    rows: '',
-    start: '',
-    sort: '',
-    'facet.field': '',
-    'facet.limit': '',
-    'facet.mincount': 0,
-    organization: {},
-  };
-  // Split by space but ignore spaces within double quotes:
-  if (query.q) {
-    query.q.match(/(?:[^\s"]+|"[^"]*")+/g).forEach((part) => {
-      if (part.includes(':')) {
-        ckanQuery.fq += part + ' ';
-      } else {
-        ckanQuery.q += part + ' ';
-      }
-    });
-    ckanQuery.fq = ckanQuery.fq.trim();
-    ckanQuery.q = ckanQuery.q.trim();
-  }
-
-  if (query.fq) {
-    ckanQuery.fq = ckanQuery.fq ? ckanQuery.fq + ' ' + query.fq : query.fq;
-  }
-
-  // standard 'size' => ckan 'rows'
-  ckanQuery.rows = query.size || '';
-
-  // standard 'from' => ckan 'start'
-  ckanQuery.start = query.from || '';
-  ckanQuery.organization = query.organization || '';
-
-  // standard 'sort' => ckan 'sort'
-  const sortQueries = [];
-  if (query.sort && query.sort.constructor == Object) {
-    for (let [key, value] of Object.entries(query.sort)) {
-      sortQueries.push(`${key} ${value}`);
-    }
-    ckanQuery.sort = sortQueries.join(',');
-  } else if (query.sort && query.sort.constructor == String) {
-    ckanQuery.sort = query.sort.replace(':', ' ');
-  } else if (query.sort && query.sort.constructor == Array) {
-    query.sort.forEach((sort) => {
-      sortQueries.push(sort.replace(':', ' '));
-    });
-    ckanQuery.sort = sortQueries.join(',');
-  }
-
-  // Facets
-  ckanQuery['facet.field'] = query['facet.field'] || ckanQuery['facet.field'];
-  ckanQuery['facet.limit'] = query['facet.limit'] || ckanQuery['facet.limit'];
-  ckanQuery['facet.mincount'] =
-    query['facet.mincount'] || ckanQuery['facet.mincount'];
-  ckanQuery['facet.field'] = query['facet.field'] || ckanQuery['facet.field'];
-
-  // Remove attributes with empty string, null or undefined values
-  Object.keys(ckanQuery).forEach(
-    (key) => !ckanQuery[key] && delete ckanQuery[key]
-  );
-
-  return ckanQuery;
-}
-
 export async function fetchQuery(query, value) {
   const queryRes = await fetch(
     `http://3.109.56.211/api/3/action/package_search?fq=${query}:"${value}" AND organization:constituency-wise-scheme-data AND  private:false&rows=50`
@@ -113,7 +46,6 @@ export async function fetchSheets(link, aoa = true) {
       const workbook = read(file, { type: 'array' });
 
       workbook.SheetNames.forEach((bookName) => {
-
         const data = workbook.Sheets[bookName];
 
         const dataParse = xlsxUtil.sheet_to_json(data, {
@@ -123,8 +55,61 @@ export async function fetchSheets(link, aoa = true) {
 
         result.push(dataParse);
       });
-    });    
+    });
   return result;
+}
+
+export async function stateSchemeFetch() {
+  const stateList = await fetchQuery(
+    'schemeType',
+    'Centrally Sponsored Scheme'
+  );
+
+  const statesData = stateList.map((scheme) => ({
+    state: scheme.extras[3].value,
+    scheme_name: scheme.extras[0].value,
+    slug: scheme.extras[2].value,
+  }));
+
+  const stateScheme = {};
+  statesData.map((state) => {
+    state.state.split(',').map((each_state) => {
+      if (each_state in stateScheme) {
+        stateScheme[each_state].push({
+          scheme_name: state.scheme_name,
+          scheme_slug: state.slug,
+        });
+      } else {
+        stateScheme[each_state] = [
+          { scheme_name: state.scheme_name, scheme_slug: state.slug },
+        ];
+      }
+      return null;
+    });
+    return null;
+  });
+
+  // // lower-casing objkect keys
+  // var theKeys = Object.getOwnPropertyNames(stateScheme);
+  // var lookup = {};
+  // theKeys.forEach(function (key) {
+  //   lookup[key.toLowerCase()] = stateScheme[key];
+  // });
+
+  return stateScheme;
+}
+
+export async function stateDataFetch(id) {
+  const data = await fetch(
+    `http://3.109.56.211/api/3/action/package_search?fq=organization:constituency-wise-scheme-data%20AND%20schemeType:"${id}"`
+  ).then((res) => res.json());
+
+  const sheet = await fetchSheets(
+    data.result.results[0].resources[0].url,
+    false
+  );
+
+  return sheet;
 }
 
 export function generateSlug(slug) {
@@ -333,55 +318,85 @@ export async function dataTransform(id) {
   return obj;
 }
 
-export async function stateSchemeFetch() {
-  const stateList = await fetchQuery(
-    'schemeType',
-    'Centrally Sponsored Scheme'
-  );
+export async function getFilters(list, variable, page) {
+  try {
+    // if filters and searc found in url, also use those
+    const queryVars = `fq=${
+      variable.fq ? `${variable.fq} AND type:${page}` : `type:${page}`
+    }&q=${variable.q ? variable.q : ''}`;
 
-  const statesData = stateList.map((scheme) => ({
-    state: scheme.extras[3].value,
-    scheme_name: scheme.extras[0].value,
-    slug: scheme.extras[2].value,
-  }));
-
-  const stateScheme = {};
-  statesData.map((state) => {
-    state.state.split(',').map((each_state) => {
-      if (each_state in stateScheme) {
-        stateScheme[each_state].push({
-          scheme_name: state.scheme_name,
-          scheme_slug: state.slug,
-        });
-      } else {
-        stateScheme[each_state] = [
-          { scheme_name: state.scheme_name, scheme_slug: state.slug },
-        ];
-      }
-      return null;
-    });
-    return null;
-  });
-
-  // // lower-casing objkect keys
-  // var theKeys = Object.getOwnPropertyNames(stateScheme);
-  // var lookup = {};
-  // theKeys.forEach(function (key) {
-  //   lookup[key.toLowerCase()] = stateScheme[key];
-  // });
-
-  return stateScheme;
+    const fetchData = await fetch(
+      `${process.env.CKAN_URL}/package_search?facet.field=[${list}]&facet.limit=6&${queryVars}`
+    ).then((res) => res.json());
+    return fetchData.result.search_facets;
+  } catch (error) {
+    throw new Error(error);
+  }
 }
 
-export async function stateDataFetch(id) {
-  const data = await fetch(
-    `http://3.109.56.211/api/3/action/package_search?fq=organization:constituency-wise-scheme-data%20AND%20schemeType:"${id}"`
-  ).then((res) => res.json());
+export function convertToCkanSearchQuery(query) {
+  const ckanQuery = {
+    q: '',
+    fq: '',
+    rows: '',
+    start: '',
+    sort: '',
+    'facet.field': '',
+    'facet.limit': '',
+    'facet.mincount': 0,
+    organization: {},
+  };
+  // Split by space but ignore spaces within double quotes:
+  if (query.q) {
+    query.q.match(/(?:[^\s"]+|"[^"]*")+/g).forEach((part) => {
+      if (part.includes(':')) {
+        ckanQuery.fq += part + ' ';
+      } else {
+        ckanQuery.q += part + ' ';
+      }
+    });
+    ckanQuery.fq = ckanQuery.fq.trim();
+    ckanQuery.q = ckanQuery.q.trim();
+  }
 
-  const sheet = await fetchSheets(
-    data.result.results[0].resources[0].url,
-    false
+  if (query.fq) {
+    ckanQuery.fq = ckanQuery.fq ? ckanQuery.fq + ' ' + query.fq : query.fq;
+  }
+
+  // standard 'size' => ckan 'rows'
+  ckanQuery.rows = query.size || '';
+
+  // standard 'from' => ckan 'start'
+  ckanQuery.start = query.from || '';
+  ckanQuery.organization = query.organization || '';
+
+  // standard 'sort' => ckan 'sort'
+  const sortQueries = [];
+  if (query.sort && query.sort.constructor == Object) {
+    for (let [key, value] of Object.entries(query.sort)) {
+      sortQueries.push(`${key} ${value}`);
+    }
+    ckanQuery.sort = sortQueries.join(',');
+  } else if (query.sort && query.sort.constructor == String) {
+    ckanQuery.sort = query.sort.replace(':', ' ');
+  } else if (query.sort && query.sort.constructor == Array) {
+    query.sort.forEach((sort) => {
+      sortQueries.push(sort.replace(':', ' '));
+    });
+    ckanQuery.sort = sortQueries.join(',');
+  }
+
+  // Facets
+  ckanQuery['facet.field'] = query['facet.field'] || ckanQuery['facet.field'];
+  ckanQuery['facet.limit'] = query['facet.limit'] || ckanQuery['facet.limit'];
+  ckanQuery['facet.mincount'] =
+    query['facet.mincount'] || ckanQuery['facet.mincount'];
+  ckanQuery['facet.field'] = query['facet.field'] || ckanQuery['facet.field'];
+
+  // Remove attributes with empty string, null or undefined values
+  Object.keys(ckanQuery).forEach(
+    (key) => !ckanQuery[key] && delete ckanQuery[key]
   );
 
-  return sheet;
+  return ckanQuery;
 }
