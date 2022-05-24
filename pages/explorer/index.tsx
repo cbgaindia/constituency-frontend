@@ -182,9 +182,9 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
 
   const data: any = {};
   data.state =
-    state.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase()) || '';
-  data.scheme = scheme.toLowerCase() || '';
-  data.sabha = sabha.toLowerCase() || '';
+    state?.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase()) || '';
+  data.scheme = scheme?.toLowerCase() || '';
+  data.sabha = sabha?.toLowerCase() || '';
 
   const [schemeData, stateScheme, stateData, constDesc] = await Promise.all([
     dataTransform(data.scheme),
