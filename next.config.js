@@ -9,6 +9,15 @@ const nextConfig = {
     styledComponents: true,
     esmExternals: false,
   },
+  async redirects() {
+    return [
+      {
+        source: '/state',
+        destination: '/',
+        permanent: true,
+      },
+    ]
+  },
 };
 
 module.exports = withPlugins([withTM, withBundleAnalyzer], nextConfig);

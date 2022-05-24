@@ -1,17 +1,10 @@
 import React from 'react';
-import { stateSchemeFetch } from 'utils/fetch';
 import { GetServerSideProps } from 'next';
-import styled from 'styled-components';
-import {
-  HomeAbout,
-  HomeHeader,
-  HomeHighlight,
-  HomeQuiz,
-  HomeStates,
-} from 'components/pages/home';
+import { stateSchemeFetch } from 'utils/fetch';
+import { HomeAbout, HomeHeader, HomeStates } from 'components/pages/home';
 import { Seo } from 'components/common';
 
-export default function Home({ stateData }) {  
+export default function Home({ stateData }) {
   const seo = {
     title: 'Welcome - Constituency Dashboard',
     description:
@@ -21,14 +14,13 @@ export default function Home({ stateData }) {
   return (
     <>
       <Seo seo={seo} />
-      <HomePage>
+      <main>
         <HomeHeader stateData={stateData} />
         <HomeAbout />
         {/* <HomeHighlight /> */}
         <HomeStates />
         {/* <HomeQuiz /> */}
-        {/* <BGSpace /> */}
-      </HomePage>
+      </main>
     </>
   );
 }
@@ -42,5 +34,3 @@ export const getServerSideProps: GetServerSideProps = async () => {
     },
   };
 };
-
-const HomePage = styled.main``;

@@ -1,12 +1,17 @@
 import React, { useEffect } from 'react';
 import Router from 'next/router';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Script from 'next/script';
-import NextNprogress from 'nextjs-progressbar';
-import { GlobalStyle } from 'styles/Global';
 import { DEFAULT_THEME } from 'config/theme';
 import Layout from 'config/layout';
 import { pageview } from 'utils/ga';
+
+const NextNprogress = dynamic(() => import('nextjs-progressbar'), {
+  ssr: false,
+});
+
+const GlobalStyle = dynamic(() => import('styles/Global'));
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {

@@ -212,6 +212,8 @@ ul, ol {
   }
 `;
 
+export default GlobalStyle;
+
 export const HomeTitle = styled.span`
   letter-spacing: 0.04em;
   text-transform: uppercase;
