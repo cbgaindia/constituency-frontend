@@ -18,7 +18,9 @@ type Props = {
 
 const Datasets: React.FC<Props> = ({ query, stateScheme, stateData }) => {
   const [currentState, setCurrentState] = useState<any>();
-  const state = query.stateName;
+  const state = query.stateName
+    .toLowerCase()
+    .replace(/\b\w/g, (c) => c.toUpperCase());
 
   useEffect(() => {
     setCurrentState(
@@ -39,9 +41,7 @@ const Datasets: React.FC<Props> = ({ query, stateScheme, stateData }) => {
 
   // regext is to capitalise the string
   const seo = {
-    title: `${state.replace(/\b\w/g, (c) =>
-      c.toUpperCase()
-    )} - Constituency Dashboard`,
+    title: `${state} - Constituency Dashboard`,
     description: `Explore scheme-wise fiscal information at the level of Lok Sabha and Vidhan Sabha constituencies in the state of ${state}`,
   };
   return (

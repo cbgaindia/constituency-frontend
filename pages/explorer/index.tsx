@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { GetServerSideProps } from 'next';
 import styled from 'styled-components';
 
-import { ExplorerDetailsViz, ExplorerHeader } from 'components/pages/explorer';
+import { ExplorerHeader } from 'components/pages/explorer';
 import SchemeSelector from 'components/pages/shared/SchemeSelector';
 import {
   HeaderControls,
@@ -13,8 +13,12 @@ import { Seo } from 'components/common';
 import dynamic from 'next/dynamic';
 import { Info } from 'components/icons';
 
-const ExplorerViz = dynamic(
-  () => import('components/pages/explorer/ExplorerViz'),
+const ExplorerViz = React.lazy(
+  () => import('components/pages/explorer/ExplorerViz')
+);
+
+const ExplorerDetailsViz = dynamic(
+  () => import('components/pages/explorer/ExplorerDetailsViz'),
   {
     ssr: false,
   }
@@ -147,15 +151,17 @@ const Explorer: React.FC<Props> = ({
                   scheme[Object.keys(scheme)[0]].metadata['description']
                 }
               />
-              <div id="explorerVizWrapper">
-                {state.vizType === 'map' && (
-                  <ExplorerViz schemeRaw={scheme} meta={state} />
-                )}
+              <Suspense fallback={<div>Loading...</div>}>
+                <div id="explorerVizWrapper">
+                  {state.vizType === 'map' && (
+                    <ExplorerViz schemeRaw={scheme} meta={state} />
+                  )}
 
-                {state.vizType !== 'map' && (
-                  <ExplorerDetailsViz meta={state} scheme={scheme} />
-                )}
-              </div>
+                  {state.vizType !== 'map' && (
+                    <ExplorerDetailsViz meta={state} scheme={scheme} />
+                  )}
+                </div>
+              </Suspense>
             </>
           ) : (
             <NoContext>
@@ -171,20 +177,21 @@ const Explorer: React.FC<Props> = ({
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const { state, scheme, sabha } = context.query;
 
+  const data: any = {};
+  data.state =
+    state.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase()) || '';
+  data.scheme = scheme.toLowerCase() || '';
+  data.sabha = sabha.toLowerCase() || '';
+
   const [schemeData, stateScheme, stateData, constDesc] = await Promise.all([
-    dataTransform(context.query.scheme),
+    dataTransform(data.scheme),
     stateSchemeFetch(),
     stateDataFetch('State Info'),
     stateDataFetch('const_desc'),
   ]);
-
-  const data: any = {};
-  data.state = state || '';
-  data.scheme = scheme || '';
-  data.sabha = sabha || '';
 
   return {
     props: {
@@ -200,6 +207,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 export default Explorer;
 
 const Wrapper = styled.main`
+  min-height: 100vh;
   .indicator-mobile {
     margin-top: 2rem;
 

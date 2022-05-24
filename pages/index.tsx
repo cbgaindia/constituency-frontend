@@ -1,5 +1,5 @@
 import React from 'react';
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 import { stateSchemeFetch } from 'utils/fetch';
 import { HomeAbout, HomeHeader, HomeStates } from 'components/pages/home';
 import { Seo } from 'components/common';
@@ -25,7 +25,7 @@ export default function Home({ stateData }) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const stateData = await stateSchemeFetch();
 
   return {
