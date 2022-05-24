@@ -1,17 +1,15 @@
 import * as echarts from 'echarts/core';
-import useSWR from 'swr';
 import { Button } from 'components/actions';
 import { Cross } from 'components/icons';
 import { MapViz } from 'components/viz';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { debounce, fetcher, swrFetch } from 'utils/helper';
+import { debounce, swrFetch } from 'utils/helper';
 import { MyContext } from 'pages/explorer';
 
 const ExplorerMap = ({ meta, schemeData, consDesc }) => {
   const { dispatch } = useContext(MyContext);
 
-  // const [mapFile, setMapFile] = useState<any>({});
   const [mapValues, setMapvalues] = useState([]);
   const [searchItems, setSearchItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState('');

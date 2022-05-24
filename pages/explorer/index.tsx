@@ -11,6 +11,7 @@ import {
 import { dataTransform, stateDataFetch, stateSchemeFetch } from 'utils/fetch';
 import { Seo } from 'components/common';
 import dynamic from 'next/dynamic';
+import { Info } from 'components/icons';
 
 const ExplorerViz = dynamic(
   () => import('components/pages/explorer/ExplorerViz'),
@@ -138,7 +139,7 @@ const Explorer: React.FC<Props> = ({
             stateData={stateScheme}
           />
 
-          {Object.keys(data).length !== 0 && verifyState(data.state) && (
+          {Object.keys(data).length !== 0 && verifyState(data.state) ? (
             <>
               <ExplorerHeader
                 stateData={state.headerData}
@@ -156,6 +157,13 @@ const Explorer: React.FC<Props> = ({
                 )}
               </div>
             </>
+          ) : (
+            <NoContext>
+              <Info id="infoSvg" fill="#317EB9" height="112" width="112" />
+              <div>
+                <p>Select state and scheme to explore</p>
+              </div>
+            </NoContext>
           )}
         </div>
       </Wrapper>
@@ -167,7 +175,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { state, scheme, sabha } = context.query;
 
   const [schemeData, stateScheme, stateData, constDesc] = await Promise.all([
-    dataTransform(context.query.scheme || ''),
+    dataTransform(context.query.scheme),
     stateSchemeFetch(),
     stateDataFetch('State Info'),
     stateDataFetch('const_desc'),
@@ -213,5 +221,24 @@ const Wrapper = styled.main`
 
   ${SchemesMenu} {
     margin-top: 0;
+  }
+`;
+
+const NoContext = styled.div`
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+
+  p {
+    font-weight: 700;
+    color: var(--text-light-medium);
+  }
+
+  path {
+    transform: scale(5);
   }
 `;
