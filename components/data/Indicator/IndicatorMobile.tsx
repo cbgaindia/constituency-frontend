@@ -70,7 +70,9 @@ const IndicatorMobile = ({ indicators, newIndicator, selectedIndicator }) => {
     <>
       <IndicatorMobileWrapper className="indicator-mobile">
         <span className="indicator-mobile__text">
-          {selectedIndicator?.replaceAll('-', ' ')}
+          {selectedIndicator.length
+            ? selectedIndicator?.replaceAll('-', ' ')
+            : 'Alter Datasets'}
         </span>
         <div className="indicator-mobile__buttons">
           <button type="button" onClick={handleSortClick}>
