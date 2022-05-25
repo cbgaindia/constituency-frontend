@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import { GetServerSideProps } from 'next';
+import dynamic from 'next/dynamic';
 import styled from 'styled-components';
 
 import { ExplorerHeader } from 'components/pages/explorer';
@@ -14,12 +15,18 @@ import {
   stateDataFetch,
   stateSchemeFetch,
 } from 'utils/fetch';
-import { Seo } from 'components/common';
-import dynamic from 'next/dynamic';
 import { Info } from 'components/icons';
 
+const Seo = dynamic(() => import('components/common/Seo/Seo'), {
+  ssr: false,
+});
+
 const ExplorerViz = dynamic(
-  () => import('components/pages/explorer/ExplorerViz')
+  () => import('components/pages/explorer/ExplorerViz'),
+  {
+    ssr: false,
+    loading: () => <p>Loading Explorer...</p>,
+  }
 );
 
 const ExplorerDetailsViz = dynamic(
