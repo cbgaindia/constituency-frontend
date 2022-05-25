@@ -2,7 +2,6 @@ import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { useTable, usePagination, useSortBy } from 'react-table';
 import { ArrowDown, SortIcon } from 'components/icons';
-import { truncate } from 'utils/helper';
 import { Button, Menu } from 'components/actions';
 import PaginationComp, {
   ButtonsLabel,
@@ -59,6 +58,65 @@ const ReactTable = ({ columns, data }) => {
     useSortBy,
     usePagination
   );
+
+  const TableControls = () => {
+    return (
+      <PaginationComp>
+        <Menu
+          options={paginationItems}
+          heading="Rows:"
+          handleChange={(e) => {
+            setTotalRows(e);
+            setPageSize(Number(e));
+          }}
+          value={totalRows}
+          top={true}
+          position="left"
+        />
+
+        <PaginationJump>
+          <label className="label-green" htmlFor="jumpNumber">
+            Jump to: &nbsp;
+            <input
+              type="text"
+              id="jumpNumber"
+              defaultValue={pageIndex + 1}
+              onChange={(e) => {
+                const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                gotoPage(page);
+              }}
+            />
+          </label>
+        </PaginationJump>
+
+        <PaginationButtons>
+          <ButtonsLabel>
+            Page No. {<span>{pageIndex + 1}</span>} of{' '}
+            {<span>{pageOptions.length}</span>}
+          </ButtonsLabel>
+          <div>
+            <Button
+              onClick={() => previousPage()}
+              kind="custom"
+              className="pagination__back"
+              icon={<ArrowDown />}
+              iconOnly={true}
+            >
+              Previous Page
+            </Button>
+            <Button
+              onClick={() => nextPage()}
+              className="pagination__next"
+              icon={<ArrowDown />}
+              iconOnly={true}
+            >
+              Next Page
+            </Button>
+          </div>
+        </PaginationButtons>
+      </PaginationComp>
+    );
+  };
 
   return (
     <Wrapper>
@@ -117,60 +175,7 @@ const ReactTable = ({ columns, data }) => {
           })}
         </TBody>
       </TableWrapper>
-      <PaginationComp className="pagination">
-        <Menu
-          options={paginationItems}
-          heading="Rows:"
-          handleChange={(e) => {
-            setTotalRows(e);
-            setPageSize(Number(e));
-          }}
-          value={totalRows}
-          top={true}
-          position="left"
-        />
-
-        <PaginationJump>
-          <label className="label-green" htmlFor="jumpNumber">
-            Jump to: &nbsp;
-            <input
-              type="text"
-              id="jumpNumber"
-              defaultValue={pageIndex + 1}
-              onChange={(e) => {
-                const page = e.target.value ? Number(e.target.value) - 1 : 0;
-                gotoPage(page);
-              }}
-            />
-          </label>
-        </PaginationJump>
-
-        <PaginationButtons>
-          <ButtonsLabel>
-            Page No. {<span>{pageIndex + 1}</span>} of{' '}
-            {<span>{pageOptions.length}</span>}
-          </ButtonsLabel>
-          <div>
-            <Button
-              onClick={() => previousPage()}
-              kind="custom"
-              className="pagination__back"
-              icon={<ArrowDown />}
-              iconOnly={true}
-            >
-              Previous Page
-            </Button>
-            <Button
-              onClick={() => nextPage()}
-              className="pagination__next"
-              icon={<ArrowDown />}
-              iconOnly={true}
-            >
-              Next Page
-            </Button>
-          </div>
-        </PaginationButtons>
-      </PaginationComp>
+      <TableControls />
     </Wrapper>
   );
 };
@@ -186,6 +191,7 @@ export default Table;
 
 const Wrapper = styled.div`
   height: 100%;
+
   ${PaginationComp} {
     position: sticky;
     bottom: 0;
@@ -194,8 +200,7 @@ const Wrapper = styled.div`
     padding-bottom: 0;
 
     @media (max-width: 480px) {
-      display: flex;
-      flex-wrap: wrap;
+      width: 100vw;
     }
   }
 
@@ -221,7 +226,6 @@ export const TableWrapper = styled.table`
   min-height: 494px;
   overflow-y: auto;
   overflow-x: auto;
-
   th,
   td {
     padding: 8px 12px;
@@ -236,25 +240,14 @@ export const TableWrapper = styled.table`
 `;
 
 const THead = styled.thead`
-  /* position: sticky;
-  top: 0; */
   background-color: var(--color-grey-600);
   border-radius: 4px;
-  /* display: block; */
-
-  tr {
-    /* display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); */
-  }
 
   th {
     font-weight: 600;
     text-transform: capitalize;
-    /* display: flex; */
     align-items: center;
     gap: 16px;
-
-    white-space: nowrap;
 
     button {
       display: inline-block;
@@ -266,14 +259,7 @@ const THead = styled.thead`
 `;
 
 const TBody = styled.tbody`
-  /* display: block; */
-
   tr {
-    /* display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    width: 100%; */
-    white-space: nowrap;
-
     &:not(:last-child) {
       border-bottom: var(--border-2);
     }

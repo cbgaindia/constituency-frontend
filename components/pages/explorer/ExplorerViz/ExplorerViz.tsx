@@ -52,13 +52,17 @@ const ExplorerViz = ({ meta, schemeRaw }) => {
         type: 'SET_MULTIPLE',
         payload: { year: year ? year : years[0].value },
       });
+    }
+  }, [filtered]);
 
+  useEffect(() => {
+    if (financialYears) {
       // setting tabular data
       const tableHeader = [
         { Header: 'Constituency', accessor: 'constHeader' },
       ];
-      if (years) {
-        years.forEach((element) =>
+      if (financialYears) {
+        financialYears.forEach((element) =>
           tableHeader.push({
             Header: `${indicator.replaceAll('-', ' ')} ${element.title}`,
             accessor: `${indicator}-${element.title}`,
@@ -84,14 +88,13 @@ const ExplorerViz = ({ meta, schemeRaw }) => {
         });
       }
 
-      const tableData: any = {};
-
-      tableData.header = tableHeader;
-      tableData.rows = rowData;
-
+      const tableData = {
+        header: tableHeader,
+        rows: rowData,
+      };
       setTableData(tableData);
     }
-  }, [filtered]);
+  }, [financialYears, meta.year]);
 
   useEffect(() => {
     if (sabha == 'lok') {
@@ -168,7 +171,7 @@ const ExplorerViz = ({ meta, schemeRaw }) => {
           <ExplorerMap
             meta={{ sabha, state, indicator, unit }}
             schemeData={filtered[meta.year]}
-            consDesc={consDesc[sabha][state]}
+            consDesc={consDesc[sabha] ? consDesc[sabha][state] : {}}
           />
         ) : (
           <p>No data</p>
@@ -391,12 +394,15 @@ export const VizGraph = styled.div`
   margin: 0 2rem 2rem;
   height: 580px;
   overflow-y: auto;
-  /* overflow-x: auto; */
 
   &#tableView {
     @media (max-width: 640px) {
       height: 750px;
     }
+  }
+
+  @media (max-width: 480px) {
+    margin: 0 4px 2rem;
   }
 `;
 

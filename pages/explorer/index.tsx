@@ -8,12 +8,17 @@ import {
   HeaderControls,
   SchemesMenu,
 } from 'components/pages/shared/SchemeSelector/SchemeSelector';
-import { dataTransform, stateDataFetch, stateSchemeFetch } from 'utils/fetch';
+import {
+  consDescFetch,
+  dataTransform,
+  stateDataFetch,
+  stateSchemeFetch,
+} from 'utils/fetch';
 import { Seo } from 'components/common';
 import dynamic from 'next/dynamic';
 import { Info } from 'components/icons';
 
-const ExplorerViz = React.lazy(
+const ExplorerViz = dynamic(
   () => import('components/pages/explorer/ExplorerViz')
 );
 
@@ -66,7 +71,6 @@ const Explorer: React.FC<Props> = ({
   scheme,
   stateData,
   stateScheme,
-  constDesc,
 }) => {
   const initalState = {
     state: data.state || '',
@@ -85,45 +89,13 @@ const Explorer: React.FC<Props> = ({
     ),
     consDesc: {},
   };
-
   const [state, dispatch] = React.useReducer(reducer, initalState);
 
-  async function consDescFetch() {
-    // const constDesc = await stateDataFetch('const_desc');
-    const ac = constDesc[0];
-    const pc = constDesc[1];
-    const finalObj = {
-      vidhan: {},
-      lok: {},
-    };
-
-    // refactor into a function
-    ac.forEach((item) => {
-      if (!finalObj.vidhan[item.state_name]) {
-        finalObj.vidhan[item.state_name] = {
-          [item.constituency_code]: item['Final Description'],
-        };
-      } else {
-        finalObj.vidhan[item.state_name][item.constituency_code] =
-          item['Final Description'];
-      }
-    });
-    pc.forEach((item) => {
-      if (!finalObj.lok[item.state_name]) {
-        finalObj.lok[item.state_name] = {
-          [item.constituency_code]: item['Final Description'],
-        };
-      } else {
-        finalObj.lok[item.state_name][item.constituency_code] =
-          item['Final Description'];
-      }
-    });
-    dispatch({ type: 'CONS_DESC', payload: finalObj });
-  }
-
   React.useEffect(() => {
-    consDescFetch();
-  }, [constDesc]);
+    consDescFetch().then((res) =>
+      dispatch({ type: 'CONS_DESC', payload: res })
+    );
+  }, []);
 
   const seo = {
     title: 'Explorer - Constituency Dashboard',
@@ -151,17 +123,16 @@ const Explorer: React.FC<Props> = ({
                   scheme[Object.keys(scheme)[0]].metadata['description']
                 }
               />
-              <Suspense fallback={<div>Loading...</div>}>
-                <div id="explorerVizWrapper">
-                  {state.vizType === 'map' && (
-                    <ExplorerViz schemeRaw={scheme} meta={state} />
-                  )}
 
-                  {state.vizType !== 'map' && (
-                    <ExplorerDetailsViz meta={state} scheme={scheme} />
-                  )}
-                </div>
-              </Suspense>
+              <div id="explorerVizWrapper">
+                {state.vizType === 'map' && (
+                  <ExplorerViz schemeRaw={scheme} meta={state} />
+                )}
+
+                {state.vizType !== 'map' && (
+                  <ExplorerDetailsViz meta={state} scheme={scheme} />
+                )}
+              </div>
             </>
           ) : (
             <NoContext>
@@ -186,11 +157,10 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
   data.scheme = scheme?.toLowerCase() || '';
   data.sabha = sabha?.toLowerCase() || '';
 
-  const [schemeData, stateScheme, stateData, constDesc] = await Promise.all([
+  const [schemeData, stateScheme, stateData] = await Promise.all([
     dataTransform(data.scheme),
     stateSchemeFetch(),
     stateDataFetch('State Info'),
-    stateDataFetch('const_desc'),
   ]);
 
   return {
@@ -199,7 +169,6 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
       scheme: schemeData,
       stateData: stateData[0],
       stateScheme,
-      constDesc,
     },
   };
 };

@@ -254,11 +254,13 @@ const Wrapper = styled.div`
 const SearchWrapper = styled.div`
   position: absolute;
   right: 0;
+  left: 0;
   top: 16px;
   isolation: isolate;
   z-index: 10;
   width: 100%;
   max-width: 276px;
+  margin: 0 auto;
 
   @media (min-width: 480px) {
     right: 16px;

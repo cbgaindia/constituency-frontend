@@ -80,7 +80,7 @@ export const PaginationButtons = styled.div`
     justify-self: center;
     padding-top: 1rem;
     border-top: 1px solid rgba(0, 0, 0, 0.2);
-    width: 100%;
+    /* width: 100%; */
     justify-content: space-between;
     margin-left: 0;
   }

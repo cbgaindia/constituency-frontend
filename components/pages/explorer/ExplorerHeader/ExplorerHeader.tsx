@@ -141,43 +141,6 @@ const Sections = styled.div`
   }
 `;
 
-// const Summary = styled.div`
-//   margin-top: 32px;
-
-//   > div {
-//     display: flex;
-//     align-items: center;
-//     flex-wrap: wrap;
-//     gap: 8px;
-
-//     .fill {
-//       max-width: 250px;
-//     }
-
-//     ${MenuLabel} {
-//       font-weight: 600;
-//       font-size: 1rem;
-//       color: var(--text-light-high);
-//     }
-
-//     h2 {
-//       font-weight: 600;
-//       font-size: 1rem;
-//       border-right: 2px solid var(--text-light-disabled);
-//       padding-right: 8px;
-//       line-height: 1;
-
-//       @media screen and (max-width: 436px) {
-//         line-height: 1.7;
-//         border-right-color: transparent;
-
-//         border-bottom: 3px solid var(--text-light-disabled);
-//         padding-bottom: 12px;
-//       }
-//     }
-//   }
-// `;
-
 const SummaryCard = styled.ul`
   margin-top: 20px;
   display: flex;

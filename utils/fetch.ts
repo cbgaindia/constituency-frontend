@@ -2,7 +2,7 @@ import { read, utils as xlsxUtil } from 'xlsx';
 
 export async function fetchQuery(query, value) {
   const queryRes = await fetch(
-    `http://3.109.56.211/api/3/action/package_search?fq=${query}:"${value}" AND organization:constituency-wise-scheme-data AND  private:false&rows=50`
+    `${process.env.NEXT_PUBLIC_CKAN_URL}/package_search?fq=${query}:"${value}" AND organization:constituency-wise-scheme-data AND  private:false&rows=50`
   ).then((res) => res.json());
 
   return queryRes.result.results;
@@ -68,7 +68,7 @@ export async function stateSchemeFetch() {
 
 export async function stateDataFetch(id) {
   const data = await fetch(
-    `http://3.109.56.211/api/3/action/package_search?fq=organization:constituency-wise-scheme-data%20AND%20schemeType:"${id}"`
+    `${process.env.NEXT_PUBLIC_CKAN_URL}/package_search?fq=organization:constituency-wise-scheme-data%20AND%20schemeType:"${id}"`
   ).then((res) => res.json());
 
   const sheet = await fetchSheets(
@@ -285,4 +285,38 @@ export async function dataTransform(id) {
     }
   }
   return obj;
+}
+
+export async function consDescFetch() {
+  const constDesc = await stateDataFetch('const_desc');
+  const ac = constDesc[0];
+  const pc = constDesc[1];
+  const finalObj = {
+    vidhan: {},
+    lok: {},
+  };
+
+  // refactor into a function
+  ac.forEach((item) => {
+    if (!finalObj.vidhan[item.state_name]) {
+      finalObj.vidhan[item.state_name] = {
+        [item.constituency_code]: item['Final Description'],
+      };
+    } else {
+      finalObj.vidhan[item.state_name][item.constituency_code] =
+        item['Final Description'];
+    }
+  });
+  pc.forEach((item) => {
+    if (!finalObj.lok[item.state_name]) {
+      finalObj.lok[item.state_name] = {
+        [item.constituency_code]: item['Final Description'],
+      };
+    } else {
+      finalObj.lok[item.state_name][item.constituency_code] =
+        item['Final Description'];
+    }
+  });
+  return finalObj
+  
 }
