@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import styled from 'styled-components';
@@ -60,16 +60,7 @@ function verifyState(state) {
 }
 
 const reducer = (state, action) => {
-  switch (action.type) {
-    case 'CONS_DESC':
-      return { ...state, consDesc: action.payload };
-    case 'VIZ_TYPE':
-      return { ...state, vizType: action.payload };
-    case 'SET_MULTIPLE':
-      return { ...state, ...action.payload };
-    default:
-      return state;
-  }
+  return { ...state, ...action };
 };
 export const MyContext = React.createContext(null);
 
@@ -99,9 +90,7 @@ const Explorer: React.FC<Props> = ({
   const [state, dispatch] = React.useReducer(reducer, initalState);
 
   React.useEffect(() => {
-    consDescFetch().then((res) =>
-      dispatch({ type: 'CONS_DESC', payload: res })
-    );
+    consDescFetch().then((res) => dispatch({ consDesc: res }));
   }, []);
 
   const seo = {
@@ -137,7 +126,7 @@ const Explorer: React.FC<Props> = ({
                 )}
 
                 {state.vizType !== 'map' && (
-                  <ExplorerDetailsViz meta={state} scheme={scheme} />
+                  <ExplorerDetailsViz meta={state} dispatch={dispatch} />
                 )}
               </div>
             </>

@@ -49,8 +49,7 @@ const ExplorerViz = ({ meta, schemeRaw }) => {
       setFinancialYears(years); // all years
 
       dispatch({
-        type: 'SET_MULTIPLE',
-        payload: { year: year ? year : years[0].value },
+        year: year ? year : years[0].value,
       });
     }
   }, [filtered]);
@@ -99,13 +98,11 @@ const ExplorerViz = ({ meta, schemeRaw }) => {
   useEffect(() => {
     if (sabha == 'lok') {
       dispatch({
-        type: 'SET_MULTIPLE',
-        payload: { schemeData: schemeRaw.pc },
+        schemeData: schemeRaw.pc,
       });
     } else
       dispatch({
-        type: 'SET_MULTIPLE',
-        payload: { schemeData: schemeRaw.ac },
+        schemeData: schemeRaw.ac,
       });
   }, [sabha]);
 
@@ -130,23 +127,20 @@ const ExplorerViz = ({ meta, schemeRaw }) => {
         const filtered =
           schemeData.data[indicatorID]['state_Obj'][capitalize(state)];
         dispatch({
-          type: 'SET_MULTIPLE',
-          payload: { unit: schemeData.data[indicatorID].unit },
+          unit: schemeData.data[indicatorID].unit,
         });
         setFiltered(filtered);
       }
 
       dispatch({
-        type: 'SET_MULTIPLE',
-        payload: { indicator: val },
+        indicator: val,
       });
     }
   }
 
   function handleToggler(e) {
     dispatch({
-      type: 'SET_MULTIPLE',
-      payload: { sabha: e },
+      sabha: e,
     });
   }
 
@@ -241,8 +235,7 @@ const ExplorerViz = ({ meta, schemeRaw }) => {
                       heading="Financial Year:"
                       handleChange={(e) =>
                         dispatch({
-                          type: 'SET_MULTIPLE',
-                          payload: { year: e },
+                          year: e,
                         })
                       }
                     />

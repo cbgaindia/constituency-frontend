@@ -193,12 +193,9 @@ const ExplorerMap = ({ meta, schemeData, consDesc }) => {
                   size="sm"
                   onClick={() =>
                     dispatch({
-                      type: 'SET_MULTIPLE',
-                      payload: {
-                        consCode: selectedCode,
-                        constituency: selectedItem,
-                        vizType: 'report',
-                      },
+                      consCode: selectedCode,
+                      constituency: selectedItem,
+                      vizType: 'report',
                     })
                   }
                 >
@@ -209,12 +206,9 @@ const ExplorerMap = ({ meta, schemeData, consDesc }) => {
                   size="sm"
                   onClick={() =>
                     dispatch({
-                      type: 'SET_MULTIPLE',
-                      payload: {
-                        consCode: selectedCode,
-                        constituency: selectedItem,
-                        vizType: 'compare',
-                      },
+                      consCode: selectedCode,
+                      constituency: selectedItem,
+                      vizType: 'compare',
                     })
                   }
                 >

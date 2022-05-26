@@ -7,11 +7,8 @@ import Toggler from './Toggler';
 import { Info } from 'components/icons';
 import { GroupBarChart } from 'components/viz';
 import ConstituencySelect from './ConstituencySelect';
-import { MyContext } from 'pages/explorer';
 
-const ExplorerDetailsViz = ({ meta, scheme }) => {
-  const { dispatch } = useContext(MyContext);
-
+const ExplorerDetailsViz = ({ meta, dispatch }) => {
   const [compareItem, setCompareItem] = useState<any>({});
   const [filteredData, setFilteredData] = useState([]);
   const [allStates, setAllStates] = useState({});
@@ -79,8 +76,7 @@ const ExplorerDetailsViz = ({ meta, scheme }) => {
   function handleNewVizData(val: any) {
     if (val) {
       dispatch({
-        type: 'SET_MULTIPLE',
-        payload: { indicator: val },
+        indicator: val,
       });
     }
   }

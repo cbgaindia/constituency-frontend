@@ -23,8 +23,7 @@ const Toggler = ({ meta }) => {
         <Button
           onClick={() =>
             dispatch({
-              type: 'VIZ_TYPE',
-              payload: 'map',
+              vizType: 'map',
             })
           }
           icon={<ArrowTail />}
