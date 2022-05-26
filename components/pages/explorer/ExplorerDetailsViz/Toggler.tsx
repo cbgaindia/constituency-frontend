@@ -1,12 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import fscreen from 'fscreen';
 import { Button } from 'components/actions';
 import { ArrowTail, FullScreen } from 'components/icons';
-import { MyContext } from 'pages/explorer';
 
-const Toggler = ({ meta }) => {
-  const { dispatch } = useContext(MyContext);
+const Toggler = ({ meta, dispatch }) => {
 
   function fullScreenMode() {
     if (fscreen.fullscreenElement !== null) {

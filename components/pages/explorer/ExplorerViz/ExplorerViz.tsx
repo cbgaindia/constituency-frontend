@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useContext } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import dynamic from 'next/dynamic';
 import { tabbedInterface } from 'utils/helper';
@@ -9,14 +9,12 @@ import Toggler from './Toggler';
 import ExplorerMap from './ExplorerMap';
 import { capitalize } from 'utils/helper';
 import { Globe, TableIcon } from 'components/icons';
-import { MyContext } from 'pages/explorer';
 
 const Source = dynamic(() => import('./Source'), {
   ssr: false,
 });
 
-const ExplorerViz = ({ meta, schemeRaw }) => {
-  const { dispatch } = useContext(MyContext);
+const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
 
   const [filtered, setFiltered] = useState([]);
   const [isTable, setIsTable] = useState(false);
@@ -166,6 +164,7 @@ const ExplorerViz = ({ meta, schemeRaw }) => {
             meta={{ sabha, state, indicator, unit }}
             schemeData={filtered[meta.year]}
             consDesc={consDesc[sabha] ? consDesc[sabha][state] : {}}
+            dispatch={dispatch}
           />
         ) : (
           <p>No data</p>

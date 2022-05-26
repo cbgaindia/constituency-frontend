@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { Indicator, IndicatorMobile } from 'components/data';
@@ -89,7 +89,7 @@ const ExplorerDetailsViz = ({ meta, dispatch }) => {
 
   return (
     <>
-      <Toggler meta={meta} />
+      <Toggler meta={meta} dispatch={dispatch} />
       <IndicatorMobile
         indicators={schemeData.data}
         newIndicator={handleNewVizData}

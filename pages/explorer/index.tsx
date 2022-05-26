@@ -22,7 +22,7 @@ const Seo = dynamic(() => import('components/common/Seo/Seo'), {
 });
 
 const ExplorerViz = dynamic(
-  () => import('components/pages/explorer/ExplorerViz'),
+  () => import('components/pages/explorer/ExplorerViz/ExplorerViz'),
   {
     ssr: false,
     loading: () => <p>Loading Explorer...</p>,
@@ -30,7 +30,7 @@ const ExplorerViz = dynamic(
 );
 
 const ExplorerDetailsViz = dynamic(
-  () => import('components/pages/explorer/ExplorerDetailsViz'),
+  () => import('components/pages/explorer/ExplorerDetailsViz/ExplorerDetailsViz'),
   {
     ssr: false,
   }
@@ -62,7 +62,6 @@ function verifyState(state) {
 const reducer = (state, action) => {
   return { ...state, ...action };
 };
-export const MyContext = React.createContext(null);
 
 const Explorer: React.FC<Props> = ({
   data,
@@ -99,7 +98,7 @@ const Explorer: React.FC<Props> = ({
       'Explore scheme-wise fiscal information at the level of Lok Sabha and Vidhan Sabha constituencies',
   };
   return (
-    <MyContext.Provider value={{ state, dispatch }}>
+    <>
       <Seo seo={seo} />
       <Wrapper>
         <div className="container">
@@ -110,19 +109,20 @@ const Explorer: React.FC<Props> = ({
             scheme={data.scheme}
             stateData={stateScheme}
           />
+          <ExplorerHeader
+            stateData={state.headerData}
+            schemeDesc={scheme[Object.keys(scheme)[0]].metadata['description']}
+          />
 
           {Object.keys(data).length !== 0 && verifyState(data.state) ? (
             <>
-              <ExplorerHeader
-                stateData={state.headerData}
-                schemeDesc={
-                  scheme[Object.keys(scheme)[0]].metadata['description']
-                }
-              />
-
               <div id="explorerVizWrapper">
                 {state.vizType === 'map' && (
-                  <ExplorerViz schemeRaw={scheme} meta={state} />
+                  <ExplorerViz
+                    schemeRaw={scheme}
+                    meta={state}
+                    dispatch={dispatch}
+                  />
                 )}
 
                 {state.vizType !== 'map' && (
@@ -140,7 +140,7 @@ const Explorer: React.FC<Props> = ({
           )}
         </div>
       </Wrapper>
-    </MyContext.Provider>
+    </>
   );
 };
 
