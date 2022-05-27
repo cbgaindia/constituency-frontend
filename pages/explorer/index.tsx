@@ -9,12 +9,7 @@ import {
   HeaderControls,
   SchemesMenu,
 } from 'components/pages/shared/SchemeSelector/SchemeSelector';
-import {
-  consDescFetch,
-  dataTransform,
-  stateDataFetch,
-  stateSchemeFetch,
-} from 'utils/fetch';
+import { dataTransform, stateDataFetch, stateSchemeFetch } from 'utils/fetch';
 import { Info } from 'components/icons';
 
 const Seo = dynamic(() => import('components/common/Seo/Seo'), {
@@ -30,7 +25,8 @@ const ExplorerViz = dynamic(
 );
 
 const ExplorerDetailsViz = dynamic(
-  () => import('components/pages/explorer/ExplorerDetailsViz/ExplorerDetailsViz'),
+  () =>
+    import('components/pages/explorer/ExplorerDetailsViz/ExplorerDetailsViz'),
   {
     ssr: false,
   }
@@ -84,13 +80,8 @@ const Explorer: React.FC<Props> = ({
       (o: { State: string }) =>
         o.State.toLowerCase() == data.state.toLowerCase()
     ),
-    consDesc: {},
   };
   const [state, dispatch] = React.useReducer(reducer, initalState);
-
-  React.useEffect(() => {
-    consDescFetch().then((res) => dispatch({ consDesc: res }));
-  }, []);
 
   const seo = {
     title: 'Explorer - Constituency Dashboard',

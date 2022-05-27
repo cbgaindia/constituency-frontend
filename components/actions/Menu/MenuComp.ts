@@ -33,6 +33,10 @@ export const MenuLabel = styled.span`
 export const Wrapper = styled.div`
   position: relative;
   height: 100%;
+
+  button {
+    color: var(--text-light-high);
+  }
 `;
 
 export const MenuButton = styled.button`

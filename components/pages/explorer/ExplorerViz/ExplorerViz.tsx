@@ -15,7 +15,6 @@ const Source = dynamic(() => import('./Source'), {
 });
 
 const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
-
   const [filtered, setFiltered] = useState([]);
   const [isTable, setIsTable] = useState(false);
   const [currentViz, setCurrentViz] = useState('#mapView');
@@ -159,11 +158,10 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
     {
       id: 'mapView',
       graph:
-        schemeData.data && (sabha == 'lok' || sabha == 'vidhan') ? (
+        sabha == 'lok' || sabha == 'vidhan' ? (
           <ExplorerMap
             meta={{ sabha, state, indicator, unit }}
             schemeData={filtered[meta.year]}
-            consDesc={consDesc[sabha] ? consDesc[sabha][state] : {}}
             dispatch={dispatch}
           />
         ) : (

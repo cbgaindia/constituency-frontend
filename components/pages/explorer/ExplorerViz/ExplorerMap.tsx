@@ -5,19 +5,24 @@ import { MapViz } from 'components/viz';
 import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { debounce, swrFetch } from 'utils/helper';
+import { consDescFetch } from 'utils/fetch';
 
-const ExplorerMap = ({ meta, schemeData, consDesc, dispatch }) => {
-
+const ExplorerMap = ({ meta, schemeData, dispatch }) => {
   const [mapValues, setMapvalues] = useState([]);
   const [searchItems, setSearchItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState('');
   const [selectedCode, setSelectedCode] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
+  const [consDesc, setConsDesc] = useState({});
   const [mapIndicator, setMapIndicator] = useState(undefined);
 
   const { data, isLoading } = swrFetch(
     `assets/maps/${meta.sabha}/${meta.state}.json`
   );
+
+  React.useEffect(() => {
+    consDescFetch().then((res) => setConsDesc(res));
+  }, []);
 
   // on state change, close the consitituency details popup
   useEffect(() => {
@@ -183,7 +188,7 @@ const ExplorerMap = ({ meta, schemeData, consDesc, dispatch }) => {
                 </Button>
               </div>
 
-              <p>{consDesc[selectedCode]}</p>
+              <p>{consDesc[meta.sabha][meta.state][selectedCode]}</p>
 
               <SearchButtons>
                 <Button
