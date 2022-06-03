@@ -1,4 +1,5 @@
-import { Navbar, Footer, Skiplink, Seo } from 'components/common';
+import { Navbar, Footer, Skiplink } from 'components/common';
+
 import { navList } from 'config/navigation';
 
 const Layout: React.FC = ({ children }) => {

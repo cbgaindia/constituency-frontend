@@ -34,7 +34,6 @@ export const HeaderWrapper = styled.div`
     line-height: 2.6rem;
     grid-column: 2/3;
     grid-row: 1/2;
-    /* word-break: break-all; */
   }
 
   p {
