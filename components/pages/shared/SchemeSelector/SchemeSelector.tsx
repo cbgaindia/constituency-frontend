@@ -5,6 +5,7 @@ import { MenuButton, MenuContent } from 'components/actions/Menu/MenuComp';
 import { LokSabha, VidhanSabha } from 'components/icons';
 import { useRouter } from 'next/router';
 import { MenuWrapper } from 'components/actions/Menu';
+import useEffectOnChange from 'utils/hooks';
 
 const noState = {
   title: 'Select a state...',
@@ -22,12 +23,12 @@ function defaultState(item) {
   };
 }
 
-function defaultScheme(item) {
-  return {
-    value: item,
-    title: 'Loading...',
-  };
-}
+// function defaultScheme(item) {
+//   return {
+//     value: item,
+//     title: 'Loading...',
+//   };
+// }
 
 const SchemeSelector: React.FC<{
   sabha?: boolean;
@@ -52,12 +53,23 @@ const SchemeSelector: React.FC<{
   const [selectedScheme, setSelectedScheme] = useState(
     scheme ? defaultScheme(scheme) : noScheme
   );
+
   const [selectedSabha, setSelectedSabha] = useState(
     router.query.sabha ? router.query.sabha : 'lok'
   );
   const [availableStates, setAvailableStates] = useState<any>([]);
   const [availableSchemes, setAvailableSchemes] = useState<any>([]);
   const sabhaRef = useRef(null);
+
+  function defaultScheme(scheme) {
+    if (stateData[selectedState.value]) {
+      const tempSchemes = stateData[selectedState.value].map((item) => ({
+        value: item.scheme_slug,
+        title: item.scheme_name,
+      }));
+      return tempSchemes.find((item) => scheme == item.value) || 'Loading...';
+    }
+  }
 
   useEffect(() => {
     const availableStates = Object.keys(stateData).map((item) => ({
@@ -76,7 +88,7 @@ const SchemeSelector: React.FC<{
     setAvailableStates(availableStates);
   }, []);
 
-  useEffect(() => {
+  useEffectOnChange(() => {
     if (stateData[selectedState.value]) {
       const tempSchemes = stateData[selectedState.value].map((item) => ({
         value: item.scheme_slug,
