@@ -88,7 +88,16 @@ const SchemeSelector: React.FC<{
     setAvailableStates(availableStates);
   }, []);
 
+  useEffect(() => {
+    handleStateChange();
+  }, []);
+
   useEffectOnChange(() => {
+    const tempSchemes = handleStateChange();    
+    setSelectedScheme(tempSchemes);
+  }, [selectedState, stateData]);
+
+  function handleStateChange() {
     if (stateData[selectedState.value]) {
       const tempSchemes = stateData[selectedState.value].map((item) => ({
         value: item.scheme_slug,
@@ -99,11 +108,10 @@ const SchemeSelector: React.FC<{
       tempSchemes.sort((a, b) =>
         a.value > b.value ? 1 : b.value > a.value ? -1 : 0
       );
-
-      setSelectedScheme(tempSchemes[0]);
       setAvailableSchemes(tempSchemes);
+      return tempSchemes[0];
     }
-  }, [selectedState, stateData]);
+  }
 
   function handleMenuChange(val, array) {
     const setState =
@@ -171,19 +179,19 @@ const SchemeSelector: React.FC<{
           />
         </StateMenu>
         <SchemeMenu
-          className={`fill ${selectedScheme.value == null && 'not-selected'}`}
+          className={`fill ${selectedScheme?.value == null && 'not-selected'}`}
         >
           <Menu
             options={availableSchemes}
             handleChange={(e) => handleMenuChange(e, availableSchemes)}
             heading="Select any Scheme"
-            value={selectedScheme.title}
+            value={selectedScheme?.title}
             showLabel={false}
           />
         </SchemeMenu>
         <Button
           kind="primary"
-          href={`/explorer?scheme=${selectedScheme.value || 'mdm'}&state=${
+          href={`/explorer?scheme=${selectedScheme?.value || 'mdm'}&state=${
             selectedState.value || 'Bihar'
           }&sabha=${router.query.sabha ? router.query.sabha : selectedSabha}`}
         >

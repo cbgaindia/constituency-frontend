@@ -24,7 +24,7 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
 
   const mapRef = useRef(null);
 
-  const { state, consDesc, scheme, indicator, unit, schemeData, year } = meta;
+  const { state, scheme, indicator, unit, schemeData, year } = meta;
   const { sabha } = meta || 'lok';
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
 
   useEffect(() => {
     // fill up available financial years for state+sabha
-    if (schemeData.data) {
+    if (schemeData.data && filtered) {
       const years = Object.keys(
         Object.values(schemeData.data)[0]['state_Obj'][capitalize(state)]
       ).map((item) => ({
@@ -158,7 +158,7 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
     {
       id: 'mapView',
       graph:
-        sabha == 'lok' || sabha == 'vidhan' ? (
+        (sabha == 'lok' || sabha == 'vidhan') && filtered ? (
           <ExplorerMap
             meta={{ sabha, state, indicator, unit }}
             schemeData={filtered[meta.year]}
@@ -187,102 +187,106 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
   return (
     <>
       <Toggler handleNewToggle={handleToggler} sabha={sabha} />
-      <IndicatorMobile
-        indicators={schemeData.data}
-        newIndicator={(e) => handleNewIndicator(e)}
-        selectedIndicator={indicator}
-      />
+      {filtered ? (
+        <>
+          <IndicatorMobile
+            indicators={schemeData.data}
+            newIndicator={(e) => handleNewIndicator(e)}
+            selectedIndicator={indicator}
+          />
 
-      {
-        <Wrapper
-          className={
-            sabha === 'editorial-notes' ? 'inactive-sidebar' : undefined
-          }
-        >
-          {sabha !== 'editorial-notes' && (
-            <Indicator
-              newIndicator={(e) => handleNewIndicator(e)}
-              selectedIndicator={indicator}
-              schemeData={schemeData}
-            />
-          )}
+          <Wrapper
+            className={
+              sabha === 'editorial-notes' ? 'inactive-sidebar' : undefined
+            }
+          >
+            {sabha !== 'editorial-notes' && (
+              <Indicator
+                newIndicator={(e) => handleNewIndicator(e)}
+                selectedIndicator={indicator}
+                schemeData={schemeData}
+              />
+            )}
 
-          <VizWrapper>
-            <div
-              className={
-                sabha === 'editorial-notes' ? 'inactive-viz' : undefined
-              }
-            >
-              <VizHeader>
-                <VizTabs className="viz__tabs">
-                  {vizToggle.map((item, index) => (
-                    <li key={`toggleItem-${index}`}>
-                      <a href={item.id} onClick={(e) => hideMenu(e)}>
-                        {item.icon}
-                        {item.name}
-                      </a>
-                    </li>
-                  ))}
-                </VizTabs>
-                {financialYears && !isTable && (
-                  <VizMenu className="fill">
-                    <Menu
-                      value={meta.year}
-                      options={financialYears}
-                      heading="Financial Year:"
-                      handleChange={(e) =>
-                        dispatch({
-                          year: e,
-                        })
-                      }
-                    />
-                  </VizMenu>
-                )}
-              </VizHeader>
+            <VizWrapper>
+              <div
+                className={
+                  sabha === 'editorial-notes' ? 'inactive-viz' : undefined
+                }
+              >
+                <VizHeader>
+                  <VizTabs className="viz__tabs">
+                    {vizToggle.map((item, index) => (
+                      <li key={`toggleItem-${index}`}>
+                        <a href={item.id} onClick={(e) => hideMenu(e)}>
+                          {item.icon}
+                          {item.name}
+                        </a>
+                      </li>
+                    ))}
+                  </VizTabs>
+                  {financialYears && !isTable && (
+                    <VizMenu className="fill">
+                      <Menu
+                        value={meta.year}
+                        options={financialYears}
+                        heading="Financial Year:"
+                        handleChange={(e) =>
+                          dispatch({
+                            year: e,
+                          })
+                        }
+                      />
+                    </VizMenu>
+                  )}
+                </VizHeader>
 
-              {vizItems.map((item, index) => (
-                <VizGraph
-                  className="viz__graph"
-                  key={`vizItem-${index}`}
-                  id={item.id}
-                >
-                  {item.graph}
-                </VizGraph>
-              ))}
-            </div>
-            <SchemeNotes
-              className={
-                sabha !== 'editorial-notes' ? 'inactive-viz' : undefined
-              }
-            >
-              <p>{schemeData.metadata?.description}</p>
-              <div>
-                {schemeData.data &&
-                  Object.values(schemeData.data).map((item: any) => (
-                    <NotesInidicator key={`indicator-${item.slug}`}>
-                      <NotesTitle>
-                        <h3>{item.name}</h3> ({item.unit})
-                      </NotesTitle>
-                      <p>{item.description}</p>
-                      <IndicatorNotes>
-                        <strong>Note:</strong> {item.note || 'NA'}
-                      </IndicatorNotes>
-                    </NotesInidicator>
-                  ))}
+                {vizItems.map((item, index) => (
+                  <VizGraph
+                    className="viz__graph"
+                    key={`vizItem-${index}`}
+                    id={item.id}
+                  >
+                    {item.graph}
+                  </VizGraph>
+                ))}
               </div>
-            </SchemeNotes>
-            <Source
-              currentViz={currentViz}
-              meta={{
-                scheme,
-                state,
-                indicator: indicator ? indicator : 'Opening Balance',
-              }}
-              source={schemeData.metadata?.source}
-            />
-          </VizWrapper>
-        </Wrapper>
-      }
+              <SchemeNotes
+                className={
+                  sabha !== 'editorial-notes' ? 'inactive-viz' : undefined
+                }
+              >
+                <p>{schemeData.metadata?.description}</p>
+                <div>
+                  {schemeData.data &&
+                    Object.values(schemeData.data).map((item: any) => (
+                      <NotesInidicator key={`indicator-${item.slug}`}>
+                        <NotesTitle>
+                          <h3>{item.name}</h3> ({item.unit})
+                        </NotesTitle>
+                        <p>{item.description}</p>
+                        <IndicatorNotes>
+                          <strong>Note:</strong> {item.note || 'NA'}
+                        </IndicatorNotes>
+                      </NotesInidicator>
+                    ))}
+                </div>
+              </SchemeNotes>
+              <Source
+                currentViz={currentViz}
+                meta={{
+                  scheme,
+                  state,
+                  indicator: indicator ? indicator : 'Opening Balance',
+                }}
+                source={schemeData.metadata?.source}
+              />
+            </VizWrapper>
+          </Wrapper>
+        </>
+      ) : (
+        <NoData>No data</NoData>
+      )}
     </>
   );
 };
@@ -432,3 +436,9 @@ const IndicatorNotes = styled.span`
   font-size: 0.75rem;
   line-height: 1.7;
 `;
+
+const NoData = styled.div`
+  min-height: 300px;
+  display: grid;
+  place-content: center;
+`
