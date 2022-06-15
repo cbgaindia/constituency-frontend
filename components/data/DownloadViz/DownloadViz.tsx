@@ -107,7 +107,7 @@ const DownloadViz = ({ viz, meta, tableData }) => {
       size="sm"
       icon={<Download />}
     >
-      {`Download ${viz == '#tableView' ? 'CSV' : 'Chart'}`}
+      {`Download ${viz == '#tableView' ? 'CSV' : 'Map'}`}
     </Button>
   );
 };
