@@ -2,8 +2,12 @@ export const Dashboards = {
   name: 'Dashboards',
   links: [
     {
-      title: 'Union Budget Explorer 2021-22',
+      title: 'Union Budget Explorer 2022-23',
       value: 'https://union.openbudgetsindia.org/en/',
+    },
+    {
+      title: 'Union Budget Explorer 2021-22',
+      value: 'https://union2021.openbudgetsindia.org/en/',
     },
     {
       title: 'Union Budget Explorer 2020-21',
@@ -48,8 +52,8 @@ export const Dashboards = {
       value: 'https://schemes.openbudgetsindia.org',
     },
     {
-      title: 'Story Generator',
-      value: 'https://cbgaindia.github.io/story-generator',
+      title: 'Sector Dashboard',
+      value: 'https://sectors.openbudgetsindia.org/',
     },
   ],
 };
@@ -92,12 +96,32 @@ export const OBI_Platform = {
       value: 'https://youtu.be/xKjzH1ZB3c4',
     },
     {
+      title: 'Video: OBI Platform (Hindi)',
+      value: 'https://youtu.be/m5KCwJXTBfI',
+    },
+    {
       title: 'Video: Budget Basics',
       value: 'https://youtu.be/fGxNh5Xfn2I',
     },
     {
       title: 'Video: Budget Basics (Hindi)',
       value: 'https://youtu.be/TovrkaW5HZY',
+    },
+    {
+      title: 'Video: Schemes Dashboard',
+      value: 'https://www.youtube.com/watch?v=VLbr6gJ3cuw',
+    },
+    {
+      title: 'Video: Budget Forum',
+      value: 'https://www.youtube.com/watch?v=pkzmJJ5itHs',
+    },
+    {
+      title: 'Video: Budget Forum (Hindi)',
+      value: 'https://www.youtube.com/watch?v=BQU2EG3zm-M',
+    },
+    {
+      title: 'Video: Gender Responsive Budgeting',
+      value: 'https://www.youtube.com/watch?v=Kbp0r7oS578',
     },
   ],
 };
