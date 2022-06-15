@@ -13,7 +13,7 @@ const HomeHeader = ({ stateData }) => {
           <span className="gradient-maple">
             Constituency-wise Fiscal Information
           </span>{' '}
-          <span className="gradient-amazon">for schemes</span>
+          <span className="gradient-amazon">for Schemes</span>
         </h1>
         <SchemeSelector trending={trending} stateData={stateData} />
       </div>
