@@ -72,7 +72,7 @@ const MapViz = ({ meta, mapFile, data, newMapItem, vizIndicators }) => {
                 show: false,
               },
               itemStyle: {
-                areaColor: '#0D331F',
+                areaColor: '#ffd700',
               },
             },
             select: {
