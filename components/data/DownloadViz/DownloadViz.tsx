@@ -29,18 +29,19 @@ function download_csv(csv, filename) {
   downloadLink.click();
 }
 
-export function export_table_to_csv(filename: any) {
+export function export_table_to_csv(tableData, filename: any) {
   const csv = [];
-  const rows = document.querySelectorAll('#tableView tr');
 
-  for (let i = 0; i < rows.length; i += 1) {
-    const row = [];
-    const cols = rows[i].querySelectorAll('td, th') as any;
+  // Add table header content
+  const tableHeader = tableData.header.map((item) => {
+    return item['Header'];
+  });
+  csv.push(tableHeader);
 
-    for (let j = 0; j < cols.length; j += 1) row.push(cols[j].innerText);
-
-    csv.push(row.join(','));
-  }
+  // Add table rows
+  tableData.rows.forEach((item) => {
+    csv.push(Object.values(item));
+  });
 
   // Download CSV
   download_csv(csv.join('\n'), filename);
@@ -65,7 +66,7 @@ function createDummyCanvas(srcCanvas) {
   return destinationCanvas.toDataURL('image/jpeg', 0.8);
 }
 
-const DownloadViz = ({ viz, meta }) => {
+const DownloadViz = ({ viz, meta, tableData }) => {
   let watermarkSSR;
   useEffect(() => {
     import('watermarkjs').then((x) => (watermarkSSR = x.default));
@@ -95,7 +96,7 @@ const DownloadViz = ({ viz, meta }) => {
 
   function downloadSelector(viz) {
     if (viz == '#tableView')
-      export_table_to_csv(`${fileName(meta)}.csv`.toLowerCase());
+      export_table_to_csv(tableData, `${fileName(meta)}.csv`.toLowerCase());
     else svg2img();
   }
 

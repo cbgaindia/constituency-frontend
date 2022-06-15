@@ -279,6 +279,7 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
                   state,
                   indicator: indicator ? indicator : 'Opening Balance',
                 }}
+                tableData={tableData}
                 source={schemeData.metadata?.source}
               />
             </VizWrapper>

@@ -7,7 +7,7 @@ const DownloadViz = dynamic(() => import('components/data/DownloadViz'), {
   ssr: false,
 });
 
-const Source = ({ meta, currentViz, source }) => {
+const Source = ({ meta, currentViz, source, tableData }) => {
   return (
     <ExplorerSource>
       <SourceText>
@@ -18,7 +18,7 @@ const Source = ({ meta, currentViz, source }) => {
       <SourceButtons>
         <Share buttonSize="sm" title="share viz" />
         {typeof window !== 'undefined' && (
-          <DownloadViz viz={currentViz} meta={meta} />
+          <DownloadViz tableData={tableData} viz={currentViz} meta={meta} />
         )}
       </SourceButtons>
     </ExplorerSource>
