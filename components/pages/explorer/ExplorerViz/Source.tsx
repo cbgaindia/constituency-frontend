@@ -7,7 +7,12 @@ const DownloadViz = dynamic(() => import('components/data/DownloadViz'), {
   ssr: false,
 });
 
-const Source = ({ meta, currentViz, source, tableData }) => {
+const Source: React.FC<{
+  meta: any;
+  currentViz: any;
+  source: any;
+  tableData?: string;
+}> = ({ meta, currentViz, source, tableData }) => {
   return (
     <ExplorerSource>
       <SourceText>
@@ -18,7 +23,11 @@ const Source = ({ meta, currentViz, source, tableData }) => {
       <SourceButtons>
         <Share buttonSize="sm" title="share viz" />
         {typeof window !== 'undefined' && (
-          <DownloadViz tableData={tableData} viz={currentViz} meta={meta} />
+          <DownloadViz
+            tableData={tableData ? tableData : {}}
+            viz={currentViz}
+            meta={meta}
+          />
         )}
       </SourceButtons>
     </ExplorerSource>
