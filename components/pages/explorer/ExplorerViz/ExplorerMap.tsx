@@ -184,7 +184,7 @@ const ExplorerMap = ({ meta, schemeData, dispatch }) => {
           <>
             <SelectedCons>
               <div>
-                <h3>{selectedItem}</h3>
+                <h3>{selectedItem.toLowerCase()}</h3>
                 <Button
                   icon={<Cross fill="#888F8B" />}
                   iconOnly={true}
@@ -323,9 +323,6 @@ const SelectedCons = styled.section`
   border-radius: 2px;
   border: var(--border-1);
   opacity: 0.92;
-  /* position: absolute;
-  top: 32px;
-  z-index: -1; */
 
   div:first-of-type {
     border-bottom: var(--border-2);
@@ -342,6 +339,7 @@ const SelectedCons = styled.section`
     font-weight: 600;
     font-size: 1rem;
     max-width: 90%;
+    text-transform: capitalize;
   }
 
   p {
