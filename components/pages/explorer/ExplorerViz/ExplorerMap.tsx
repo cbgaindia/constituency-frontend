@@ -62,13 +62,13 @@ const ExplorerMap = ({ meta, schemeData, dispatch }) => {
             },
             {
               min: uniq[4 * binLength + 1],
-              max: uniq[uniq.length - 1],
-              label: `${uniq[4 * binLength + 1]} to ${uniq[binLength * 4]}`,
+              max: uniq[binLength * 5],
+              label: `${uniq[4 * binLength + 1]} to ${uniq[binLength * 5]}`,
             },
             {
               min: uniq[5 * binLength + 1],
               max: uniq[uniq.length - 1],
-              label: `${uniq[5 * binLength + 1]} to ${uniq[binLength * 4]}`,
+              label: `${uniq[5 * binLength + 1]} to ${uniq[binLength * 6]}`,
             },
           ]
         : [

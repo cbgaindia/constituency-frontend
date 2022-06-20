@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { Button, Menu } from 'components/actions';
 import { MenuButton, MenuContent } from 'components/actions/Menu/MenuComp';
@@ -22,13 +22,6 @@ function defaultState(item) {
     title: item,
   };
 }
-
-// function defaultScheme(item) {
-//   return {
-//     value: item,
-//     title: 'Loading...',
-//   };
-// }
 
 const SchemeSelector: React.FC<{
   sabha?: boolean;
