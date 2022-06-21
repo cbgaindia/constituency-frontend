@@ -153,7 +153,7 @@ const ExplorerMap = ({ meta, schemeData, dispatch }) => {
 
   return (
     <Wrapper>
-      <SearchWrapper>
+      <SearchWrapper data-html2canvas-ignore>
         <input
           id="searchInput"
           type="text"

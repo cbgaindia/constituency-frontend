@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { saveAs } from 'file-saver';
 import { Download } from 'components/icons';
 import { Button } from 'components/actions';
@@ -6,8 +6,9 @@ import { Button } from 'components/actions';
 function fileName(meta) {
   // If there is no type, eg: table, don;t add it to the name
   if (meta.constituency)
-    return `${meta.constituency}, ${meta.state}, ${meta.scheme}, ${meta.indicator}`.toLowerCase();
-  else return `${meta.state}, ${meta.scheme}, ${meta.indicator}`.toLowerCase();
+    return `${meta.constituency} . ${meta.state} . ${meta.scheme} . ${meta.indicator}`.toLowerCase();
+  else
+    return `${meta.state} . ${meta.scheme} . ${meta.indicator}`.toLowerCase();
 }
 
 function download_csv(csv, filename) {
@@ -67,37 +68,29 @@ function createDummyCanvas(srcCanvas) {
 }
 
 const DownloadViz = ({ viz, meta, tableData }) => {
-  let watermarkSSR;
-  useEffect(() => {
-    import('watermarkjs').then((x) => (watermarkSSR = x.default));
-  }, [viz, meta]);
+  function svg2img(canvasElm) {
+    const myChart = createDummyCanvas(canvasElm);
 
-  function svg2img() {
-    const canvas = document.querySelector(
-      `${viz} .echarts-for-react canvas`
-    ) as HTMLCanvasElement;
-    const myChart = createDummyCanvas(canvas);
-
-    if (typeof window !== 'undefined') {
-      watermarkSSR([myChart])
-        .image(
-          watermarkSSR.text.lowerRight(
-            fileName(meta),
-            '24px sans-serif',
-            '#000',
-            0.8
-          )
-        )
-        .then((img) =>
-          saveAs(img.src, `${fileName(meta)}.jpeg`.toLowerCase())
-        );
-    }
+    saveAs(myChart, `${fileName(meta)}.png`.toLowerCase());
   }
 
   function downloadSelector(viz) {
     if (viz == '#tableView')
       export_table_to_csv(tableData, `${fileName(meta)}.csv`.toLowerCase());
-    else svg2img();
+    else {
+      const vizID = viz === '#reportViz' ? '#reportViz' : 'mapViewContainer';
+      import('html2canvas')
+        .then((html2canvas) => {
+          html2canvas
+            .default(document.querySelector(vizID), {
+              scale: 2,
+            })
+            .then((canvasElm) => svg2img(canvasElm));
+        })
+        .catch((e) => {
+          console.log('load failed');
+        });
+    }
   }
 
   return (

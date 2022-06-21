@@ -241,7 +241,7 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
                   )}
                 </VizHeader>
 
-                <div className="">
+                <div id="mapViewContainer">
                   <Title>
                     {`${schemeData.metadata?.name} . ${meta.indicator.replace(
                       '-',
@@ -250,24 +250,24 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
                       currentViz !== '#tableView' ? `(${meta.year})` : ''
                     } . ${meta.state}`}
                   </Title>
+
+                  {vizItems.map((item, index) => (
+                    <VizGraph
+                      className="viz__graph"
+                      key={`vizItem-${index}`}
+                      id={item.id}
+                    >
+                      {item.graph}
+                    </VizGraph>
+                  ))}
+
+                  {currentViz !== '#tableView' && (
+                    <Title id="mapVizInfo" data-html2canvas-ignore>
+                      <Info fill="#D7AA3B" /> Select any constituency to do the
+                      comparision and report card generation.
+                    </Title>
+                  )}
                 </div>
-
-                {vizItems.map((item, index) => (
-                  <VizGraph
-                    className="viz__graph"
-                    key={`vizItem-${index}`}
-                    id={item.id}
-                  >
-                    {item.graph}
-                  </VizGraph>
-                ))}
-
-                {currentViz !== '#tableView' && (
-                  <Title id="mapVizInfo">
-                    <Info fill="#D7AA3B" /> Select any constituency to do the
-                    comparision and report card generation.
-                  </Title>
-                )}
               </VizContainer>
               <SchemeNotes
                 className={
