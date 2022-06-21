@@ -78,7 +78,7 @@ const DownloadViz = ({ viz, meta, tableData }) => {
     if (viz == '#tableView')
       export_table_to_csv(tableData, `${fileName(meta)}.csv`.toLowerCase());
     else {
-      const vizID = viz === '#reportViz' ? '#reportViz' : 'mapViewContainer';
+      const vizID = viz === '#reportViz' ? '#reportViz' : '#mapViewContainer';
       import('html2canvas')
         .then((html2canvas) => {
           html2canvas
