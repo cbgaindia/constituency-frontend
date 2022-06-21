@@ -241,6 +241,17 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
                   )}
                 </VizHeader>
 
+                <div className="">
+                  <Title>
+                    {`${schemeData.metadata?.name} . ${meta.indicator.replace(
+                      '-',
+                      ' '
+                    )} ${
+                      currentViz !== '#tableView' ? `(${meta.year})` : ''
+                    } . ${meta.state}`}
+                  </Title>
+                </div>
+
                 {vizItems.map((item, index) => (
                   <VizGraph
                     className="viz__graph"
@@ -386,7 +397,7 @@ export const VizTabs = styled.ul`
 `;
 
 export const VizGraph = styled.div`
-  margin: 0 2rem 2rem;
+  margin: 0 24px 24px;
   height: 580px;
   overflow-y: auto;
 
@@ -442,4 +453,17 @@ const NoData = styled.div`
   min-height: 300px;
   display: grid;
   place-content: center;
-`
+`;
+
+const Title = styled.div`
+  border-radius: 2px;
+  background-color: var(--color-background-light);
+  margin-bottom: 8px;
+  margin-inline: 24px;
+
+  font-weight: 600;
+  font-size: 0.75rem;
+  line-height: 1.7;
+  padding: 8px 16px;
+  text-transform: capitalize;
+`;
