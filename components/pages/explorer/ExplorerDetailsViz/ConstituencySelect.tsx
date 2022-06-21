@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Button, Widget } from 'components/actions';
 import ButtonWrapper from 'components/actions/Button/ButtonComp';
 import { WidgetContent } from 'components/actions/Widget/Widget';
-import { ArrowDown } from 'components/icons';
+import { ArrowDown, Cross } from 'components/icons';
 import { sectionCollapse } from 'utils/helper';
 
 function handleSearch(query, obj) {
@@ -58,6 +58,12 @@ const ConstituencySelect = ({
   const selectorRef = useRef(null);
   return (
     <Wrapper id="compareSelector" className="fill">
+      {currentItem.cons && (
+        <Button onClick={() => newCompare()}  icon={<Cross />} iconOnly={true} kind="custom">
+          remove selected constituency
+        </Button>
+      )}
+
       <Widget
         icon={<ArrowDown />}
         buttonContent={
@@ -119,7 +125,9 @@ const ConstituencySelect = ({
 export default ConstituencySelect;
 
 const Wrapper = styled.div`
-  button {
+  position: relative;
+
+  > div button {
     font-weight: 600;
     padding: 8px 8px 8px 12px;
     border: var(--border-1);
@@ -130,6 +138,16 @@ const Wrapper = styled.div`
     &.selected {
       color: var(--text-light-high);
     }
+  }
+
+  > button {
+    position: absolute;
+    color: var(--text-light-light);
+    right: 32px;
+    width: 32px;
+    z-index: 100;
+    padding: 0;
+    top: 5px;
   }
 
   ${WidgetContent} {

@@ -66,11 +66,15 @@ const ExplorerDetailsViz = ({ meta, dispatch }) => {
   }, [filteredData, compareItem]);
 
   function newCompare(cons, state, code) {
-    setCompareItem({
-      state,
-      consCode: code,
-      cons,
-    });
+    if (cons) {
+      setCompareItem({
+        state,
+        consCode: code,
+        cons,
+      });
+    } else {
+      setCompareItem({});
+    }
   }
 
   function handleNewVizData(val: any) {
