@@ -8,7 +8,7 @@ import { Menu } from 'components/actions';
 import Toggler from './Toggler';
 import ExplorerMap from './ExplorerMap';
 import { capitalize } from 'utils/helper';
-import { Globe, TableIcon } from 'components/icons';
+import { Globe, Info, TableIcon } from 'components/icons';
 
 const Source = dynamic(() => import('./Source'), {
   ssr: false,
@@ -209,7 +209,7 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
             )}
 
             <VizWrapper>
-              <div
+              <VizContainer
                 className={
                   sabha === 'editorial-notes' ? 'inactive-viz' : undefined
                 }
@@ -261,7 +261,14 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
                     {item.graph}
                   </VizGraph>
                 ))}
-              </div>
+
+                {currentViz !== '#tableView' && (
+                  <Title id="mapVizInfo">
+                    <Info fill="#D7AA3B" /> Select any constituency to do the
+                    comparision and report card generation.
+                  </Title>
+                )}
+              </VizContainer>
               <SchemeNotes
                 className={
                   sabha !== 'editorial-notes' ? 'inactive-viz' : undefined
@@ -319,6 +326,10 @@ export const Wrapper = styled.section`
   &.inactive-sidebar {
     grid-template-columns: minmax(0, 1fr);
   }
+`;
+
+const VizContainer = styled.div`
+  margin-bottom: 24px;
 `;
 
 export const VizWrapper = styled.div`
@@ -397,7 +408,7 @@ export const VizTabs = styled.ul`
 `;
 
 export const VizGraph = styled.div`
-  margin: 0 24px 24px;
+  margin: 0 24px 0;
   height: 580px;
   overflow-y: auto;
 
@@ -466,4 +477,14 @@ const Title = styled.div`
   line-height: 1.7;
   padding: 8px 16px;
   text-transform: capitalize;
+
+  &#mapVizInfo {
+    font-weight: 400;
+    margin: 8px 24px 0;
+    text-transform: initial;
+    margin-bottom: -8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
 `;
