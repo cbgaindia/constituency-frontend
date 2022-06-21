@@ -121,6 +121,8 @@ const ExplorerMap = ({ meta, schemeData, dispatch }) => {
 
   const newMapItem = useCallback((e) => {
     if (e) {
+      console.log(e);
+
       setSelectedItem(e.mapName);
       setSelectedCode(e.name);
       setSearchItems([]);
@@ -195,7 +197,11 @@ const ExplorerMap = ({ meta, schemeData, dispatch }) => {
                 </Button>
               </div>
 
-              <p>{consDesc[meta.sabha][meta.state][selectedCode]}</p>
+              <p>
+                {consDesc[meta.sabha]
+                  ? consDesc[meta.sabha][meta.state][selectedCode]
+                  : 'Loading...'}
+              </p>
 
               <SearchButtons>
                 <Button
