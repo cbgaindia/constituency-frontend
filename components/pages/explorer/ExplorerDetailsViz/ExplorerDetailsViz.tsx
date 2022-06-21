@@ -110,7 +110,7 @@ const ExplorerDetailsViz = ({ meta, dispatch }) => {
             </HeaderTitle>
             {meta.vizType == 'compare' && (
               <ConstituencySelect
-                fallBack={`${meta.constituency} (${meta.state})`}
+                fallBack={`Select a constituency`}
                 currentItem={compareItem}
                 allStates={allStates}
                 newCompare={newCompare}

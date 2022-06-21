@@ -60,7 +60,11 @@ const ConstituencySelect = ({
     <Wrapper id="compareSelector" className="fill">
       <Widget
         icon={<ArrowDown />}
-        buttonContent={currentItem.cons ? currentItem.cons : fallBack}
+        buttonContent={
+          currentItem.cons
+            ? `${currentItem.cons} (${currentItem.state})`
+            : fallBack
+        }
         title="constituency menu"
         buttonStyle="custom"
         buttonClass={currentItem.cons ? 'selected' : undefined}
