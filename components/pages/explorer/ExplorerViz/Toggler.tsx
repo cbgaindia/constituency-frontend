@@ -77,7 +77,10 @@ const Toggler = ({ handleNewToggle, sabha }) => {
               iconSide="left"
               kind="custom"
             >
-              Lok Sabha
+              <Name>
+                Lok Sabha
+                <span>Parliament Constituency</span>
+              </Name>
             </Button>
           </h2>
 
@@ -90,7 +93,10 @@ const Toggler = ({ handleNewToggle, sabha }) => {
               iconSide="left"
               kind="custom"
             >
-              Vidhan Sabha
+              <Name>
+                Vidhan Sabha
+                <span>Assembly Constituency</span>
+              </Name>
             </Button>
           </h2>
         </SabhaToggle>
@@ -142,20 +148,25 @@ const Wrapper = styled.div`
     font-weight: 600;
     height: 100%;
     padding: 20px 24px;
-    color: var(--text-light-light);
+    color: var(--text-light-medium);
     border-right: var(--border-2);
     min-width: 160px;
+    gap: 12px;
 
     &[data-value='editorial-notes'] {
       border-inline: var(--border-2);
     }
 
     &[aria-pressed='true'] {
-      color: var(--color-amazon-100);
+      color: var(--color-amazon-300);
       background-color: var(--color-amazon-00);
 
       svg {
         fill: var(--color-amazon-300);
+      }
+
+      span {
+        color: var(--color-amazon-200);
       }
     }
 
@@ -171,6 +182,31 @@ const Wrapper = styled.div`
 
 const SabhaToggle = styled.div`
   display: flex;
+
+  button {
+    flex-wrap: wrap;
+    align-items: flex-start;
+
+    svg {
+      max-width: 40px;
+      max-height: 40px;
+      margin-inline-end: 0;
+    }
+  }
+`;
+
+const Name = styled.div`
+  text-align: start;
+  pointer-events: none;
+
+  span {
+    text-align: start;
+    line-height: 1.7;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--text-light-light);
+    display: block;
+  }
 `;
 
 const RightSide = styled.div`

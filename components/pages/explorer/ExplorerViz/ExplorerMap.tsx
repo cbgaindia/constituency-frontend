@@ -121,8 +121,6 @@ const ExplorerMap = ({ meta, schemeData, dispatch }) => {
 
   const newMapItem = useCallback((e) => {
     if (e) {
-      console.log(e);
-
       setSelectedItem(e.mapName);
       setSelectedCode(e.name);
       setSearchItems([]);
