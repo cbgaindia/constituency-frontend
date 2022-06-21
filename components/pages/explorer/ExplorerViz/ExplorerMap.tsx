@@ -12,7 +12,7 @@ const ExplorerMap = ({ meta, schemeData, dispatch }) => {
   const [searchItems, setSearchItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState('');
   const [selectedCode, setSelectedCode] = useState('');
-  const [showSelectedCons, setShowSelectedCons] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const [consDesc, setConsDesc] = useState({});
   const [mapIndicator, setMapIndicator] = useState(undefined);
 
@@ -106,6 +106,7 @@ const ExplorerMap = ({ meta, schemeData, dispatch }) => {
 
   function handleSearch(query, obj) {
     let newObj = [];
+    setSearchQuery(query);
     if (query.length > 0) {
       Object.keys(obj).forEach(() => {
         newObj = obj.filter((item) =>
@@ -122,8 +123,8 @@ const ExplorerMap = ({ meta, schemeData, dispatch }) => {
     if (e) {
       setSelectedItem(e.mapName);
       setSelectedCode(e.name);
-      setSearchItems([])
-      setShowSelectedCons(true);
+      setSearchItems([]);
+      setSearchQuery('');
       (document.getElementById('searchInput') as HTMLInputElement).value = '';
 
       // overriding map highlight on constituency selection
@@ -140,7 +141,7 @@ const ExplorerMap = ({ meta, schemeData, dispatch }) => {
   }, []);
 
   function handlePanelClose() {
-    setShowSelectedCons(false);
+    setSelectedItem(undefined);
     const myChart = echarts.getInstanceByDom(
       document.querySelector('#mapView .echarts-for-react')
     );
@@ -173,13 +174,13 @@ const ExplorerMap = ({ meta, schemeData, dispatch }) => {
                     })
                   }
                 >
-                  {items.mapName.toLowerCase()}
+                  {items.mapName}
                 </button>
               </li>
             ))}
           </SearchResult>
         )}
-        {selectedItem && showSelectedCons && (
+        {selectedItem && searchQuery.length == 0 && (
           <>
             <SelectedCons>
               <div>
@@ -305,7 +306,6 @@ const SearchResult = styled.ul`
       text-align: start;
       height: 100%;
       transition: background-color 150ms ease;
-      text-transform: capitalize;
 
       &:hover {
         background-color: var(--color-grey-600);
