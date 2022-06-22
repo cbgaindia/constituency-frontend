@@ -103,6 +103,7 @@ const Explorer: React.FC<Props> = ({
           <ExplorerHeader
             stateData={state.headerData}
             schemeDesc={scheme[Object.keys(scheme)[0]].metadata['description']}
+            scheme={data.scheme}
           />
 
           {Object.keys(data).length !== 0 && verifyState(data.state) ? (

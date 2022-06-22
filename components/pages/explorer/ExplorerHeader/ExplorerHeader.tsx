@@ -1,10 +1,12 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Document, Drop } from 'components/icons';
 import { tabbedInterface } from 'utils/helper';
 import { Summary } from 'components/pages/state/Header/Header';
+import { stateDataFetch } from 'utils/fetch';
 
-const ExplorerHeader = ({ stateData, schemeDesc }) => {
+const ExplorerHeader = ({ stateData, schemeDesc, scheme }) => {
+  const [schemeData, setSchemeData] = useState<any>();
   const data = {
     tabs: [
       {
@@ -23,6 +25,7 @@ const ExplorerHeader = ({ stateData, schemeDesc }) => {
       {
         id: 'state-overflow',
         content: stateData.Description,
+        summaryTitle: 'State Budget 2022-23 Highlights',
         summaryCards: [
           {
             text: 'Total Receipts',
@@ -45,36 +48,50 @@ const ExplorerHeader = ({ stateData, schemeDesc }) => {
       {
         id: 'scheme-overflow',
         content: schemeDesc,
-        summaryCards: [
-          {
-            text: 'Year of Launch',
-            value: `₹ ${stateData['Total Receipts']}`,
-          },
-          {
-            text: 'Allocation in Union Budget 2022-23 (BE)',
-            value: `₹ ${stateData['Total Expenditure']} Cr.`,
-          },
-          {
-            text: 'Scheme Specific Indicator (Name-1)',
-            value: `₹ ${stateData['Fiscal Deficit']} Cr.`,
-          },
-          {
-            text: 'Scheme Specific Indicator (Name-2)',
-            value: `₹ ${stateData['GSDP']} Cr.`,
-          },
-        ],
+        summaryTitle: 'Scheme Highlights',
+        summaryCards: schemeData
+          ? [
+              {
+                text: 'Year of Launch',
+                value: schemeData['Year of Launch'],
+              },
+              {
+                text: 'B.E. 2022-23 (Union Budget)',
+                value: `₹ ${schemeData['B.E. 2022-23 (Union Budget)']}`,
+              },
+              {
+                text: schemeData['Scheme Specific Indicator (Name)'],
+                value: `₹ ${schemeData['Scheme Specific Indicator (Value)']}`,
+              },
+              {
+                text: schemeData['Scheme Specific Indicator (Name)_1'],
+                value: `₹ ${schemeData['Scheme Specific Indicator (Value)_1']}`,
+              },
+            ]
+          : [],
       },
     ],
   };
 
   const TabbedRef = useRef(null);
 
+  async function FetchSchemeData() {
+    const schemeDataRes: any = await stateDataFetch('Scheme Info');
+    const currentScheme = schemeDataRes[0].find(
+      (o: { slug: string }) => o.slug.toLowerCase() == scheme.toLowerCase()
+    );
+    setSchemeData(currentScheme);
+  }
+
   useEffect(() => {
     // ceating tabbed interface for viz selector
     const tablist = TabbedRef.current.querySelector('ul');
     const panels = TabbedRef.current.querySelectorAll('section');
     tabbedInterface(tablist, panels);
-  });
+
+    FetchSchemeData();
+  }, []);
+
   return (
     <>
       <Wrapper ref={TabbedRef}>
@@ -94,16 +111,20 @@ const ExplorerHeader = ({ stateData, schemeDesc }) => {
               <p>{item.content}</p>
               <Summary>
                 <div>
-                  <h2>State Budget 2022-23 Highlights</h2>
+                  <h2>{item.summaryTitle}</h2>
                 </div>
                 <ul>
-                  {item.summaryCards.map((item, index) => (
-                    <li key={`summary-${index}`}>
-                      <div></div>
-                      <strong>{item.value}</strong>
-                      <span>{item.text}</span>
-                    </li>
-                  ))}
+                  {item.summaryCards.map((item, index) =>
+                    item.text ? (
+                      <li key={`summary-${index}`}>
+                        <div></div>
+                        <strong>{item.value}</strong>
+                        <span>{item.text}</span>
+                      </li>
+                    ) : (
+                      <></>
+                    )
+                  )}
                 </ul>
               </Summary>
             </section>
