@@ -20,16 +20,18 @@ const Source: React.FC<{
         <p>{source}</p>
       </SourceText>
 
-      <SourceButtons>
-        <Share buttonSize="sm" title="share viz" />
-        {typeof window !== 'undefined' && (
-          <DownloadViz
-            tableData={tableData ? tableData : {}}
-            viz={currentViz}
-            meta={meta}
-          />
-        )}
-      </SourceButtons>
+      {meta.sabha !== 'editorial-notes' && (
+        <SourceButtons data-html2canvas-ignore>
+          <Share buttonSize="sm" title="share viz" />
+          {typeof window !== 'undefined' && (
+            <DownloadViz
+              tableData={tableData ? tableData : {}}
+              viz={currentViz}
+              meta={meta}
+            />
+          )}
+        </SourceButtons>
+      )}
     </ExplorerSource>
   );
 };
