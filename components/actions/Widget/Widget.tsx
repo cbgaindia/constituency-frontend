@@ -56,6 +56,7 @@ const Widget = ({
   icon,
   children,
   closeWidget = false,
+  ...props
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const activatorRef = useRef(null);
@@ -104,7 +105,7 @@ const Widget = ({
   }, [isOpen]);
 
   return (
-    <WidgetComp onKeyUp={wrapKeyHandler}>
+    <WidgetComp onKeyUp={wrapKeyHandler} {...props}>
       <Button
         kind={buttonStyle}
         size={buttonSize}
