@@ -106,8 +106,8 @@ const ExplorerDetailsViz = ({ meta, dispatch }) => {
           schemeData={schemeData}
         />
 
-        <VizWrapper>
-          <VizHeader>
+        <VizWrapper id="reportViz">
+          <VizHeader data-html2canvas-ignore>
             <HeaderTitle>
               {meta.vizType == 'report' && <Info fill="#1D7548" />}
               <p>{vizHeading}</p>
@@ -122,21 +122,33 @@ const ExplorerDetailsViz = ({ meta, dispatch }) => {
             )}
           </VizHeader>
 
-          <VizGraph className="viz__graph" id="reportViz">
+          <VizGraph className="viz__graph">
             {meta.vizType == 'report' ? (
               barData.length && (
-                <GroupBarChart
-                  yAxisLabel={`Value (in ${meta.unit})`}
-                  xAxisLabel="Constituency"
-                  theme={['#4965B2', '#ED8686', '#69BC99']}
-                  dataset={barData}
-                  stack={false}
-                  Title=""
-                  subTitle=""
-                  left="60vw"
-                  type="bar"
-                  smooth={true}
-                />
+                <>
+                  <Title>
+                    {`${
+                      schemeData.metadata?.name
+                    } \u00A0.\u00A0 ${meta.indicator.replaceAll(
+                      '-',
+                      ' '
+                    )} \u00A0.\u00A0 ${meta.constituency.toLowerCase()} (${
+                      meta.state
+                    })`}
+                  </Title>
+                  <GroupBarChart
+                    yAxisLabel={`Value (in ${meta.unit})`}
+                    xAxisLabel="Constituency"
+                    theme={['#4965B2', '#ED8686', '#69BC99']}
+                    dataset={barData}
+                    stack={false}
+                    Title=""
+                    subTitle=""
+                    left="60vw"
+                    type="bar"
+                    smooth={true}
+                  />
+                </>
               )
             ) : !compareItem.state ? (
               <NoCompareItem>
@@ -151,18 +163,32 @@ const ExplorerDetailsViz = ({ meta, dispatch }) => {
               </NoCompareItem>
             ) : (
               stackedBar.length && (
-                <GroupBarChart
-                  yAxisLabel={`Value (in ${meta.unit})`}
-                  xAxisLabel="Constituencies"
-                  theme={['#4965B2', '#ED8686', '#69BC99']}
-                  dataset={stackedBar}
-                  stack={false}
-                  Title=""
-                  subTitle=""
-                  left="60vw"
-                  type="bar"
-                  smooth={true}
-                />
+                <>
+                  <Title>
+                    {`${
+                      schemeData.metadata?.name
+                    } \u00A0.\u00A0 ${meta.indicator.replaceAll(
+                      '-',
+                      ' '
+                    )} \u00A0.\u00A0 ${meta.constituency.toLowerCase()} (${
+                      meta.state
+                    })\u00A0 V/S \u00A0${compareItem.cons.toLowerCase()} (${
+                      compareItem.state
+                    })`}
+                  </Title>{' '}
+                  <GroupBarChart
+                    yAxisLabel={`Value (in ${meta.unit})`}
+                    xAxisLabel="Constituencies"
+                    theme={['#4965B2', '#ED8686', '#69BC99']}
+                    dataset={stackedBar}
+                    stack={false}
+                    Title=""
+                    subTitle=""
+                    left="60vw"
+                    type="bar"
+                    smooth={true}
+                  />
+                </>
               )
             )}
           </VizGraph>
@@ -238,10 +264,14 @@ const HeaderTitle = styled.div`
 
 export const VizGraph = styled.div`
   margin: 0 2rem 2rem;
-  height: 500px;
+  height: 550px;
   overflow-y: auto;
   overflow-x: auto;
   position: relative;
+
+  @media (max-width: 620px) {
+    height: 580px;
+  }
 
   #infoSvg path {
     transform: scale(5);
@@ -267,5 +297,21 @@ const NoCompareItem = styled.div`
 
   span {
     text-transform: capitalize;
+  }
+`;
+
+const Title = styled.div`
+  border-radius: 2px;
+  background-color: var(--color-background-light);
+  margin-bottom: 8px;
+
+  font-weight: 600;
+  font-size: 0.75rem;
+  line-height: 1.7;
+  padding: 8px 16px;
+  text-transform: capitalize;
+
+  @media (max-width: 480px) {
+    padding: 6px 12px;
   }
 `;
