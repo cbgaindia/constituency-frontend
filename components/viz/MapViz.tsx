@@ -6,7 +6,7 @@ import {
   GeoComponent,
 } from 'echarts/components';
 import { MapChart } from 'echarts/charts';
-import { CanvasRenderer } from 'echarts/renderers';
+import { SVGRenderer } from 'echarts/renderers';
 import ReactEChartsCore from 'echarts-for-react/lib/core';
 
 const MapViz = ({ meta, mapFile, data, newMapItem, vizIndicators }) => {
@@ -95,7 +95,7 @@ const MapViz = ({ meta, mapFile, data, newMapItem, vizIndicators }) => {
     VisualMapComponent,
     GeoComponent,
     MapChart,
-    CanvasRenderer,
+    SVGRenderer,
   ]);
 
   return (
