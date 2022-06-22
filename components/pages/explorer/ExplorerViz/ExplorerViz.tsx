@@ -208,13 +208,13 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
               />
             )}
 
-            <VizWrapper>
+            <VizWrapper id="mapViewContainer">
               <VizContainer
                 className={
                   sabha === 'editorial-notes' ? 'inactive-viz' : undefined
                 }
               >
-                <VizHeader>
+                <VizHeader data-html2canvas-ignore>
                   <VizTabs className="viz__tabs">
                     {vizToggle.map((item, index) => (
                       <li key={`toggleItem-${index}`}>
@@ -241,38 +241,37 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
                   )}
                 </VizHeader>
 
-                <div id="mapViewContainer">
-                  <Title>
-                    {`${schemeData.metadata?.name} . ${meta.indicator.replace(
-                      '-',
-                      ' '
-                    )} ${
-                      currentViz !== '#tableView' ? `(${meta.year})` : ''
-                    } . ${meta.state}`}
+                <Title>
+                  {`${schemeData.metadata?.name} . ${meta.indicator.replace(
+                    '-',
+                    ' '
+                  )} ${
+                    currentViz !== '#tableView' ? `(${meta.year})` : ''
+                  } . ${meta.state}`}
+                </Title>
+
+                {vizItems.map((item, index) => (
+                  <VizGraph
+                    className="viz__graph"
+                    key={`vizItem-${index}`}
+                    id={item.id}
+                  >
+                    {item.graph}
+                  </VizGraph>
+                ))}
+
+                {currentViz !== '#tableView' && (
+                  <Title id="mapVizInfo" data-html2canvas-ignore>
+                    <Info fill="#D7AA3B" /> Select any constituency to do the
+                    comparision and report card generation.
                   </Title>
-
-                  {vizItems.map((item, index) => (
-                    <VizGraph
-                      className="viz__graph"
-                      key={`vizItem-${index}`}
-                      id={item.id}
-                    >
-                      {item.graph}
-                    </VizGraph>
-                  ))}
-
-                  {currentViz !== '#tableView' && (
-                    <Title id="mapVizInfo" data-html2canvas-ignore>
-                      <Info fill="#D7AA3B" /> Select any constituency to do the
-                      comparision and report card generation.
-                    </Title>
-                  )}
-                </div>
+                )}
               </VizContainer>
               <SchemeNotes
                 className={
                   sabha !== 'editorial-notes' ? 'inactive-viz' : undefined
                 }
+                data-html2canvas-ignore
               >
                 <p>{schemeData.metadata?.description}</p>
                 <div>
@@ -296,6 +295,7 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
                   scheme,
                   state,
                   indicator: indicator ? indicator : 'Opening Balance',
+                  sabha,
                 }}
                 tableData={tableData}
                 source={schemeData.metadata?.source}
