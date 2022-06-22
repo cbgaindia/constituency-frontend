@@ -419,7 +419,7 @@ export const VizGraph = styled.div`
   }
 
   @media (max-width: 480px) {
-    margin: 0 4px 2rem;
+    margin: 0 4px 32px;
   }
 `;
 
@@ -486,5 +486,18 @@ const Title = styled.div`
     display: flex;
     align-items: center;
     gap: 6px;
+
+    svg {
+      min-width: 24px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    margin-inline: 4px;
+    padding: 6px 12px;
+
+    &#mapVizInfo {
+      margin-inline: 4px;
+    }
   }
 `;
