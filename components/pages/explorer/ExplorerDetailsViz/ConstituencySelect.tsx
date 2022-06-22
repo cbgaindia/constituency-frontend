@@ -57,7 +57,7 @@ const ConstituencySelect = ({
 
   const selectorRef = useRef(null);
   return (
-    <Wrapper id="compareSelector" className="fill">
+    <Wrapper id="compareSelector">
       {currentItem.cons && (
         <Button onClick={() => newCompare()}  icon={<Cross />} iconOnly={true} kind="custom">
           remove selected constituency
@@ -75,6 +75,7 @@ const ConstituencySelect = ({
         buttonStyle="custom"
         buttonClass={currentItem.cons ? 'selected' : undefined}
         closeWidget={closeWidget}
+        className="fill"
       >
         <ConsList>
           <input
@@ -126,6 +127,7 @@ export default ConstituencySelect;
 
 const Wrapper = styled.div`
   position: relative;
+  flex-grow: 1;
 
   > div button {
     font-weight: 600;
