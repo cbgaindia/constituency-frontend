@@ -23,32 +23,49 @@ const ExplorerHeader = ({ stateData, schemeDesc }) => {
       {
         id: 'state-overflow',
         content: stateData.Description,
+        summaryCards: [
+          {
+            text: 'Total Receipts',
+            value: `₹ ${stateData['Total Receipts']} Cr.`,
+          },
+          {
+            text: 'Total Expenditure',
+            value: `₹ ${stateData['Total Expenditure']} Cr.`,
+          },
+          {
+            text: 'Fiscal Deficit',
+            value: `₹ ${stateData['Fiscal Deficit']} Cr.`,
+          },
+          {
+            text: 'GSDP (in current prices)',
+            value: `₹ ${stateData['GSDP']} Cr.`,
+          },
+        ],
       },
       {
         id: 'scheme-overflow',
         content: schemeDesc,
+        summaryCards: [
+          {
+            text: 'Year of Launch',
+            value: `₹ ${stateData['Total Receipts']}`,
+          },
+          {
+            text: 'Allocation in Union Budget 2022-23 (BE)',
+            value: `₹ ${stateData['Total Expenditure']} Cr.`,
+          },
+          {
+            text: 'Scheme Specific Indicator (Name-1)',
+            value: `₹ ${stateData['Fiscal Deficit']} Cr.`,
+          },
+          {
+            text: 'Scheme Specific Indicator (Name-2)',
+            value: `₹ ${stateData['GSDP']} Cr.`,
+          },
+        ],
       },
     ],
   };
-
-  const summaryCards = [
-    {
-      text: 'Total Receipts',
-      value: `₹ ${stateData['Total Receipts']} Cr.`,
-    },
-    {
-      text: 'Total Expenditure',
-      value: `₹ ${stateData['Total Expenditure']} Cr.`,
-    },
-    {
-      text: 'Fiscal Deficit',
-      value: `₹ ${stateData['Fiscal Deficit']} Cr.`,
-    },
-    {
-      text: 'GSDP (in current prices)',
-      value: `₹ ${stateData['GSDP']} Cr.`,
-    },
-  ];
 
   const TabbedRef = useRef(null);
 
@@ -75,24 +92,23 @@ const ExplorerHeader = ({ stateData, schemeDesc }) => {
           {data.items.map((item) => (
             <section key={item.id} id={item.id}>
               <p>{item.content}</p>
+              <Summary>
+                <div>
+                  <h2>State Budget 2022-23 Highlights</h2>
+                </div>
+                <ul>
+                  {item.summaryCards.map((item, index) => (
+                    <li key={`summary-${index}`}>
+                      <div></div>
+                      <strong>{item.value}</strong>
+                      <span>{item.text}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Summary>
             </section>
           ))}
         </Sections>
-
-        <Summary>
-          <div>
-            <h2>State Budget 2022-23 Highlights</h2>
-          </div>
-          <ul>
-            {summaryCards.map((item, index) => (
-              <li key={`summary-${index}`}>
-                <div></div>
-                <strong>{item.value}</strong>
-                <span>{item.text}</span>
-              </li>
-            ))}
-          </ul>
-        </Summary>
       </Wrapper>
     </>
   );
