@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { saveAs } from 'file-saver';
 import { Download } from 'components/icons';
 import { Button } from 'components/actions';
@@ -64,14 +64,20 @@ function createDummyCanvas(srcCanvas) {
   destCtx.drawImage(srcCanvas, 0, 0);
 
   //finally use the destinationCanvas.toDataURL() method to get the desired output;
-  return destinationCanvas.toDataURL('image/jpeg', 0.8);
+  return destinationCanvas.toDataURL('image/jpeg', 2);
 }
 
 const DownloadViz = ({ viz, meta, tableData }) => {
+  let watermarkSSR;
+  useEffect(() => {
+    import('watermarkjs').then((x) => (watermarkSSR = x.default));
+  }, [viz, meta]);
   function svg2img(canvasElm) {
     const myChart = createDummyCanvas(canvasElm);
 
-    saveAs(myChart, `${fileName(meta)}.png`.toLowerCase());
+    watermarkSSR([myChart, '/assets/images/obi.png'])
+      .image(watermarkSSR.image.lowerRight(0.5))
+      .then((img) => saveAs(img.src, `${fileName(meta)}.jpeg`.toLowerCase()));
   }
 
   function downloadSelector(viz) {
@@ -79,17 +85,20 @@ const DownloadViz = ({ viz, meta, tableData }) => {
       export_table_to_csv(tableData, `${fileName(meta)}.csv`.toLowerCase());
     else {
       const vizID = viz === '#reportViz' ? '#reportViz' : '#mapViewContainer';
-      import('html2canvas')
-        .then((html2canvas) => {
-          html2canvas
-            .default(document.querySelector(vizID), {
-              scale: 2,
-            })
-            .then((canvasElm) => svg2img(canvasElm));
-        })
-        .catch((e) => {
-          console.log('load failed');
-        });
+
+      if (typeof window !== 'undefined') {
+        import('html2canvas')
+          .then((html2canvas) => {
+            html2canvas
+              .default(document.querySelector(vizID), {
+                scale: 2,
+              })
+              .then((canvasElm) => svg2img(canvasElm));
+          })
+          .catch((e) => {
+            console.log('load failed');
+          });
+      }
     }
   }
 

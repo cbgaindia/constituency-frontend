@@ -44,7 +44,6 @@ const ExplorerSource = styled.div`
   flex-wrap: wrap;
   align-items: flex-start;
   gap: 2rem;
-  justify-content: flex-end;
   align-items: flex-start;
   padding: 1rem 0;
   margin: 0 1.5rem;
@@ -55,6 +54,7 @@ const SourceText = styled.div`
   flex-grow: 1;
   font-size: 14px;
   flex-basis: 60%;
+  max-width: 80%;
 
   p {
     color: var(--text-light-medium);
