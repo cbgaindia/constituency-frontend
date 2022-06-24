@@ -86,7 +86,7 @@ const SchemeSelector: React.FC<{
   }, []);
 
   useEffectOnChange(() => {
-    const tempSchemes = handleStateChange();    
+    const tempSchemes = handleStateChange();
     setSelectedScheme(tempSchemes);
   }, [selectedState, stateData]);
 
@@ -256,6 +256,9 @@ const HeaderToggle = styled.div`
 
     svg {
       fill: var(--color-grey-300);
+      max-width: 40px;
+      max-height: 40px;
+      transform: scale(.8);
     }
 
     &[aria-pressed='true'] {
