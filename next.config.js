@@ -6,7 +6,9 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 const nextConfig = {
   compiler: {
-    styledComponents: true,
+    styledComponents: {
+      displayName: true,
+    },
     esmExternals: false,
   },
   async redirects() {
@@ -16,7 +18,7 @@ const nextConfig = {
         destination: '/',
         permanent: true,
       },
-    ]
+    ];
   },
 };
 
