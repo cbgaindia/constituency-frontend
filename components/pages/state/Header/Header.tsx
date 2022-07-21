@@ -75,9 +75,6 @@ const Header = ({ data }) => {
           <p>{data.Description}</p>
         </Main>
         <Summary>
-          <div>
-            <h2>Budget 2022-23 Highlights</h2>
-          </div>
           <ul>
             {summaryCards.map((item, index) => (
               <li key={`summary-${index}`}>

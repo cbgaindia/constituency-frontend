@@ -28,20 +28,20 @@ const ExplorerHeader = ({ stateData, schemeDesc, scheme }) => {
         summaryTitle: 'State Budget 2022-23 Highlights',
         summaryCards: [
           {
-            text: 'Total Receipts',
-            value: `₹ ${stateData['Total Receipts']} Cr.`,
+            text: 'Parliamentary Constituencies',
+            value: `${stateData['Parliamentary Constituencies']}`,
           },
           {
-            text: 'Total Expenditure',
-            value: `₹ ${stateData['Total Expenditure']} Cr.`,
+            text: 'Assembly Constituencies',
+            value: `${stateData['Assembly Constituencies']}`,
           },
           {
-            text: 'Fiscal Deficit',
-            value: `₹ ${stateData['Fiscal Deficit']} Cr.`,
+            text: 'Population (July 2022) (In Cr.)',
+            value: `${stateData['Population (July 2022) (In Cr.)']}`,
           },
           {
-            text: 'GSDP (in current prices)',
-            value: `₹ ${stateData['GSDP']} Cr.`,
+            text: 'Area (In Square KM.)',
+            value: `${stateData['Area (In Square KM.)']}`,
           },
         ],
       },
@@ -110,9 +110,9 @@ const ExplorerHeader = ({ stateData, schemeDesc, scheme }) => {
             <section key={item.id} id={item.id}>
               <p>{item.content}</p>
               <Summary>
-                <div>
+                {/* <div>
                   <h2>{item.summaryTitle}</h2>
-                </div>
+                </div> */}
                 <ul>
                   {item.summaryCards.map((item, index) =>
                     item.text ? (
