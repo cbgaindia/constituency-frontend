@@ -5,20 +5,20 @@ import styled from 'styled-components';
 const Header = ({ data }) => {
   const summaryCards = [
     {
-      text: 'Total Receipts',
-      value: `₹ ${data['Total Receipts']} Cr.`,
+      text: 'Parliamentary Constituencies',
+      value: `${data['Parliamentary Constituencies']}`,
     },
     {
-      text: 'Total Expenditure',
-      value: `₹ ${data['Total Expenditure']} Cr.`,
+      text: 'Assembly Constituencies',
+      value: `${data['Assembly Constituencies']}`,
     },
     {
-      text: 'Fiscal Deficit',
-      value: `₹ ${data['Fiscal Deficit']} Cr.`,
+      text: 'Population (July 2022) (In Cr.)',
+      value: `${data['Population (July 2022) (In Cr.)']}`,
     },
     {
-      text: 'GSDP (in current prices)',
-      value: `₹ ${data['GSDP']} Cr.`,
+      text: 'Area (In Square KM.)',
+      value: `${data['Area (In Square KM.)']}`,
     },
   ];
 
@@ -38,22 +38,30 @@ const Header = ({ data }) => {
         <CardContent>
           <div>
             <p>
-              Lok Sabha:
-              <span>{data['Lok Sabha']}</span>
+              GSDP (In Current Prices):
+              <span>
+                {data['GSDP (In Current Prices) (In Cr.)'].toFixed(2)} Cr.
+              </span>
             </p>
             <p>
-              Vidhan Sabha:
-              <span>{data['Vidhan Sabha']}</span>
+              Total Expenditure:
+              <span>{data['Total Expenditure (In Cr.)'].toFixed(2)} Cr.</span>
             </p>
           </div>
           <p>
-            Population (2011):
-            <span>{data['Population (2011)']} Cr</span>
+            Total Revenue Receipts from Own Sources:
+            <span>
+              {data[
+                'Total Revenue Receipts from Own Sources (In Cr.)'
+              ].toFixed(2)}{' '}
+              Cr
+            </span>
           </p>
           <p>
-            Area:
+            Total Revenue Received from Centre:
             <span>
-              {data.Area} km<sup>2</sup>
+              {data['Total Revenue Received from Centre (In Cr.)'].toFixed(2)}{' '}
+              Cr.
             </span>
           </p>
         </CardContent>
@@ -141,10 +149,15 @@ const CardContent = styled.div`
     flex-wrap: wrap;
     font-size: 0.75rem;
     line-height: 2;
+
+    display: grid;
+    grid-template-columns: auto 100px;
+    align-items: center;
   }
 
   span {
     font-weight: 600;
+    justify-self: flex-end;
   }
 `;
 
