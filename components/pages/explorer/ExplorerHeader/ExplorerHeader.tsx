@@ -10,41 +10,18 @@ const ExplorerHeader = ({ stateData, schemeDesc, scheme }) => {
   const data = {
     tabs: [
       {
-        id: 'state-overflow',
-        text: 'State Overview',
-        icon: <Drop />,
-      },
-      {
         id: 'scheme-overflow',
         text: 'Scheme Overview',
         icon: <Document />,
       },
+      {
+        id: 'state-overflow',
+        text: 'State Overview',
+        icon: <Drop />,
+      },
     ],
 
     items: [
-      {
-        id: 'state-overflow',
-        content: stateData.Description,
-        summaryTitle: 'State Budget 2022-23 Highlights',
-        summaryCards: [
-          {
-            text: 'Parliamentary Constituencies',
-            value: `${stateData['Parliamentary Constituencies']}`,
-          },
-          {
-            text: 'Assembly Constituencies',
-            value: `${stateData['Assembly Constituencies']}`,
-          },
-          {
-            text: 'Population (July 2022) (In Cr.)',
-            value: `${stateData['Population (July 2022) (In Cr.)']}`,
-          },
-          {
-            text: 'Area (In Square KM.)',
-            value: `${stateData['Area (In Square KM.)']}`,
-          },
-        ],
-      },
       {
         id: 'scheme-overflow',
         content: schemeDesc,
@@ -69,6 +46,29 @@ const ExplorerHeader = ({ stateData, schemeDesc, scheme }) => {
               },
             ]
           : [],
+      },
+      {
+        id: 'state-overflow',
+        content: stateData.Description,
+        summaryTitle: 'State Budget 2022-23 Highlights',
+        summaryCards: [
+          {
+            text: 'Parliamentary Constituencies',
+            value: `${stateData['Parliamentary Constituencies']}`,
+          },
+          {
+            text: 'Assembly Constituencies',
+            value: `${stateData['Assembly Constituencies']}`,
+          },
+          {
+            text: 'Population (July 2022) (In Cr.)',
+            value: `${stateData['Population (July 2022) (In Cr.)']}`,
+          },
+          {
+            text: 'Area (In Square KM.)',
+            value: `${stateData['Area (In Square KM.)']}`,
+          },
+        ],
       },
     ],
   };
