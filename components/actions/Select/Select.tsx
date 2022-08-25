@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { v4 as uuidv4 } from 'uuid';
 interface Props {
   /**
    * Options to display in the select
@@ -21,25 +20,27 @@ interface Props {
   handleChange: (event: string) => void;
 }
 
-const selectID = uuidv4();
+const Select = ({ heading, options, handleChange }: Props) => {
+  const selectID = React.useId();
 
-const Select = ({ heading, options, handleChange }: Props) => (
-  <SelectComp className="select">
-    {heading && (
-      <SelectLabel id={selectID}>{heading}&nbsp;&nbsp;</SelectLabel>
-    )}
-    <NativeSelect
-      aria-labelledby={selectID}
-      onChange={(e) => handleChange(e.target.value)}
-    >
-      {options.map((option: any, index: any) => (
-        <option value={option.value} key={`selectNative-${index}`}>
-          {option.title}
-        </option>
-      ))}
-    </NativeSelect>
-  </SelectComp>
-);
+  return (
+    <SelectComp className="select">
+      {heading && (
+        <SelectLabel id={selectID}>{heading}&nbsp;&nbsp;</SelectLabel>
+      )}
+      <NativeSelect
+        aria-labelledby={selectID}
+        onChange={(e) => handleChange(e.target.value)}
+      >
+        {options.map((option: any, index: any) => (
+          <option value={option.value} key={`selectNative-${index}`}>
+            {option.title}
+          </option>
+        ))}
+      </NativeSelect>
+    </SelectComp>
+  );
+};
 
 export default Select;
 

@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import React, { useEffect, useRef, useState, useId } from 'react';
 import {
   MenuButton,
   MenuContent,
@@ -49,9 +48,6 @@ interface Props {
   handleChange: (event: string) => void;
 }
 
-const MenuContentID = uuidv4();
-const menuLabelID = uuidv4();
-
 const Menu = ({
   options,
   heading = 'Open Menu',
@@ -65,6 +61,9 @@ const Menu = ({
   const [isOpen, setIsOpen] = useState(false);
   const MenuButtonRef = useRef(null);
   const MenuContainerRef = useRef(null);
+
+  const MenuContentID = useId();
+  const menuLabelID = useId();
 
   const clickOutsideHandler = (event) => {
     if (

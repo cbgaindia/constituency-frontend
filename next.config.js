@@ -7,6 +7,9 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 const nextConfig = {
   swcMinify: true,
+  compiler: {
+    styledComponents: true,
+  },
   async redirects() {
     return [
       {
@@ -25,5 +28,3 @@ module.exports = buildConfig = (_phase) => {
   });
   return config;
 };
-
-// module.exports = withPlugins([withTM, withBundleAnalyzer], nextConfig);

@@ -1,5 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import React, { useState, useRef, useEffect, useId } from 'react';
 import { Button } from 'components/actions';
 import styled from 'styled-components';
 import ButtonComp from '../Button/ButtonComp';
@@ -45,8 +44,6 @@ interface Props extends React.HTMLAttributes<HTMLElement> {
     | 'secondary-outline'
     | 'custom';
 }
-const widgetID = uuidv4();
-
 const Widget = ({
   buttonContent,
   title = 'widget',
@@ -61,6 +58,7 @@ const Widget = ({
   const [isOpen, setIsOpen] = useState(false);
   const activatorRef = useRef(null);
   const dropdownListRef = useRef(null);
+  const widgetID = useId();
 
   const wrapKeyHandler = (event) => {
     if (event.key === 'Escape' && isOpen) {
