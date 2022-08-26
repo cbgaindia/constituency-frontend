@@ -1,10 +1,11 @@
 import React from 'react';
 import { GetStaticProps } from 'next';
-import { stateSchemeFetch } from 'utils/fetch';
+import { dataTransform, stateSchemeFetch } from 'utils/fetch';
 import { HomeAbout, HomeHeader, HomeStates } from 'components/pages/home';
 import { Seo } from 'components/common';
+// import { Button } from '@opub-cdl/design-system';
 
-export default function Home({ stateData }) {
+export default function Home({ schemeData, stateScheme }) {
   const seo = {
     title: 'Welcome - Constituency Dashboard',
     description:
@@ -15,10 +16,10 @@ export default function Home({ stateData }) {
     <>
       <Seo seo={seo} />
       <main>
-        <HomeHeader stateData={stateData} />
+        <HomeHeader stateScheme={stateScheme} schemeData={schemeData} />
+        <HomeStates />
         <HomeAbout />
         {/* <HomeHighlight /> */}
-        <HomeStates />
         {/* <HomeQuiz /> */}
       </main>
     </>
@@ -26,11 +27,15 @@ export default function Home({ stateData }) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const stateData = await stateSchemeFetch();
+  const [schemeData, stateScheme] = await Promise.all([
+    dataTransform('mgnrega'),
+    stateSchemeFetch(),
+  ]);
 
   return {
     props: {
-      stateData,
+      schemeData,
+      stateScheme,
     },
   };
 };

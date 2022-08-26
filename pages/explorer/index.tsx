@@ -4,11 +4,6 @@ import dynamic from 'next/dynamic';
 import styled from 'styled-components';
 
 import { ExplorerHeader } from 'components/pages/explorer';
-import SchemeSelector from 'components/pages/shared/SchemeSelector';
-import {
-  HeaderControls,
-  SchemesMenu,
-} from 'components/pages/shared/SchemeSelector/SchemeSelector';
 import { dataTransform, stateDataFetch, stateSchemeFetch } from 'utils/fetch';
 import { Info } from 'components/icons';
 
@@ -32,14 +27,6 @@ const ExplorerDetailsViz = dynamic(
   }
 );
 
-type Props = {
-  data: any;
-  stateData: any;
-  scheme: any;
-  stateScheme: any;
-  constDesc: any;
-};
-
 function verifyState(state) {
   if (
     [
@@ -57,6 +44,14 @@ function verifyState(state) {
 
 const reducer = (state, action) => {
   return { ...state, ...action };
+};
+
+type Props = {
+  data: any;
+  stateData: any;
+  scheme: any;
+  stateScheme: any;
+  constDesc: any;
 };
 
 const Explorer: React.FC<Props> = ({
@@ -93,13 +88,13 @@ const Explorer: React.FC<Props> = ({
       <Seo seo={seo} />
       <Wrapper>
         <div className="container">
-          <SchemeSelector
+          {/* <SchemeSelector
             suggestion={false}
             sabha={false}
             state={data.state}
             scheme={data.scheme}
             stateData={stateScheme}
-          />
+          /> */}
           <ExplorerHeader
             stateData={state.headerData}
             schemeDesc={scheme[Object.keys(scheme)[0]].metadata['description']}
@@ -177,15 +172,6 @@ const Wrapper = styled.main`
     margin-bottom: 0.5rem;
     font-weight: 900;
     font-size: 2.5rem;
-  }
-
-  ${HeaderControls} {
-    margin-top: 40px;
-    padding: 16px;
-  }
-
-  ${SchemesMenu} {
-    margin-top: 0;
   }
 `;
 

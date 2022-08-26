@@ -23,12 +23,19 @@ function handleSearch(query, obj) {
   } else return obj;
 }
 
+type Props = {
+  newCompare?: any;
+  currentItem?: any;
+  fallBack: string;
+  allStates: any;
+};
+
 const ConstituencySelect = ({
   newCompare,
   currentItem,
   fallBack,
   allStates,
-}) => {
+}: Props) => {
   const [states, setStates] = useState({});
   const [closeWidget, setCloseWidget] = useState(false);
 
@@ -58,22 +65,23 @@ const ConstituencySelect = ({
   const selectorRef = useRef(null);
   return (
     <Wrapper id="compareSelector">
-      {currentItem.cons && (
-        <Button onClick={() => newCompare()}  icon={<Cross />} iconOnly={true} kind="custom">
+      {currentItem && (
+        <Button
+          onClick={() => newCompare()}
+          icon={<Cross />}
+          iconOnly={true}
+          kind="custom"
+        >
           remove selected constituency
         </Button>
       )}
 
       <Widget
         icon={<ArrowDown />}
-        buttonContent={
-          currentItem.cons
-            ? `${currentItem.cons} (${currentItem.state})`
-            : fallBack
-        }
+        buttonContent={currentItem ? currentItem : fallBack}
         title="constituency menu"
         buttonStyle="custom"
-        buttonClass={currentItem.cons ? 'selected' : undefined}
+        buttonClass={currentItem ? 'selected' : undefined}
         closeWidget={closeWidget}
         className="fill"
       >
@@ -100,19 +108,20 @@ const ConstituencySelect = ({
                     </div>
                   </Button>
                   <ul hidden>
-                    {states[item].map((cons, index1) => (
-                      <li key={`cons-${index1}`}>
-                        <Button
-                          onClick={handleNewCompare}
-                          kind="custom"
-                          data-state={item}
-                          data-code={cons.constCode}
-                          id={cons.constName}
-                        >
-                          {cons.constName}
-                        </Button>
-                      </li>
-                    ))}
+                    {states[item] &&
+                      states[item].map((cons, index1) => (
+                        <li key={`cons-${index1}`}>
+                          <Button
+                            onClick={handleNewCompare}
+                            kind="custom"
+                            data-state={item}
+                            data-code={cons.constCode}
+                            id={cons.constName}
+                          >
+                            {cons.constName}
+                          </Button>
+                        </li>
+                      ))}
                   </ul>
                 </React.Fragment>
               ))}
