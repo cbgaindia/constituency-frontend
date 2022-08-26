@@ -1,5 +1,5 @@
 import React from 'react';
-import { PartnerCard, TeamCard } from 'components/pages/about';
+import { PartnerCard } from 'components/pages/about';
 import { HeaderWrapper } from 'components/layouts/Header';
 import styled from 'styled-components';
 import { Seo } from 'components/common';

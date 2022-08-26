@@ -140,7 +140,7 @@ const Wrapper = styled.div`
 
   > div button {
     font-weight: 600;
-    padding: 8px 8px 8px 12px;
+    padding: 11px;
     border: var(--border-1);
     border-radius: 2px;
     justify-content: space-between;

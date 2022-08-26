@@ -103,7 +103,7 @@ export const HeaderControls = styled.div`
 
 export const ConsMenu = styled.div`
   display: flex;
-  align-items: center;
+  align-items: stretch;
   gap: 16px;
   margin-top: 16px;
 
