@@ -96,7 +96,7 @@ const DownloadViz = ({ viz, meta, tableData }) => {
               .then((canvasElm) => svg2img(canvasElm));
           })
           .catch((e) => {
-            console.log('load failed');
+            console.error('load failed');
           });
       }
     }

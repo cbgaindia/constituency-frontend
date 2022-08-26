@@ -125,7 +125,8 @@ const ExplorerMap = ({ meta, schemeData, dispatch }) => {
       setSelectedCode(e.name);
       setSearchItems([]);
       setSearchQuery('');
-      (document.getElementById('searchInput') as HTMLInputElement).value = '';
+      (document.getElementById('mapSearchInput') as HTMLInputElement).value =
+        '';
 
       // overriding map highlight on constituency selection
       const myChart = echarts.getInstanceByDom(
@@ -155,7 +156,7 @@ const ExplorerMap = ({ meta, schemeData, dispatch }) => {
     <Wrapper>
       <SearchWrapper data-html2canvas-ignore>
         <input
-          id="searchInput"
+          id="mapSearchInput"
           type="text"
           placeholder="Search here for constituency"
           onChange={(e) => debounce(handleSearch(e.target.value, mapValues))}

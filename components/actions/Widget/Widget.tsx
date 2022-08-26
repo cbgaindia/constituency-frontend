@@ -35,6 +35,16 @@ interface Props extends React.HTMLAttributes<HTMLElement> {
   closeWidget?: boolean;
 
   /**
+   * callback function when widget is opened
+   */
+  onOpen?: () => void;
+
+  /**
+   * callback function when widget is closed
+   */
+  onClose?: () => void;
+
+  /**
    * Button style
    */
   buttonStyle?:
@@ -53,6 +63,8 @@ const Widget = ({
   icon,
   children,
   closeWidget = false,
+  onOpen,
+  onClose,
   ...props
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -76,6 +88,8 @@ const Widget = ({
   }, [closeWidget]);
 
   const clickHandler = () => {
+    if (isOpen && onClose) onClose();
+    if (!isOpen && onOpen) onOpen();
     setIsOpen(!isOpen);
   };
 

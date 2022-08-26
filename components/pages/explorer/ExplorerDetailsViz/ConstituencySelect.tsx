@@ -36,20 +36,20 @@ const ConstituencySelect = ({
   fallBack,
   allStates,
 }: Props) => {
-  const [states, setStates] = useState({});
+  const [states, setStates] = useState<any>({});
   const [closeWidget, setCloseWidget] = useState(false);
-
-  useEffect(() => {
-    document
-      .getElementById('compareSelector')
-      .addEventListener('click', () => {
-        setCloseWidget(false);
-      });
-  }, []);
 
   useEffect(() => {
     setStates(allStates);
   }, [allStates]);
+
+  function handleWidgetOpen() {
+    setCloseWidget(false);
+    const widgetSearch = document.getElementById('consSearchInput');
+    if (widgetSearch) {
+      setTimeout(() => widgetSearch.focus(), 10);
+    }
+  }
 
   function handleCompareSearch(e) {
     const val = e.target.value;
@@ -65,17 +65,6 @@ const ConstituencySelect = ({
   const selectorRef = useRef(null);
   return (
     <Wrapper id="compareSelector">
-      {currentItem && (
-        <Button
-          onClick={() => newCompare()}
-          icon={<Cross />}
-          iconOnly={true}
-          kind="custom"
-        >
-          remove selected constituency
-        </Button>
-      )}
-
       <Widget
         icon={<ArrowDown />}
         buttonContent={currentItem ? currentItem : fallBack}
@@ -84,10 +73,11 @@ const ConstituencySelect = ({
         buttonClass={currentItem ? 'selected' : undefined}
         closeWidget={closeWidget}
         className="fill"
+        onOpen={() => handleWidgetOpen()}
       >
         <ConsList>
           <input
-            id="searchInput"
+            id="consSearchInput"
             type="text"
             placeholder="Search here for constituency"
             onChange={handleCompareSearch}
@@ -108,7 +98,7 @@ const ConstituencySelect = ({
                     </div>
                   </Button>
                   <ul hidden>
-                    {states[item] &&
+                    {states[item] ? (
                       states[item].map((cons, index1) => (
                         <li key={`cons-${index1}`}>
                           <Button
@@ -121,13 +111,26 @@ const ConstituencySelect = ({
                             {cons.constName}
                           </Button>
                         </li>
-                      ))}
+                      ))
+                    ) : (
+                      <p>no constituency by this search</p>
+                    )}
                   </ul>
                 </React.Fragment>
               ))}
           </StateList>
         </ConsList>
       </Widget>
+      {currentItem && (
+        <Button
+          onClick={() => newCompare()}
+          icon={<Cross />}
+          iconOnly={true}
+          kind="custom"
+        >
+          remove selected constituency
+        </Button>
+      )}
     </Wrapper>
   );
 };
@@ -158,7 +161,7 @@ const Wrapper = styled.div`
     width: 32px;
     z-index: 100;
     padding: 0;
-    top: 5px;
+    top: 8px;
   }
 
   ${WidgetContent} {
