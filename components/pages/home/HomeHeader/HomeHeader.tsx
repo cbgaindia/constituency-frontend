@@ -2,10 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import SchemeSelector from 'components/pages/shared/SchemeSelector';
 import { HeaderControls } from 'components/pages/shared/SchemeSelector/SchemeSelector';
-import { trending } from 'data/home';
-import ConstituencySelect from 'components/pages/explorer/ExplorerDetailsViz/ConstituencySelect';
 
-const HomeHeader = ({ stateScheme, schemeData }) => {
+const HomeHeader = ({ schemeData }) => {
   return (
     <Header>
       <div className="container">

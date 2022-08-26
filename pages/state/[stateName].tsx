@@ -1,45 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
-import styled from 'styled-components';
 
 import Header from 'components/pages/state/Header';
-import SchemeList from 'components/pages/state/SchemeList';
-import { Button } from 'components/actions';
-import { Banner } from 'components/layouts';
-import { stateDataFetch, stateSchemeFetch } from 'utils/fetch';
+import { dataTransform, stateDataFetch } from 'utils/fetch';
 import { Seo } from 'components/common';
+import StateList from 'components/pages/state/StateList';
+import { getParameterCaseInsensitive } from 'utils/helper';
 
 type Props = {
-  stateScheme: any;
-  stateData: any;
   query: any;
+  schemeData: any;
+  stateData: any;
 };
 
-const Datasets: React.FC<Props> = ({ query, stateScheme, stateData }) => {
+const Datasets: React.FC<Props> = ({ query, schemeData, stateData }) => {
   const [currentState, setCurrentState] = useState<any>();
+  // const [currentSabha, setCurrentSabha] = useState<any>('lok');
+  const [currentLokCons, setCurrentLokCons] = useState<any>([]);
+  const [currentVidhanCons, setCurrentVidhanCons] = useState<any>([]);
   const state = query.stateName
     .toLowerCase()
     .replace(/\b\w/g, (c) => c.toUpperCase());
 
   useEffect(() => {
+    // get constituencies of current state
+    const ac = getParameterCaseInsensitive(
+      schemeData?.ac.metadata.consList,
+      state
+    );
+    const pc = getParameterCaseInsensitive(
+      schemeData?.pc.metadata.consList,
+      state
+    );
+
+    setCurrentVidhanCons(ac);
+    setCurrentLokCons(pc);
+  }, [schemeData]);
+
+  useEffect(() => {
+    // get meta data of current state
     setCurrentState(
       stateData.find((o) => o.State.toLowerCase() == state.toLowerCase())
     );
   }, [stateData]);
 
-  const bannerDetails = {
-    heading:
-      'Do you know what is the Total Available Fund for Swachh Bharat Mission - Gramin (SBM-G) for Uttar Pradesh?',
-    content: (
-      <Button kind="secondary" size="sm">
-        Explore Now
-      </Button>
-    ),
-    image: '/assets/images/banner.png',
-  };
-
-  // regext is to capitalise the string
   const seo = {
     title: `${state} - Constituency Dashboard`,
     description: `Explore scheme-wise fiscal information at the level of Lok Sabha and Vidhan Sabha constituencies in the state of ${state}`,
@@ -52,43 +57,39 @@ const Datasets: React.FC<Props> = ({ query, stateScheme, stateData }) => {
           <Head>
             <link rel="icon" href="/favicon.ico" />
           </Head>
-          <Wrapper className="container">
+          <main className="container">
             <Header data={currentState} />
-            <SchemeList
-              data={stateScheme[currentState.State]}
-              state={currentState.State}
-            />
-            {/* <Banner details={bannerDetails} /> */}
-          </Wrapper>
+            <StateList vidhan={currentVidhanCons} lok={currentLokCons} />
+          </main>
         </>
       ) : (
-        <></>
+        <>Wrong URL</>
       )}
     </>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const query = context.query || {};
-  const [stateScheme, stateData] = await Promise.all([
-    stateSchemeFetch(),
+export const getServerSideProps: GetServerSideProps = async ({
+  res,
+  query,
+}) => {
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59'
+  );
+  const queryValue = query || {};
+  const [stateData, schemeData] = await Promise.all([
     stateDataFetch('State Info'),
+    dataTransform('mgnrega'),
   ]);
 
   return {
     props: {
-      query,
-      stateScheme,
+      query: queryValue,
+      schemeData,
       stateData: stateData[0],
     },
   };
 };
 
 export default Datasets;
-
-const Wrapper = styled.main`
-  .banner {
-    margin-top: 32px;
-    margin-bottom: 212px;
-  }
-`;

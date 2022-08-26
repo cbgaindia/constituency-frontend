@@ -145,3 +145,18 @@ export function swrFetch(id) {
     isError: error,
   };
 }
+
+export function getParameterCaseInsensitive(object, key) {
+  const asLowercase = key.toLowerCase();
+  return object[
+    Object.keys(object).find((k) => k.toLowerCase() === asLowercase)
+  ];
+}
+
+export function sortArrayOfObj(obj: { [x: string]: any }[], key: string) {
+  if (obj[0][key])
+    return obj.sort((a: { [x: string]: number }, b: { [x: string]: number }) =>
+      a[key] > b[key] ? 1 : b[key] > a[key] ? -1 : 0
+    );
+  return obj;
+}
