@@ -41,8 +41,8 @@ const HomeStates = () => {
   return (
     <Wrapper>
       <div className="container">
-        <HomeTitle className="gradient-maple">Drilldown further</HomeTitle>
-        <h2>Explore Schemes Expenditures for the following States</h2>
+        <HomeTitle className="gradient-maple">State Entry Point</HomeTitle>
+        <h2>Navigate to your Constituency via State</h2>
         <StateList>
           {states.map((item, index) => (
             <li key={`state-${index}`}>
@@ -101,16 +101,16 @@ const StateList = styled.ul`
   a {
     display: flex;
     flex-direction: column;
+    gap: 8px;
+    padding: 8px;
     text-decoration-color: transparent;
     background-color: var(--color-background-lighter);
-    padding: 8px;
     filter: drop-shadow(var(--box-shadow-1));
     border-radius: 4px;
   }
 
   h3 {
-    margin-top: 8px;
     text-align: center;
-    font-weight: 600;
+    font-weight: 700;
   }
 `;

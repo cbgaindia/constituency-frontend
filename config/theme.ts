@@ -70,5 +70,4 @@ export const DEFAULT_THEME = {
   gradient_basic: 'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%)',
   gradient_hotPink: 'linear-gradient(162.85deg, #FA5C82 0%, #3E1C47 99.48%)',
   gradient_sapphire: 'linear-gradient(162.85deg, #4965B2 0%, #3E1C47 99.48%)',
-
 };

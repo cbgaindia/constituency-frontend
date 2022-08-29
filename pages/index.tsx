@@ -18,7 +18,7 @@ export default function Home({ schemeData }) {
       <main>
         <HomeHeader schemeData={schemeData} />
         <HomeStates />
-        <HomeAbout />
+        {/* <HomeAbout /> */}
         {/* <HomeHighlight /> */}
         {/* <HomeQuiz /> */}
       </main>
