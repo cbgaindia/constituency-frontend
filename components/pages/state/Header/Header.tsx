@@ -26,47 +26,16 @@ const Header = ({ data }) => {
     <HeaderWrapper>
       <article>
         {data.State && (
-          <Image
-            src={`/assets/states/${data.State.toLowerCase()}.svg`}
-            width={264}
-            height={180}
-            alt=""
-            className="img-cover"
-          />
+          <figure>
+            <Image
+              src={`/assets/states/${data.State.toLowerCase()}.svg`}
+              width={264}
+              height={180}
+              alt=""
+              className="img-cover"
+            />
+          </figure>
         )}
-
-        <CardContent>
-          <div>
-            <p>
-              GSDP (In Current Prices):
-              <span>
-                {data['GSDP (In Current Prices) (In Cr.)'].toFixed(2)} Cr.
-              </span>
-            </p>
-            <p>
-              Total Expenditure:
-              <span>{data['Total Expenditure (In Cr.)'].toFixed(2)} Cr.</span>
-            </p>
-          </div>
-          <p>
-            Total Revenue Receipts from Own Sources:
-            <span>
-              {data[
-                'Total Revenue Receipts from Own Sources (In Cr.)'
-              ].toFixed(2)}{' '}
-              Cr
-            </span>
-          </p>
-          <p>
-            Total Revenue Received from Centre:
-            <span>
-              {data['Total Revenue Received from Centre (In Cr.)'].toFixed(2)}{' '}
-              Cr.
-            </span>
-          </p>
-        </CardContent>
-      </article>
-      <div>
         <Main>
           <div>
             <h1 className="gradient-amazon">{data.State}</h1>
@@ -74,18 +43,32 @@ const Header = ({ data }) => {
           </div>
           <p>{data.Description}</p>
         </Main>
-        <Summary>
-          <ul>
-            {summaryCards.map((item, index) => (
-              <li key={`summary-${index}`}>
-                <div></div>
-                <strong>{item.value}</strong>
-                <span>{item.text}</span>
-              </li>
-            ))}
-          </ul>
-        </Summary>
-      </div>
+      </article>
+      {/* <div>
+        <Main>
+          <div>
+            <h1 className="gradient-amazon">{data.State}</h1>
+            <Share title={data.State} />
+          </div>
+          <p>{data.Description}</p>
+        </Main>
+      </div> */}
+      <Summary>
+        <div>
+          <h2>
+            Summary <span>|</span> Financial Year 2022-23
+          </h2>
+        </div>
+        <ul>
+          {summaryCards.map((item, index) => (
+            <li key={`summary-${index}`}>
+              <div></div>
+              <strong>{item.value}</strong>
+              <span>{item.text}</span>
+            </li>
+          ))}
+        </ul>
+      </Summary>
     </HeaderWrapper>
   );
 };
@@ -94,74 +77,28 @@ export default Header;
 
 export const HeaderWrapper = styled.div`
   margin-top: 40px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 32px;
-  align-items: flex-start;
 
   article {
-    flex-basis: 280px;
-    flex-grow: 1;
-    top: 10px;
-    position: sticky;
-
     display: flex;
-    flex-direction: column;
     text-decoration-color: transparent;
-    background-color: var(--color-background-lighter);
     padding: 8px 8px 16px;
     filter: drop-shadow(var(--box-shadow-1));
     border-radius: 4px;
 
-    @media (max-width: 673px) {
-      order: 1;
+    figure {
+      min-width: 280px;
+      flex-grow: 1;
+      top: 10px;
+      position: sticky;
+
+      @media (max-width: 673px) {
+        display: none;
+      }
     }
-  }
-
-  > div {
-    flex-basis: 0;
-    flex-grow: 999;
-    min-inline-size: 50%;
-  }
-`;
-
-const CardContent = styled.div`
-  margin-top: 18px;
-
-  > div {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  > *:not(:last-child) {
-    border-bottom: var(--separator-5);
-    padding-bottom: 8px;
-    margin-bottom: 8px;
-  }
-
-  p {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    font-size: 0.75rem;
-    line-height: 2;
-
-    display: grid;
-    grid-template-columns: auto 100px;
-    align-items: center;
-  }
-
-  span {
-    font-weight: 600;
-    justify-self: flex-end;
   }
 `;
 
 const Main = styled.section`
-  padding-bottom: 24px;
-  border-bottom: var(--separator-5);
-
   > div {
     display: flex;
     flex-wrap: wrap;
@@ -184,6 +121,8 @@ const Main = styled.section`
 
 export const Summary = styled.div`
   margin-top: 24px;
+  padding-bottom: 40px;
+  border-bottom: var(--separator-5);
 
   > div {
     display: flex;

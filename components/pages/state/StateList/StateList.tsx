@@ -153,7 +153,6 @@ const Wrapper = styled.div`
     font-weight: 600;
     line-height: 1.24;
     font-size: 2rem;
-    margin-top: 8px;
   }
 `;
 
