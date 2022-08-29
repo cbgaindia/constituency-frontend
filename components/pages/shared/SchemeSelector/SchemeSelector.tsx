@@ -7,7 +7,8 @@ import ConstituencySelect from 'components/pages/explorer/ExplorerDetailsViz/Con
 
 const SchemeSelector: React.FC<{
   schemeData: any;
-}> = ({ schemeData }) => {
+  trending?: any;
+}> = ({ schemeData, trending }) => {
   const router = useRouter();
   const sabhaRef = useRef(null);
 
@@ -88,6 +89,18 @@ const SchemeSelector: React.FC<{
           Explore
         </Button>
       </ConsMenu>
+      {trending && (
+        <Trending>
+          <span>Trending Search:</span>
+          <div>
+            {trending.map((item, index) => (
+              <a key={`trending-${index}`} href={item.link}>
+                {item.text}
+              </a>
+            ))}
+          </div>
+        </Trending>
+      )}
     </HeaderControls>
   );
 };
@@ -141,5 +154,26 @@ const HeaderToggle = styled.div`
         fill: var(--color-amazon-300);
       }
     }
+  }
+`;
+
+const Trending = styled.div`
+  display: flex;
+  gap: 4px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+
+  font-weight: 600;
+  font-size: 0.75rem;
+  line-height: 1.7;
+
+  > div {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  a {
+    color: var(--color-amazon-100);
   }
 `;
