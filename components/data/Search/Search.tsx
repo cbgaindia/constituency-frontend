@@ -86,17 +86,19 @@ export const Wrapper = styled.div`
 `;
 
 export const SearchInput = styled.input`
-  border: 2px solid #076775;
+  border: 2px solid rgba(0, 0, 0, 0.04);
   border-radius: 4px;
-  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.08);
-  padding-left: 2.5rem;
-  background-color: #fff;
-  transition: background-color 150ms ease;
-  width: 100%;
-  height: 100%;
-  line-height: 130%;
+  background-color: var(--color-background-light);
+  padding: 12px 8px 12px 50px;
 
-  background-image: url("data:image/svg+xml,%3Csvg width='15' height='15' viewBox='0 0 15 15' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M14.5 14.5L10.5 10.5M6.5 12.5C3.18629 12.5 0.5 9.81371 0.5 6.5C0.5 3.18629 3.18629 0.5 6.5 0.5C9.81371 0.5 12.5 3.18629 12.5 6.5C12.5 9.81371 9.81371 12.5 6.5 12.5Z' stroke='%23075E54'/%3E%3C/svg%3E%0A");
+  /* box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.08); */
+  /* transition: background-color 150ms ease; */
+  width: 100%;
+  line-height: 1.5;
+  font-weight: 600;
+  color: var(--text-light-medium);
+
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M15.5 14H14.71L14.43 13.73C15.63 12.33 16.25 10.42 15.91 8.39002C15.44 5.61002 13.12 3.39002 10.32 3.05002C6.09001 2.53002 2.53002 6.09001 3.05002 10.32C3.39002 13.12 5.61002 15.44 8.39002 15.91C10.42 16.25 12.33 15.63 13.73 14.43L14 14.71V15.5L18.25 19.75C18.66 20.16 19.33 20.16 19.74 19.75C20.15 19.34 20.15 18.67 19.74 18.26L15.5 14ZM9.50002 14C7.01002 14 5.00002 11.99 5.00002 9.50002C5.00002 7.01002 7.01002 5.00002 9.50002 5.00002C11.99 5.00002 14 7.01002 14 9.50002C14 11.99 11.99 14 9.50002 14Z' fill='%23888F8B'/%3E%3C/svg%3E");
   background-position: left 1rem top 50%, 0 0;
   background-repeat: no-repeat, repeat;
 

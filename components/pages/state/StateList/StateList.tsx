@@ -15,9 +15,35 @@ import {
 } from 'utils/helper';
 import { FullScreen, LokSabha, VidhanSabha } from 'components/icons';
 import { Button } from 'components/actions';
+import SearchCons from './SearchCons';
 
 const StateList = ({ data }) => {
   const [stateData, setStateData] = React.useState<any>([]);
+  const [formattedData, setFormattedData] = React.useState<any>([]);
+  const [lokData, setLokData] = React.useState<any>([]);
+  const [vidhanData, setVidhanData] = React.useState<any>([]);
+  const [selectedSabha, setSelectedSabha] = React.useState<any>([]);
+
+  React.useEffect(() => {
+    // first sort the object, then group them by first character.
+
+    const formattedVidhan = groupListByAlphabets(
+      sortArrayOfObj(data.vidhan, 'constName'),
+      'constName'
+    );
+    setVidhanData(formattedVidhan);
+
+    const formattedLok = groupListByAlphabets(
+      sortArrayOfObj(data.lok, 'constName'),
+      'constName'
+    );
+    setLokData(formattedLok);
+
+    setFormattedData({
+      lok: formattedLok,
+      vidhan: formattedVidhan,
+    });
+  }, [data]);
 
   React.useEffect(() => {
     setStateData([
@@ -26,28 +52,31 @@ const StateList = ({ data }) => {
         name: 'Vidhan Sabha',
         engName: 'Parliament Constituency',
         icon: <VidhanSabha />,
-        list: groupListByAlphabets(
-          sortArrayOfObj(data.vidhan, 'constName'),
-          'constName'
-        ),
+        list: vidhanData,
       },
       {
         value: 'lok',
         name: 'Lok Sabha',
         engName: 'Assembly Constituency',
         icon: <LokSabha />,
-        list: groupListByAlphabets(
-          sortArrayOfObj(data.lok, 'constName'),
-          'constName'
-        ),
+        list: lokData,
       },
     ]);
-  }, [data]);
+  }, [lokData, vidhanData]);
+
+  function onFilterChange(arr) {
+    if (selectedSabha == 'lok') {
+      setLokData(arr);
+    } else setVidhanData(arr);
+  }
 
   return (
     <Wrapper id="stateListWrapper">
       <h2>Explore Constituencies</h2>
-      <StyledTabs defaultValue="vidhan">
+      <StyledTabs
+        defaultValue="vidhan"
+        onValueChange={(e) => setSelectedSabha(e)}
+      >
         {stateData.length > 0 && (
           <>
             <StyledTabsList>
@@ -75,6 +104,11 @@ const StateList = ({ data }) => {
             {stateData.map((item) => (
               <TabsContent key={item.name} value={item.value}>
                 <ConsList>
+                  <SearchCons
+                    data={formattedData[item.value]}
+                    onFilter={(arr) => onFilterChange(arr)}
+                  />
+
                   {item.list &&
                     item.list.map((group: any) => {
                       return (
@@ -154,6 +188,7 @@ const StyledTabsList = styled(TabsList)`
     border-right: var(--border-2);
     gap: 12px;
     flex: unset;
+    cursor: pointer;
 
     &[data-value='editorial-notes'] {
       border-inline: var(--border-2);
@@ -220,12 +255,16 @@ const ConsList = styled.ol`
   filter: var(--box-shadow-1);
   border-radius: 4px;
 
-  max-height: 680px;
+  height: 680px;
   overflow-y: auto;
   max-width: 312px;
 
   span {
     font-weight: 700;
+  }
+
+  > li:first-of-type {
+    margin-top: 16px;
   }
 
   ul {
