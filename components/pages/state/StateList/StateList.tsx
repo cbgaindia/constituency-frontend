@@ -246,6 +246,7 @@ const Name = styled.div`
 const ConsList = styled.ol`
   display: flex;
   flex-direction: column;
+  /* max-width: 312px; */ //
   gap: 8px;
   margin-top: 16px;
 
@@ -256,10 +257,11 @@ const ConsList = styled.ol`
 
   height: 680px;
   overflow-y: auto;
-  max-width: 312px;
 
   span {
     font-weight: 700;
+    margin-top: 16px;
+    display: inline-block; //
   }
 
   > li:first-of-type {
@@ -268,7 +270,9 @@ const ConsList = styled.ol`
 
   ul {
     display: flex;
-    flex-direction: column;
-    gap: 4px;
+    /* flex-direction: column; */ //
+    /* gap: 4px; */ //
+    gap: 20px; //
+    flex-wrap: wrap; //
   }
 `;
