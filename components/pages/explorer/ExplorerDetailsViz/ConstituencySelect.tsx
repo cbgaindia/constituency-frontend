@@ -157,11 +157,11 @@ const Wrapper = styled.div`
   > button {
     position: absolute;
     color: var(--text-light-light);
-    right: 32px;
+    right: 40px;
+    top: 9px;
     width: 32px;
     z-index: 100;
     padding: 0;
-    top: 8px;
   }
 
   ${WidgetContent} {

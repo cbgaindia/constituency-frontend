@@ -122,7 +122,7 @@ const Widget = ({
         kind={buttonStyle}
         size={buttonSize}
         aria-expanded="false"
-        icon={icon}
+        // icon={icon}
         aria-controls={widgetID}
         aria-label={`Show ${title}`}
         data-text-for-show={`Show ${title}`}
@@ -131,7 +131,7 @@ const Widget = ({
         className={buttonClass ? buttonClass : null}
         passRef={activatorRef}
       >
-        {buttonContent}
+        <span>{buttonContent}</span>
       </Button>
       {
         <WidgetContent
@@ -152,9 +152,27 @@ export const WidgetComp = styled.div`
   position: relative;
   height: 100%;
 
-  ${ButtonComp} {
+  > ${ButtonComp} {
+    text-align: start;
+
+    background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32' %3E%3Cpath d='M9.333 13.333 16 20l6.667-6.667H9.333Z' fill='%23ABB0AD' /%3E%3C/svg%3E");
+    background-repeat: no-repeat, repeat;
+    background-position: right 12px top 50%, 0 0;
+
+    @media (max-width: 520px) {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
     &[aria-expanded='true'] {
       background-color: #ebfeff;
+    }
+
+    > span {
+      display: block;
+      max-width: 85%;
     }
   }
 `;

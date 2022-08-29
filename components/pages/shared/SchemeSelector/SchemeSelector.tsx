@@ -74,7 +74,9 @@ const SchemeSelector: React.FC<{
 
       <ConsMenu>
         <ConstituencySelect
-          fallBack={`Select a constituency`}
+          fallBack={`Search for ${
+            selectedSabha === 'lok' ? 'Lok' : 'Vidhan'
+          } Sabha Constituency here...`}
           allStates={handleSabhaChange(selectedSabha)}
           newCompare={handleConsSelect}
           currentItem={selectedCons}
@@ -120,7 +122,7 @@ export const ConsMenu = styled.div`
   gap: 16px;
   margin-top: 16px;
 
-  @media screen and (max-width: 720px) {
+  @media (max-width: 720px) {
     flex-wrap: wrap;
   }
 `;

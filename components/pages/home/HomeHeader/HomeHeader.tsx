@@ -39,7 +39,7 @@ const Header = styled.header`
     text-shadow: var(--box-shadow-1);
     font-size: 2.5rem;
     line-height: 1.2;
-    font-weight: 600;
+    font-weight: 700;
   }
 
   ${HeaderControls} {
