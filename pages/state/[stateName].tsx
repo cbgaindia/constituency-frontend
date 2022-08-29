@@ -59,7 +59,9 @@ const Datasets: React.FC<Props> = ({ query, schemeData, stateData }) => {
           </Head>
           <main className="container">
             <Header data={currentState} />
-            <StateList vidhan={currentVidhanCons} lok={currentLokCons} />
+            <StateList
+              data={{ lok: currentLokCons, vidhan: currentVidhanCons }}
+            />
           </main>
         </>
       ) : (

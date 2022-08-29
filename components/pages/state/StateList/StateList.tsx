@@ -1,55 +1,102 @@
+import React from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
 import {
+  Box,
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from '@opub-cdl/design-system';
-import { sortArrayOfObj } from 'utils/helper';
+import {
+  fullScreenMode,
+  groupListByAlphabets,
+  sortArrayOfObj,
+} from 'utils/helper';
+import { FullScreen, LokSabha, VidhanSabha } from 'components/icons';
+import { Button } from 'components/actions';
 
-const StateList = ({ lok, vidhan }) => {
-  const data = [
-    {
-      value: 'lok',
-      name: 'Lok Sabha',
-      list: sortArrayOfObj(lok, 'constName'),
-    },
-    {
-      value: 'vidhan',
-      name: 'Vidhan Sabha',
-      list: sortArrayOfObj(vidhan, 'constName'),
-    },
-  ];
+const StateList = ({ data }) => {
+  const [stateData, setStateData] = React.useState<any>([]);
+
+  React.useEffect(() => {
+    setStateData([
+      {
+        value: 'vidhan',
+        name: 'Vidhan Sabha',
+        engName: 'Parliament Constituency',
+        icon: <VidhanSabha />,
+        list: groupListByAlphabets(
+          sortArrayOfObj(data.vidhan, 'constName'),
+          'constName'
+        ),
+      },
+      {
+        value: 'lok',
+        name: 'Lok Sabha',
+        engName: 'Assembly Constituency',
+        icon: <LokSabha />,
+        list: groupListByAlphabets(
+          sortArrayOfObj(data.lok, 'constName'),
+          'constName'
+        ),
+      },
+    ]);
+  }, [data]);
 
   return (
-    <Wrapper>
-      <span className="gradient-maple">Drilldown Further</span>
+    <Wrapper id="stateListWrapper">
       <h2>Explore Constituencies</h2>
-      <StyledTabs defaultValue="lok">
-        <TabsList>
-          {data.map((item) => (
-            <StyledTrigger key={item.name} value={item.value}>
-              {item.name}
-            </StyledTrigger>
-          ))}
-        </TabsList>
-        {data.map((item) => (
-          <TabsContent key={item.name} value={item.value}>
-            <ul>
-              {item.list &&
-                item.list.map((cons) => {
-                  return (
-                    <li key={cons.constCode}>
-                      <Link href={cons.constName} passHref>
-                        <ConsLink>{cons.constName}</ConsLink>
-                      </Link>
-                    </li>
-                  );
-                })}
-            </ul>
-          </TabsContent>
-        ))}
+      <StyledTabs defaultValue="vidhan">
+        {stateData.length > 0 && (
+          <>
+            <StyledTabsList>
+              <SabhaToggle>
+                {stateData.map((item) => (
+                  <TabsTrigger key={item.name} value={item.value}>
+                    <Box>{item.icon}</Box>
+                    <Name>
+                      {item.name}
+                      <span>{item.engName}</span>
+                    </Name>
+                  </TabsTrigger>
+                ))}
+              </SabhaToggle>
+              <Button
+                icon={<FullScreen fill="#1D7548" />}
+                iconOnly={true}
+                kind="custom"
+                onClick={() => fullScreenMode('stateListWrapper')}
+                id="fullScreen"
+              >
+                Full screen mode
+              </Button>
+            </StyledTabsList>
+            {stateData.map((item) => (
+              <TabsContent key={item.name} value={item.value}>
+                <ConsList>
+                  {item.list &&
+                    item.list.map((group: any) => {
+                      return (
+                        <li key={group.char}>
+                          <span>{group.char}</span>
+                          <ul>
+                            {group.children.map((cons) => (
+                              <li key={cons.constCode + cons.constName}>
+                                <Link href={cons.constName} passHref>
+                                  <ConsLink>{cons.constName}</ConsLink>
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </li>
+                      );
+                    })}
+                </ConsList>
+              </TabsContent>
+            ))}
+          </>
+        )}
       </StyledTabs>
     </Wrapper>
   );
@@ -58,7 +105,7 @@ const StateList = ({ lok, vidhan }) => {
 export default StateList;
 
 const Wrapper = styled.div`
-  margin-top: 80px;
+  margin-top: 32px;
 
   > span {
     letter-spacing: 0.04em;
@@ -74,20 +121,10 @@ const Wrapper = styled.div`
     font-size: 2rem;
     margin-top: 8px;
   }
-
-  ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 32px;
-    margin-top: 16px;
-
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
-  }
 `;
 
 const ConsLink = styled.a`
-  color: var(--color-violet-3);
+  color: var(--color-amazon-100);
   font-weight: var(--font-weight-medium);
   text-decoration-color: transparent;
   text-decoration-thickness: 2px;
@@ -95,13 +132,105 @@ const ConsLink = styled.a`
 
   &:hover {
     text-decoration-color: inherit;
+    color: var(--color-amazon-300);
   }
 `;
 
 const StyledTabs = styled(Tabs)`
-  margin-top: 20px;
+  margin-top: 32px;
 `;
 
-const StyledTrigger = styled(TabsTrigger)`
-  flex: unset;
+const StyledTabsList = styled(TabsList)`
+  background-color: var(--color-background-lighter);
+  border-radius: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  button {
+    font-weight: 600;
+    padding: 10px 20px;
+    color: var(--text-light-medium);
+    border-right: var(--border-2);
+    gap: 12px;
+    flex: unset;
+
+    &[data-value='editorial-notes'] {
+      border-inline: var(--border-2);
+    }
+
+    &[data-state='active'] {
+      color: var(--color-amazon-300);
+      background-color: var(--color-amazon-00);
+
+      svg {
+        fill: var(--color-amazon-300);
+      }
+
+      span {
+        color: var(--color-amazon-200);
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      font-size: 0.75rem;
+    }
+  }
+`;
+
+const SabhaToggle = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+
+  button {
+    align-items: flex-start;
+    min-width: 190px;
+
+    svg {
+      max-width: 40px;
+      max-height: 40px;
+      margin-inline-end: 0;
+      fill: var(--color-grey-300);
+    }
+  }
+`;
+
+const Name = styled.div`
+  text-align: start;
+  pointer-events: none;
+
+  span {
+    text-align: start;
+    line-height: 1.7;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--text-light-light);
+    display: block;
+  }
+`;
+
+const ConsList = styled.ol`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+
+  background-color: var(--color-background-lighter);
+  padding: 16px;
+  filter: var(--box-shadow-1);
+  border-radius: 4px;
+
+  max-height: 680px;
+  overflow-y: auto;
+  max-width: 312px;
+
+  span {
+    font-weight: 700;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
 `;

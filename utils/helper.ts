@@ -1,4 +1,5 @@
 import useSWR from 'swr';
+import fscreen from 'fscreen';
 
 export function sectionCollapse(e: any, wrapperRef) {
   const btn = e.target;
@@ -146,17 +147,47 @@ export function swrFetch(id) {
   };
 }
 
-export function getParameterCaseInsensitive(object, key) {
-  const asLowercase = key.toLowerCase();
+// find the value of the key of an object case insensitively
+export function getParameterCaseInsensitive(
+  object: any,
+  key: string | number
+) {
+  const asLowercase = key.toString().toLowerCase();
   return object[
     Object.keys(object).find((k) => k.toLowerCase() === asLowercase)
   ];
 }
 
-export function sortArrayOfObj(obj: { [x: string]: any }[], key: string) {
+export function sortArrayOfObj(obj: any, key: string | number) {
   if (obj[0][key])
     return obj.sort((a: { [x: string]: number }, b: { [x: string]: number }) =>
       a[key] > b[key] ? 1 : b[key] > a[key] ? -1 : 0
     );
   return obj;
+}
+
+export function groupListByAlphabets(list: [], key: string) {
+  const groupedObj = list.reduce((acc: any, current: any) => {
+    // get the first character
+    const char = current[key][0];
+
+    // if there is no property by that character, create it
+    if (!acc[char]) acc[char] = { char, children: [current] };
+    // otherwise push the current element in respective field
+    else acc[char].children.push(current);
+
+    return acc;
+  }, {});
+
+  // return the values of new Object as array
+  return Object.values(groupedObj);
+}
+
+export function fullScreenMode(id: string) {
+  if (fscreen.fullscreenElement !== null) {
+    fscreen.exitFullscreen();
+  } else {
+    const vizWrapper = document.getElementById(id);
+    if (vizWrapper) fscreen.requestFullscreen(vizWrapper);
+  }
 }
