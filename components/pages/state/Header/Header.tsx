@@ -28,9 +28,9 @@ const Header = ({ data }) => {
         {data.State && (
           <figure>
             <Image
-              src={`/assets/states/${data.State.toLowerCase()}.svg`}
-              width={264}
-              height={180}
+              src={`/assets/states/${data.State.toLowerCase()}.jpg`}
+              width={144}
+              height={144}
               alt=""
               className="img-cover"
             />
@@ -44,15 +44,6 @@ const Header = ({ data }) => {
           <p>{data.Description}</p>
         </Main>
       </article>
-      {/* <div>
-        <Main>
-          <div>
-            <h1 className="gradient-amazon">{data.State}</h1>
-            <Share title={data.State} />
-          </div>
-          <p>{data.Description}</p>
-        </Main>
-      </div> */}
       <Summary>
         <div>
           <h2>
@@ -80,16 +71,21 @@ export const HeaderWrapper = styled.div`
 
   article {
     display: flex;
-    text-decoration-color: transparent;
-    padding: 8px 8px 16px;
-    filter: drop-shadow(var(--box-shadow-1));
-    border-radius: 4px;
+    gap: 40px;
+    align-items: flex-start;
 
     figure {
-      min-width: 280px;
-      flex-grow: 1;
+      display: inline-block;
+      min-width: 160px;
+      /* flex-grow: 1; */
       top: 10px;
       position: sticky;
+
+      padding: 8px;
+      filter: drop-shadow(var(--box-shadow-1));
+      border-radius: 4px;
+      background-color: var(--color-background-lighter);
+      font-size: 0;
 
       @media (max-width: 673px) {
         display: none;
