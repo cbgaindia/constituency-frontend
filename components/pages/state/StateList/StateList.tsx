@@ -84,10 +84,10 @@ const StateList = ({ data }) => {
                 {stateData.map((item) => (
                   <TabsTrigger key={item.name} value={item.value}>
                     <Box>{item.icon}</Box>
-                    <Name>
+                    <TabTriggerName>
                       {item.name}
                       <span>{item.engName}</span>
-                    </Name>
+                    </TabTriggerName>
                   </TabsTrigger>
                 ))}
               </SabhaToggle>
@@ -215,7 +215,7 @@ export const StyledTabsList = styled(TabsList)`
   }
 `;
 
-const SabhaToggle = styled.div`
+export const SabhaToggle = styled.div`
   display: flex;
   flex-wrap: wrap;
 
@@ -232,7 +232,7 @@ const SabhaToggle = styled.div`
   }
 `;
 
-const Name = styled.div`
+export const TabTriggerName = styled.div`
   text-align: start;
   pointer-events: none;
 

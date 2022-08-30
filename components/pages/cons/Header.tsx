@@ -1,5 +1,4 @@
 import { Share } from 'components/actions';
-import { LokSabha, VidhanSabha } from 'components/icons';
 import Image from 'next/image';
 import styled from 'styled-components';
 

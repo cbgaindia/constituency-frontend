@@ -2,7 +2,7 @@ import { Share } from 'components/actions';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-const Header = ({ data, queryData, share = true }) => {
+const Header = ({ data }) => {
   const summaryCards = [
     {
       text: 'Parliamentary Constituencies',
@@ -38,15 +38,17 @@ const Header = ({ data, queryData, share = true }) => {
         )}
         <Main>
           <div>
-            <h2>About {queryData.cons}</h2>
-            {share && <Share title={data.State} />}
+            <h1 className="gradient-amazon">{data.State}</h1>
+            <Share title={data.State} />
           </div>
           <p>{data.Description}</p>
         </Main>
       </article>
       <Summary>
         <div>
-          <h3>Demographic Highlights</h3>
+          <h2>
+            Summary <span>|</span> Financial Year 2022-23
+          </h2>
         </div>
         <ul>
           {summaryCards.map((item, index) => (
@@ -69,7 +71,7 @@ export const HeaderWrapper = styled.div`
 
   article {
     display: flex;
-    gap: 32px;
+    gap: 40px;
     align-items: flex-start;
 
     figure {
@@ -97,17 +99,18 @@ const Main = styled.section`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 8px;
+    gap: 16px;
   }
 
-  h2 {
-    font-size: 2rem;
-    font-weight: 700;
-    line-height: 1.24;
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    line-height: 1.2;
     text-transform: capitalize;
   }
 
   p {
+    margin-top: 16px;
     letter-spacing: 0.01em;
   }
 `;
@@ -123,11 +126,22 @@ export const Summary = styled.div`
     flex-wrap: wrap;
     gap: 12px;
 
-    h3 {
-      line-height: 1.5;
+    h2,
+    span {
+      font-weight: 600;
       font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--text-light-medium);
+    }
+
+    h2 {
+      line-height: 1;
+
+      @media screen and (max-width: 436px) {
+        line-height: 1.7;
+        border-right-color: transparent;
+
+        border-bottom: 3px solid var(--text-light-disabled);
+        padding-bottom: 12px;
+      }
     }
   }
 
