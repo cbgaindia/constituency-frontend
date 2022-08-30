@@ -1,11 +1,11 @@
 export const trending = [
   {
     text: 'Allahabad . Uttar Pradesh',
-    link: '/explorer?scheme=mgnrega&state=Uttar Pradesh',
+    link: '/uttar pradesh/vidhan/allahabad',
   },
   {
     text: 'Ajmer . Rajasthan',
-    link: '/explorer?scheme=mdm&state=Odisha',
+    link: '/rajasthan/vidhan/ajmer',
   },
 ];
 

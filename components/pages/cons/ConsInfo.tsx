@@ -2,7 +2,7 @@ import { Share } from 'components/actions';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-const Header = ({ data, queryData, share = true }) => {
+const ConsInfo = ({ data, queryData, share = true }) => {
   const summaryCards = [
     {
       text: 'Parliamentary Constituencies',
@@ -62,7 +62,7 @@ const Header = ({ data, queryData, share = true }) => {
   );
 };
 
-export default Header;
+export { ConsInfo };
 
 export const HeaderWrapper = styled.div`
   margin-top: 40px;

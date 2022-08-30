@@ -1,4 +1,4 @@
-export default function LobSabha({ ...props }) {
+export default function LokSabha({ ...props }) {
   return (
     <svg
       width="40"

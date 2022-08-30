@@ -14,12 +14,12 @@ type Props = {
   stateData: any;
 };
 
-const Datasets: React.FC<Props> = ({ query, schemeData, stateData }) => {
+const State: React.FC<Props> = ({ query, schemeData, stateData }) => {
   const [currentState, setCurrentState] = useState<any>();
   // const [currentSabha, setCurrentSabha] = useState<any>('lok');
   const [currentLokCons, setCurrentLokCons] = useState<any>([]);
   const [currentVidhanCons, setCurrentVidhanCons] = useState<any>([]);
-  const state = query.stateName
+  const state = query.state
     .toLowerCase()
     .replace(/\b\w/g, (c) => c.toUpperCase());
 
@@ -60,7 +60,11 @@ const Datasets: React.FC<Props> = ({ query, schemeData, stateData }) => {
           <main className="container">
             <Header data={currentState} />
             <StateList
-              data={{ lok: currentLokCons, vidhan: currentVidhanCons }}
+              data={{
+                lok: currentLokCons,
+                vidhan: currentVidhanCons,
+                state,
+              }}
             />
           </main>
         </>
@@ -94,4 +98,4 @@ export const getServerSideProps: GetServerSideProps = async ({
   };
 };
 
-export default Datasets;
+export default State;

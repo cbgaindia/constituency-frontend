@@ -2,8 +2,6 @@ import React from 'react';
 import { SearchInput } from 'components/data/Search/Search';
 
 const SearchCons = ({ data, onFilter }) => {
-  console.log(data);
-
   function handleSearch(query, list) {
     let newList = [];
 

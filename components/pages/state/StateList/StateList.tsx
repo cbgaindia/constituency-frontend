@@ -22,7 +22,7 @@ const StateList = ({ data }) => {
   const [formattedData, setFormattedData] = React.useState<any>([]);
   const [lokData, setLokData] = React.useState<any>([]);
   const [vidhanData, setVidhanData] = React.useState<any>([]);
-  const [selectedSabha, setSelectedSabha] = React.useState<any>([]);
+  const [selectedSabha, setSelectedSabha] = React.useState<any>('vidhan');
 
   React.useEffect(() => {
     // first sort the object, then group them by first character.
@@ -117,7 +117,10 @@ const StateList = ({ data }) => {
                           <ul>
                             {group.children.map((cons) => (
                               <li key={cons.constCode + cons.constName}>
-                                <Link href={cons.constName} passHref>
+                                <Link
+                                  href={`/${data.state}/${selectedSabha}/${cons.constName}`}
+                                  passHref
+                                >
                                   <ConsLink>{cons.constName}</ConsLink>
                                 </Link>
                               </li>
@@ -173,7 +176,7 @@ const StyledTabs = styled(Tabs)`
   margin-top: 32px;
 `;
 
-const StyledTabsList = styled(TabsList)`
+export const StyledTabsList = styled(TabsList)`
   background-color: var(--color-background-lighter);
   border-radius: 4px;
   display: flex;
