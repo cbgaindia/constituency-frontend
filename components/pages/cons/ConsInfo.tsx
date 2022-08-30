@@ -2,7 +2,7 @@ import { Share } from 'components/actions';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-const ConsInfo = ({ data, queryData, share = true }) => {
+const ConsInfo = ({ data, queryData }) => {
   const summaryCards = [
     {
       text: 'Parliamentary Constituencies',
@@ -39,7 +39,6 @@ const ConsInfo = ({ data, queryData, share = true }) => {
         <Main>
           <div>
             <h2>About {queryData.cons}</h2>
-            {share && <Share title={data.State} />}
           </div>
           <p>{data.Description}</p>
         </Main>
