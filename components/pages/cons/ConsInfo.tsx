@@ -1,4 +1,3 @@
-import { Share } from 'components/actions';
 import Image from 'next/image';
 import styled from 'styled-components';
 

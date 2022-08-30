@@ -1,21 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
-import {
-  Box,
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@opub-cdl/design-system';
-import {
-  fullScreenMode,
-  groupListByAlphabets,
-  sortArrayOfObj,
-} from 'utils/helper';
-import { FullScreen, LokSabha, VidhanSabha } from 'components/icons';
-import { Button } from 'components/actions';
+import { groupListByAlphabets, sortArrayOfObj } from 'utils/helper';
+import { LokSabha, VidhanSabha } from 'components/icons';
 import SearchCons from './SearchCons';
+import { Toolbar } from 'components/layouts';
+import { Box } from '@opub-cdl/design-system';
 
 const StateList = ({ data }) => {
   const [stateData, setStateData] = React.useState<any>([]);
@@ -45,21 +35,53 @@ const StateList = ({ data }) => {
     });
   }, [data]);
 
+  function generateConsList(item) {
+    return (
+      <ConsList>
+        <SearchCons
+          data={formattedData[item.value]}
+          onFilter={(arr) => onFilterChange(arr)}
+        />
+
+        {item.list &&
+          item.list.map((group: any) => {
+            return (
+              <li key={group.char}>
+                <span>{group.char}</span>
+                <ul>
+                  {group.children.map((cons) => (
+                    <li key={cons.constCode + cons.constName}>
+                      <Link
+                        href={`/${data.state}/${item.value}/${cons.constName}`}
+                        passHref
+                      >
+                        <ConsLink>{cons.constName}</ConsLink>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            );
+          })}
+      </ConsList>
+    );
+  }
+
   React.useEffect(() => {
     setStateData([
       {
         value: 'vidhan',
         name: 'Vidhan Sabha',
-        engName: 'Parliament Constituency',
+        altName: 'Parliament Constituency',
         icon: <VidhanSabha />,
-        list: vidhanData,
+        content: generateConsList({ value: 'vidhan', list: vidhanData }),
       },
       {
         value: 'lok',
         name: 'Lok Sabha',
-        engName: 'Assembly Constituency',
+        altName: 'Assembly Constituency',
         icon: <LokSabha />,
-        list: lokData,
+        content: generateConsList({ value: 'lok', list: lokData }),
       },
     ]);
   }, [lokData, vidhanData]);
@@ -73,68 +95,12 @@ const StateList = ({ data }) => {
   return (
     <Wrapper id="stateListWrapper">
       <h2>Explore Constituencies</h2>
-      <StyledTabs
+      <Toolbar
         defaultValue="vidhan"
+        fullScreenId="stateListWrapper"
+        data={stateData}
         onValueChange={(e) => setSelectedSabha(e)}
-      >
-        {stateData.length > 0 && (
-          <>
-            <StyledTabsList>
-              <SabhaToggle>
-                {stateData.map((item) => (
-                  <TabsTrigger key={item.name} value={item.value}>
-                    <Box>{item.icon}</Box>
-                    <TabTriggerName>
-                      {item.name}
-                      <span>{item.engName}</span>
-                    </TabTriggerName>
-                  </TabsTrigger>
-                ))}
-              </SabhaToggle>
-              <Button
-                icon={<FullScreen fill="#1D7548" />}
-                iconOnly={true}
-                kind="custom"
-                onClick={() => fullScreenMode('stateListWrapper')}
-                id="fullScreen"
-              >
-                Full screen mode
-              </Button>
-            </StyledTabsList>
-            {stateData.map((item) => (
-              <TabsContent key={item.name} value={item.value}>
-                <ConsList>
-                  <SearchCons
-                    data={formattedData[item.value]}
-                    onFilter={(arr) => onFilterChange(arr)}
-                  />
-
-                  {item.list &&
-                    item.list.map((group: any) => {
-                      return (
-                        <li key={group.char}>
-                          <span>{group.char}</span>
-                          <ul>
-                            {group.children.map((cons) => (
-                              <li key={cons.constCode + cons.constName}>
-                                <Link
-                                  href={`/${data.state}/${selectedSabha}/${cons.constName}`}
-                                  passHref
-                                >
-                                  <ConsLink>{cons.constName}</ConsLink>
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </li>
-                      );
-                    })}
-                </ConsList>
-              </TabsContent>
-            ))}
-          </>
-        )}
-      </StyledTabs>
+      />
     </Wrapper>
   );
 };
@@ -156,6 +122,7 @@ const Wrapper = styled.div`
     font-weight: 600;
     line-height: 1.24;
     font-size: 2rem;
+    margin-bottom: 32px;
   }
 `;
 
@@ -169,80 +136,6 @@ const ConsLink = styled.a`
   &:hover {
     text-decoration-color: inherit;
     color: var(--color-amazon-300);
-  }
-`;
-
-const StyledTabs = styled(Tabs)`
-  margin-top: 32px;
-`;
-
-export const StyledTabsList = styled(TabsList)`
-  background-color: var(--color-background-lighter);
-  border-radius: 4px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-
-  button {
-    font-weight: 600;
-    padding: 10px 20px;
-    color: var(--text-light-medium);
-    border-right: var(--border-2);
-    gap: 12px;
-    flex: unset;
-    cursor: pointer;
-
-    &[data-value='editorial-notes'] {
-      border-inline: var(--border-2);
-    }
-
-    &[data-state='active'] {
-      color: var(--color-amazon-300);
-      background-color: var(--color-amazon-00);
-
-      svg {
-        fill: var(--color-amazon-300);
-      }
-
-      span {
-        color: var(--color-amazon-200);
-      }
-    }
-
-    @media screen and (max-width: 480px) {
-      font-size: 0.75rem;
-    }
-  }
-`;
-
-export const SabhaToggle = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-
-  button {
-    align-items: flex-start;
-    min-width: 190px;
-
-    svg {
-      max-width: 40px;
-      max-height: 40px;
-      margin-inline-end: 0;
-      fill: var(--color-grey-300);
-    }
-  }
-`;
-
-export const TabTriggerName = styled.div`
-  text-align: start;
-  pointer-events: none;
-
-  span {
-    text-align: start;
-    line-height: 1.7;
-    font-size: 0.75rem;
-    font-weight: 400;
-    color: var(--text-light-light);
-    display: block;
   }
 `;
 
