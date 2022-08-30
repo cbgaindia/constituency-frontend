@@ -7,19 +7,21 @@ import {
   Twitter,
   ShareIcon,
 } from 'components/icons';
-import { Widget, Button } from 'components/actions';
 import styled from 'styled-components';
-import { WidgetContent } from '../Widget/Widget';
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  Button,
+  Box,
+} from '@opub-cdl/design-system';
 
-const Share: React.FC<{ title: string; buttonSize?: 'sm' | 'md' }> = ({
-  title,
-  buttonSize = 'md',
-}) => {
+const Share: React.FC<{ title: string }> = ({ title }) => {
   const router = useRouter();
 
   useEffect(() => {
     if (navigator.share) {
-      document.getElementById('share-native').removeAttribute('hidden');
+      document.getElementById('share-native')?.removeAttribute('hidden');
     }
   }, []);
 
@@ -34,85 +36,90 @@ const Share: React.FC<{ title: string; buttonSize?: 'sm' | 'md' }> = ({
   }
 
   return (
-    <>
-      <Widget
-        icon={<ShareIcon />}
-        buttonContent="Share"
-        title="share menu"
-        buttonStyle="primary-outline"
-        buttonSize={buttonSize}
-      >
-        <ShareComp className="shareModal__dropdown">
-          <li>
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href={`https://www.facebook.com/sharer.php?u=https://constituencyv2.openbudgetsindia.org${router.asPath}`.replaceAll(
-                '&',
-                '%26'
-              )}
-            >
-              <Facebook />
-              <span>Facebook</span>
-              <span className="sr-only"> :opens in new window</span>
-            </a>
-          </li>
-          <li>
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href={`https://twitter.com/intent/tweet?url=https://constituencyv2.openbudgetsindia.org${router.asPath}`.replaceAll(
-                '&',
-                '%26'
-              )}
-            >
-              <Twitter />
-              <span>Twitter</span>
-              <span className="sr-only"> :opens in new window</span>
-            </a>
-          </li>
-          <li>
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href={`https://www.linkedin.com/sharing/share-offsite/?mini=true&url=https://constituencyv2.openbudgetsindia.org${router.asPath.replaceAll(
-                '=',
-                '%3D'
-              )}`}
-            >
-              <Linkedin />
-              <span>LinkedIn</span>
-              <span className="sr-only"> :opens in new window</span>
-            </a>
-          </li>
-          <li>
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href={`https://www.reddit.com/submit?url=https://constituencyv2.openbudgetsindia.org${router.asPath}`.replaceAll(
-                '&',
-                '%26'
-              )}
-            >
-              <Reddit />
-              <span>Reddit</span>
-              <span className="sr-only"> :opens in new window</span>
-            </a>
-          </li>
-          <li id="share-native" hidden>
-            <Button
-              kind="custom"
-              size="sm"
-              icon={<ShareIcon fill="#4965B2" />}
-              iconSide="left"
-              onClick={() => shareButtonHandler()}
-            >
-              <span>Share via...</span>
-            </Button>
-          </li>
-        </ShareComp>
-      </Widget>
-    </>
+    <div>
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button
+            css={{ display: 'flex', alignItems: 'center' }}
+            variant={'outline'}
+          >
+            Share
+            <Box css={{ marginLeft: '8px', fontSize: 0 }}>
+              <ShareIcon fill="#1D7548" />
+            </Box>
+          </Button>
+        </PopoverTrigger>
+
+        <PopoverContent hideArrow sideOffset={1}>
+          <ShareComp className="shareModal__dropdown">
+            <li>
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href={`https://www.facebook.com/sharer.php?u=https://constituencyv2.openbudgetsindia.org${router.asPath}`.replaceAll(
+                  '&',
+                  '%26'
+                )}
+              >
+                <Facebook />
+                <span>Facebook</span>
+                <span className="sr-only"> :opens in new window</span>
+              </a>
+            </li>
+            <li>
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href={`https://twitter.com/intent/tweet?url=https://constituencyv2.openbudgetsindia.org${router.asPath}`.replaceAll(
+                  '&',
+                  '%26'
+                )}
+              >
+                <Twitter />
+                <span>Twitter</span>
+                <span className="sr-only"> :opens in new window</span>
+              </a>
+            </li>
+            <li>
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href={`https://www.linkedin.com/sharing/share-offsite/?mini=true&url=https://constituencyv2.openbudgetsindia.org${router.asPath.replaceAll(
+                  '=',
+                  '%3D'
+                )}`}
+              >
+                <Linkedin />
+                <span>LinkedIn</span>
+                <span className="sr-only"> :opens in new window</span>
+              </a>
+            </li>
+            <li>
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href={`https://www.reddit.com/submit?url=https://constituencyv2.openbudgetsindia.org${router.asPath}`.replaceAll(
+                  '&',
+                  '%26'
+                )}
+              >
+                <Reddit />
+                <span>Reddit</span>
+                <span className="sr-only"> :opens in new window</span>
+              </a>
+            </li>
+            <li id="share-native" hidden>
+              <button onClick={() => shareButtonHandler()}>
+                <Box css={{ marginRight: '8px', fontSize: 0 }}>
+                  <ShareIcon fill="#4965B2" />
+                </Box>
+                <span>Share via...</span>
+              </button>
+            </li>
+          </ShareComp>
+        </PopoverContent>
+      </Popover>
+    </div>
   );
 };
 
@@ -135,7 +142,7 @@ const ShareComp = styled.ul`
     align-items: center;
     text-decoration-color: transparent;
 
-    svg { 
+    svg {
       width: 18px;
       pointer-events: none;
       margin-left: 0;

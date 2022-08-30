@@ -56,6 +56,7 @@ const ConsInfo = ({ data, queryData }) => {
           ))}
         </ul>
       </Summary>
+      <SnapshotTitle>Scheme Performance Snapshots</SnapshotTitle>
     </HeaderWrapper>
   );
 };
@@ -168,4 +169,11 @@ export const Summary = styled.div`
       margin-top: 4px;
     }
   }
+`;
+
+const SnapshotTitle = styled.h3`
+  font-size: 2rem;
+  line-height: 1.24;
+  font-weight: 700;
+  margin-top: 32px;
 `;
