@@ -11,27 +11,27 @@ export const navList = {
       name: 'States',
       submenu: [
         {
-          link: '/state/bihar',
+          link: '/bihar',
           name: 'Bihar',
         },
         {
-          link: '/state/chhattisgarh',
+          link: '/chhattisgarh',
           name: 'Chhattisgarh',
         },
         {
-          link: '/state/jharkhand',
+          link: '/jharkhand',
           name: 'Jharkhand',
         },
         {
-          link: '/state/maharashtra',
+          link: '/maharashtra',
           name: 'Maharashtra',
         },
         {
-          link: '/state/odisha',
+          link: '/odisha',
           name: 'Odisha',
         },
         {
-          link: '/state/uttar pradesh',
+          link: '/uttar pradesh',
           name: 'Uttar Pradesh',
         },
       ],

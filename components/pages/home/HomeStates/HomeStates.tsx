@@ -46,7 +46,7 @@ const HomeStates = () => {
         <StateList>
           {states.map((item, index) => (
             <li key={`state-${index}`}>
-              <Link href={`/state/${item.link}`}>
+              <Link href={`/${item.link}`}>
                 <a>
                   <Image
                     src={item.img}

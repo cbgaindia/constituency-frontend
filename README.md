@@ -65,7 +65,7 @@ NEXT_PUBLIC_GOOGLE_ANALYTICS = '';
 ### Pages
 
 - Home `/`
-- States `/state/[stateName]`
+- States `/[stateName]`
 - Explorer `/explorer`
 - About `/about`
 

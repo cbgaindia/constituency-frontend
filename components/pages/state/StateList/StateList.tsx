@@ -261,6 +261,7 @@ const ConsList = styled.ol`
   span {
     font-weight: 700;
     margin-top: 16px;
+    text-transform: capitalize;
     display: inline-block; //
   }
 

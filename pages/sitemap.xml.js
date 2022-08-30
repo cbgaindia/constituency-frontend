@@ -32,7 +32,7 @@ export const getServerSideProps = async function ({ res }) {
     });
   staticPages.unshift(`constituencyv2.openbudgetsindia.org/`);
   states.forEach((scheme) =>
-    staticPages.push(`constituencyv2.openbudgetsindia.org/state/${scheme}`)
+    staticPages.push(`constituencyv2.openbudgetsindia.org/${scheme}`)
   );
 
   Object.keys(stateData).forEach((state) => {
