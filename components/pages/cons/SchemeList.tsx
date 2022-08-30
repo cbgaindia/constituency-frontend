@@ -3,10 +3,10 @@ import Link from 'next/link';
 import styled from 'styled-components';
 import SchemesData from 'utils/schemesData';
 
-const SchemeList = ({ data, state }) => {  
+const SchemeList = ({ data, state }) => {
   return (
     <Wrapper>
-      <span className="gradient-maple">Drilldown Further</span>
+      {/* <span className="gradient-maple">Drilldown Further</span> */}
       <h2>Explore fiscal information for the following Schemes</h2>
       <ul>
         {data.map((item, index) => (
@@ -32,7 +32,7 @@ const SchemeList = ({ data, state }) => {
   );
 };
 
-export default SchemeList;
+export { SchemeList };
 
 const Wrapper = styled.div`
   margin-top: 80px;

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 
-import { ConsInfo, Header } from 'components/pages/cons';
-import { stateDataFetch } from 'utils/fetch';
+import { ConsInfo, Header, SchemeList } from 'components/pages/cons';
+import { stateDataFetch, stateSchemeFetch } from 'utils/fetch';
 import { Seo } from 'components/common';
 import {
   Box,
@@ -24,11 +24,11 @@ import { fullScreenMode } from 'utils/helper';
 
 type Props = {
   query: any;
-  schemeData: any;
+  stateScheme: any;
   stateData: any;
 };
 
-const ConsPage: React.FC<Props> = ({ query, stateData }) => {
+const ConsPage: React.FC<Props> = ({ query, stateData, stateScheme }) => {
   const [currentState, setCurrentState] = useState<any>();
   const [queryData, setQueryData] = useState<any>();
 
@@ -78,7 +78,7 @@ const ConsPage: React.FC<Props> = ({ query, stateData }) => {
                       Overview <span>Key Highights of Constituency</span>
                     </TabTriggerName>
                   </TabsTrigger>
-                  <TabsTrigger value="Explorer">
+                  <TabsTrigger value="explorer">
                     <Box>{<VidhanSabha />}</Box>
                     <TabTriggerName>
                       Explorer <span>Scheme Data of Constituency</span>
@@ -102,6 +102,12 @@ const ConsPage: React.FC<Props> = ({ query, stateData }) => {
                   share={false}
                 />
               </TabsContent>
+              <TabsContent value="explorer">
+                <SchemeList
+                  data={stateScheme[currentState.State]}
+                  state={currentState.State}
+                />
+              </TabsContent>
             </StyledTabs>
           </main>
         </>
@@ -122,12 +128,16 @@ export const getServerSideProps: GetServerSideProps = async ({
   );
 
   const queryValue = query || {};
-  const [stateData] = await Promise.all([stateDataFetch('State Info')]);
+  const [stateScheme, stateData] = await Promise.all([
+    stateSchemeFetch(),
+    stateDataFetch('State Info'),
+  ]);
 
   return {
     props: {
       query: queryValue,
       stateData: stateData[0],
+      stateScheme,
     },
   };
 };
