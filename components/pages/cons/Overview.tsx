@@ -1,7 +1,12 @@
+import { Indicator } from 'components/data';
 import Image from 'next/image';
+import React from 'react';
 import styled from 'styled-components';
+import { Summary } from '../shared';
 
-const Overview = ({ data, queryData }) => {
+const Overview = ({ data, queryData, schemeData }) => {
+  const [selectedIndicator, setSelectedIndicator] =
+    React.useState('opening-balance');
   const summaryCards = [
     {
       text: 'Parliamentary Constituencies',
@@ -42,21 +47,26 @@ const Overview = ({ data, queryData }) => {
           <p>{data.Description}</p>
         </Main>
       </article>
-      <Summary>
-        <div>
-          <h3>Demographic Highlights</h3>
-        </div>
-        <ul>
-          {summaryCards.map((item, index) => (
-            <li key={`summary-${index}`}>
-              <div></div>
-              <strong>{item.value}</strong>
-              <span>{item.text}</span>
-            </li>
-          ))}
-        </ul>
-      </Summary>
-      <SnapshotTitle>Scheme Performance Snapshots</SnapshotTitle>
+      <Summary title="Demographic Highlights" cards={summaryCards} />
+      <section>
+        <SnapshotTitle>Scheme Performance Snapshots</SnapshotTitle>
+        {schemeData && (
+          <SnapshotWrapper>
+            <Indicator
+              newIndicator={(e) => {
+                setSelectedIndicator(e);
+              }}
+              selectedIndicator={selectedIndicator}
+              schemeData={schemeData?.ac}
+            />
+            <SnapshotSchemes>
+              <SnapshotSchemeTitle>
+                <h4>All Schemes</h4>
+              </SnapshotSchemeTitle>
+            </SnapshotSchemes>
+          </SnapshotWrapper>
+        )}
+      </section>
     </HeaderWrapper>
   );
 };
@@ -74,7 +84,6 @@ export const HeaderWrapper = styled.div`
     figure {
       display: inline-block;
       min-width: 160px;
-      /* flex-grow: 1; */
       top: 10px;
       position: sticky;
 
@@ -111,69 +120,32 @@ const Main = styled.section`
   }
 `;
 
-export const Summary = styled.div`
-  margin-top: 24px;
-  padding-bottom: 40px;
-  border-bottom: var(--separator-5);
-
-  > div {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 12px;
-
-    h3 {
-      line-height: 1.5;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--text-light-medium);
-    }
-  }
-
-  ul {
-    margin-top: 20px;
-    display: flex;
-    gap: 14px;
-    flex-wrap: wrap;
-
-    li {
-      text-align: center;
-      background-color: var(--color-background-lighter);
-      padding: 20px 16px;
-      border: var(--border-1);
-      border-radius: 4px;
-      filter: drop-shadow(var(--box-shadow-1));
-      flex-basis: 214px;
-      flex-grow: 1;
-      position: relative;
-
-      > div {
-        width: 4px;
-        height: 100%;
-        position: absolute;
-        left: 0;
-        top: 0;
-        background: var(--gradient-maple);
-      }
-    }
-
-    strong {
-      font-weight: 900;
-    }
-
-    span {
-      display: block;
-      font-size: 0.75rem;
-      color: var(--text-light-medium);
-      line-height: 1.7;
-      margin-top: 4px;
-    }
-  }
-`;
-
 const SnapshotTitle = styled.h3`
   font-size: 2rem;
   line-height: 1.24;
   font-weight: 700;
   margin-top: 32px;
+`;
+
+const SnapshotWrapper = styled.div`
+  margin-top: 32px;
+  display: flex;
+  gap: 32px;
+
+  > .indicator {
+    max-width: 312px;
+    max-height: 904px;
+    overflow-y: auto;
+  }
+`;
+const SnapshotSchemes = styled.div`
+  width: 100%;
+`;
+
+const SnapshotSchemeTitle = styled.div`
+  background-color: var(--color-background-lighter);
+  filter: drop-shadow(var(--box-shadow-1));
+  border-radius: 4px;
+  border: var(--border-2);
+  padding: 16px 24px;
 `;

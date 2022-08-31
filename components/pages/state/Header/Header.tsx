@@ -1,4 +1,5 @@
 import { Share } from 'components/actions';
+import { Summary } from 'components/pages/shared';
 import Image from 'next/image';
 import styled from 'styled-components';
 
@@ -44,22 +45,14 @@ const Header = ({ data }) => {
           <p>{data.Description}</p>
         </Main>
       </article>
-      <Summary>
-        <div>
-          <h2>
+      <Summary
+        title={
+          <SummaryTitle>
             Summary <span>|</span> Financial Year 2022-23
-          </h2>
-        </div>
-        <ul>
-          {summaryCards.map((item, index) => (
-            <li key={`summary-${index}`}>
-              <div></div>
-              <strong>{item.value}</strong>
-              <span>{item.text}</span>
-            </li>
-          ))}
-        </ul>
-      </Summary>
+          </SummaryTitle>
+        }
+        cards={summaryCards}
+      />
     </HeaderWrapper>
   );
 };
@@ -77,7 +70,6 @@ export const HeaderWrapper = styled.div`
     figure {
       display: inline-block;
       min-width: 160px;
-      /* flex-grow: 1; */
       top: 10px;
       position: sticky;
 
@@ -115,73 +107,12 @@ const Main = styled.section`
   }
 `;
 
-export const Summary = styled.div`
-  margin-top: 24px;
-  padding-bottom: 40px;
-  border-bottom: var(--separator-5);
+const SummaryTitle = styled.h2`
+  display: flex;
+  gap: 8px;
+  align-items: center;
 
-  > div {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 12px;
-
-    h2,
-    span {
-      font-weight: 600;
-      font-size: 1.5rem;
-    }
-
-    h2 {
-      line-height: 1;
-
-      @media screen and (max-width: 436px) {
-        line-height: 1.7;
-        border-right-color: transparent;
-
-        border-bottom: 3px solid var(--text-light-disabled);
-        padding-bottom: 12px;
-      }
-    }
-  }
-
-  ul {
-    margin-top: 20px;
-    display: flex;
-    gap: 14px;
-    flex-wrap: wrap;
-
-    li {
-      text-align: center;
-      background-color: var(--color-background-lighter);
-      padding: 20px 16px;
-      border: var(--border-1);
-      border-radius: 4px;
-      filter: drop-shadow(var(--box-shadow-1));
-      flex-basis: 214px;
-      flex-grow: 1;
-      position: relative;
-
-      > div {
-        width: 4px;
-        height: 100%;
-        position: absolute;
-        left: 0;
-        top: 0;
-        background: var(--gradient-maple);
-      }
-    }
-
-    strong {
-      font-weight: 900;
-    }
-
-    span {
-      display: block;
-      font-size: 0.75rem;
-      color: var(--text-light-medium);
-      line-height: 1.7;
-      margin-top: 4px;
-    }
+  span {
+    color: var(--text-light-disabled);
   }
 `;

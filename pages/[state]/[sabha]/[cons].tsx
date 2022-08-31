@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 
 import { Overview, Header, Explorer } from 'components/pages/cons';
-import { stateDataFetch, stateSchemeFetch } from 'utils/fetch';
+import { dataTransform, stateDataFetch, stateSchemeFetch } from 'utils/fetch';
 import { Seo } from 'components/common';
 import styled from 'styled-components';
 import { LokSabha, VidhanSabha } from 'components/icons';
@@ -13,9 +13,15 @@ type Props = {
   query: any;
   stateScheme: any;
   stateData: any;
+  schemeData: any;
 };
 
-const ConsPage: React.FC<Props> = ({ query, stateData, stateScheme }) => {
+const ConsPage: React.FC<Props> = ({
+  query,
+  stateData,
+  stateScheme,
+  schemeData,
+}) => {
   const [currentState, setCurrentState] = useState<any>();
   const [queryData, setQueryData] = useState<any>();
   const [tabData, setTabData] = React.useState<any>();
@@ -45,7 +51,13 @@ const ConsPage: React.FC<Props> = ({ query, stateData, stateScheme }) => {
           name: 'Overview',
           altName: 'Key Highights of Constituency',
           icon: <VidhanSabha />,
-          content: <Overview data={currentState} queryData={queryData} />,
+          content: (
+            <Overview
+              data={currentState}
+              schemeData={schemeData}
+              queryData={queryData}
+            />
+          ),
         },
         {
           value: 'explorer',
@@ -105,9 +117,10 @@ export const getServerSideProps: GetServerSideProps = async ({
   );
 
   const queryValue = query || {};
-  const [stateScheme, stateData] = await Promise.all([
+  const [stateScheme, stateData, schemeData] = await Promise.all([
     stateSchemeFetch(),
     stateDataFetch('State Info'),
+    dataTransform('mgnrega'),
   ]);
 
   return {
@@ -115,6 +128,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       query: queryValue,
       stateData: stateData[0],
       stateScheme,
+      schemeData,
     },
   };
 };

@@ -183,6 +183,7 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
       ),
     },
   ];
+  console.log(indicator, schemeData);
 
   return (
     <>
