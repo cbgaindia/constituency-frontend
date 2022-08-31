@@ -51,7 +51,7 @@ const Menu = ({
   return (
     <MenuComp showLabel={showLabel} {...props}>
       {heading && value && showLabel && (
-        <MenuLabel id={menuLabelID}>{heading}&nbsp;&nbsp;</MenuLabel>
+        <MenuLabel id={menuLabelID}>{heading}</MenuLabel>
       )}
       <DropdownMenu modal={false}>
         <MenuButton aria-labelledby={menuLabelID}>

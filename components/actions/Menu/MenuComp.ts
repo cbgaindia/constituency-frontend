@@ -17,15 +17,17 @@ export const MenuComp = styled.div<MenuProps>`
   grid-template-columns: ${(props: any) =>
     props.showLabel == true ? 'minmax(0, auto) 1fr' : '1fr'};
   align-items: center;
+  gap: 16px;
 `;
 
 export const MenuLabel = styled.span`
   font-weight: var(--font-weight-medium);
-  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
 `;
 
 export const MenuButton = styled(DropdownMenuTrigger)`
-  padding: 8px;
+  padding: 8px 8px 8px 12px;
   border: var(--border-1);
   border-radius: 2px;
 
@@ -67,7 +69,6 @@ export const MenuItem = styled(DropdownMenuItem)`
   span {
     min-width: 80px;
 
-    line-height: 22px;
     border-radius: 4px;
     transition: background-color 150ms ease;
 

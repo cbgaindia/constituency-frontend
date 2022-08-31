@@ -1,12 +1,10 @@
-import { Indicator } from 'components/data';
 import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
 import { Summary } from '../shared';
+import Snapshot from './Snapshot';
 
 const Overview = ({ data, queryData, schemeData }) => {
-  const [selectedIndicator, setSelectedIndicator] =
-    React.useState('opening-balance');
   const summaryCards = [
     {
       text: 'Parliamentary Constituencies',
@@ -27,7 +25,7 @@ const Overview = ({ data, queryData, schemeData }) => {
   ];
 
   return (
-    <HeaderWrapper>
+    <Wrapper>
       <article>
         {data.State && (
           <figure>
@@ -48,32 +46,14 @@ const Overview = ({ data, queryData, schemeData }) => {
         </Main>
       </article>
       <Summary title="Demographic Highlights" cards={summaryCards} />
-      <section>
-        <SnapshotTitle>Scheme Performance Snapshots</SnapshotTitle>
-        {schemeData && (
-          <SnapshotWrapper>
-            <Indicator
-              newIndicator={(e) => {
-                setSelectedIndicator(e);
-              }}
-              selectedIndicator={selectedIndicator}
-              schemeData={schemeData?.ac}
-            />
-            <SnapshotSchemes>
-              <SnapshotSchemeTitle>
-                <h4>All Schemes</h4>
-              </SnapshotSchemeTitle>
-            </SnapshotSchemes>
-          </SnapshotWrapper>
-        )}
-      </section>
-    </HeaderWrapper>
+      <Snapshot schemeData={schemeData} indicator={'opening-balance'} />
+    </Wrapper>
   );
 };
 
 export { Overview };
 
-export const HeaderWrapper = styled.div`
+export const Wrapper = styled.div`
   margin-top: 40px;
 
   article {
@@ -118,34 +98,4 @@ const Main = styled.section`
   p {
     letter-spacing: 0.01em;
   }
-`;
-
-const SnapshotTitle = styled.h3`
-  font-size: 2rem;
-  line-height: 1.24;
-  font-weight: 700;
-  margin-top: 32px;
-`;
-
-const SnapshotWrapper = styled.div`
-  margin-top: 32px;
-  display: flex;
-  gap: 32px;
-
-  > .indicator {
-    max-width: 312px;
-    max-height: 904px;
-    overflow-y: auto;
-  }
-`;
-const SnapshotSchemes = styled.div`
-  width: 100%;
-`;
-
-const SnapshotSchemeTitle = styled.div`
-  background-color: var(--color-background-lighter);
-  filter: drop-shadow(var(--box-shadow-1));
-  border-radius: 4px;
-  border: var(--border-2);
-  padding: 16px 24px;
 `;

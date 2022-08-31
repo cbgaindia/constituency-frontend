@@ -2,8 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Document, Drop } from 'components/icons';
 import { tabbedInterface } from 'utils/helper';
-import { Summary } from 'components/pages/state/Header/Header';
+// import { Summary } from 'components/pages/state/Header/Header';
 import { stateDataFetch } from 'utils/fetch';
+import { Summary } from 'components/pages/shared';
 
 const ExplorerHeader = ({ stateData, schemeDesc, scheme }) => {
   const [schemeData, setSchemeData] = useState<any>();
@@ -109,24 +110,7 @@ const ExplorerHeader = ({ stateData, schemeDesc, scheme }) => {
           {data.items.map((item) => (
             <section key={item.id} id={item.id}>
               <p>{item.content}</p>
-              <Summary>
-                {/* <div>
-                  <h2>{item.summaryTitle}</h2>
-                </div> */}
-                <ul>
-                  {item.summaryCards.map((item, index) =>
-                    item.text ? (
-                      <li key={`summary-${index}`}>
-                        <div></div>
-                        <strong>{item.value}</strong>
-                        <span>{item.text}</span>
-                      </li>
-                    ) : (
-                      <></>
-                    )
-                  )}
-                </ul>
-              </Summary>
+              <Summary cards={item.summaryCards} />
             </section>
           ))}
         </Sections>

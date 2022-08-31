@@ -72,6 +72,9 @@ export default Toolbar;
 export const StyledTabsList = styled(TabsList)`
   background-color: var(--color-background-lighter);
   border-radius: 4px;
+  border: var(--border-2);
+  filter: drop-shadow(var(--box-shadow-1));
+
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
