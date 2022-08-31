@@ -183,7 +183,6 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
       ),
     },
   ];
-  console.log(indicator, schemeData);
 
   return (
     <>
@@ -227,18 +226,16 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
                     ))}
                   </VizTabs>
                   {financialYears && !isTable && (
-                    <VizMenu className="fill">
-                      <Menu
-                        value={meta.year}
-                        options={financialYears}
-                        heading="Financial Year:"
-                        handleChange={(e) =>
-                          dispatch({
-                            year: e,
-                          })
-                        }
-                      />
-                    </VizMenu>
+                    <Menu
+                      value={meta.year}
+                      options={financialYears}
+                      heading="Financial Year:"
+                      handleChange={(e) =>
+                        dispatch({
+                          year: e,
+                        })
+                      }
+                    />
                   )}
                 </VizHeader>
 
@@ -351,11 +348,6 @@ export const VizHeader = styled.div`
   align-items: center;
   padding: 16px 24px;
   gap: 1.5rem;
-`;
-const VizMenu = styled.div`
-  &.fill {
-    max-width: 280px;
-  }
 `;
 
 export const VizTabs = styled.ul`

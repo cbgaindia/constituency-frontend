@@ -88,13 +88,6 @@ const Explorer: React.FC<Props> = ({
       <Seo seo={seo} />
       <Wrapper>
         <div className="container">
-          {/* <SchemeSelector
-            suggestion={false}
-            sabha={false}
-            state={data.state}
-            scheme={data.scheme}
-            stateData={stateScheme}
-          /> */}
           <ExplorerHeader
             stateData={state.headerData}
             schemeDesc={scheme[Object.keys(scheme)[0]].metadata['description']}

@@ -58,7 +58,7 @@ const Share: React.FC<{ title: string; size?: 'default' | 'compact' }> = ({
           </Button>
         </DropdownMenuTrigger>
 
-        <ShareComp hideArrow sideOffset={1}>
+        <ShareComp loop hideArrow sideOffset={1}>
           <DropdownMenuItem>
             <a
               target="_blank"
