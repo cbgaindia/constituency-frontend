@@ -3,7 +3,19 @@ import { RadioItem } from 'components/layouts/Radio/Radio';
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
-const Indicator = ({ newIndicator, selectedIndicator, schemeData }) => {
+type Props = {
+  newIndicator: any;
+  selectedIndicator: any;
+  schemeData: any;
+  titleAs?: 'h2' | 'h3' | 'h4' | 'span' | 'p';
+};
+
+const Indicator = ({
+  newIndicator,
+  selectedIndicator,
+  schemeData,
+  titleAs = 'h4',
+}: Props) => {
   const indicatorRef = useRef(null);
   useEffect(() => {
     if (selectedIndicator)
@@ -20,7 +32,7 @@ const Indicator = ({ newIndicator, selectedIndicator, schemeData }) => {
 
   return (
     <IndicatorWrapper className="indicator">
-      <h3>Indicators</h3>
+      <IndicatorTitle as={titleAs}>Indicators</IndicatorTitle>
       <fieldset ref={indicatorRef}>
         <legend className="sr-only">Choose Indicator:</legend>
         {schemeData.data &&
@@ -83,13 +95,6 @@ export const IndicatorWrapper = styled.div`
     }
   }
 
-  h3 {
-    font-weight: 700;
-    font-size: 1rem;
-    border-bottom: var(--border-2);
-    padding-bottom: 16px;
-  }
-
   ${RadioItem} {
     line-height: 1.7;
     margin-top: 8px;
@@ -116,4 +121,10 @@ export const IndicatorWrapper = styled.div`
   @media (max-width: 980px) {
     display: none;
   }
+`;
+
+const IndicatorTitle = styled.h4`
+  font-weight: 700;
+  border-bottom: var(--border-2);
+  padding-bottom: 16px;
 `;
