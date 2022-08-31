@@ -9,9 +9,10 @@ import {
 } from 'components/icons';
 import styled from 'styled-components';
 import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
   Button,
   Box,
 } from '@opub-cdl/design-system';
@@ -37,8 +38,8 @@ const Share: React.FC<{ title: string }> = ({ title }) => {
 
   return (
     <div>
-      <Popover>
-        <PopoverTrigger asChild>
+      <DropdownMenu modal={false}>
+        <DropdownMenuTrigger asChild>
           <Button
             css={{ display: 'flex', alignItems: 'center' }}
             variant={'outline'}
@@ -48,113 +49,117 @@ const Share: React.FC<{ title: string }> = ({ title }) => {
               <ShareIcon fill="#1D7548" />
             </Box>
           </Button>
-        </PopoverTrigger>
+        </DropdownMenuTrigger>
 
-        <PopoverContent hideArrow sideOffset={1}>
-          <ShareComp className="shareModal__dropdown">
-            <li>
-              <a
-                target="_blank"
-                rel="noreferrer"
-                href={`https://www.facebook.com/sharer.php?u=https://constituencyv2.openbudgetsindia.org${router.asPath}`.replaceAll(
-                  '&',
-                  '%26'
-                )}
-              >
-                <Facebook />
-                <span>Facebook</span>
-                <span className="sr-only"> :opens in new window</span>
-              </a>
-            </li>
-            <li>
-              <a
-                target="_blank"
-                rel="noreferrer"
-                href={`https://twitter.com/intent/tweet?url=https://constituencyv2.openbudgetsindia.org${router.asPath}`.replaceAll(
-                  '&',
-                  '%26'
-                )}
-              >
-                <Twitter />
-                <span>Twitter</span>
-                <span className="sr-only"> :opens in new window</span>
-              </a>
-            </li>
-            <li>
-              <a
-                target="_blank"
-                rel="noreferrer"
-                href={`https://www.linkedin.com/sharing/share-offsite/?mini=true&url=https://constituencyv2.openbudgetsindia.org${router.asPath.replaceAll(
-                  '=',
-                  '%3D'
-                )}`}
-              >
-                <Linkedin />
-                <span>LinkedIn</span>
-                <span className="sr-only"> :opens in new window</span>
-              </a>
-            </li>
-            <li>
-              <a
-                target="_blank"
-                rel="noreferrer"
-                href={`https://www.reddit.com/submit?url=https://constituencyv2.openbudgetsindia.org${router.asPath}`.replaceAll(
-                  '&',
-                  '%26'
-                )}
-              >
-                <Reddit />
-                <span>Reddit</span>
-                <span className="sr-only"> :opens in new window</span>
-              </a>
-            </li>
-            <li id="share-native" hidden>
-              <button onClick={() => shareButtonHandler()}>
-                <Box css={{ marginRight: '8px', fontSize: 0 }}>
-                  <ShareIcon fill="#4965B2" />
-                </Box>
-                <span>Share via...</span>
-              </button>
-            </li>
-          </ShareComp>
-        </PopoverContent>
-      </Popover>
+        <ShareComp hideArrow sideOffset={1}>
+          <DropdownMenuItem>
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href={`https://www.facebook.com/sharer.php?u=https://constituencyv2.openbudgetsindia.org${router.asPath}`.replaceAll(
+                '&',
+                '%26'
+              )}
+            >
+              <Facebook />
+              <span>Facebook</span>
+              <span className="sr-only"> :opens in new window</span>
+            </a>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href={`https://twitter.com/intent/tweet?url=https://constituencyv2.openbudgetsindia.org${router.asPath}`.replaceAll(
+                '&',
+                '%26'
+              )}
+            >
+              <Twitter />
+              <span>Twitter</span>
+              <span className="sr-only"> :opens in new window</span>
+            </a>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href={`https://www.linkedin.com/sharing/share-offsite/?mini=true&url=https://constituencyv2.openbudgetsindia.org${router.asPath.replaceAll(
+                '=',
+                '%3D'
+              )}`}
+            >
+              <Linkedin />
+              <span>LinkedIn</span>
+              <span className="sr-only"> :opens in new window</span>
+            </a>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href={`https://www.reddit.com/submit?url=https://constituencyv2.openbudgetsindia.org${router.asPath}`.replaceAll(
+                '&',
+                '%26'
+              )}
+            >
+              <Reddit />
+              <span>Reddit</span>
+              <span className="sr-only"> :opens in new window</span>
+            </a>
+          </DropdownMenuItem>
+          <DropdownMenuItem id="share-native">
+            <button onClick={() => shareButtonHandler()}>
+              <Box css={{ fontSize: 0 }}>
+                <ShareIcon fill="#4965B2" />
+              </Box>
+              <span>Share via...</span>
+            </button>
+          </DropdownMenuItem>
+        </ShareComp>
+      </DropdownMenu>
     </div>
   );
 };
 
 export default Share;
 
-const ShareComp = styled.ul`
+const ShareComp = styled(DropdownMenuContent)`
   background-color: #fff;
   border: 1px solid #cdd1d1;
   box-shadow: 1px solid #eff2f2;
 
   a,
   button {
-    font-weight: 500 !important;
+    font-weight: 500;
     font-size: 0.875rem;
-    color: hsla(0, 0%, 0%, 0.87);
     line-height: 1.75;
     padding: 8px 12px;
     display: flex;
-    gap: 12px;
     align-items: center;
     text-decoration-color: transparent;
+    gap: 12px;
 
     svg {
-      width: 18px;
       pointer-events: none;
-      margin-left: 0;
     }
 
     &:hover {
       text-decoration-color: currentColor;
       background-color: #eee;
     }
+  }
 
-    span {
-      width: max-content;
+  button {
+    gap: 8px;
+
+    svg {
+      transform: scale(0.8);
     }
+  }
+
+  a svg {
+    width: 20px;
+    height: 20px;
   }
 `;
