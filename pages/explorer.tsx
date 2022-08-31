@@ -39,7 +39,7 @@ function verifyState(state) {
     ].some((e) => e.toLowerCase() === state.toLowerCase())
   )
     return true;
-  else return false;
+  return false;
 }
 
 const reducer = (state, action) => {

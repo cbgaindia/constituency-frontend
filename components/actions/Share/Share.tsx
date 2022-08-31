@@ -17,7 +17,10 @@ import {
   Box,
 } from '@opub-cdl/design-system';
 
-const Share: React.FC<{ title: string }> = ({ title }) => {
+const Share: React.FC<{ title: string; size?: 'default' | 'compact' }> = ({
+  title,
+  size = 'default',
+}) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -41,12 +44,16 @@ const Share: React.FC<{ title: string }> = ({ title }) => {
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <Button
+            size={size}
             css={{ display: 'flex', alignItems: 'center' }}
             variant={'outline'}
           >
             Share
             <Box css={{ marginLeft: '8px', fontSize: 0 }}>
-              <ShareIcon fill="#1D7548" />
+              <ShareIcon
+                width={size === 'compact' ? '20' : '24'}
+                fill="#1D7548"
+              />
             </Box>
           </Button>
         </DropdownMenuTrigger>
@@ -108,7 +115,7 @@ const Share: React.FC<{ title: string }> = ({ title }) => {
               <span className="sr-only"> :opens in new window</span>
             </a>
           </DropdownMenuItem>
-          <DropdownMenuItem id="share-native">
+          <DropdownMenuItem id="share-native" hidden>
             <button onClick={() => shareButtonHandler()}>
               <Box css={{ fontSize: 0 }}>
                 <ShareIcon fill="#4965B2" />

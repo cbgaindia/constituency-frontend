@@ -22,7 +22,7 @@ const Source: React.FC<{
 
       {meta.sabha !== 'editorial-notes' && (
         <SourceButtons data-html2canvas-ignore>
-          <Share buttonSize="sm" title="share viz" />
+          <Share size="compact" title="share viz" />
           {typeof window !== 'undefined' && (
             <DownloadViz
               tableData={tableData ? tableData : {}}
@@ -68,10 +68,10 @@ const SourceButtons = styled.div`
   flex-wrap: wrap;
   gap: 1rem;
 
-  > div > button {
+  /* > div > button {
     svg {
       width: 10px;
       margin-left: 8px;
     }
-  }
+  } */
 `;
