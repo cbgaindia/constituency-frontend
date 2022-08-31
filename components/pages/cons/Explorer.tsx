@@ -3,14 +3,13 @@ import Link from 'next/link';
 import styled from 'styled-components';
 import SchemesData from 'utils/schemesData';
 
-const SchemeList = ({ data, state }) => {
+const Explorer = ({ data, state }) => {
   return (
     <Wrapper>
-      {/* <span className="gradient-maple">Drilldown Further</span> */}
-      <h2>Explore fiscal information for the following Schemes</h2>
+      <h2>Start exploring some featured scheme</h2>
       <ul>
         {data.map((item, index) => (
-          <Card key={`schemeList-${index}`}>
+          <Card key={item.scheme_slug}>
             <Link href={`/explorer?scheme=${item.scheme_slug}&state=${state}`}>
               <a>
                 <figure>
@@ -32,7 +31,7 @@ const SchemeList = ({ data, state }) => {
   );
 };
 
-export { SchemeList };
+export { Explorer };
 
 const Wrapper = styled.div`
   margin-top: 80px;
@@ -46,7 +45,7 @@ const Wrapper = styled.div`
   }
 
   > h2 {
-    font-weight: 600;
+    font-weight: 700;
     line-height: 1.24;
     font-size: 2rem;
     margin-top: 8px;

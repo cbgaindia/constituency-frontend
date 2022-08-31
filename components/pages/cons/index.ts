@@ -1,3 +1,3 @@
-export { ConsInfo } from './ConsInfo';
+export { Overview } from './Overview';
 export { Header } from './Header';
-export { SchemeList } from './SchemeList';
+export { Explorer } from './Explorer';

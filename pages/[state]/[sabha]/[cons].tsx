@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 
-import { ConsInfo, Header, SchemeList } from 'components/pages/cons';
+import { Overview, Header, Explorer } from 'components/pages/cons';
 import { stateDataFetch, stateSchemeFetch } from 'utils/fetch';
 import { Seo } from 'components/common';
 import styled from 'styled-components';
@@ -45,7 +45,7 @@ const ConsPage: React.FC<Props> = ({ query, stateData, stateScheme }) => {
           name: 'Overview',
           altName: 'Key Highights of Constituency',
           icon: <VidhanSabha />,
-          content: <ConsInfo data={currentState} queryData={queryData} />,
+          content: <Overview data={currentState} queryData={queryData} />,
         },
         {
           value: 'explorer',
@@ -53,7 +53,7 @@ const ConsPage: React.FC<Props> = ({ query, stateData, stateScheme }) => {
           altName: 'Scheme Data of Constituency',
           icon: <LokSabha />,
           content: (
-            <SchemeList
+            <Explorer
               data={stateScheme[currentState?.State]}
               state={currentState?.State}
             />

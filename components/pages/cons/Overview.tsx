@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 
-const ConsInfo = ({ data, queryData }) => {
+const Overview = ({ data, queryData }) => {
   const summaryCards = [
     {
       text: 'Parliamentary Constituencies',
@@ -61,7 +61,7 @@ const ConsInfo = ({ data, queryData }) => {
   );
 };
 
-export { ConsInfo };
+export { Overview };
 
 export const HeaderWrapper = styled.div`
   margin-top: 40px;

@@ -115,7 +115,7 @@ const Share: React.FC<{ title: string; size?: 'default' | 'compact' }> = ({
               <span className="sr-only"> :opens in new window</span>
             </a>
           </DropdownMenuItem>
-          <DropdownMenuItem id="share-native">
+          <DropdownMenuItem id="share-native" hidden>
             <button onClick={() => shareButtonHandler()}>
               <Box css={{ fontSize: 0 }}>
                 <ShareIcon size={20} fill="#4965B2" />
