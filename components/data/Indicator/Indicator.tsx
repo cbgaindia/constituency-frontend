@@ -100,6 +100,10 @@ export const IndicatorWrapper = styled.div`
     letter-spacing: 0.01em;
     padding: 8px;
 
+    &:hover {
+      background-color: var(--color-grey-600);
+    }
+
     &[data-selected='true'] {
       font-weight: 600;
       background-color: var(--color-grey-600);
