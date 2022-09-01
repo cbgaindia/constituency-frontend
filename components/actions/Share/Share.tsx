@@ -40,7 +40,7 @@ const Share: React.FC<{ title: string; size?: 'default' | 'compact' }> = ({
   }
 
   return (
-    <div>
+    <>
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <Button
@@ -51,7 +51,7 @@ const Share: React.FC<{ title: string; size?: 'default' | 'compact' }> = ({
             Share
             <Box css={{ marginLeft: '8px', fontSize: 0 }}>
               <ShareIcon
-                size={size === 'compact' ? '20' : '24'}
+                width={size === 'compact' ? '20' : '24'}
                 fill="#1D7548"
               />
             </Box>
@@ -118,14 +118,14 @@ const Share: React.FC<{ title: string; size?: 'default' | 'compact' }> = ({
           <DropdownMenuItem id="share-native" hidden>
             <button onClick={() => shareButtonHandler()}>
               <Box css={{ fontSize: 0 }}>
-                <ShareIcon size={20} fill="#4965B2" />
+                <ShareIcon width={20} fill="#4965B2" />
               </Box>
               <span>Share via...</span>
             </button>
           </DropdownMenuItem>
         </ShareComp>
       </DropdownMenu>
-    </div>
+    </>
   );
 };
 

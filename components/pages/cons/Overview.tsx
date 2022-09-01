@@ -46,7 +46,11 @@ const Overview = ({ data, queryData, schemeData }) => {
         </Main>
       </article>
       <Summary title="Demographic Highlights" cards={summaryCards} />
-      <Snapshot schemeData={schemeData} indicator={'opening-balance'} />
+      <Snapshot
+        schemeData={schemeData}
+        meta={queryData}
+        indicator={'opening-balance'}
+      />
     </Wrapper>
   );
 };

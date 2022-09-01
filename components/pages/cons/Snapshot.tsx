@@ -1,14 +1,16 @@
-import { Menu } from 'components/actions';
-import { Indicator } from 'components/data';
+import { Menu, Share } from 'components/actions';
+import { DownloadViz, Indicator } from 'components/data';
 import React from 'react';
 import styled from 'styled-components';
+import Source from '../explorer/ExplorerViz/Source';
 
 type Props = {
   indicator: string;
   schemeData: any;
+  meta: any;
 };
 
-const Snapshot = ({ schemeData, indicator }: Props) => {
+const Snapshot = ({ schemeData, indicator, meta }: Props) => {
   const [selectedIndicator, setSelectedIndicator] = React.useState(indicator);
   const [selectedYear, setSelectedYear] = React.useState('2018-19');
   const tempYears = [
@@ -44,6 +46,17 @@ const Snapshot = ({ schemeData, indicator }: Props) => {
                 handleChange={(e) => setSelectedYear(e)}
               />
             </SnapshotSchemeTitle>
+            <SnapshotFooter>
+              <Source
+                currentViz={'currentViz'}
+                meta={{
+                  state: meta.state,
+                  indicator: indicator ? indicator : 'Opening Balance',
+                  sabha: meta.sabha,
+                }}
+                source={'Lorem Ipsum is simply dummy text'}
+              />
+            </SnapshotFooter>
           </SnapshotSchemes>
         </SnapshotWrapper>
       )}
@@ -99,4 +112,12 @@ const SnapshotSchemeTitle = styled.div`
       padding-bottom: 16px;
     }
   }
+`;
+
+const SnapshotFooter = styled.div`
+  filter: drop-shadow(var(--box-shadow-1));
+  background-color: var(--color-background-lighter);
+  margin-top: 16px;
+  border-radius: 4px;
+  border: var(--border-2);
 `;

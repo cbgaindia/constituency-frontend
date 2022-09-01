@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { saveAs } from 'file-saver';
 import { Download } from 'components/icons';
-import { Button } from 'components/actions';
+import { Box, Button } from '@opub-cdl/design-system';
+// import { Button } from 'components/actions';
 
 function fileName(meta) {
   // If there is no type, eg: table, don;t add it to the name
@@ -67,7 +68,13 @@ function createDummyCanvas(srcCanvas) {
   return destinationCanvas.toDataURL('image/jpeg', 2);
 }
 
-const DownloadViz = ({ viz, meta, tableData }) => {
+type Props = {
+  viz: string;
+  meta: any;
+  tableData?: any;
+};
+
+const DownloadViz = ({ viz, meta, tableData = {} }: Props) => {
   let watermarkSSR;
   useEffect(() => {
     import('watermarkjs').then((x) => (watermarkSSR = x.default));
@@ -105,11 +112,13 @@ const DownloadViz = ({ viz, meta, tableData }) => {
   return (
     <Button
       onClick={() => downloadSelector(viz)}
-      kind="primary"
-      size="sm"
-      icon={<Download />}
+      variant="primary"
+      size="compact"
     >
-      {`Download ${viz == '#tableView' ? 'CSV' : 'Map'}`}
+      {`Download ${viz == '#tableView' ? 'CSV' : 'Visualization'}`}
+      <Box css={{ marginLeft: '8px', fontSize: 0 }}>
+        <Download fill="#fff" width="20" />
+      </Box>
     </Button>
   );
 };

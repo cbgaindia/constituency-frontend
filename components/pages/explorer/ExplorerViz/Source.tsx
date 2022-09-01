@@ -39,26 +39,32 @@ const Source: React.FC<{
 export default Source;
 
 const ExplorerSource = styled.div`
-  border-top: 1px solid #cdd1d1;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  gap: 2rem;
-  align-items: flex-start;
-  padding: 1rem 0;
-  margin: 0 1.5rem;
+  gap: 16px;
+  padding: 24px;
+
+  @media (max-width: 480px) {
+    padding: 6px 12px;
+  }
 `;
 
 const SourceText = styled.div`
-  flex-basis: 35%;
+  /* flex-basis: 35%; */
   flex-grow: 1;
-  font-size: 14px;
-  flex-basis: 60%;
+  flex-basis: 50%;
   max-width: 80%;
 
+  font-size: 0.875rem;
+  line-height: 1.7;
+
+  strong {
+    font-weight: 600;
+  }
+
   p {
-    color: var(--text-light-medium);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-light);
     display: inline;
   }
 `;
@@ -67,11 +73,4 @@ const SourceButtons = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-
-  /* > div > button {
-    svg {
-      width: 10px;
-      margin-left: 8px;
-    }
-  } */
 `;

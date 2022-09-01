@@ -147,7 +147,7 @@ body {
 button {
   border:  none;
   background: none;
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 a {
