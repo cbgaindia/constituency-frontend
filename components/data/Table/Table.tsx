@@ -70,8 +70,6 @@ const ReactTable = ({ columns, data }) => {
             setPageSize(Number(e));
           }}
           value={totalRows}
-          top={true}
-          position="left"
         />
 
         <PaginationJump>

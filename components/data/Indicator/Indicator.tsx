@@ -81,13 +81,11 @@ export const IndicatorWrapper = styled.div`
   filter: drop-shadow(var(--box-shadow-1));
   border: var(--border-2);
   border-radius: 4px;
-  height: max-content;
   padding: 24px;
-  height: 100%;
 
   fieldset {
     overflow-y: auto;
-    max-height: 616px;
+    max-height: 800px;
     scrollbar-width: thin;
 
     ::-webkit-scrollbar {

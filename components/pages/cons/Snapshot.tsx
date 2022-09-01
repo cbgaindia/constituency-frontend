@@ -1,8 +1,11 @@
-import { Menu, Share } from 'components/actions';
-import { DownloadViz, Indicator } from 'components/data';
+import { Button, ProgressBar } from '@opub-cdl/design-system';
+import { Menu } from 'components/actions';
+import { Indicator } from 'components/data';
+import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
 import Source from '../explorer/ExplorerViz/Source';
+import SnapshotCard from './SnapshotCard';
 
 type Props = {
   indicator: string;
@@ -21,6 +24,56 @@ const Snapshot = ({ schemeData, indicator, meta }: Props) => {
     {
       title: '2019-20',
       value: '2019-20',
+    },
+  ];
+
+  const tempCardList: {
+    img: string;
+    title: string;
+    value?: {
+      state: number;
+      constituency: number;
+    };
+  }[] = [
+    {
+      img: '/assets/images/cbga_logo.png',
+      title: 'Mid-Day Meal Programme (MDM)',
+      value: {
+        state: 30,
+        constituency: 40,
+      },
+    },
+    {
+      img: '/assets/images/placeholder.jpg',
+      title: 'Swachh Bharat Mission-Gramin (SBMG)',
+      value: {
+        state: 80,
+        constituency: 30,
+      },
+    },
+    {
+      img: '/assets/schemes/nhm.png',
+      title: 'National Health Mission (NHM)',
+    },
+    {
+      img: '/assets/images/placeholder.jpg',
+      title: 'National Social Assistance Programme (NSAP)',
+      value: {
+        state: 20,
+        constituency: 40,
+      },
+    },
+    {
+      img: '/assets/schemes/nhm.png',
+      title: 'Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)',
+    },
+    {
+      img: '/assets/images/placeholder.jpg',
+      title: 'Pradhan Mantri Awaas Yojana - Grameen (PMAY)',
+      value: {
+        state: 75,
+        constituency: 50,
+      },
     },
   ];
 
@@ -46,6 +99,12 @@ const Snapshot = ({ schemeData, indicator, meta }: Props) => {
                 handleChange={(e) => setSelectedYear(e)}
               />
             </SnapshotSchemeTitle>
+            <SnapshotSchemeList>
+              {tempCardList &&
+                tempCardList.map((item) => (
+                  <SnapshotCard key={item.title} data={item} />
+                ))}
+            </SnapshotSchemeList>
             <SnapshotFooter>
               <Source
                 currentViz={'currentViz'}
@@ -97,6 +156,8 @@ const SnapshotSchemeTitle = styled.div`
   padding: 16px 24px;
 
   display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
   align-items: center;
   justify-content: space-between;
 
@@ -117,7 +178,14 @@ const SnapshotSchemeTitle = styled.div`
 const SnapshotFooter = styled.div`
   filter: drop-shadow(var(--box-shadow-1));
   background-color: var(--color-background-lighter);
-  margin-top: 16px;
   border-radius: 4px;
   border: var(--border-2);
+  margin-top: 16px;
+`;
+
+const SnapshotSchemeList = styled.ul`
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 `;

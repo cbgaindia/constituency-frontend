@@ -20,3 +20,4 @@ export { default as FullScreen } from './FullScreen';
 export { default as Info } from './Info';
 export { default as Globe } from './Globe';
 export { default as TableIcon } from './TableIcon';
+export { default as Notice } from './Notice';

@@ -94,8 +94,6 @@ const Pagination: React.FC<{ total: number; newPage: any }> = ({
         heading="Rows:"
         handleChange={handleRowsChange}
         value={resultSize}
-        top={true}
-        position="left"
       />
 
       <PaginationJump>
@@ -123,7 +121,7 @@ const Pagination: React.FC<{ total: number; newPage: any }> = ({
           >
             Previous Page
           </Button>
-           <Button
+          <Button
             onClick={() => handleButton(1)}
             className="pagination__next"
             icon={<ArrowDown />}
