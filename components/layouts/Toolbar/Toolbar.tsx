@@ -83,10 +83,10 @@ export const StyledTabsList = styled(TabsList)`
     font-weight: 600;
     padding: 10px 20px;
     color: var(--text-light-medium);
-    border-right: var(--border-2);
     gap: 12px;
     flex: unset;
     cursor: pointer;
+    flex-grow: 1;
 
     &[data-value='editorial-notes'] {
       border-inline: var(--border-2);
@@ -107,6 +107,13 @@ export const StyledTabsList = styled(TabsList)`
 
     @media screen and (max-width: 480px) {
       font-size: 0.75rem;
+    }
+  }
+
+  #fullScreen {
+    max-width: 72px;
+    @media (max-width: 1210px) {
+      display: none;
     }
   }
 `;

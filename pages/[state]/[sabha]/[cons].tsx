@@ -6,7 +6,10 @@ import { Overview, Header, Explorer } from 'components/pages/cons';
 import { dataTransform, stateDataFetch, stateSchemeFetch } from 'utils/fetch';
 import { Seo } from 'components/common';
 import styled from 'styled-components';
-import { LokSabha, VidhanSabha } from 'components/icons';
+import {
+  Overview as OverViewIcon,
+  Explorer as ExplorerIcon,
+} from 'components/icons';
 import { Toolbar } from 'components/layouts';
 
 type Props = {
@@ -50,7 +53,7 @@ const ConsPage: React.FC<Props> = ({
           value: 'overview',
           name: 'Overview',
           altName: 'Key Highights of Constituency',
-          icon: <VidhanSabha />,
+          icon: <OverViewIcon size={40} />,
           content: (
             <Overview
               data={currentState}
@@ -63,7 +66,7 @@ const ConsPage: React.FC<Props> = ({
           value: 'explorer',
           name: 'Explorer',
           altName: 'Scheme Data of Constituency',
-          icon: <LokSabha />,
+          icon: <ExplorerIcon size={40} />,
           content: (
             <Explorer
               data={stateScheme[currentState?.State]}
