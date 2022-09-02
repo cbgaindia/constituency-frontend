@@ -3,10 +3,6 @@ export const navList = {
   logo: '',
   links: [
     {
-      link: '/about',
-      name: 'About Us',
-    },
-    {
       link: '#states',
       name: 'States',
       submenu: [
@@ -37,9 +33,13 @@ export const navList = {
       ],
     },
     {
-      link: '/explorer?scheme=mgnrega&state=Uttar Pradesh',
-      name: 'Explorer',
+      link: '/about',
+      name: 'About Us',
     },
+    // {
+    //   link: '/explorer?scheme=mgnrega&state=Uttar Pradesh',
+    //   name: 'Explorer',
+    // },
     {
       link: 'https://drive.google.com/drive/folders/1_Qm_yDHBlcSTvoYdV0bc9b79DRF-pzJs',
       name: 'Methodology and Resources',
