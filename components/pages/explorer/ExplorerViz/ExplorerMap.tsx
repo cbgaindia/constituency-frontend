@@ -9,7 +9,7 @@ const ExplorerMap = ({ meta, schemeData }) => {
   const [mapIndicator, setMapIndicator] = useState(undefined);
 
   const { data, isLoading } = swrFetch(
-    `assets/maps/${meta.sabha}/${meta.state}.json`
+    `/assets/maps/${meta.sabha}/${meta.state}.json`
   );
 
   // preparing data for echarts component

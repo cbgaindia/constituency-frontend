@@ -15,11 +15,11 @@ const Source = dynamic(() => import('./Source'), {
 
 const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
   const [filtered, setFiltered] = useState([]);
-  const [isTable, setIsTable] = useState(false);
+  // const [isTable, setIsTable] = useState(false);
   const [currentViz, setCurrentViz] = useState('#mapView');
 
   const [financialYears, setFinancialYears] = useState(undefined);
-  const [tableData, setTableData] = useState<any>({});
+  // const [tableData, setTableData] = useState<any>({});
 
   const mapRef = useRef(null);
 
@@ -50,46 +50,46 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
     }
   }, [filtered]);
 
-  useEffect(() => {
-    if (financialYears) {
-      // setting tabular data
-      const tableHeader = [
-        { Header: 'Constituency', accessor: 'constHeader' },
-      ];
-      if (financialYears) {
-        financialYears.forEach((element) =>
-          tableHeader.push({
-            Header: `${indicator.replaceAll('-', ' ')} ${element.title}`,
-            accessor: `${indicator}-${element.title}`,
-          })
-        );
-      }
+  // useEffect(() => {
+  //   if (financialYears) {
+  //     // setting tabular data
+  //     const tableHeader = [
+  //       { Header: 'Constituency', accessor: 'constHeader' },
+  //     ];
+  //     if (financialYears) {
+  //       financialYears.forEach((element) =>
+  //         tableHeader.push({
+  //           Header: `${indicator.replaceAll('-', ' ')} ${element.title}`,
+  //           accessor: `${indicator}-${element.title}`,
+  //         })
+  //       );
+  //     }
 
-      const rowData = [];
-      if (filtered[meta.year]) {
-        Object.values(filtered[meta.year]).forEach((item, index) => {
-          const tempObj = {
-            [tableHeader[0].accessor]:
-              schemeData.metadata.consList[capitalize(state)][index]
-                ?.constName,
-          };
+  //     const rowData = [];
+  //     if (filtered[meta.year]) {
+  //       Object.values(filtered[meta.year]).forEach((item, index) => {
+  //         const tempObj = {
+  //           [tableHeader[0].accessor]:
+  //             schemeData.metadata.consList[capitalize(state)][index]
+  //               ?.constName,
+  //         };
 
-          Object.keys(filtered).map(
-            (item1, index1) =>
-              (tempObj[tableHeader[index1 + 1].accessor] =
-                filtered[item1][index + 1])
-          );
-          rowData.push(tempObj);
-        });
-      }
+  //         Object.keys(filtered).map(
+  //           (item1, index1) =>
+  //             (tempObj[tableHeader[index1 + 1].accessor] =
+  //               filtered[item1][index + 1])
+  //         );
+  //         rowData.push(tempObj);
+  //       });
+  //     }
 
-      const tableData = {
-        header: tableHeader,
-        rows: rowData,
-      };
-      setTableData(tableData);
-    }
-  }, [financialYears, meta.year]);
+  //     const tableData = {
+  //       header: tableHeader,
+  //       rows: rowData,
+  //     };
+  //     setTableData(tableData);
+  //   }
+  // }, [financialYears, meta.year]);
 
   useEffect(() => {
     if (sabha == 'lok') {
@@ -106,11 +106,11 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
     handleNewIndicator(indicator || schemeData.metadata?.indicators[0]);
   }, [schemeData]);
 
-  function hideMenu(e) {
-    setCurrentViz(e.target.getAttribute('href'));
-    if (e.target.getAttribute('href') == '#tableView') setIsTable(true);
-    else setIsTable(false);
-  }
+  // function hideMenu(e) {
+  //   setCurrentViz(e.target.getAttribute('href'));
+  //   if (e.target.getAttribute('href') == '#tableView') setIsTable(true);
+  //   else setIsTable(false);
+  // }
 
   function handleNewIndicator(val: any) {
     if (val) {
@@ -124,25 +124,26 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
           schemeData.data[indicatorID]['state_Obj'][capitalize(state)];
         dispatch({
           unit: schemeData.data[indicatorID].unit,
+          indicator: val,
         });
         setFiltered(filtered);
+      } else {
+        dispatch({
+          indicator: val,
+        });
       }
-
-      dispatch({
-        indicator: val,
-      });
     }
   }
 
-  function handleToggler(e) {
-    dispatch({
-      sabha: e,
-    });
-  }
+  // function handleToggler(e) {
+  //   dispatch({
+  //     sabha: e,
+  //   });
+  // }
 
   const vizToggle = [
     {
-      name: 'Map View',
+      name: `${state} - State view`,
       id: '#mapView',
       icon: <Globe />,
     },
@@ -216,25 +217,13 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
                   <VizTabs className="viz__tabs">
                     {vizToggle.map((item, index) => (
                       <li key={`toggleItem-${index}`}>
-                        <a href={item.id} onClick={(e) => hideMenu(e)}>
+                        <a href={item.id}>
                           {item.icon}
                           {item.name}
                         </a>
                       </li>
                     ))}
                   </VizTabs>
-                  {financialYears && !isTable && (
-                    <Menu
-                      value={meta.year}
-                      options={financialYears}
-                      heading="Financial Year:"
-                      handleChange={(e) =>
-                        dispatch({
-                          year: e,
-                        })
-                      }
-                    />
-                  )}
                 </VizHeader>
 
                 <Title>
@@ -252,6 +241,21 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
                     key={`vizItem-${index}`}
                     id={item.id}
                   >
+                    {financialYears && (
+                      <YearSelector>
+                        <Menu
+                          value={meta.year}
+                          showLabel={false}
+                          options={financialYears}
+                          heading="Financial Year:"
+                          handleChange={(e) =>
+                            dispatch({
+                              year: e,
+                            })
+                          }
+                        />
+                      </YearSelector>
+                    )}
                     {item.graph}
                   </VizGraph>
                 ))}
@@ -293,7 +297,7 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
                   indicator: indicator ? indicator : 'Opening Balance',
                   sabha,
                 }}
-                tableData={tableData}
+                // tableData={tableData}
                 source={schemeData.metadata?.source}
               />
             </VizWrapper>
@@ -352,7 +356,7 @@ export const VizTabs = styled.ul`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 1.5rem;
+  gap: 8px;
   min-height: 48px;
 
   li {
@@ -364,8 +368,8 @@ export const VizTabs = styled.ul`
     overflow: hidden;
     text-overflow: ellipsis;
     text-decoration: none;
-    padding-bottom: 12px;
-    min-width: 120%;
+    padding-bottom: 14px;
+    padding-inline: 8px;
     display: block;
     text-align: center;
     border-bottom: 2px solid transparent;
@@ -402,6 +406,7 @@ export const VizGraph = styled.div`
   margin: 0 24px 0;
   height: 580px;
   overflow-y: auto;
+  position: relative;
 
   &#tableView {
     @media (max-width: 640px) {
@@ -412,6 +417,13 @@ export const VizGraph = styled.div`
   @media (max-width: 480px) {
     margin: 0 4px 32px;
   }
+`;
+
+const YearSelector = styled.div`
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
 `;
 
 const SchemeNotes = styled.div`

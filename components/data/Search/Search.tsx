@@ -1,3 +1,4 @@
+import React from 'react';
 import { Cross } from 'components/icons';
 import styled from 'styled-components';
 
@@ -49,7 +50,7 @@ const Search: React.FC<{ placeholder?: string; onChange: any }> = ({
   );
 };
 
-export default Search;
+export default React.memo(Search);
 
 export const Wrapper = styled.div`
   width: 100%;

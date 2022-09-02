@@ -1,8 +1,38 @@
 import { Search } from 'components/data';
 import { ExplorerViz } from 'components/pages/explorer';
+import React from 'react';
 import styled from 'styled-components';
+import useSWR from 'swr';
+import { dataTransform } from 'utils/fetch';
 
-const SchemeSelected = ({ scheme }) => {
+const reducer = (state, action) => {
+  // console.log(state);
+
+  return { ...state, ...action };
+};
+
+const SchemeSelected = ({ schemeName, queryData }) => {
+  const fetcher = (url) => dataTransform(schemeName);
+  const { data, error } = useSWR('/api/data', fetcher);
+
+  const initalState = React.useMemo(
+    () => ({
+      state: queryData.state || '',
+      scheme: queryData.scheme || '',
+      schemeData: '',
+      sabha: queryData.sabha || 'lok',
+      indicator: '',
+      year: '',
+      unit: '',
+      constituency: '',
+      consCode: '',
+      vizType: 'map',
+    }),
+    []
+  );
+
+  const [state, dispatch] = React.useReducer(reducer, initalState);
+
   return (
     <>
       <SearchWrapper>
@@ -14,7 +44,11 @@ const SchemeSelected = ({ scheme }) => {
       </SearchWrapper>
 
       <ExplorerWrapper>
-        {/* <ExplorerViz schemeRaw={scheme} meta={state} dispatch={dispatch} /> */}
+        {data ? (
+          <ExplorerViz schemeRaw={data} meta={state} dispatch={dispatch} />
+        ) : (
+          !data && !error && <div>Loading...</div>
+        )}
       </ExplorerWrapper>
     </>
   );
