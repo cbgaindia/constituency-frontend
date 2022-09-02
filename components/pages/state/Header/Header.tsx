@@ -48,7 +48,8 @@ const Header = ({ data }) => {
       <Summary
         title={
           <SummaryTitle>
-            Summary <span>|</span> Financial Year 2022-23
+            Summary <Separator>|</Separator>
+            <span>Financial Year 2022-23</span>
           </SummaryTitle>
         }
         cards={summaryCards}
@@ -111,8 +112,13 @@ const SummaryTitle = styled.h2`
   display: flex;
   gap: 8px;
   align-items: center;
+  flex-wrap: wrap;
+`;
 
-  span {
-    color: var(--text-light-disabled);
+const Separator = styled.span`
+  color: var(--text-light-disabled);
+
+  @media (max-width: 480px) {
+    display: none;
   }
 `;
