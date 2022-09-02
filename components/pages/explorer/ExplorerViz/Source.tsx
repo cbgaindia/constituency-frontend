@@ -44,10 +44,6 @@ const ExplorerSource = styled.div`
   align-items: flex-start;
   gap: 16px;
   padding: 24px;
-
-  @media (max-width: 480px) {
-    padding: 6px 12px;
-  }
 `;
 
 const SourceText = styled.div`
