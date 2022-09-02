@@ -5,10 +5,9 @@ import { tabbedInterface } from 'utils/helper';
 
 import { Indicator, IndicatorMobile, Table } from 'components/data';
 import { Menu } from 'components/actions';
-import Toggler from './Toggler';
 import ExplorerMap from './ExplorerMap';
 import { capitalize } from 'utils/helper';
-import { Globe, Info, TableIcon } from 'components/icons';
+import { Globe, Info } from 'components/icons';
 
 const Source = dynamic(() => import('./Source'), {
   ssr: false,
@@ -147,11 +146,11 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
       id: '#mapView',
       icon: <Globe />,
     },
-    {
-      name: 'Table View',
-      id: '#tableView',
-      icon: <TableIcon />,
-    },
+    // {
+    //   name: 'Table View',
+    //   id: '#tableView',
+    //   icon: <TableIcon />,
+    // },
   ];
 
   const vizItems = [
@@ -162,31 +161,30 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
           <ExplorerMap
             meta={{ sabha, state, indicator, unit }}
             schemeData={filtered[meta.year]}
-            dispatch={dispatch}
           />
         ) : (
           <p>No data</p>
         ),
       ref: mapRef,
     },
-    {
-      id: 'tableView',
-      graph: tableData.rows ? (
-        <Table
-          header={
-            tableData.header ? tableData.header : ['table not available']
-          }
-          rows={tableData.rows ? tableData.rows : []}
-        />
-      ) : (
-        <></>
-      ),
-    },
+    // {
+    //   id: 'tableView',
+    //   graph: tableData.rows ? (
+    //     <Table
+    //       header={
+    //         tableData.header ? tableData.header : ['table not available']
+    //       }
+    //       rows={tableData.rows ? tableData.rows : []}
+    //     />
+    //   ) : (
+    //     <></>
+    //   ),
+    // },
   ];
 
   return (
     <>
-      <Toggler handleNewToggle={handleToggler} sabha={sabha} />
+      {/* <Toggler handleNewToggle={handleToggler} sabha={sabha} /> */}
       {filtered ? (
         <>
           <IndicatorMobile

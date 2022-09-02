@@ -1,12 +1,22 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import SchemesData from 'utils/schemesData';
 
-const SchemeCard = ({ data, state }) => {
+const SchemeCard = ({ data }) => {
+  const { query, pathname } = useRouter();
+
   return (
     <Card>
-      <Link href={`/explorer?scheme=${data.scheme_slug}&state=${state}`}>
+      <Link
+        href={{
+          pathname,
+          query: { ...query, scheme: data.scheme_slug },
+        }}
+        shallow
+        replace
+      >
         <a>
           <figure>
             <Image

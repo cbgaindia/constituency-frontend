@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import SchemeCard from './SchemeCard';
 
-const AllSchemes = ({ data, state }) => {
+const AllSchemes = ({ data }) => {
   return (
     <Wrapper>
       <h2>Start exploring some featured scheme</h2>
       <ul>
         {data.map((item) => (
-          <SchemeCard data={item} state={state} key={item.scheme_slug} />
+          <SchemeCard data={item} key={item.scheme_slug} />
         ))}
       </ul>
     </Wrapper>
