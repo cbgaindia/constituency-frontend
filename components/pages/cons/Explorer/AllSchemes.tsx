@@ -7,7 +7,7 @@ const AllSchemes = ({ data, state }) => {
       <h2>Start exploring some featured scheme</h2>
       <ul>
         {data.map((item) => (
-          <SchemeCard item={item} state={state} key={item.scheme_slug} />
+          <SchemeCard data={item} state={state} key={item.scheme_slug} />
         ))}
       </ul>
     </Wrapper>

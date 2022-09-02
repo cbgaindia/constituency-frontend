@@ -3,21 +3,21 @@ import Link from 'next/link';
 import styled from 'styled-components';
 import SchemesData from 'utils/schemesData';
 
-const SchemeCard = ({ item, state }) => {
+const SchemeCard = ({ data, state }) => {
   return (
     <Card>
-      <Link href={`/explorer?scheme=${item.scheme_slug}&state=${state}`}>
+      <Link href={`/explorer?scheme=${data.scheme_slug}&state=${state}`}>
         <a>
           <figure>
             <Image
-              src={SchemesData[item.scheme_slug].logo}
+              src={SchemesData[data.scheme_slug].logo}
               alt=""
               width={88}
               height={88}
               className="img-contain"
             />
           </figure>
-          <h3>{item.scheme_name}</h3>
+          <h3>{data.scheme_name}</h3>
         </a>
       </Link>
     </Card>

@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import AllSchemes from './AllSchemes';
 
 const Explorer = ({ data, state }) => {
