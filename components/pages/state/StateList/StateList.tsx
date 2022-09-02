@@ -5,7 +5,6 @@ import { groupListByAlphabets, sortArrayOfObj } from 'utils/helper';
 import { LokSabha, VidhanSabha } from 'components/icons';
 import SearchCons from './SearchCons';
 import { Toolbar } from 'components/layouts';
-import { Box } from '@opub-cdl/design-system';
 
 const StateList = ({ data }) => {
   const [stateData, setStateData] = React.useState<any>([]);
@@ -152,7 +151,7 @@ const ConsList = styled.ol`
   border-radius: 4px;
 
   height: 680px;
-  overflow-y: auto;
+  overflow-y: scroll;
 
   span {
     font-weight: 700;

@@ -1,2 +1,1 @@
-export { default } from './Search';
-export { SearchWrapper } from './Search';
+export { default as Search } from './Search';

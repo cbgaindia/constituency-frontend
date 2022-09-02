@@ -1,5 +1,5 @@
 import React from 'react';
-import { SearchInput } from 'components/data/Search/Search';
+import { Search } from 'components/data/Search';
 
 const SearchCons = ({ data, onFilter }) => {
   function handleSearch(query, list) {
@@ -24,14 +24,10 @@ const SearchCons = ({ data, onFilter }) => {
   }
 
   return (
-    <SearchInput
-      type="search"
-      name="q"
-      id="searchInput"
-      onChange={(e) => handleChange(e.target.value)}
+    <Search
+      onChange={(e) => handleChange(e)}
       placeholder={'Search here...'}
       aria-label="Search"
-      autoComplete="off"
     />
   );
 };
