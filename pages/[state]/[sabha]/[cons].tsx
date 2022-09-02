@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 
-import { Overview, Header, Explorer } from 'components/pages/cons';
-import { dataTransform, stateDataFetch, stateSchemeFetch } from 'utils/fetch';
 import { Seo } from 'components/common';
 import styled from 'styled-components';
 import {
@@ -11,6 +9,10 @@ import {
   Explorer as ExplorerIcon,
 } from 'components/icons';
 import { Toolbar } from 'components/layouts';
+import { upperCaseString } from 'utils/helper';
+import { Overview, Header } from 'components/pages/cons';
+import { dataTransform, stateDataFetch, stateSchemeFetch } from 'utils/fetch';
+import { Explorer } from 'components/pages/cons/Explorer';
 
 type Props = {
   query: any;
@@ -25,57 +27,54 @@ const ConsPage: React.FC<Props> = ({
   stateScheme,
   schemeData,
 }) => {
-  const [currentState, setCurrentState] = useState<any>();
-  const [queryData, setQueryData] = useState<any>();
-  const [tabData, setTabData] = React.useState<any>();
-
-  useEffect(() => {
-    function upperCase(str) {
-      return str.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
-    }
-    const { state, sabha, cons } = query;
-    setQueryData({ state: upperCase(state), sabha, cons: upperCase(cons) });
-  }, [query]);
-
-  useEffect(() => {
-    // get meta data of current state
-    setCurrentState(
-      stateData.find(
-        (o) => o.State.toLowerCase() == queryData?.state.toLowerCase()
-      )
-    );
-  }, [queryData]);
+  const [queryData, setQueryData] = React.useState<any>();
 
   React.useEffect(() => {
-    if (currentState)
-      setTabData([
-        {
-          value: 'overview',
-          name: 'Overview',
-          altName: 'Key Highights of Constituency',
-          icon: <OverViewIcon size={40} />,
-          content: (
-            <Overview
-              data={currentState}
-              schemeData={schemeData}
-              queryData={queryData}
-            />
-          ),
-        },
-        {
-          value: 'explorer',
-          name: 'Explorer',
-          altName: 'Scheme Data of Constituency',
-          icon: <ExplorerIcon size={40} />,
-          content: (
-            <Explorer
-              data={stateScheme[currentState?.State]}
-              state={currentState?.State}
-            />
-          ),
-        },
-      ]);
-  }, [currentState]);
+    const { state, sabha, cons } = query;
+    setQueryData({
+      state: upperCaseString(state),
+      sabha,
+      cons: upperCaseString(cons),
+    });
+  }, [query]);
+
+  const currentState = React.useCallback(
+    stateData.find(
+      (o) => o.State.toLowerCase() == queryData?.state.toLowerCase()
+    ),
+    [queryData]
+  );
+
+  const tabData = React.useMemo(
+    () => [
+      {
+        value: 'overview',
+        name: 'Overview',
+        altName: 'Key Highights of Constituency',
+        icon: <OverViewIcon size={40} />,
+        content: (
+          <Overview
+            data={currentState}
+            schemeData={schemeData}
+            queryData={queryData}
+          />
+        ),
+      },
+      {
+        value: 'explorer',
+        name: 'Explorer',
+        altName: 'Scheme Data of Constituency',
+        icon: <ExplorerIcon size={40} />,
+        content: (
+          <Explorer
+            data={stateScheme[currentState?.State]}
+            state={currentState?.State}
+          />
+        ),
+      },
+    ],
+    [currentState]
+  );
 
   const seo = {
     title: `${queryData?.cons} . ${queryData?.state} - Constituency Dashboard`,
@@ -87,7 +86,7 @@ const ConsPage: React.FC<Props> = ({
   return (
     <>
       <Seo seo={seo} />
-      {currentState && tabData ? (
+      {tabData ? (
         <>
           <Head>
             <link rel="icon" href="/favicon.ico" />

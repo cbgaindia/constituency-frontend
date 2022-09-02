@@ -191,3 +191,7 @@ export function fullScreenMode(id: string) {
     if (vizWrapper) fscreen.requestFullscreen(vizWrapper);
   }
 }
+
+export function upperCaseString(str) {
+  return str.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
+}

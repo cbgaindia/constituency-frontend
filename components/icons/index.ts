@@ -23,3 +23,4 @@ export { default as TableIcon } from './TableIcon';
 export { default as Notice } from './Notice';
 export { default as Overview } from './Overview';
 export { default as Explorer } from './Explorer';
+export { default as Search } from './Search';
