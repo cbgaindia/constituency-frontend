@@ -7,7 +7,7 @@ import { Indicator, IndicatorMobile, Table } from 'components/data';
 import { Menu } from 'components/actions';
 import ExplorerMap from './ExplorerMap';
 import { capitalize } from 'utils/helper';
-import { Globe, Info } from 'components/icons';
+import { Globe } from 'components/icons';
 
 const Source = dynamic(() => import('./Source'), {
   ssr: false,
@@ -15,11 +15,9 @@ const Source = dynamic(() => import('./Source'), {
 
 const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
   const [filtered, setFiltered] = useState([]);
-  // const [isTable, setIsTable] = useState(false);
   const [currentViz, setCurrentViz] = useState('#mapView');
 
   const [financialYears, setFinancialYears] = useState(undefined);
-  // const [tableData, setTableData] = useState<any>({});
 
   const mapRef = useRef(null);
 
@@ -30,7 +28,7 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
     // ceating tabbed interface for viz selector
     const tablist = document.querySelector('.viz__tabs');
     const panels = document.querySelectorAll('.viz__graph');
-    tabbedInterface(tablist, panels);
+    if (tablist && panels) tabbedInterface(tablist, panels);
   }, []);
 
   useEffect(() => {
@@ -48,48 +46,7 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
         year: year ? year : years[0].value,
       });
     }
-  }, [filtered]);
-
-  // useEffect(() => {
-  //   if (financialYears) {
-  //     // setting tabular data
-  //     const tableHeader = [
-  //       { Header: 'Constituency', accessor: 'constHeader' },
-  //     ];
-  //     if (financialYears) {
-  //       financialYears.forEach((element) =>
-  //         tableHeader.push({
-  //           Header: `${indicator.replaceAll('-', ' ')} ${element.title}`,
-  //           accessor: `${indicator}-${element.title}`,
-  //         })
-  //       );
-  //     }
-
-  //     const rowData = [];
-  //     if (filtered[meta.year]) {
-  //       Object.values(filtered[meta.year]).forEach((item, index) => {
-  //         const tempObj = {
-  //           [tableHeader[0].accessor]:
-  //             schemeData.metadata.consList[capitalize(state)][index]
-  //               ?.constName,
-  //         };
-
-  //         Object.keys(filtered).map(
-  //           (item1, index1) =>
-  //             (tempObj[tableHeader[index1 + 1].accessor] =
-  //               filtered[item1][index + 1])
-  //         );
-  //         rowData.push(tempObj);
-  //       });
-  //     }
-
-  //     const tableData = {
-  //       header: tableHeader,
-  //       rows: rowData,
-  //     };
-  //     setTableData(tableData);
-  //   }
-  // }, [financialYears, meta.year]);
+  }, [filtered, scheme]);
 
   useEffect(() => {
     if (sabha == 'lok') {
@@ -100,17 +57,11 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
       dispatch({
         schemeData: schemeRaw.ac,
       });
-  }, [sabha]);
+  }, [sabha, schemeRaw]);
 
   useEffect(() => {
     handleNewIndicator(indicator || schemeData.metadata?.indicators[0]);
-  }, [schemeData]);
-
-  // function hideMenu(e) {
-  //   setCurrentViz(e.target.getAttribute('href'));
-  //   if (e.target.getAttribute('href') == '#tableView') setIsTable(true);
-  //   else setIsTable(false);
-  // }
+  }, [schemeData, schemeRaw]);
 
   function handleNewIndicator(val: any) {
     if (val) {
@@ -119,14 +70,15 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
         const indicatorID = Object.keys(schemeData.data).find(
           (item) => schemeData.data[item].slug === val
         );
-
-        const filtered =
-          schemeData.data[indicatorID]['state_Obj'][capitalize(state)];
-        dispatch({
-          unit: schemeData.data[indicatorID].unit,
-          indicator: val,
-        });
-        setFiltered(filtered);
+        if (schemeData.data[indicatorID]) {
+          const filtered =
+            schemeData.data[indicatorID]['state_Obj'][capitalize(state)];
+          dispatch({
+            unit: schemeData.data[indicatorID].unit,
+            indicator: val,
+          });
+          setFiltered(filtered);
+        }
       } else {
         dispatch({
           indicator: val,
@@ -135,23 +87,12 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
     }
   }
 
-  // function handleToggler(e) {
-  //   dispatch({
-  //     sabha: e,
-  //   });
-  // }
-
   const vizToggle = [
     {
       name: `${state} - State view`,
       id: '#mapView',
       icon: <Globe />,
     },
-    // {
-    //   name: 'Table View',
-    //   id: '#tableView',
-    //   icon: <TableIcon />,
-    // },
   ];
 
   const vizItems = [
@@ -168,24 +109,10 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
         ),
       ref: mapRef,
     },
-    // {
-    //   id: 'tableView',
-    //   graph: tableData.rows ? (
-    //     <Table
-    //       header={
-    //         tableData.header ? tableData.header : ['table not available']
-    //       }
-    //       rows={tableData.rows ? tableData.rows : []}
-    //     />
-    //   ) : (
-    //     <></>
-    //   ),
-    // },
   ];
 
   return (
     <>
-      {/* <Toggler handleNewToggle={handleToggler} sabha={sabha} /> */}
       {filtered ? (
         <>
           <IndicatorMobile
@@ -208,7 +135,7 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
             )}
 
             <VizWrapper id="mapViewContainer">
-              <VizContainer
+              <div
                 className={
                   sabha === 'editorial-notes' ? 'inactive-viz' : undefined
                 }
@@ -259,36 +186,8 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
                     {item.graph}
                   </VizGraph>
                 ))}
+              </div>
 
-                {currentViz !== '#tableView' && (
-                  <Title id="mapVizInfo" data-html2canvas-ignore>
-                    <Info fill="#D7AA3B" /> Select any constituency to do the
-                    comparision and report card generation.
-                  </Title>
-                )}
-              </VizContainer>
-              <SchemeNotes
-                className={
-                  sabha !== 'editorial-notes' ? 'inactive-viz' : undefined
-                }
-                data-html2canvas-ignore
-              >
-                <p>{schemeData.metadata?.description}</p>
-                <div>
-                  {schemeData.data &&
-                    Object.values(schemeData.data).map((item: any) => (
-                      <NotesInidicator key={`indicator-${item.slug}`}>
-                        <NotesTitle>
-                          <h3>{item.name}</h3> ({item.unit})
-                        </NotesTitle>
-                        <p>{item.description}</p>
-                        <IndicatorNotes>
-                          <strong>Note:</strong> {item.note || 'NA'}
-                        </IndicatorNotes>
-                      </NotesInidicator>
-                    ))}
-                </div>
-              </SchemeNotes>
               <Source
                 currentViz={currentViz}
                 meta={{
@@ -297,7 +196,6 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
                   indicator: indicator ? indicator : 'Opening Balance',
                   sabha,
                 }}
-                // tableData={tableData}
                 source={schemeData.metadata?.source}
               />
             </VizWrapper>
@@ -310,7 +208,7 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
   );
 };
 
-export default ExplorerViz;
+export default React.memo(ExplorerViz);
 
 export const Wrapper = styled.section`
   display: grid;
@@ -326,10 +224,6 @@ export const Wrapper = styled.section`
   &.inactive-sidebar {
     grid-template-columns: minmax(0, 1fr);
   }
-`;
-
-const VizContainer = styled.div`
-  margin-bottom: 24px;
 `;
 
 export const VizWrapper = styled.div`

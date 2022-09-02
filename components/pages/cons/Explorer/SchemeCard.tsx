@@ -14,8 +14,8 @@ const SchemeCard = ({ data }) => {
           pathname,
           query: { ...query, scheme: data.scheme_slug },
         }}
-        shallow
-        replace
+        // shallow
+        // replace
       >
         <a>
           <figure>

@@ -18,10 +18,12 @@ const Indicator = ({
 }: Props) => {
   const indicatorRef = useRef(null);
   useEffect(() => {
-    if (selectedIndicator)
-      indicatorRef.current.querySelector(
+    if (selectedIndicator) {
+      const indicatorELm = indicatorRef.current.querySelector(
         `[value="${selectedIndicator}"]`
-      ).checked = true;
+      );
+      if (indicatorELm) indicatorELm.checked = true;
+    }
   }, [selectedIndicator]);
 
   function handleIndicatorChange(e: any) {

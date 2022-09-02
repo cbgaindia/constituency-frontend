@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import { swrFetch } from 'utils/helper';
 
 const ExplorerMap = ({ meta, schemeData }) => {
+  // console.log(meta);
+
   const [mapValues, setMapvalues] = useState([]);
   const [mapIndicator, setMapIndicator] = useState(undefined);
 
@@ -121,7 +123,7 @@ const ExplorerMap = ({ meta, schemeData }) => {
   );
 };
 
-export default ExplorerMap;
+export default React.memo(ExplorerMap);
 
 const Wrapper = styled.div`
   position: relative;

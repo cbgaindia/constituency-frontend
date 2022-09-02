@@ -6,30 +6,25 @@ import useSWR from 'swr';
 import { dataTransform } from 'utils/fetch';
 
 const reducer = (state, action) => {
-  // console.log(state);
-
   return { ...state, ...action };
 };
 
 const SchemeSelected = ({ schemeName, queryData }) => {
   const fetcher = (url) => dataTransform(schemeName);
-  const { data, error } = useSWR('/api/data', fetcher);
+  const { data, isValidating } = useSWR('/api/data', fetcher);
 
-  const initalState = React.useMemo(
-    () => ({
-      state: queryData.state || '',
-      scheme: queryData.scheme || '',
-      schemeData: '',
-      sabha: queryData.sabha || 'lok',
-      indicator: '',
-      year: '',
-      unit: '',
-      constituency: '',
-      consCode: '',
-      vizType: 'map',
-    }),
-    []
-  );
+  const initalState = {
+    state: queryData.state || '',
+    scheme: queryData.scheme || '',
+    schemeData: '',
+    sabha: queryData.sabha || 'lok',
+    indicator: '',
+    year: '',
+    unit: '',
+    constituency: '',
+    consCode: '',
+    vizType: 'map',
+  };
 
   const [state, dispatch] = React.useReducer(reducer, initalState);
 
@@ -44,10 +39,10 @@ const SchemeSelected = ({ schemeName, queryData }) => {
       </SearchWrapper>
 
       <ExplorerWrapper>
-        {data ? (
-          <ExplorerViz schemeRaw={data} meta={state} dispatch={dispatch} />
+        {!data || isValidating ? (
+          <div>Loading...</div>
         ) : (
-          !data && !error && <div>Loading...</div>
+          <ExplorerViz schemeRaw={data} meta={state} dispatch={dispatch} />
         )}
       </ExplorerWrapper>
     </>
