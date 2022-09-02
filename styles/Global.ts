@@ -27,8 +27,10 @@ ${cssNormalise}
 
 html {
   --color-primary: ${theme.color_amazon_100};
-  --color-secondary : ${theme.color_maple_100};
+  --color-secondary : ${theme.color_maple_300};
   --color-tertiary : ${theme.color_olive_100};
+
+  --colors-secondary : ${theme.color_maple_300} !important;
 
   --color-background : ${theme.background};
   --color-background-dark : ${theme.background_dark};
