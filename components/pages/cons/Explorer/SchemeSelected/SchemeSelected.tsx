@@ -5,12 +5,12 @@ import styled from 'styled-components';
 import useSWR from 'swr';
 import { dataTransform } from 'utils/fetch';
 
-const reducer = (state, action) => {
+const reducer = (state: any, action: any) => {
   return { ...state, ...action };
 };
 
 const SchemeSelected = ({ schemeName, queryData }) => {
-  const fetcher = (url) => dataTransform(schemeName);
+  const fetcher = (url: string) => dataTransform(schemeName);
   const { data } = useSWR(`${queryData.state}/${queryData.scheme}`, fetcher);
 
   const initalState = {

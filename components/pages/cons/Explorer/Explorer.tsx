@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
-import AllSchemes from './AllSchemes';
-import SchemeSelected from './SchemeSelected';
+import { AllSchemes } from './AllSchemes';
+import { SchemeSelected } from './SchemeSelected';
 
 const Explorer = ({ data, queryData }) => {
   const { query } = useRouter();
