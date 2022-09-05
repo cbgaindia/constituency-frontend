@@ -1,10 +1,8 @@
-import { Button, ProgressBar } from '@opub-cdl/design-system';
 import { Menu } from 'components/actions';
 import { Indicator } from 'components/data';
-import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
-import Source from '../explorer/ExplorerViz/Source';
+import Source from '../Source';
 import SnapshotCard from './SnapshotCard';
 
 type Props = {

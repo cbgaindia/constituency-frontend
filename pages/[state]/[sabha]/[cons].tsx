@@ -10,9 +10,8 @@ import {
 } from 'components/icons';
 import { Toolbar } from 'components/layouts';
 import { upperCaseString } from 'utils/helper';
-import { Overview, Header } from 'components/pages/cons';
+import { Overview, Header, Explorer } from 'components/pages/cons';
 import { dataTransform, stateDataFetch, stateSchemeFetch } from 'utils/fetch';
-import { Explorer } from 'components/pages/cons/Explorer';
 
 type Props = {
   query: any;

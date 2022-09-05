@@ -9,9 +9,9 @@ import ExplorerMap from './ExplorerMap';
 import { capitalize } from 'utils/helper';
 import { Globe } from 'components/icons';
 
-const Source = dynamic(() => import('./Source'), {
-  ssr: false,
-});
+// const Source = dynamic(() => import('./Source'), {
+//   ssr: false,
+// });
 
 const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
   const [filtered, setFiltered] = useState([]);
@@ -188,7 +188,7 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
                 ))}
               </div>
 
-              <Source
+              {/* <Source
                 currentViz={currentViz}
                 meta={{
                   scheme,
@@ -197,7 +197,7 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
                   sabha,
                 }}
                 source={schemeData.metadata?.source}
-              />
+              /> */}
             </VizWrapper>
           </Wrapper>
         </>

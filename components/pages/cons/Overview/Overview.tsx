@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
-import { Summary } from '../shared';
+import { Summary } from 'components/pages/shared';
 import Snapshot from './Snapshot';
 
 const Overview = ({ data, queryData, schemeData }) => {

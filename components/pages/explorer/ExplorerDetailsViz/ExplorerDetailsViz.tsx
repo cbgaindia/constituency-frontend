@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { Indicator, IndicatorMobile } from 'components/data';
-import Source from '../ExplorerViz/Source';
+// import Source from '../ExplorerViz/Source';
 import Toggler from './Toggler';
 import { Info } from 'components/icons';
 import { GroupBarChart } from 'components/viz';
@@ -193,7 +193,7 @@ const ExplorerDetailsViz = ({ meta, dispatch }) => {
             )}
           </VizGraph>
 
-          <Source
+          {/* <Source
             meta={{
               scheme: meta.scheme,
               state: meta.state,
@@ -202,7 +202,7 @@ const ExplorerDetailsViz = ({ meta, dispatch }) => {
             }}
             currentViz={'#reportViz'}
             source={schemeData.metadata?.source}
-          />
+          /> */}
         </VizWrapper>
       </Wrapper>
     </>
