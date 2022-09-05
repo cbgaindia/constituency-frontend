@@ -1,6 +1,7 @@
 import { Share } from 'components/actions';
 import Image from 'next/image';
 import styled from 'styled-components';
+import ConsSelectorModal from './ConsSelectorModal';
 
 const Header = ({ queryData }) => {
   return (
@@ -20,7 +21,10 @@ const Header = ({ queryData }) => {
           } Sabha contituency`}</SabhaName>
           <div>
             <h1 className="gradient-maple">{queryData.cons}</h1>
-            <span>{`(${queryData.state})`}</span>
+            <StateName>
+              <span>{`(${queryData.state})`}</span>
+              <ConsSelectorModal />
+            </StateName>
           </div>
         </ConsDetails>
       </Meta>
@@ -79,6 +83,12 @@ const ConsDetails = styled.div`
       font-size: 1.5rem;
     }
   }
+`;
+
+const StateName = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
 `;
 
 const SabhaName = styled.span`
