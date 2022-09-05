@@ -103,14 +103,15 @@ const StyledDialogClose = styled(DialogClose)`
 `;
 
 const contentShow = keyframes({
-  '0%': { opacity: 0, transform: 'scale(.96) translateX(50%)' },
-  '100%': { opacity: 1, transform: 'scale(1) translateX(50%)' },
+  '0%': { opacity: 0, transform: 'translate(-50%, -48%) scale(.96)' },
+  '100%': { opacity: 1, transform: 'translate(-50%, -50%) scale(1)' },
 });
 
 const StyledDialogContent = styled(DialogContent)`
-  transform: translateX(50%);
-  top: 170px;
-  right: calc(50% + 40px);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
   width: 90vw;
   max-width: 548px;
   animation: ${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1) !important;
