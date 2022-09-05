@@ -7,7 +7,7 @@ import {
   ButtonsLabel,
 } from './PaginationComp';
 import { Button, Menu } from 'components/actions';
-import { ArrowDown } from 'components/icons';
+import { IconDropdown } from 'components/icons';
 
 const paginationItems = [
   {
@@ -116,7 +116,7 @@ const Pagination: React.FC<{ total: number; newPage: any }> = ({
             onClick={() => handleButton(-1)}
             kind="custom"
             className="pagination__back"
-            icon={<ArrowDown />}
+            icon={<IconDropdown width={24} />}
             iconOnly={true}
           >
             Previous Page
@@ -124,7 +124,7 @@ const Pagination: React.FC<{ total: number; newPage: any }> = ({
           <Button
             onClick={() => handleButton(1)}
             className="pagination__next"
-            icon={<ArrowDown />}
+            icon={<IconDropdown width={24} />}
             iconOnly={true}
           >
             Next Page

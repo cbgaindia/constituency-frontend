@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { useTable, usePagination, useSortBy } from 'react-table';
-import { ArrowDown, SortIcon } from 'components/icons';
+import { IconDropdown, SortIcon } from 'components/icons';
 import { Button, Menu } from 'components/actions';
 import PaginationComp, {
   ButtonsLabel,
@@ -97,7 +97,7 @@ const ReactTable = ({ columns, data }) => {
               onClick={() => previousPage()}
               kind="custom"
               className="pagination__back"
-              icon={<ArrowDown />}
+              icon={<IconDropdown width={24} />}
               iconOnly={true}
             >
               Previous Page
@@ -105,7 +105,7 @@ const ReactTable = ({ columns, data }) => {
             <Button
               onClick={() => nextPage()}
               className="pagination__next"
-              icon={<ArrowDown />}
+              icon={<IconDropdown width={24} />}
               iconOnly={true}
             >
               Next Page
@@ -135,10 +135,11 @@ const ReactTable = ({ columns, data }) => {
                     icon={
                       column.isSorted ? (
                         column.isSortedDesc ? (
-                          <ArrowDown fill="#000000" />
+                          <IconDropdown width={24} fill="#000000" />
                         ) : (
-                          <ArrowDown
+                          <IconDropdown
                             fill="#000000"
+                            width={24}
                             style={{ transform: 'rotate(180deg)' }}
                           />
                         )

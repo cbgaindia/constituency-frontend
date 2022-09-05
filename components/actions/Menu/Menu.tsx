@@ -6,7 +6,7 @@ import {
   MenuItem,
   MenuLabel,
 } from './MenuComp';
-import { ArrowDown } from 'components/icons';
+import { IconDropdown } from 'components/icons';
 import { DropdownMenu } from '@opub-cdl/design-system';
 
 interface Props {
@@ -56,7 +56,7 @@ const Menu = ({
       <DropdownMenu modal={false}>
         <MenuButton aria-labelledby={menuLabelID}>
           {value ? value : heading}
-          <ArrowDown fill="#888F8B" />
+          <IconDropdown width={32} fill="#888F8B" />
         </MenuButton>
         <MenuContent loop hideArrow sideOffset={2}>
           {options.length > 0 ? (

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import MobileNav from './MobileNav';
-import { ArrowDown, ArrowTail } from 'components/icons';
+import { IconDropdown, ArrowTail } from 'components/icons';
 import styled from 'styled-components';
 import { submenuHover, submenuClick } from './navbar.helper';
 
@@ -73,7 +73,7 @@ const Nav = ({ data }) => {
                             aria-expanded="false"
                             as="button"
                           >
-                            {navItem.name} <ArrowDown width={24} height={24} />
+                            {navItem.name} <IconDropdown width={24} />
                           </Navitem>
                           {navItem.submenu.length > 0 && (
                             <ul>

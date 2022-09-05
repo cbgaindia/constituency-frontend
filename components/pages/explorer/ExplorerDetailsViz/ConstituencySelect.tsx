@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Button, Widget } from 'components/actions';
 import ButtonWrapper from 'components/actions/Button/ButtonComp';
 import { WidgetContent } from 'components/actions/Widget/Widget';
-import { ArrowDown, Cross } from 'components/icons';
+import { IconDropdown, Cross } from 'components/icons';
 import { sectionCollapse } from 'utils/helper';
 
 function handleSearch(query, obj) {
@@ -66,7 +66,7 @@ const ConstituencySelect = ({
   return (
     <Wrapper id="compareSelector">
       <Widget
-        icon={<ArrowDown />}
+        icon={<IconDropdown width={24} />}
         buttonContent={currentItem ? currentItem : fallBack}
         title="constituency menu"
         buttonStyle="custom"
@@ -90,7 +90,7 @@ const ConstituencySelect = ({
                     kind="custom"
                     key={`${item}-selector-${index}`}
                     aria-expanded="false"
-                    icon={<ArrowDown />}
+                    icon={<IconDropdown width={24} />}
                     onClick={(e) => sectionCollapse(e, selectorRef)}
                   >
                     <div>

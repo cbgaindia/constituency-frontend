@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@next/bundle-analyzer": "^12.1.0",
-    "@opub-cdl/design-system": "^0.9.35",
+    "@opub-cdl/design-system": "^0.9.36",
     "echarts": "^5.3.0",
     "echarts-for-react": "^3.0.2",
     "file-saver": "^2.0.5",
