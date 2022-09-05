@@ -18,7 +18,6 @@ import { Cross, IconDropdown, LokSabha, VidhanSabha } from 'components/icons';
 import StateTab from './StateTab';
 
 const ConsSelectorModal = ({ data }) => {
-  const [selectedSabha, setSelectedSabha] = React.useState('lok');
   return (
     <Wrapper>
       <Dialog>
@@ -104,13 +103,14 @@ const StyledDialogClose = styled(DialogClose)`
 `;
 
 const contentShow = keyframes({
-  '0%': { opacity: 0, transform: 'scale(.96)' },
-  '100%': { opacity: 1, transform: 'scale(1)' },
+  '0%': { opacity: 0, transform: 'scale(.96) translateX(50%)' },
+  '100%': { opacity: 1, transform: 'scale(1) translateX(50%)' },
 });
 
 const StyledDialogContent = styled(DialogContent)`
-  top: 200px;
-  left: 50px;
+  transform: translateX(50%);
+  top: 170px;
+  right: calc(50% + 40px);
   width: 90vw;
   max-width: 548px;
   animation: ${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1) !important;

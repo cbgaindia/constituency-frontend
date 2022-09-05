@@ -4,8 +4,6 @@ import styled from 'styled-components';
 import ConsSelectorModal from './ConsSelectorModal';
 
 const Header = ({ queryData, vidhanData, lokData }) => {
-  console.log(vidhanData, lokData);
-
   return (
     <Wrapper>
       <Meta>

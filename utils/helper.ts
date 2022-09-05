@@ -160,8 +160,9 @@ export function getParameterCaseInsensitive(
 
 export function sortArrayOfObj(obj: any, key: string | number) {
   if (obj[0][key])
-    return obj.sort((a: { [x: string]: number }, b: { [x: string]: number }) =>
-      a[key] > b[key] ? 1 : b[key] > a[key] ? -1 : 0
+    return [...obj].sort(
+      (a: { [x: string]: number }, b: { [x: string]: number }) =>
+        a[key] > b[key] ? 1 : b[key] > a[key] ? -1 : 0
     );
   return obj;
 }

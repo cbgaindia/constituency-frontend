@@ -6,6 +6,7 @@ import {
   TabsContent,
 } from '@opub-cdl/design-system';
 import { IconArrowRight } from 'components/icons';
+import { groupListByAlphabets, sortArrayOfObj } from 'utils/helper';
 
 const StateTab = ({ data, sabha }) => {
   return (
@@ -24,20 +25,34 @@ const StateTab = ({ data, sabha }) => {
         </TabsList>
 
         {Object.keys(data) &&
-          Object.keys(data).map((item) => (
-            <StyledContent value={item} key={item}>
-              <ul>
-                {data[item].map((cons) => (
-                  <ConsLink
-                    href={`/${item}/${sabha}/${cons.constName}`}
-                    key={cons.constCode}
-                  >
-                    {cons.constName}
-                  </ConsLink>
-                ))}
-              </ul>
-            </StyledContent>
-          ))}
+          Object.keys(data).map((item) => {
+            const sortedList = groupListByAlphabets(
+              sortArrayOfObj(data[item], 'constName'),
+              'constName'
+            );
+
+            return (
+              <StyledContent value={item} key={item}>
+                <div>
+                  {sortedList.map((group: any) => (
+                    <>
+                      <span>{group.char}</span>
+                      <ul>
+                        {group.children.map((cons) => (
+                          <ConsLink
+                            href={`/${item}/${sabha}/${cons.constName}`}
+                            key={cons.constCode}
+                          >
+                            {cons.constName}
+                          </ConsLink>
+                        ))}
+                      </ul>
+                    </>
+                  ))}
+                </div>
+              </StyledContent>
+            );
+          })}
       </Tabs>
     </Wrapper>
   );
@@ -86,14 +101,21 @@ const StyleTrigger = styled(TabsTrigger)`
 `;
 
 const StyledContent = styled(TabsContent)`
-  ul {
-    background-color: var(--color-background-lighter);
-    width: 100%;
-    padding: 16px;
-    border-radius: 2px;
+  > div {
     height: 656px;
     height: clamp(300px, 90vh, 656px);
     overflow-y: scroll;
+    background-color: var(--color-background-lighter);
+    width: 100%;
+    padding: 0 16px 16px;
+    border-radius: 2px;
+
+    > span {
+      margin-top: 16px;
+      display: inline-block;
+      font-weight: 700;
+      text-transform: capitalize;
+    }
   }
 `;
 
