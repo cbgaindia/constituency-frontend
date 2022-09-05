@@ -167,6 +167,23 @@ export function sortArrayOfObj(obj: any, key: string | number) {
   return obj;
 }
 
+export function handleArrOfObjSearch(query, list) {
+  let newList = [];
+
+  if (query.length > 0) {
+    list?.forEach((obj) => {
+      const filteredCons = obj.children.filter((item) =>
+        item.constName.toLowerCase().includes(query.toLowerCase())
+      );
+      if (filteredCons.length) {
+        newList.push({ char: obj.char, children: filteredCons });
+      }
+    });
+
+    return newList;
+  } else return list;
+}
+
 export function groupListByAlphabets(list: [], key: string) {
   const groupedObj = list.reduce((acc: any, current: any) => {
     // get the first character

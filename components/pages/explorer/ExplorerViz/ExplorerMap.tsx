@@ -5,8 +5,6 @@ import styled from 'styled-components';
 import { swrFetch } from 'utils/helper';
 
 const ExplorerMap = ({ meta, schemeData }) => {
-  // console.log(meta);
-
   const [mapValues, setMapvalues] = useState([]);
   const [mapIndicator, setMapIndicator] = useState(undefined);
 

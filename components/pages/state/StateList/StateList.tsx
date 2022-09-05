@@ -12,7 +12,6 @@ const StateList = ({ data }) => {
   const [lokData, setLokData] = React.useState<any>([]);
   const [vidhanData, setVidhanData] = React.useState<any>([]);
   const [selectedSabha, setSelectedSabha] = React.useState<any>('vidhan');
-  console.log(data.vidhan);
 
   React.useEffect(() => {
     // first sort the object, then group them by first character.
