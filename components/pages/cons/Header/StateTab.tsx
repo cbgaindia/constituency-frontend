@@ -67,19 +67,19 @@ const ConstituencyList = ({ list, state, sabha }) => {
         />
         {consList.length ? (
           consList.map((group: any) => (
-            <>
+            <React.Fragment key={group.char}>
               <span>{group.char}</span>
               <ul>
-                {group.children.map((cons, index) => (
+                {group.children.map((cons) => (
                   <ConsLink
                     href={`/${state}/${sabha}/${cons.constName}`}
-                    key={`${cons.constCode}-${index}`}
+                    key={`${cons.constCode}`}
                   >
                     {cons.constName}
                   </ConsLink>
                 ))}
               </ul>
-            </>
+            </React.Fragment>
           ))
         ) : (
           <p style={{ marginTop: '16px' }}>No results...</p>
