@@ -3,7 +3,9 @@ import Image from 'next/image';
 import styled from 'styled-components';
 import ConsSelectorModal from './ConsSelectorModal';
 
-const Header = ({ queryData }) => {
+const Header = ({ queryData, vidhanData, lokData }) => {
+  console.log(vidhanData, lokData);
+
   return (
     <Wrapper>
       <Meta>
@@ -23,7 +25,12 @@ const Header = ({ queryData }) => {
             <h1 className="gradient-maple">{queryData.cons}</h1>
             <StateName>
               <span>{`(${queryData.state})`}</span>
-              <ConsSelectorModal />
+              <ConsSelectorModal
+                data={{
+                  vidhan: vidhanData,
+                  lok: lokData,
+                }}
+              />
             </StateName>
           </div>
         </ConsDetails>

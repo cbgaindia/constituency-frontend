@@ -91,7 +91,11 @@ const ConsPage: React.FC<Props> = ({
             <link rel="icon" href="/favicon.ico" />
           </Head>
           <main className="container">
-            <Header queryData={queryData} />
+            <Header
+              queryData={queryData}
+              vidhanData={schemeData?.ac.metadata.consList}
+              lokData={schemeData?.pc.metadata.consList}
+            />
             <Wrapper>
               <Toolbar
                 defaultValue="overview"

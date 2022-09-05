@@ -1,8 +1,8 @@
+import React from 'react';
 import styled from 'styled-components';
 import {
   Box,
   IconButton,
-  Button,
   Dialog,
   DialogClose,
   DialogContent,
@@ -15,8 +15,10 @@ import {
   keyframes,
 } from '@opub-cdl/design-system';
 import { Cross, IconDropdown, LokSabha, VidhanSabha } from 'components/icons';
+import StateTab from './StateTab';
 
-const ConsSelectorModal = () => {
+const ConsSelectorModal = ({ data }) => {
+  const [selectedSabha, setSelectedSabha] = React.useState('lok');
   return (
     <Wrapper>
       <Dialog>
@@ -53,6 +55,12 @@ const ConsSelectorModal = () => {
                   </div>
                 </SabhaSelector>
               </TabsList>
+              <TabsContent value="lok">
+                <StateTab data={data.lok} sabha="lok" />
+              </TabsContent>
+              <TabsContent value="vidhan">
+                <StateTab data={data.vidhan} sabha="vidhan" />
+              </TabsContent>
             </Tabs>
           </Content>
         </StyledDialogContent>
@@ -159,10 +167,6 @@ const SabhaSelector = styled.div`
       svg {
         fill: var(--color-amazon-300);
       }
-    }
-
-    @media screen and (max-width: 480px) {
-      font-size: 0.75rem;
     }
   }
 `;

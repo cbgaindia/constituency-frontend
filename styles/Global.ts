@@ -65,6 +65,8 @@ html {
   --color-sapphire-3 : ${theme.color_sapphire_3};
   --color-sapphire-5 : ${theme.color_sapphire_5};
 
+  --colors-slateA3: ${theme.grey_500};
+
   --color-success : ${theme.color_success};
   --color-error : ${theme.color_error};
   --color-warning : ${theme.color_warning};
