@@ -11,7 +11,7 @@ const reducer = (state, action) => {
 
 const SchemeSelected = ({ schemeName, queryData }) => {
   const fetcher = (url) => dataTransform(schemeName);
-  const { data, isValidating } = useSWR('/api/data', fetcher);
+  const { data } = useSWR(`${queryData.state}/${queryData.scheme}`, fetcher);
 
   const initalState = {
     state: queryData.state || '',
@@ -39,7 +39,7 @@ const SchemeSelected = ({ schemeName, queryData }) => {
       </SearchWrapper>
 
       <ExplorerWrapper>
-        {!data || isValidating ? (
+        {!data ? (
           <div>Loading...</div>
         ) : (
           <ExplorerViz schemeRaw={data} meta={state} dispatch={dispatch} />
