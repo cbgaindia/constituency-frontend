@@ -1,14 +1,14 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import dynamic from 'next/dynamic';
 import { tabbedInterface } from 'utils/helper';
 
 import { Indicator, IndicatorMobile } from 'components/data';
-import { Menu } from 'components/actions';
-import ExplorerMap from './ExplorerMap';
+import StateMap from './StateMap';
 import { capitalize } from 'utils/helper';
 import { Globe } from 'components/icons';
 import { SourceWrapper } from 'components/pages/cons/Source';
+import ConstBar from './ConstBar';
 
 const Source = dynamic(() => import('components/pages/cons/Source'), {
   ssr: false,
@@ -18,9 +18,7 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
   const [filtered, setFiltered] = useState([]);
   const [currentViz, setCurrentViz] = useState('#mapView');
 
-  const [financialYears, setFinancialYears] = useState(undefined);
-
-  const { state, scheme, indicator, unit, schemeData, year } = meta;
+  const { state, scheme, indicator, schemeData } = meta;
   const { sabha } = meta || 'lok';
 
   useEffect(() => {
@@ -29,23 +27,6 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
     const panels = document.querySelectorAll('.viz__graph');
     if (tablist && panels) tabbedInterface(tablist, panels);
   }, []);
-
-  useEffect(() => {
-    // fill up available financial years for state+sabha
-    if (schemeData.data && filtered) {
-      const years = Object.keys(
-        Object.values(schemeData.data)[0]['state_Obj'][capitalize(state)]
-      ).map((item) => ({
-        value: item,
-        title: item,
-      }));
-      setFinancialYears(years); // all years
-
-      dispatch({
-        year: year ? year : years[0].value,
-      });
-    }
-  }, [filtered, scheme]);
 
   useEffect(() => {
     if (sabha == 'lok') {
@@ -104,9 +85,10 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
       id: 'mapView',
       graph:
         (sabha == 'lok' || sabha == 'vidhan') && filtered ? (
-          <ExplorerMap
-            meta={{ sabha, state, indicator, unit }}
+          <StateMap
+            meta={meta}
             schemeData={filtered[meta.year]}
+            dispatch={dispatch}
           />
         ) : (
           <p>No data</p>
@@ -116,10 +98,7 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
       id: 'consView',
       graph:
         (sabha == 'lok' || sabha == 'vidhan') && filtered ? (
-          <ExplorerMap
-            meta={{ sabha, state, indicator, unit }}
-            schemeData={filtered[meta.year]}
-          />
+          <ConstBar />
         ) : (
           <p>No data</p>
         ),
@@ -179,21 +158,6 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
                     key={`vizItem-${index}`}
                     id={item.id}
                   >
-                    {financialYears && (
-                      <YearSelector>
-                        <Menu
-                          value={meta.year}
-                          showLabel={false}
-                          options={financialYears}
-                          heading="Financial Year:"
-                          handleChange={(e) =>
-                            dispatch({
-                              year: e,
-                            })
-                          }
-                        />
-                      </YearSelector>
-                    )}
                     {item.graph}
                   </VizGraph>
                 ))}

@@ -1,16 +1,36 @@
-import * as echarts from 'echarts/core';
+import React, { useEffect, useState } from 'react';
 import { MapViz } from 'components/viz';
-import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { swrFetch } from 'utils/helper';
+import { capitalize, swrFetch } from 'utils/helper';
+import { Menu } from 'components/actions';
 
-const ExplorerMap = ({ meta, schemeData }) => {
+const StateMap = ({ meta, schemeData, dispatch }) => {
   const [mapValues, setMapvalues] = useState([]);
   const [mapIndicator, setMapIndicator] = useState(undefined);
+  const [financialYears, setFinancialYears] = useState(undefined);
 
   const { data, isLoading } = swrFetch(
     `/assets/maps/${meta.sabha}/${meta.state}.json`
   );
+
+  useEffect(() => {
+    // fill up available financial years for state+sabha
+    if (meta.schemeData.data) {
+      const years = Object.keys(
+        Object.values(meta.schemeData.data)[0]['state_Obj'][
+          capitalize(meta.state)
+        ]
+      ).map((item) => ({
+        value: item,
+        title: item,
+      }));
+      setFinancialYears(years); // all years
+
+      dispatch({
+        year: meta.year ? meta.year : years[0].value,
+      });
+    }
+  }, [meta]);
 
   // preparing data for echarts component
   useEffect(() => {
@@ -108,23 +128,47 @@ const ExplorerMap = ({ meta, schemeData }) => {
         <p>Loading...</p>
       ) : (
         mapIndicator && (
-          <MapViz
-            mapFile={data}
-            meta={meta}
-            data={mapValues}
-            vizIndicators={mapIndicator}
-            // newMapItem={newMapItem}
-          />
+          <>
+            {financialYears && (
+              <YearSelector>
+                <Menu
+                  value={meta.year}
+                  showLabel={false}
+                  options={financialYears}
+                  heading="Financial Year:"
+                  handleChange={(e) =>
+                    dispatch({
+                      year: e,
+                    })
+                  }
+                />
+              </YearSelector>
+            )}
+            <MapViz
+              mapFile={data}
+              meta={meta}
+              data={mapValues}
+              vizIndicators={mapIndicator}
+              // newMapItem={newMapItem}
+            />
+          </>
         )
       )}
     </Wrapper>
   );
 };
 
-export default React.memo(ExplorerMap);
+export default React.memo(StateMap);
 
 const Wrapper = styled.div`
   position: relative;
   height: 100%;
   width: 100%;
+`;
+
+const YearSelector = styled.div`
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
 `;
