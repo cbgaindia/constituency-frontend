@@ -14,7 +14,7 @@ const Source: React.FC<{
   tableData?: string;
 }> = ({ meta, currentViz, source, tableData }) => {
   return (
-    <ExplorerSource>
+    <SourceWrapper>
       <SourceText>
         <strong>Data Source: </strong>
         <p>{source}</p>
@@ -32,13 +32,13 @@ const Source: React.FC<{
           )}
         </SourceButtons>
       )}
-    </ExplorerSource>
+    </SourceWrapper>
   );
 };
 
 export default Source;
 
-const ExplorerSource = styled.div`
+export const SourceWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;

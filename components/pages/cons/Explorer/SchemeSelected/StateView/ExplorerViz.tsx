@@ -8,10 +8,11 @@ import { Menu } from 'components/actions';
 import ExplorerMap from './ExplorerMap';
 import { capitalize } from 'utils/helper';
 import { Globe } from 'components/icons';
+import { SourceWrapper } from 'components/pages/cons/Source';
 
-// const Source = dynamic(() => import('./Source'), {
-//   ssr: false,
-// });
+const Source = dynamic(() => import('components/pages/cons/Source'), {
+  ssr: false,
+});
 
 const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
   const [filtered, setFiltered] = useState([]);
@@ -188,7 +189,7 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
                 ))}
               </div>
 
-              {/* <Source
+              <Source
                 currentViz={currentViz}
                 meta={{
                   scheme,
@@ -197,7 +198,7 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
                   sabha,
                 }}
                 source={schemeData.metadata?.source}
-              /> */}
+              />
             </VizWrapper>
           </Wrapper>
         </>
@@ -234,6 +235,18 @@ export const VizWrapper = styled.div`
 
   .inactive-viz {
     display: none;
+  }
+
+  ${SourceWrapper} {
+    margin-top: 16px;
+    margin-inline: 24px;
+    padding: 16px 0 24px;
+    border-top: var(--border-2);
+
+    @media (max-width: 480px) {
+      margin-inline: 4px;
+      padding: 12px;
+    }
   }
 `;
 
@@ -318,43 +331,6 @@ const YearSelector = styled.div`
   top: 16px;
   right: 16px;
   z-index: 10;
-`;
-
-const SchemeNotes = styled.div`
-  padding: 24px;
-  max-height: 592px;
-  overflow-y: auto;
-
-  > p {
-    border-left: 4px solid var(--color-amazon-100);
-    padding-left: 18px;
-    border-radius: 4px;
-  }
-`;
-
-const NotesInidicator = styled.section`
-  margin-top: 16px;
-  background-color: var(--color-background-light);
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-
-  h3 {
-    display: inline-block;
-    font-weight: 600;
-    font-size: 1rem;
-    color: var(--text-light-high);
-  }
-`;
-
-const NotesTitle = styled.span`
-  font-weight: 400;
-  color: var(--text-light-medium);
-`;
-const IndicatorNotes = styled.span`
-  font-size: 0.75rem;
-  line-height: 1.7;
 `;
 
 const NoData = styled.div`

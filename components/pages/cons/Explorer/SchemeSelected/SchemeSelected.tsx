@@ -1,5 +1,5 @@
 import { Search } from 'components/data';
-import { ExplorerViz } from 'components/pages/explorer';
+import ExplorerViz from 'components/pages/cons/Explorer/SchemeSelected/StateView';
 import React from 'react';
 import styled from 'styled-components';
 import useSWR from 'swr';
