@@ -87,20 +87,20 @@ const ExplorerMap = ({ meta, schemeData }) => {
     }
   }, [data, schemeData, meta.sabha]);
 
-  const newMapItem = useCallback((e) => {
-    if (e) {
-      // overriding map highlight on constituency selection
-      const myChart = echarts.getInstanceByDom(
-        document.querySelector('#mapView .echarts-for-react')
-      );
-      if (myChart) {
-        myChart.dispatchAction({
-          type: 'select',
-          name: e.name,
-        });
-      }
-    }
-  }, []);
+  // const newMapItem = useCallback((e) => {
+  //   if (e) {
+  //     // overriding map highlight on constituency selection
+  //     const myChart = echarts.getInstanceByDom(
+  //       document.querySelector('#mapView .echarts-for-react')
+  //     );
+  //     if (myChart) {
+  //       myChart.dispatchAction({
+  //         type: 'select',
+  //         name: e.name,
+  //       });
+  //     }
+  //   }
+  // }, []);
 
   return (
     <Wrapper>
@@ -113,7 +113,7 @@ const ExplorerMap = ({ meta, schemeData }) => {
             meta={meta}
             data={mapValues}
             vizIndicators={mapIndicator}
-            newMapItem={newMapItem}
+            // newMapItem={newMapItem}
           />
         )
       )}

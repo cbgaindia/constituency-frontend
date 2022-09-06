@@ -3,7 +3,6 @@ import { GetServerSideProps } from 'next';
 import { dataTransform, stateSchemeFetch } from 'utils/fetch';
 import { HomeAbout, HomeHeader, HomeStates } from 'components/pages/home';
 import { Seo } from 'components/common';
-// import { Button } from '@opub-cdl/design-system';
 
 export default function Home({ schemeData }) {
   const seo = {

@@ -1,9 +1,9 @@
-import { Search } from 'components/data';
-import ExplorerViz from 'components/pages/cons/Explorer/SchemeSelected/StateView';
 import React from 'react';
 import styled from 'styled-components';
 import useSWR from 'swr';
+import ExplorerView from './ExplorerView';
 import { dataTransform } from 'utils/fetch';
+import { SchemeSearch } from './SchemeSearch';
 
 const reducer = (state: any, action: any) => {
   return { ...state, ...action };
@@ -34,19 +34,14 @@ const SchemeSelected = ({ schemeName, queryData }) => {
 
   return (
     <>
-      <SearchWrapper>
-        <Search
-          onChange={(e) => {}}
-          placeholder={'Search here...'}
-          aria-label="Search"
-        />
-      </SearchWrapper>
-
+      <SchemeSearch />
       <ExplorerWrapper>
         {!data ? (
           <div>Loading...</div>
         ) : (
-          <ExplorerViz schemeRaw={data} meta={state} dispatch={dispatch} />
+          <>
+            <ExplorerView schemeRaw={data} meta={state} dispatch={dispatch} />
+          </>
         )}
       </ExplorerWrapper>
     </>
@@ -54,15 +49,6 @@ const SchemeSelected = ({ schemeName, queryData }) => {
 };
 
 export default SchemeSelected;
-
-const SearchWrapper = styled.div`
-  margin-top: 32px;
-  padding: 12px;
-  background-color: var(--color-background-lighter);
-  border: var(--border-2);
-  box-shadow: var(--box-shadow-1);
-  border-radius: 4px;
-`;
 
 const ExplorerWrapper = styled.div`
   margin-top: 32px;

@@ -9,16 +9,20 @@ import { MapChart } from 'echarts/charts';
 import { SVGRenderer } from 'echarts/renderers';
 import ReactEChartsCore from 'echarts-for-react/lib/core';
 
-const MapViz = ({ meta, mapFile, data, newMapItem, vizIndicators }) => {
+const MapViz = ({ meta, mapFile, data, vizIndicators }) => {
   const [mapOptions, setMapOptions] = useState({});
-  useEffect(() => {
-    if (Object.keys(mapFile).length > 0) {
-      const map = mapFile;
-      map.features.forEach(
-        (obj) => (obj.properties['GEO_NO'] = String(obj.properties['GEO_NO']))
-      );
 
-      echarts.registerMap(meta.sabha, map, {});
+  const memoMap = React.useMemo(() => {
+    const tempObj = { ...mapFile };
+    tempObj.features.forEach(
+      (obj) => (obj.properties['GEO_NO'] = String(obj.properties['GEO_NO']))
+    );
+    return tempObj;
+  }, [mapFile]);
+
+  useEffect(() => {
+    if (memoMap) {
+      echarts.registerMap(meta.sabha, memoMap, {});
       const options = {
         backgroundColor: '#EBF0EE',
         tooltip: {
@@ -82,13 +86,13 @@ const MapViz = ({ meta, mapFile, data, newMapItem, vizIndicators }) => {
       };
       setMapOptions(options);
     }
-  }, [meta.selectedIndicator, data, mapFile]);
+  }, [meta.selectedIndicator, data, memoMap]);
 
-  function handleClick(e) {
-    newMapItem(e.data);
-  }
+  // function handleClick(e) {
+  //   newMapItem(e.data);
+  // }
 
-  const onEvents = { click: handleClick };
+  // const onEvents = { click: handleClick };
 
   echarts.use([
     TooltipComponent,
@@ -102,7 +106,7 @@ const MapViz = ({ meta, mapFile, data, newMapItem, vizIndicators }) => {
     Object.keys(mapOptions).length > 0 && (
       <ReactEChartsCore
         echarts={echarts}
-        onEvents={onEvents}
+        // onEvents={onEvents}
         option={mapOptions}
         notMerge={true}
         lazyUpdate={true}

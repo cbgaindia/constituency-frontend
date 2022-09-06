@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import dynamic from 'next/dynamic';
 import { tabbedInterface } from 'utils/helper';
 
-import { Indicator, IndicatorMobile, Table } from 'components/data';
+import { Indicator, IndicatorMobile } from 'components/data';
 import { Menu } from 'components/actions';
 import ExplorerMap from './ExplorerMap';
 import { capitalize } from 'utils/helper';
@@ -14,13 +14,11 @@ const Source = dynamic(() => import('components/pages/cons/Source'), {
   ssr: false,
 });
 
-const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
+const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
   const [filtered, setFiltered] = useState([]);
   const [currentViz, setCurrentViz] = useState('#mapView');
 
   const [financialYears, setFinancialYears] = useState(undefined);
-
-  const mapRef = useRef(null);
 
   const { state, scheme, indicator, unit, schemeData, year } = meta;
   const { sabha } = meta || 'lok';
@@ -94,6 +92,11 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
       id: '#mapView',
       icon: <Globe />,
     },
+    {
+      name: `Constituency Data Explorer`,
+      id: '#consView',
+      icon: <Globe />,
+    },
   ];
 
   const vizItems = [
@@ -108,7 +111,18 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
         ) : (
           <p>No data</p>
         ),
-      ref: mapRef,
+    },
+    {
+      id: 'consView',
+      graph:
+        (sabha == 'lok' || sabha == 'vidhan') && filtered ? (
+          <ExplorerMap
+            meta={{ sabha, state, indicator, unit }}
+            schemeData={filtered[meta.year]}
+          />
+        ) : (
+          <p>No data</p>
+        ),
     },
   ];
 
@@ -136,11 +150,7 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
             )}
 
             <VizWrapper id="mapViewContainer">
-              <div
-                className={
-                  sabha === 'editorial-notes' ? 'inactive-viz' : undefined
-                }
-              >
+              <div>
                 <VizHeader data-html2canvas-ignore>
                   <VizTabs className="viz__tabs">
                     {vizToggle.map((item, index) => (
@@ -209,7 +219,7 @@ const ExplorerViz = ({ meta, schemeRaw, dispatch }) => {
   );
 };
 
-export default React.memo(ExplorerViz);
+export default React.memo(ExplorerView);
 
 export const Wrapper = styled.section`
   display: grid;
@@ -232,10 +242,6 @@ export const VizWrapper = styled.div`
   border: 1px solid #f7fdf9;
   border-radius: 6px;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.14);
-
-  .inactive-viz {
-    display: none;
-  }
 
   ${SourceWrapper} {
     margin-top: 16px;
@@ -315,12 +321,6 @@ export const VizGraph = styled.div`
   overflow-y: auto;
   position: relative;
 
-  &#tableView {
-    @media (max-width: 640px) {
-      height: 750px;
-    }
-  }
-
   @media (max-width: 480px) {
     margin: 0 4px 32px;
   }
@@ -351,26 +351,8 @@ const Title = styled.div`
   padding: 8px 16px;
   text-transform: capitalize;
 
-  &#mapVizInfo {
-    font-weight: 400;
-    margin: 8px 24px 0;
-    text-transform: initial;
-    margin-bottom: -8px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-
-    svg {
-      min-width: 24px;
-    }
-  }
-
   @media (max-width: 480px) {
     margin-inline: 4px;
     padding: 6px 12px;
-
-    &#mapVizInfo {
-      margin-inline: 4px;
-    }
   }
 `;
