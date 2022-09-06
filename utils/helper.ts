@@ -138,7 +138,11 @@ export function swrFetch(id) {
   const fetcher = (arg: any, ...args: any) =>
     fetch(arg, ...args).then((res) => res.json());
 
-  const { data, error } = useSWR(id, fetcher);
+  const { data, error } = useSWR(id, fetcher, {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  });
 
   return {
     data: data,

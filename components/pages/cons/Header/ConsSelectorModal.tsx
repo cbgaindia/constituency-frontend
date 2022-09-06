@@ -103,7 +103,7 @@ const StyledDialogClose = styled(DialogClose)`
 `;
 
 const contentShow = keyframes({
-  '0%': { opacity: 0, transform: 'translate(-50%, -48%) scale(.96)' },
+  '0%': { opacity: 0, transform: 'translate(-52%, -52%) scale(.96)' },
   '100%': { opacity: 1, transform: 'translate(-50%, -50%) scale(1)' },
 });
 

@@ -11,11 +11,15 @@ const reducer = (state: any, action: any) => {
 
 const SchemeSelected = ({ schemeName, queryData }) => {
   const fetcher = (url: string) => dataTransform(schemeName);
-  const { data } = useSWR(`${queryData.state}/${queryData.scheme}`, fetcher);
+  const { data } = useSWR(`${queryData.state}/${schemeName}`, fetcher, {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  });
 
   const initalState = {
     state: queryData.state || '',
-    scheme: queryData.scheme || '',
+    scheme: schemeName || '',
     schemeData: '',
     sabha: queryData.sabha || 'lok',
     indicator: '',
