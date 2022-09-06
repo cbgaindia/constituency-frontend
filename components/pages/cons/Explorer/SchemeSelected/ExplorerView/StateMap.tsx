@@ -22,15 +22,16 @@ const StateMap = ({ meta, schemeData, dispatch }) => {
         ]
       ).map((item) => ({
         value: item,
-        title: item,
+        label: item,
       }));
       setFinancialYears(years); // all years
 
       dispatch({
         year: meta.year ? meta.year : years[0].value,
+        allYears: years,
       });
     }
-  }, [meta]);
+  }, [meta.year, meta.schemeData]);
 
   // preparing data for echarts component
   useEffect(() => {

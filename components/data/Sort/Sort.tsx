@@ -5,31 +5,34 @@ import { Menu } from 'components/actions';
 const options = [
   {
     value: 'tender_bid_opening_date:asc',
-    title: 'Date Asc',
+    label: 'Date Asc',
   },
   {
     value: 'tender_bid_opening_date:desc',
-    title: 'Date Desc',
+    label: 'Date Desc',
   },
   {
     value: 'tender_value_amount:asc',
-    title: 'Tender Value Asc',
+    label: 'Tender Value Asc',
   },
   {
     value: 'tender_value_amount:desc',
-    title: 'Tender Value Desc',
+    label: 'Tender Value Desc',
   },
   {
     value: 'buyer_name:asc',
-    title: 'Departments',
+    label: 'Departments',
   },
   {
     value: 'score:desc',
-    title: 'Relevance',
+    label: 'Relevance',
   },
 ];
 
-const Sort: React.FC<{ newSort: any; className?:string }> = ({ newSort, className }) => {
+const Sort: React.FC<{ newSort: any; className?: string }> = ({
+  newSort,
+  className,
+}) => {
   const router = useRouter();
   const [sort, setSort] = useState('tender_bid_opening_date:asc');
   const [value, setValue] = useState('Date Asc');
@@ -44,7 +47,7 @@ const Sort: React.FC<{ newSort: any; className?:string }> = ({ newSort, classNam
 
   useEffect(() => {
     let currentSort = options.find((o) => o.value === sort);
-    currentSort && setValue(currentSort.title);
+    currentSort && setValue(currentSort.label);
   }, [sort]);
 
   const handleChange = (event: any) => {

@@ -24,8 +24,9 @@ const SchemeSelected = ({ schemeName, queryData }) => {
     sabha: queryData.sabha || 'lok',
     indicator: '',
     year: '',
+    allYears: [],
     unit: '',
-    constituency: '',
+    constituency: queryData.cons || '',
     consCode: '',
     vizType: 'map',
   };

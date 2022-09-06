@@ -15,7 +15,7 @@ interface Props {
    */
   options: {
     value: string;
-    title: string;
+    label: string;
   }[];
 
   /**
@@ -66,7 +66,7 @@ const Menu = ({
                 onSelect={(e: any) => handleChange(e.target.dataset.value)}
                 key={item.value}
               >
-                <span>{item.title}</span>
+                <span>{item.label}</span>
               </MenuItem>
             ))
           ) : (

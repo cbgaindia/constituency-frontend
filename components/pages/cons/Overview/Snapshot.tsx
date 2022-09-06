@@ -16,11 +16,11 @@ const Snapshot = ({ schemeData, indicator, meta }: Props) => {
   const [selectedYear, setSelectedYear] = React.useState('2018-19');
   const tempYears = [
     {
-      title: '2018-19',
+      label: '2018-19',
       value: '2018-19',
     },
     {
-      title: '2019-20',
+      label: '2019-20',
       value: '2019-20',
     },
   ];

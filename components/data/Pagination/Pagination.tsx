@@ -11,15 +11,15 @@ import { IconDropdown } from 'components/icons';
 
 const paginationItems = [
   {
-    title: '10',
+    label: '10',
     value: '10',
   },
   {
-    title: '20',
+    label: '20',
     value: '20',
   },
   {
-    title: '50',
+    label: '50',
     value: '50',
   },
 ];

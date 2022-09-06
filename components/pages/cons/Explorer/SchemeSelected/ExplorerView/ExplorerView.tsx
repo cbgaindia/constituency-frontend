@@ -98,7 +98,7 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
       id: 'consView',
       graph:
         (sabha == 'lok' || sabha == 'vidhan') && filtered ? (
-          <ConstBar />
+          <ConstBar meta={meta} />
         ) : (
           <p>No data</p>
         ),
