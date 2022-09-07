@@ -113,10 +113,10 @@ const ConsPage: React.FC<Props> = ({
               vidhanData={schemeData?.ac.metadata.consList}
               lokData={schemeData?.pc.metadata.consList}
             />
-            <Wrapper>
+            <Wrapper id="consPageWrapper">
               <Toolbar
                 defaultValue="overview"
-                fullScreenId="stateListWrapper"
+                fullScreenId="consPageWrapper"
                 data={tabData}
               />
             </Wrapper>
@@ -159,4 +159,5 @@ export default ConsPage;
 
 const Wrapper = styled.div`
   margin-top: 32px;
+  background-color: var(--color-background-light);
 `;

@@ -108,6 +108,7 @@ export default StateList;
 
 const Wrapper = styled.div`
   margin-top: 32px;
+  background-color: var(--color-background-light);
 
   > span {
     letter-spacing: 0.04em;

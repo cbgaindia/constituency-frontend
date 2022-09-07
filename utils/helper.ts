@@ -206,11 +206,13 @@ export function groupListByAlphabets(list: [], key: string) {
 }
 
 export function fullScreenMode(id: string) {
+  const wrapper = document.getElementById(id);
+
   if (fscreen.fullscreenElement !== null) {
     fscreen.exitFullscreen();
   } else {
-    const vizWrapper = document.getElementById(id);
-    if (vizWrapper) fscreen.requestFullscreen(vizWrapper);
+    wrapper.style.overflowY = 'auto';
+    if (wrapper) fscreen.requestFullscreen(wrapper);
   }
 }
 
