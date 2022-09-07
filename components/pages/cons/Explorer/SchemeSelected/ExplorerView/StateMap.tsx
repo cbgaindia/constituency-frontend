@@ -33,7 +33,7 @@ const StateMap = ({ meta, schemeData, dispatch }) => {
     }
   }, [meta.year, meta.schemeData]);
 
-  // preparing data for echarts component
+  // preparing indicator data for echarts component
   useEffect(() => {
     if (schemeData) {
       const stateData = Object.values(schemeData).map(Number);

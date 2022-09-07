@@ -5,6 +5,7 @@ import { groupListByAlphabets, sortArrayOfObj } from 'utils/helper';
 import { LokSabha, VidhanSabha } from 'components/icons';
 import SearchCons from './SearchCons';
 import { Toolbar } from 'components/layouts';
+import ConsListView from './ConsListView';
 
 const StateList = ({ data }) => {
   const [stateData, setStateData] = React.useState<any>([]);
@@ -34,37 +35,45 @@ const StateList = ({ data }) => {
     });
   }, [data]);
 
-  function generateConsList(item) {
-    return (
-      <ConsList>
-        <SearchCons
-          data={formattedData[item.value]}
-          onFilter={(arr) => onFilterChange(arr)}
-        />
+  const generateConsList = React.useCallback(
+    (item) => {
+      return (
+        <ConsWrapper>
+          <ConsListView meta={{ sabha: selectedSabha, state: data.state }} />
 
-        {item.list &&
-          item.list.map((group: any) => {
-            return (
-              <li key={group.char}>
-                <span>{group.char}</span>
-                <ul>
-                  {group.children.map((cons) => (
-                    <li key={cons.constCode + cons.constName}>
-                      <Link
-                        href={`/${data.state}/${item.value}/${cons.constName}`}
-                        passHref
-                      >
-                        <ConsLink>{cons.constName}</ConsLink>
-                      </Link>
+          <ConsList>
+            <SearchCons
+              data={formattedData[item.value]}
+              onFilter={(arr) => onFilterChange(arr)}
+            />
+            <ol>
+              {item.list &&
+                item.list.map((group: any) => {
+                  return (
+                    <li key={group.char}>
+                      <span>{group.char}</span>
+                      <ul>
+                        {group.children.map((cons) => (
+                          <li key={cons.constCode + cons.constName}>
+                            <Link
+                              href={`/${data.state}/${item.value}/${cons.constName}`}
+                              passHref
+                            >
+                              <ConsLink>{cons.constName}</ConsLink>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
                     </li>
-                  ))}
-                </ul>
-              </li>
-            );
-          })}
-      </ConsList>
-    );
-  }
+                  );
+                })}
+            </ol>
+          </ConsList>
+        </ConsWrapper>
+      );
+    },
+    [vidhanData, lokData, selectedSabha]
+  );
 
   React.useEffect(() => {
     setStateData([
@@ -83,7 +92,7 @@ const StateList = ({ data }) => {
         content: generateConsList({ value: 'lok', list: lokData }),
       },
     ]);
-  }, [lokData, vidhanData]);
+  }, [lokData, vidhanData, selectedSabha]);
 
   function onFilterChange(arr) {
     if (selectedSabha == 'lok') {
@@ -139,12 +148,13 @@ const ConsLink = styled.a`
   }
 `;
 
-const ConsList = styled.ol`
+const ConsList = styled.div`
   display: flex;
   flex-direction: column;
-  /* max-width: 312px; */ //
+  flex-basis: 312px;
+  min-width: 312px;
+  flex-grow: 1;
   gap: 8px;
-  margin-top: 16px;
 
   background-color: var(--color-background-lighter);
   padding: 16px;
@@ -161,15 +171,16 @@ const ConsList = styled.ol`
     display: inline-block; //
   }
 
-  > li:first-of-type {
-    margin-top: 16px;
-  }
-
   ul {
     display: flex;
-    /* flex-direction: column; */ //
-    /* gap: 4px; */ //
-    gap: 20px; //
-    flex-wrap: wrap; //
+    flex-direction: column;
+    gap: 4px;
+    flex-wrap: wrap;
   }
+`;
+
+const ConsWrapper = styled.div`
+  display: flex;
+  gap: 32px;
+  margin-top: 16px;
 `;

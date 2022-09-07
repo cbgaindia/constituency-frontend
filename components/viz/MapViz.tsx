@@ -9,7 +9,14 @@ import { MapChart } from 'echarts/charts';
 import { SVGRenderer } from 'echarts/renderers';
 import ReactEChartsCore from 'echarts-for-react/lib/core';
 
-const MapViz = ({ meta, mapFile, data, vizIndicators }) => {
+const MapViz = ({
+  newMapItem = (e) => {},
+  meta,
+  mapFile,
+  data,
+  vizIndicators,
+  onlyLabel = false,
+}) => {
   const [mapOptions, setMapOptions] = useState({});
 
   const memoMap = React.useMemo(() => {
@@ -31,20 +38,24 @@ const MapViz = ({ meta, mapFile, data, vizIndicators }) => {
           transitionDuration: 0.2,
           formatter: function (params) {
             if (params.data)
-              return `${params.data.mapName}: ${params.data.value}`;
+              return onlyLabel
+                ? params.data.mapName
+                : `${params.data.mapName}: ${params.data.value}`;
             else return 'No data';
           },
         },
-        visualMap: {
-          type: 'piecewise',
-          left: '16px',
-          bottom: '16px',
-          backgroundColor: '#FFFFFF',
-          pieces: vizIndicators,
-          text: vizIndicators[0].max && [`Units: ${meta.unit}`],
-          padding: 8,
-          showLabel: true,
-        },
+        visualMap: vizIndicators.length
+          ? {
+              type: 'piecewise',
+              left: '16px',
+              bottom: '16px',
+              backgroundColor: '#FFFFFF',
+              pieces: vizIndicators,
+              text: vizIndicators[0].max && [`Units: ${meta.unit}`],
+              padding: 8,
+              showLabel: true,
+            }
+          : null,
         series: [
           {
             name: meta.selectedIndicator
@@ -58,6 +69,7 @@ const MapViz = ({ meta, mapFile, data, vizIndicators }) => {
             itemStyle: {
               borderColor: '#ffffff',
               borderWidth: 0.8,
+              areaColor: '#abb0ad',
             },
             emphasis: {
               label: {
@@ -88,11 +100,11 @@ const MapViz = ({ meta, mapFile, data, vizIndicators }) => {
     }
   }, [meta.selectedIndicator, data, memoMap]);
 
-  // function handleClick(e) {
-  //   newMapItem(e.data);
-  // }
+  function handleClick(e) {
+    newMapItem(e.data);
+  }
 
-  // const onEvents = { click: handleClick };
+  const onEvents = { click: handleClick };
 
   echarts.use([
     TooltipComponent,
@@ -106,7 +118,7 @@ const MapViz = ({ meta, mapFile, data, vizIndicators }) => {
     Object.keys(mapOptions).length > 0 && (
       <ReactEChartsCore
         echarts={echarts}
-        // onEvents={onEvents}
+        onEvents={onEvents}
         option={mapOptions}
         notMerge={true}
         lazyUpdate={true}
