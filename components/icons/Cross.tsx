@@ -2,7 +2,7 @@ export default function Cross({ ...props }) {
   return (
     <svg
       viewBox="0 0 24 24"
-      width={props.size ? props.size : '24px'}
+      width={props.width ? props.width : '24px'}
       fill="#000"
       {...props}
     >

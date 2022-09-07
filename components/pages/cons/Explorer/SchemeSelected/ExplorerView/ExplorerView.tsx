@@ -6,7 +6,7 @@ import { tabbedInterface } from 'utils/helper';
 import { Indicator, IndicatorMobile } from 'components/data';
 import StateMap from './StateMap';
 import { capitalize } from 'utils/helper';
-import { Globe } from 'components/icons';
+import { Globe, IconGeneralTrends } from 'components/icons';
 import { SourceWrapper } from 'components/pages/cons/Source';
 import ConstBar from './ConstBar';
 
@@ -69,18 +69,27 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
 
   const vizToggle = [
     {
-      name: `${state} - State view`,
-      id: '#mapView',
-      icon: <Globe />,
-    },
-    {
       name: `Constituency Data Explorer`,
       id: '#consView',
+      icon: <IconGeneralTrends width={24} />,
+    },
+    {
+      name: `${state} - State view`,
+      id: '#mapView',
       icon: <Globe />,
     },
   ];
 
   const vizItems = [
+    {
+      id: 'consView',
+      graph:
+        (sabha == 'lok' || sabha == 'vidhan') && filtered ? (
+          <ConstBar filteredData={filtered} meta={meta} />
+        ) : (
+          <p>No data</p>
+        ),
+    },
     {
       id: 'mapView',
       graph:
@@ -90,15 +99,6 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
             schemeData={filtered[meta.year]}
             dispatch={dispatch}
           />
-        ) : (
-          <p>No data</p>
-        ),
-    },
-    {
-      id: 'consView',
-      graph:
-        (sabha == 'lok' || sabha == 'vidhan') && filtered ? (
-          <ConstBar filteredData={filtered} meta={meta} />
         ) : (
           <p>No data</p>
         ),
