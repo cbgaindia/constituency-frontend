@@ -11,13 +11,13 @@ const Seo = dynamic(() => import('components/common/Seo/Seo'), {
   ssr: false,
 });
 
-const ExplorerViz = dynamic(
-  () => import('components/pages/explorer/ExplorerViz/ExplorerViz'),
-  {
-    ssr: false,
-    loading: () => <p>Loading Explorer...</p>,
-  }
-);
+// const ExplorerViz = dynamic(
+//   () => import('components/pages/explorer/ExplorerViz/ExplorerViz'),
+//   {
+//     ssr: false,
+//     loading: () => <p>Loading Explorer...</p>,
+//   }
+// );
 
 const ExplorerDetailsViz = dynamic(
   () =>
@@ -97,13 +97,13 @@ const Explorer: React.FC<Props> = ({
           {Object.keys(data).length !== 0 && verifyState(data.state) ? (
             <>
               <div id="explorerVizWrapper">
-                {state.vizType === 'map' && (
+                {/* {state.vizType === 'map' && (
                   <ExplorerViz
                     schemeRaw={scheme}
                     meta={state}
                     dispatch={dispatch}
                   />
-                )}
+                )} */}
 
                 {state.vizType !== 'map' && (
                   <ExplorerDetailsViz meta={state} dispatch={dispatch} />

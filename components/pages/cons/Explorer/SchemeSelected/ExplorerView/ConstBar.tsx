@@ -1,8 +1,54 @@
 import React from 'react';
 import { Combobox } from 'components/actions';
 import styled from 'styled-components';
+import { GroupBarChart } from 'components/viz';
 
-const ConstBar = ({ meta }) => {
+const ConstBar = ({ meta, filteredData }) => {
+  const [barData, setBarData] = React.useState([]);
+
+  React.useEffect(() => {
+    if (filteredData && Object.keys(filteredData).length) {
+      // for compare section
+      // if (compareItem.state) {
+      //   const barValues1 = [meta.constituency];
+      //   const barValues2 = [compareItem.cons];
+
+      //   const headerArr = ['Constituency'];
+      //   Object.keys(filteredData).map((year) => {
+      //     headerArr.push(year);
+      //     barValues1.push(filteredData[year][meta.consCode]);
+      //     barValues2.push(filteredData[year][compareItem.consCode]);
+      //   });
+
+      //   const barValues = [headerArr, barValues1, barValues2];
+
+      //   setBarStacked(barValues);
+      // } else {
+      //   const barValues1 = [meta.constituency];
+
+      //   const headerArr = ['Constituency'];
+      //   Object.keys(filteredData).map((year) => {
+      //     headerArr.push(year);
+      //     barValues1.push(filteredData[year][meta.consCode]);
+      //   });
+      //   const barValues = [headerArr, barValues1];
+      //   setBarData(barValues);
+      // }
+
+      const barValues1 = [meta.constituency];
+
+      const headerArr = ['Constituency'];
+      Object.keys(filteredData).map((year) => {
+        headerArr.push(year);
+        barValues1.push(filteredData[year][2]); // --change-this 2 to dynamic
+      });
+      const barValues = [headerArr, barValues1];
+      console.log(filteredData, barValues, meta);
+
+      setBarData(barValues);
+    }
+  }, [filteredData]);
+
   const states = [
     {
       label: 'Mizoram',
@@ -33,7 +79,6 @@ const ConstBar = ({ meta }) => {
             isMulti
             isGrouped
             id="cons-selector"
-            // menuIsOpen={true}
           />
         )}
         {meta.year && (
@@ -46,6 +91,20 @@ const ConstBar = ({ meta }) => {
           />
         )}
       </ComboWrapper>
+      <>
+        <GroupBarChart
+          yAxisLabel={`Value (in ${meta.unit})`}
+          xAxisLabel="Constituency"
+          theme={['#4965B2', '#ED8686', '#69BC99']}
+          dataset={barData}
+          stack={false}
+          Title=""
+          subTitle=""
+          left="60vw"
+          type="bar"
+          smooth={true}
+        />
+      </>
     </Wrapper>
   );
 };

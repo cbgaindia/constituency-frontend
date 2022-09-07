@@ -99,7 +99,7 @@ const ReactSelectElement = styled(Select)`
 
     &__value-container--is-multi {
       gap: 8px;
-      padding: 8px 12px;
+      padding: 7px 12px;
 
       input {
         position: absolute;
