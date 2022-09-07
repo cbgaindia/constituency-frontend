@@ -7,18 +7,17 @@ const ConstBar = ({ meta }) => {
     {
       label: 'Mizoram',
       options: [
-        { value: 'Sikkim', label: 'Sikkim' },
-        { value: 'Meghalaya', label: 'Meghalaya' },
+        { value: 'Aska', label: 'Aska' },
+        { value: 'vidhan', label: 'vidhan' },
       ],
     },
     {
       label: 'Meghalaya',
       options: [
         { value: 'Sikkim', label: 'Sikkim' },
-        { value: 'Meghalaya', label: 'Meghalaya' },
+        { value: 'Odisha', label: 'Odisha' },
       ],
     },
-    { value: meta.constituency, label: meta.constituency },
   ];
 
   return (
@@ -32,7 +31,7 @@ const ConstBar = ({ meta }) => {
               label: meta.constituency,
             }}
             isMulti
-            groupedOptions
+            isGrouped
             id="cons-selector"
             // menuIsOpen={true}
           />

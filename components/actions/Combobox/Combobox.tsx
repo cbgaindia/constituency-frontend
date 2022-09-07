@@ -23,36 +23,58 @@ const handleHeaderClick = (id) => {
 
 const CustomGroupHeading = (props) => {
   return (
-    <div
+    <button
       className="group-heading-wrapper"
       onClick={() => handleHeaderClick(props.id)}
+      tabIndex={0}
     >
       <components.GroupHeading {...props} />
-    </div>
+    </button>
   );
 };
 
 interface CustomProps {
-  groupedOptions?: boolean;
+  isGrouped?: boolean;
 }
 type ComboboxProps = React.ComponentProps<typeof Select> & CustomProps;
 
-const Combobox = ({ groupedOptions, ...props }: ComboboxProps) => {
-  React.useEffect(() => {
-    const groupWrappers = document.querySelectorAll('.group-heading-wrapper');
+const Combobox = ({ isGrouped, ...props }: ComboboxProps) => {
+  //  Custom filter function to handle grouped options
+  const groupedFilter = React.useCallback(
+    ({ label, value }, string) => {
+      label = label.toLocaleLowerCase();
+      string = string.toLocaleLowerCase();
 
-    console.log(groupWrappers);
+      // default search
+      if (label.includes(string) || value.includes(string)) return true;
 
-    groupWrappers.forEach((elm) =>
-      elm.nextElementSibling.classList.add('collapsed')
-    );
-  }, []);
+      // check if a group as the filter string as label
+      const groupOptions: any = props.options.filter((group: any) =>
+        group.label.toLocaleLowerCase().includes(string)
+      );
 
-  if (groupedOptions)
+      if (groupOptions) {
+        for (const groupOption of groupOptions) {
+          // Check if current option is in group
+          const option = groupOption.options?.find(
+            (opt) => opt.value === value
+          );
+          if (option) {
+            return true;
+          }
+        }
+      }
+      return false;
+    },
+    [props]
+  );
+
+  if (isGrouped)
     return (
       <ReactSelectElement
         classNamePrefix="react-select"
         components={{ GroupHeading: CustomGroupHeading }}
+        filterOption={groupedFilter}
         {...props}
       />
     );
@@ -78,6 +100,10 @@ const ReactSelectElement = styled(Select)`
     &__value-container--is-multi {
       gap: 8px;
       padding: 8px 12px;
+
+      input {
+        position: absolute;
+      }
     }
 
     &__multi-value {
@@ -100,13 +126,14 @@ const ReactSelectElement = styled(Select)`
       }
     }
 
+    &__placeholder {
+      padding-block: 2px;
+      margin: 2px;
+    }
+
     &__group {
       padding: 0;
-      margin-top: 8px;
-
-      &:first-child {
-        margin-top: 0;
-      }
+      margin-bottom: 8px;
 
       &-heading {
         padding: 8px;
@@ -127,20 +154,20 @@ const ReactSelectElement = styled(Select)`
       }
 
       .react-select__option {
-        background-color: #e5eae7;
+        background-color: var(--color-grey-600);
 
         &:first-of-type {
           border-top: var(--border-1);
         }
 
         &--is-focused {
-          background-color: #dadddb;
+          background-color: #e5eae7;
         }
       }
 
-      &-active {
+      /* &-active {
         background-color: #e5eae7;
-      }
+      } */
     }
 
     &__option {
@@ -154,6 +181,13 @@ const ReactSelectElement = styled(Select)`
         background-color: var(--color-grey-600);
       }
     }
+  }
+
+  .group-heading-wrapper {
+    width: 100%;
+    text-align: start;
+    padding: 0;
+    cursor: pointer;
   }
 
   .collapsed {

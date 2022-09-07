@@ -4,8 +4,8 @@ export const trending = [
     link: '/uttar pradesh/vidhan/allahabad',
   },
   {
-    text: 'Ajmer . Rajasthan',
-    link: '/rajasthan/vidhan/ajmer',
+    text: 'Aska . Odisha',
+    link: '/Odisha/vidhan/Aska',
   },
 ];
 
