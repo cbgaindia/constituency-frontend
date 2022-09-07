@@ -30,7 +30,7 @@ type Props = {
   allStates: any;
 };
 
-const ConstituencySelect = ({
+const ConstituencyWidget = ({
   newCompare,
   currentItem,
   fallBack,
@@ -135,7 +135,7 @@ const ConstituencySelect = ({
   );
 };
 
-export default ConstituencySelect;
+export default ConstituencyWidget;
 
 const Wrapper = styled.div`
   position: relative;

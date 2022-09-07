@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { Button } from 'components/actions';
 import { LokSabha, VidhanSabha } from 'components/icons';
 import { useRouter } from 'next/router';
-import ConstituencySelect from 'components/pages/explorer/ExplorerDetailsViz/ConstituencySelect';
+import ConstituencyWidget from './ConstituencyWidget';
 
-const SchemeSelector: React.FC<{
+const ConsSelector: React.FC<{
   schemeData: any;
   trending?: any;
 }> = ({ schemeData, trending }) => {
@@ -73,7 +73,7 @@ const SchemeSelector: React.FC<{
       </HeaderToggle>
 
       <ConsMenu>
-        <ConstituencySelect
+        <ConstituencyWidget
           fallBack={`Search for ${
             selectedSabha === 'lok' ? 'Lok' : 'Vidhan'
           } Sabha Constituency here...`}
@@ -107,7 +107,7 @@ const SchemeSelector: React.FC<{
   );
 };
 
-export default SchemeSelector;
+export default ConsSelector;
 
 export const HeaderControls = styled.div`
   background-color: var(--color-white);
