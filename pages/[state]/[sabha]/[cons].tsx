@@ -87,7 +87,7 @@ const ConsPage: React.FC<Props> = ({
         content: (
           <Explorer
             queryData={queryData}
-            data={stateScheme[currentState?.State]}
+            schemeList={stateScheme[currentState?.State]}
           />
         ),
       },

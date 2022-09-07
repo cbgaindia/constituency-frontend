@@ -140,10 +140,6 @@ body {
   color: var(--text-light-high);
 }
 
-*:fullscreen, *:-webkit-full-screen, *:-moz-full-screen {
-    background-color: var(--color-background-light);
-}
-
 #__next {
   min-height: 100vh;
 }

@@ -147,9 +147,7 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
                   {`${schemeData.metadata?.name} . ${meta.indicator.replace(
                     '-',
                     ' '
-                  )} ${
-                    currentViz !== '#tableView' ? `(${meta.year})` : ''
-                  } . ${meta.state}`}
+                  )} ${`(${meta.year})`} . ${meta.state}`}
                 </Title>
 
                 {vizItems.map((item, index) => (

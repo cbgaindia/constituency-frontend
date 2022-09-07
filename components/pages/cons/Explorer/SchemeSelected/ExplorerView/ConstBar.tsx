@@ -43,8 +43,6 @@ const ConstBar = ({ meta, filteredData }) => {
         barValues1.push(filteredData[year][2]); // --change-this 2 to dynamic
       });
       const barValues = [headerArr, barValues1];
-      console.log(filteredData, barValues, meta);
-
       setBarData(barValues);
     }
   }, [filteredData]);
