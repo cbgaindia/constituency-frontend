@@ -1,17 +1,37 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
-import Head from 'next/head';
-
-import { Seo } from 'components/common';
+import dynamic from 'next/dynamic';
 import styled from 'styled-components';
+
+import { dataTransform, stateDataFetch, stateSchemeFetch } from 'utils/fetch';
+import { upperCaseString } from 'utils/helper';
+
 import {
   Overview as OverViewIcon,
   Explorer as ExplorerIcon,
 } from 'components/icons';
-import { Toolbar } from 'components/layouts';
-import { upperCaseString } from 'utils/helper';
-import { Overview, Header, Explorer } from 'components/pages/cons';
-import { dataTransform, stateDataFetch, stateSchemeFetch } from 'utils/fetch';
+
+const Header = dynamic(() => import('components/pages/cons/Header/Header'), {
+  ssr: false,
+});
+const Explorer = dynamic(
+  () => import('components/pages/cons/Explorer/Explorer'),
+  {
+    ssr: false,
+  }
+);
+const Overview = dynamic(
+  () => import('components/pages/cons/Overview/Overview'),
+  {
+    ssr: false,
+  }
+);
+const Toolbar = dynamic(() => import('components/layouts/Toolbar'), {
+  ssr: false,
+});
+const Seo = dynamic(() => import('components/common/Seo/Seo'), {
+  ssr: false,
+});
 
 type Props = {
   query: any;
@@ -87,9 +107,6 @@ const ConsPage: React.FC<Props> = ({
       <Seo seo={seo} />
       {tabData ? (
         <>
-          <Head>
-            <link rel="icon" href="/favicon.ico" />
-          </Head>
           <main className="container">
             <Header
               queryData={queryData}

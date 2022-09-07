@@ -38,7 +38,7 @@ const Header = ({ queryData, vidhanData, lokData }) => {
   );
 };
 
-export { Header };
+export default Header;
 
 const Wrapper = styled.div`
   margin-top: 32px;

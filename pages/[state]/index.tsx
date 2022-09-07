@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { GetServerSideProps } from 'next';
-import Head from 'next/head';
+import dynamic from 'next/dynamic';
 
-import Header from 'components/pages/state/Header';
 import { dataTransform, stateDataFetch } from 'utils/fetch';
-import { Seo } from 'components/common';
-import StateList from 'components/pages/state/StateList';
 import { getParameterCaseInsensitive } from 'utils/helper';
+
+const Header = dynamic(() => import('components/pages/state/Header'), {
+  ssr: false,
+});
+
+const StateList = dynamic(() => import('components/pages/state/StateList'), {
+  ssr: false,
+});
+
+const Seo = dynamic(() => import('components/common/Seo/Seo'), {
+  ssr: false,
+});
 
 type Props = {
   query: any;
@@ -16,7 +25,6 @@ type Props = {
 
 const State: React.FC<Props> = ({ query, schemeData, stateData }) => {
   const [currentState, setCurrentState] = useState<any>();
-  // const [currentSabha, setCurrentSabha] = useState<any>('lok');
   const [currentLokCons, setCurrentLokCons] = useState<any>([]);
   const [currentVidhanCons, setCurrentVidhanCons] = useState<any>([]);
   const state = query.state
@@ -54,9 +62,6 @@ const State: React.FC<Props> = ({ query, schemeData, stateData }) => {
       <Seo seo={seo} />
       {currentState ? (
         <>
-          <Head>
-            <link rel="icon" href="/favicon.ico" />
-          </Head>
           <main className="container">
             <Header data={currentState} />
             <StateList

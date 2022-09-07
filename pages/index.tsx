@@ -1,8 +1,19 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
-import { dataTransform, stateSchemeFetch } from 'utils/fetch';
-import { HomeAbout, HomeHeader, HomeStates } from 'components/pages/home';
-import { Seo } from 'components/common';
+import dynamic from 'next/dynamic';
+import { dataTransform } from 'utils/fetch';
+
+const HomeStates = dynamic(() => import('components/pages/home/HomeStates'), {
+  ssr: false,
+});
+
+const HomeHeader = dynamic(() => import('components/pages/home/HomeHeader'), {
+  ssr: false,
+});
+
+const Seo = dynamic(() => import('components/common/Seo/Seo'), {
+  ssr: false,
+});
 
 export default function Home({ schemeData }) {
   const seo = {

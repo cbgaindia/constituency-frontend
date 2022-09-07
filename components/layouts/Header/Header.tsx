@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import styled from 'styled-components';
 
-const Header = ({ data }) => {
+const Header = ({ data }: { data?: any }) => {
   return (
     <HeaderWrapper>
       <div className="container">

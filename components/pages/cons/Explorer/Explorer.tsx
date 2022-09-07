@@ -12,4 +12,4 @@ const Explorer = ({ data, queryData }) => {
   );
 };
 
-export { Explorer };
+export default Explorer;

@@ -1,8 +1,17 @@
 import React from 'react';
-import { PartnerCard } from 'components/pages/about';
-import { HeaderWrapper } from 'components/layouts/Header';
+import dynamic from 'next/dynamic';
 import styled from 'styled-components';
-import { Seo } from 'components/common';
+
+const PartnerCard = dynamic(
+  () => import('components/pages/about/PartnerCard'),
+  {
+    ssr: false,
+  }
+);
+
+const Seo = dynamic(() => import('components/common/Seo/Seo'), {
+  ssr: false,
+});
 
 const About = () => {
   const headerData = {
@@ -53,14 +62,14 @@ const About = () => {
   return (
     <Wrapper className="container">
       <Seo seo={seo} />
-      <HeaderWrapper>
+      <div>
         <h2>{headerData.title}</h2>
         <Description>
           {headerData.content.map((item, index) => (
             <p key={`header-content-${index}`}>{item}</p>
           ))}
         </Description>
-      </HeaderWrapper>
+      </div>
 
       <CardsWrapper>
         <h3>Partners</h3>
@@ -81,8 +90,13 @@ const About = () => {
 export default About;
 
 const Wrapper = styled.main`
-  ${HeaderWrapper} {
-    margin-top: 48px;
+  h2 {
+    margin-top: 2rem;
+    font-size: 2rem;
+    font-weight: 500;
+    line-height: 2.6rem;
+    grid-column: 2/3;
+    grid-row: 1/2;
   }
 `;
 
@@ -90,6 +104,21 @@ const Description = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
+
+  p {
+    font-size: 1rem;
+    line-height: 1.5;
+    grid-column: 2/3;
+    grid-row: 2/3;
+
+    &:first-of-type {
+      padding-top: 1rem;
+    }
+
+    &:last-child {
+      padding-bottom: 2rem;
+    }
+  }
 `;
 
 const CardsWrapper = styled.div`

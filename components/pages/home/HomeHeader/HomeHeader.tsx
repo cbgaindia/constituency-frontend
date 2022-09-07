@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ConsSelector, {
-  HeaderControls,
-} from 'components/pages/shared/ConsSelector';
+import { ConsSelector, HeaderControls } from 'components/pages/shared';
 import { trending } from 'data/home';
 
 const HomeHeader = ({ schemeData }) => {
@@ -16,7 +14,9 @@ const HomeHeader = ({ schemeData }) => {
           </span>{' '}
           <span className="gradient-amazon">for Schemes</span>
         </h1>
-        <ConsSelector schemeData={schemeData} trending={trending} />
+        <SelectorWrapper>
+          <ConsSelector schemeData={schemeData} trending={trending} />
+        </SelectorWrapper>
       </div>
     </Header>
   );
@@ -42,9 +42,9 @@ const Header = styled.header`
     line-height: 1.2;
     font-weight: 700;
   }
+`;
 
-  ${HeaderControls} {
-    max-width: 1020px;
-    margin-top: 40px;
-  }
+const SelectorWrapper = styled.div`
+  max-width: 1020px;
+  margin-top: 40px;
 `;

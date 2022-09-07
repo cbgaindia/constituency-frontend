@@ -4,8 +4,11 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Script from 'next/script';
 import { DEFAULT_THEME } from 'config/theme';
-import Layout from 'config/layout';
 import { pageview } from 'utils/ga';
+
+const Layout = dynamic(() => import('config/layout'), {
+  ssr: false,
+});
 
 const NextNprogress = dynamic(() => import('nextjs-progressbar'), {
   ssr: false,
