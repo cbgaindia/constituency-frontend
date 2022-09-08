@@ -2,17 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 
-import { dataTransform, stateDataFetch } from 'utils/fetch';
+import { consListFetch, stateDataFetch } from 'utils/fetch';
 import { getParameterCaseInsensitive } from 'utils/helper';
-import useSWR from 'swr';
 
 const Header = dynamic(() => import('components/pages/state/Header'), {
   ssr: false,
 });
 
-const StateList = dynamic(() => import('components/pages/state/StateList'), {
-  ssr: false,
-});
+const StateList = dynamic(
+  () => import('components/pages/state/StateList/StateList'),
+  {
+    ssr: false,
+  }
+);
 
 const Seo = dynamic(() => import('components/common/Seo/Seo'), {
   ssr: false,
@@ -20,38 +22,26 @@ const Seo = dynamic(() => import('components/common/Seo/Seo'), {
 
 type Props = {
   query: any;
-  schemeData: any;
+  consData: any;
   stateData: any;
 };
 
-const State: React.FC<Props> = ({ query, schemeData, stateData }) => {
+const State: React.FC<Props> = ({ query, consData, stateData }) => {
   const [currentState, setCurrentState] = useState<any>();
   const [currentLokCons, setCurrentLokCons] = useState<any>([]);
   const [currentVidhanCons, setCurrentVidhanCons] = useState<any>([]);
   const state = query.state
     .toLowerCase()
     .replace(/\b\w/g, (c) => c.toUpperCase());
-  const fetcher = (url: string) => stateDataFetch('Cons Info');
-  const { data } = useSWR(`consData`, fetcher, {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-  });
-  console.log(data);
+
   useEffect(() => {
     // get constituencies of current state
-    const ac = getParameterCaseInsensitive(
-      schemeData?.ac.metadata.consList,
-      state
-    );
-    const pc = getParameterCaseInsensitive(
-      schemeData?.pc.metadata.consList,
-      state
-    );
+    const vidhan = getParameterCaseInsensitive(consData?.vidhan, state);
+    const lok = getParameterCaseInsensitive(consData?.lok, state);
 
-    setCurrentVidhanCons(ac);
-    setCurrentLokCons(pc);
-  }, [schemeData]);
+    setCurrentVidhanCons(vidhan);
+    setCurrentLokCons(lok);
+  }, [consData]);
 
   useEffect(() => {
     // get meta data of current state
@@ -96,15 +86,15 @@ export const getServerSideProps: GetServerSideProps = async ({
     'public, s-maxage=10, stale-while-revalidate=59'
   );
   const queryValue = query || {};
-  const [stateData, schemeData] = await Promise.all([
+  const [stateData, consData] = await Promise.all([
     stateDataFetch('State Info'),
-    dataTransform('mgnrega'),
+    consListFetch(),
   ]);
 
   return {
     props: {
       query: queryValue,
-      schemeData,
+      consData,
       stateData: stateData[0],
     },
   };

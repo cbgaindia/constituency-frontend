@@ -5,7 +5,7 @@ import { groupListByAlphabets, sortArrayOfObj } from 'utils/helper';
 import { LokSabha, VidhanSabha } from 'components/icons';
 import SearchCons from './SearchCons';
 import { Toolbar } from 'components/layouts';
-import ConsListView from './ConsListView';
+import ConsMapView from './ConsMapView';
 
 const StateList = ({ data }) => {
   const [stateData, setStateData] = React.useState<any>([]);
@@ -16,16 +16,15 @@ const StateList = ({ data }) => {
 
   React.useEffect(() => {
     // first sort the object, then group them by first character.
-
     const formattedVidhan = groupListByAlphabets(
-      sortArrayOfObj(data.vidhan, 'constName'),
-      'constName'
+      sortArrayOfObj(data.vidhan, 'constituency'),
+      'constituency'
     );
     setVidhanData(formattedVidhan);
 
     const formattedLok = groupListByAlphabets(
-      sortArrayOfObj(data.lok, 'constName'),
-      'constName'
+      sortArrayOfObj(data.lok, 'constituency'),
+      'constituency'
     );
     setLokData(formattedLok);
 
@@ -39,7 +38,10 @@ const StateList = ({ data }) => {
     (item) => {
       return (
         <ConsWrapper>
-          <ConsListView meta={{ sabha: selectedSabha, state: data.state }} />
+          <ConsMapView
+            consData={data}
+            meta={{ sabha: selectedSabha, state: data.state }}
+          />
 
           <ConsList>
             <SearchCons
@@ -54,12 +56,12 @@ const StateList = ({ data }) => {
                       <span>{group.char}</span>
                       <ul>
                         {group.children.map((cons) => (
-                          <li key={cons.constCode + cons.constName}>
+                          <li key={cons.constituency_code + cons.constituency}>
                             <Link
-                              href={`/${data.state}/${item.value}/${cons.constName}`}
+                              href={`/${data.state}/${item.value}/${cons.constituency}`}
                               passHref
                             >
-                              <ConsLink>{cons.constName}</ConsLink>
+                              <ConsLink>{cons.constituency}</ConsLink>
                             </Link>
                           </li>
                         ))}
