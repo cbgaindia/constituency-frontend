@@ -4,46 +4,50 @@ import Image from 'next/image';
 import styled from 'styled-components';
 
 const Header = ({ data }) => {
-  const summaryCards = [
-    {
-      text: 'Parliamentary Constituencies',
-      value: `${data['Parliamentary Constituencies']}`,
-    },
-    {
-      text: 'Assembly Constituencies',
-      value: `${data['Assembly Constituencies']}`,
-    },
-    {
-      text: 'Population (July 2022) (In Cr.)',
-      value: `${data['Population (July 2022) (In Cr.)']}`,
-    },
-    {
-      text: 'Area (In Square KM.)',
-      value: `${data['Area (In Square KM.)']}`,
-    },
-  ];
+  const summaryCards = data
+    ? [
+        {
+          text: 'Parliamentary Constituencies',
+          value: `${data['Parliamentary Constituencies']}`,
+        },
+        {
+          text: 'Assembly Constituencies',
+          value: `${data['Assembly Constituencies']}`,
+        },
+        {
+          text: 'Population (July 2022) (In Cr.)',
+          value: `${data['Population (July 2022) (In Cr.)']}`,
+        },
+        {
+          text: 'Area (In Square KM.)',
+          value: `${data['Area (In Square KM.)']}`,
+        },
+      ]
+    : [];
 
   return (
     <HeaderWrapper>
       <article>
-        {data.State && (
-          <figure>
-            <Image
-              src={`/assets/states/${data.State.toLowerCase()}.jpg`}
-              width={144}
-              height={144}
-              alt=""
-              className="img-cover"
-            />
-          </figure>
+        {data?.State && (
+          <>
+            <figure>
+              <Image
+                src={`/assets/states/${data.State.toLowerCase()}.jpg`}
+                width={144}
+                height={144}
+                alt=""
+                className="img-cover"
+              />
+            </figure>
+            <Main>
+              <div>
+                <h1 className="gradient-amazon">{data.State}</h1>
+                <Share title={data.State} />
+              </div>
+              <p>{data.Description}</p>
+            </Main>
+          </>
         )}
-        <Main>
-          <div>
-            <h1 className="gradient-amazon">{data.State}</h1>
-            <Share title={data.State} />
-          </div>
-          <p>{data.Description}</p>
-        </Main>
       </article>
       <Summary
         title={

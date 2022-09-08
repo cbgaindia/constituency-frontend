@@ -2,17 +2,10 @@ import React from 'react';
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import { consListFetch } from 'utils/fetch';
-import useSWR from 'swr';
+import { HomeHeader } from 'components/pages/home';
 
 const HomeStates = dynamic(
   () => import('components/pages/home/HomeStates/HomeStates'),
-  {
-    ssr: false,
-  }
-);
-
-const HomeHeader = dynamic(
-  () => import('components/pages/home/HomeHeader/HomeHeader'),
   {
     ssr: false,
   }

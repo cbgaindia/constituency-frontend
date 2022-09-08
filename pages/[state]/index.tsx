@@ -4,15 +4,14 @@ import dynamic from 'next/dynamic';
 
 import { consListFetch, stateDataFetch } from 'utils/fetch';
 import { getParameterCaseInsensitive } from 'utils/helper';
-
-const Header = dynamic(() => import('components/pages/state/Header'), {
-  ssr: false,
-});
+import Header from 'components/pages/state/Header';
+import styled from 'styled-components';
 
 const StateList = dynamic(
   () => import('components/pages/state/StateList/StateList'),
   {
     ssr: false,
+    suspense: true,
   }
 );
 
@@ -57,25 +56,34 @@ const State: React.FC<Props> = ({ query, consData, stateData }) => {
   return (
     <>
       <Seo seo={seo} />
-      {currentState ? (
+      {
         <>
           <main className="container">
             <Header data={currentState} />
-            <StateList
-              data={{
-                lok: currentLokCons,
-                vidhan: currentVidhanCons,
-                state,
-              }}
-            />
+            <React.Suspense
+              fallback={<Fallback>Loading Constituencies...</Fallback>}
+            >
+              <StateList
+                data={{
+                  lok: currentLokCons,
+                  vidhan: currentVidhanCons,
+                  state,
+                }}
+              />
+            </React.Suspense>
           </main>
         </>
-      ) : (
-        <>Wrong URL</>
-      )}
+      }
     </>
   );
 };
+
+const Fallback = styled.div`
+  margin-top: 32px;
+  font-weight: 600;
+  line-height: 1.24;
+  font-size: 2rem;
+`;
 
 export const getServerSideProps: GetServerSideProps = async ({
   res,
