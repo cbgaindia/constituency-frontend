@@ -5,6 +5,7 @@ import Head from 'next/head';
 import Script from 'next/script';
 import { DEFAULT_THEME } from 'config/theme';
 import { pageview } from 'utils/ga';
+import { GlobalStyles } from 'styles/GlobalStyles';
 
 const Layout = dynamic(() => import('config/layout'), {
   ssr: false,
@@ -13,8 +14,6 @@ const Layout = dynamic(() => import('config/layout'), {
 const NextNprogress = dynamic(() => import('nextjs-progressbar'), {
   ssr: false,
 });
-
-const GlobalStyle = dynamic(() => import('styles/Global'));
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
@@ -74,7 +73,7 @@ function MyApp({ Component, pageProps }) {
           height={3}
           options={{ easing: 'ease', speed: 300, showSpinner: false }}
         />
-        <GlobalStyle />
+        <GlobalStyles />
         <Component {...pageProps} />
       </Layout>
     </>

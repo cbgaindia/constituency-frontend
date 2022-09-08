@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
-import { HomeTitle } from 'styles/Global';
+import { HomeTitle } from 'styles/GlobalStyles';
 
 const states = [
   {

@@ -317,6 +317,5 @@ export async function consDescFetch() {
         item['Final Description'];
     }
   });
-  return finalObj
-  
+  return finalObj;
 }

@@ -46,5 +46,6 @@ const Header = styled.header`
 
 const SelectorWrapper = styled.div`
   max-width: 1020px;
+  margin-inline: auto;
   margin-top: 40px;
 `;

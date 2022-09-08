@@ -102,7 +102,7 @@ const ReactSelectElement = styled(Select)`
       padding: 7px 12px;
 
       input {
-        position: absolute;
+        /* position: absolute; */
       }
     }
 

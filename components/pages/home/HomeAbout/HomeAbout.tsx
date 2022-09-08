@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
-import { HomeTitle } from 'styles/Global';
+import { HomeTitle } from 'styles/GlobalStyles';
 import { about } from 'data/home';
 
 const HomeAbout = () => {

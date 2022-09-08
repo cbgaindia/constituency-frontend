@@ -1,5 +1,4 @@
 import styled, { css, createGlobalStyle } from 'styled-components';
-import { transparentize } from 'polished';
 import cssReset from './Reset';
 import cssNormalise from './Normalise';
 import { DEFAULT_THEME } from 'config/theme';
@@ -21,7 +20,7 @@ const gradient = css`
   }
 `;
 
-export const GlobalStyle = createGlobalStyle`
+export const GlobalStyles = createGlobalStyle`
 ${cssReset}
 ${cssNormalise}
 
@@ -100,9 +99,9 @@ html {
   --box-shadow-1 : 0px 4px 12px rgba(0, 0, 0, 0.08);
   --box-shadow-hover : 2px 8px 12px rgba(0, 0, 0, 0.2);
   --box-shadow-inset: inset 0px 0px 4px rgba(0, 0, 0, 0.08);
-  --separator-5: 1px solid ${transparentize('0.5', `${theme.grey_500}`)};
-  --separator-5-2: 2px solid ${transparentize('0.5', `${theme.grey_500}`)};
-  --separator-6: 1px solid ${transparentize('0.5', `${theme.grey_500}`)};
+  --separator-5: 1px solid ${theme.grey_500};
+  --separator-5-2: 2px solid ${theme.grey_500};
+  --separator-6: 1px solid ${theme.grey_500};
 
   --font-weight-bold: 600;
   --font-weight-medium: 500;
@@ -210,8 +209,6 @@ ul, ol {
     }
   }
 `;
-
-export default GlobalStyle;
 
 export const HomeTitle = styled.span`
   letter-spacing: 0.04em;

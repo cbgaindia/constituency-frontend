@@ -53,6 +53,7 @@ const ConstBar = ({ meta, filteredData }) => {
       options: [
         { value: 'Aska', label: 'Aska' },
         { value: 'vidhan', label: 'vidhan' },
+        { value: meta.constituency, label: meta.constituency },
       ],
     },
     {
@@ -120,7 +121,7 @@ const ComboWrapper = styled.div`
   padding-top: 16px;
 
   #cons-selector {
-    flex-basis: 60%;
+    flex-basis: 63%;
     flex-grow: 1;
 
     input {
@@ -129,7 +130,7 @@ const ComboWrapper = styled.div`
   }
 
   #year-selector {
-    flex-basis: 40%;
+    flex-basis: 43%;
     flex-grow: 1;
   }
 `;

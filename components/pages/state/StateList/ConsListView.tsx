@@ -922,7 +922,6 @@ const ConsListView = ({ meta }) => {
   const { data, isLoading } = swrFetch(
     `/assets/maps/${meta.sabha}/${meta.state}.json`
   );
-  console.log(meta);
 
   return isLoading ? (
     <p>Loading...</p>
