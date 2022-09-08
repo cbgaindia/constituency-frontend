@@ -12,7 +12,7 @@ function handleSearch(query, obj) {
     Object.keys(obj).forEach((key) => {
       // searching constituency from each state
       const filteredCons = obj[key].filter((item) =>
-        item.constName.toLowerCase().includes(query.toLowerCase())
+        item.constituency.toLowerCase().includes(query.toLowerCase())
       );
       if (filteredCons.length) {
         newObj[key] = filteredCons;
@@ -105,10 +105,10 @@ const ConstituencyWidget = ({
                             onClick={handleNewCompare}
                             kind="custom"
                             data-state={item}
-                            data-code={cons.constCode}
-                            id={cons.constName}
+                            data-code={cons.constituency_code}
+                            id={cons.constituency}
                           >
-                            {cons.constName}
+                            {cons.constituency}
                           </Button>
                         </li>
                       ))

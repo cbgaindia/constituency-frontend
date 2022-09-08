@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 
 import { dataTransform, stateDataFetch } from 'utils/fetch';
 import { getParameterCaseInsensitive } from 'utils/helper';
+import useSWR from 'swr';
 
 const Header = dynamic(() => import('components/pages/state/Header'), {
   ssr: false,
@@ -30,7 +31,13 @@ const State: React.FC<Props> = ({ query, schemeData, stateData }) => {
   const state = query.state
     .toLowerCase()
     .replace(/\b\w/g, (c) => c.toUpperCase());
-
+  const fetcher = (url: string) => stateDataFetch('Cons Info');
+  const { data } = useSWR(`consData`, fetcher, {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  });
+  console.log(data);
   useEffect(() => {
     // get constituencies of current state
     const ac = getParameterCaseInsensitive(

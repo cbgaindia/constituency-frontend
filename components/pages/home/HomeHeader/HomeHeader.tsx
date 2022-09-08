@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { ConsSelector, HeaderControls } from 'components/pages/shared';
 import { trending } from 'data/home';
 
-const HomeHeader = ({ schemeData }) => {
+const HomeHeader = ({ consData }) => {
   return (
     <Header>
       <div className="container">
@@ -15,7 +15,7 @@ const HomeHeader = ({ schemeData }) => {
           <span className="gradient-amazon">for Schemes</span>
         </h1>
         <SelectorWrapper>
-          <ConsSelector schemeData={schemeData} trending={trending} />
+          <ConsSelector consData={consData} trending={trending} />
         </SelectorWrapper>
       </div>
     </Header>

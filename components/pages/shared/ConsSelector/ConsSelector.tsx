@@ -6,9 +6,9 @@ import { useRouter } from 'next/router';
 import ConstituencyWidget from './ConstituencyWidget';
 
 const ConsSelector: React.FC<{
-  schemeData: any;
+  consData: any;
   trending?: any;
-}> = ({ schemeData, trending }) => {
+}> = ({ consData, trending }) => {
   const router = useRouter();
   const sabhaRef = useRef(null);
 
@@ -19,9 +19,9 @@ const ConsSelector: React.FC<{
 
   function handleSabhaChange(sabha) {
     if (sabha === 'lok') {
-      return schemeData?.pc.metadata.consList;
+      return consData?.lok;
     }
-    return schemeData?.ac.metadata.consList;
+    return consData?.vidhan;
   }
 
   function handleSabhaClick(e) {

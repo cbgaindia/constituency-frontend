@@ -79,6 +79,33 @@ export async function stateDataFetch(id) {
   return sheet;
 }
 
+export async function consListFetch(id = 'Cons Info') {
+  const data = await fetch(
+    `${process.env.NEXT_PUBLIC_CKAN_URL}/package_search?fq=organization:constituency-wise-scheme-data%20AND%20schemeType:"${id}"`
+  ).then((res) => res.json());
+
+  const sheet = await fetchSheets(
+    data.result.results[0].resources[0].url,
+    false
+  );
+
+  const consListObj = {
+    lok: {},
+    vidhan: {},
+  };
+
+  sheet[0].forEach((obj) => {
+    // check if there is a state object inside sabha
+    if (consListObj[obj.constituency_type][obj.state_ut_name]) {
+      consListObj[obj.constituency_type][obj.state_ut_name].push(obj);
+    } else {
+      consListObj[obj.constituency_type][obj.state_ut_name] = [obj];
+    }
+  });
+
+  return consListObj;
+}
+
 export function generateSlug(slug) {
   if (slug) {
     const temp = slug.toLowerCase().replace(/\W/g, '-'); // lower case and replace space & special chars witn '-'
