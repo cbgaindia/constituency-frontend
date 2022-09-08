@@ -59,7 +59,7 @@ const ConstituencyWidget = ({
 
   function handleNewCompare(e) {
     setCloseWidget(true);
-    newCompare(e.target.id, e.target.dataset.state, e.target.dataset.code);
+    newCompare(e.target.id, e.target.dataset.code, e.target.dataset.state);
   }
 
   const selectorRef = useRef(null);
@@ -158,7 +158,7 @@ const Wrapper = styled.div`
     position: absolute;
     color: var(--text-light-light);
     right: 40px;
-    top: 9px;
+    top: 13px;
     width: 32px;
     z-index: 100;
     padding: 0;

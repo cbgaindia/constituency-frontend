@@ -15,7 +15,7 @@ const ConsSelector: React.FC<{
   const [selectedSabha, setSelectedSabha] = useState(
     router.query.sabha ? router.query.sabha : 'lok'
   );
-  const [selectedCons, setSelectedCons] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   function handleSabhaChange(sabha) {
     if (sabha === 'lok') {
@@ -29,6 +29,7 @@ const ConsSelector: React.FC<{
     const value = btn.dataset.value;
 
     setSelectedSabha(value);
+    setSelectedItem(null);
     const selectedBtn = sabhaRef.current.querySelector(
       '[aria-pressed="true"]'
     ) as HTMLElement;
@@ -39,11 +40,15 @@ const ConsSelector: React.FC<{
     }
   }
 
-  function handleConsSelect(consName: any) {
+  function handleConsSelect(consName: any, consCode, stateName) {
     if (typeof consName === 'string') {
-      setSelectedCons(consName);
+      setSelectedItem({
+        cons: consName,
+        code: consCode,
+        state: stateName,
+      });
     } else {
-      setSelectedCons(null);
+      setSelectedItem(null);
     }
   }
 
@@ -79,13 +84,19 @@ const ConsSelector: React.FC<{
           } Sabha Constituency here...`}
           allStates={handleSabhaChange(selectedSabha)}
           newCompare={handleConsSelect}
-          currentItem={selectedCons}
+          currentItem={selectedItem?.cons}
         />
         <Button
           kind="primary"
-          href={selectedCons ? `/cons/${selectedCons}` : null}
+          href={
+            selectedItem
+              ? `/${selectedItem.state}/${selectedSabha}/${selectedItem.cons}`
+              : null
+          }
           onClick={
-            selectedCons == null ? () => alert('Select a constituency') : null
+            selectedItem?.cons == null
+              ? () => alert('Select a constituency')
+              : null
           }
         >
           Explore
