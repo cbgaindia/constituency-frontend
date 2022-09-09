@@ -1,4 +1,3 @@
-export { default as IconDropdown } from './IconDropdown';
 export { default as ArrowTail } from './ArrowTail';
 export { default as Cross } from './Cross';
 export { default as Download } from './Download';
