@@ -131,14 +131,13 @@ export function tabbedInterface(tablist, panels) {
   panels[0].hidden = false;
 }
 
-export const fetcher = (arg: any, ...args: any) =>
-  fetch(arg, ...args).then((res) => res.json());
-
-export function swrFetch(id) {
+export function swrFetch(id, func = null) {
   const fetcher = (arg: any, ...args: any) =>
     fetch(arg, ...args).then((res) => res.json());
 
-  const { data, error } = useSWR(id, fetcher, {
+  const customFetcher = (url: string) => func();
+
+  const { data, error } = useSWR(id, func ? customFetcher : fetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,

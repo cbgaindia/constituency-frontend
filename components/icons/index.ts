@@ -26,3 +26,5 @@ export { default as Explorer } from './Explorer';
 export { default as Search } from './Search';
 export { IconArrowRight } from './IconArrowRight';
 export { IconGeneralTrends } from './IconGeneralTrends';
+export { GradientLokSabha } from './GradientLokSabha';
+export { GradientVidhanSabha } from './GradientVidhanSabha';

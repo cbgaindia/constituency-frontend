@@ -1,47 +1,13 @@
+import { states } from 'data/home';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
-import { HomeTitle } from 'styles/GlobalStyles';
-
-const states = [
-  {
-    img: '/assets/states/bihar.jpg',
-    title: 'Bihar',
-    link: 'bihar',
-  },
-  {
-    img: '/assets/states/chhattisgarh.jpg',
-    title: 'Chhattisgarh',
-    link: 'chhattisgarh',
-  },
-  {
-    img: '/assets/states/jharkhand.jpg',
-    title: 'Jharkhand',
-    link: 'jharkhand',
-  },
-  {
-    img: '/assets/states/maharashtra.jpg',
-    title: 'Maharashtra',
-    link: 'maharashtra',
-  },
-  {
-    img: '/assets/states/odisha.jpg',
-    title: 'Odisha',
-    link: 'odisha',
-  },
-  {
-    img: '/assets/states/uttar pradesh.jpg',
-    title: 'Uttar Pradesh',
-    link: 'uttar pradesh',
-  },
-];
 
 const HomeStates = () => {
   return (
     <Wrapper>
       <div className="container">
-        <HomeTitle className="gradient-maple">State Entry Point</HomeTitle>
         <h2>Navigate to your Constituency via State</h2>
         <StateList>
           {states.map((item, index) => (
@@ -69,9 +35,10 @@ const HomeStates = () => {
 export default HomeStates;
 
 const Wrapper = styled.section`
-  .container {
+  margin-top: 64px;
+  /* .container {
     padding-top: 80px;
-  }
+  } */
 
   h2 {
     margin-top: 8px;

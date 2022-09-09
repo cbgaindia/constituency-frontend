@@ -123,10 +123,6 @@ const ComboWrapper = styled.div`
   #cons-selector {
     flex-basis: 63%;
     flex-grow: 1;
-
-    input {
-      outline: none !important;
-    }
   }
 
   #year-selector {

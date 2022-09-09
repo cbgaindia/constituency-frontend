@@ -1,106 +1,92 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Button } from 'components/actions';
-import { LokSabha, VidhanSabha } from 'components/icons';
-import { useRouter } from 'next/router';
-import ConstituencyWidget from './ConstituencyWidget';
+import { Button, Combobox } from 'components/actions';
+import { GradientLokSabha, GradientVidhanSabha } from 'components/icons';
 
 const ConsSelector: React.FC<{
   consData: any;
   trending?: any;
-}> = ({ consData, trending }) => {
-  const router = useRouter();
-  const sabhaRef = useRef(null);
+  sabha: string;
+  isLoading: boolean;
+}> = ({ consData, trending, sabha, isLoading }) => {
+  const [selectedState, setSelectedState] = useState(null);
+  const [selectedCons, setSelectedCons] = useState(null);
+  const [consCount, SetConsCount] = useState(null);
 
-  const [selectedSabha, setSelectedSabha] = useState(
-    router.query.sabha ? router.query.sabha : 'lok'
-  );
-  const [selectedItem, setSelectedItem] = useState(null);
-
-  function handleSabhaChange(sabha) {
-    if (sabha === 'lok') {
-      return consData?.lok;
-    }
-    return consData?.vidhan;
-  }
-
-  function handleSabhaClick(e) {
-    const btn = e.target;
-    const value = btn.dataset.value;
-
-    setSelectedSabha(value);
-    setSelectedItem(null);
-    const selectedBtn = sabhaRef.current.querySelector(
-      '[aria-pressed="true"]'
-    ) as HTMLElement;
-
-    if (btn !== selectedBtn) {
-      selectedBtn.setAttribute('aria-pressed', 'false');
-      btn.setAttribute('aria-pressed', 'true');
-    }
-  }
-
-  function handleConsSelect(consName: any, consCode, stateName) {
-    if (typeof consName === 'string') {
-      setSelectedItem({
-        cons: consName,
-        code: consCode,
-        state: stateName,
+  const states = React.useMemo(() => {
+    if (consData) {
+      let count = 0;
+      const stateArr = Object.keys(consData).map((state) => {
+        count += consData[state].length;
+        return {
+          value: state,
+          label: state,
+        };
       });
-    } else {
-      setSelectedItem(null);
+      SetConsCount(count);
+      return stateArr;
     }
-  }
+  }, [consData]);
+
+  const constituenies = React.useMemo(() => {
+    if (selectedState)
+      return Object.values(consData[selectedState]).map((item: any) => ({
+        value: item.constituency,
+        label: item.constituency,
+      }));
+  }, [selectedState]);
 
   return (
-    <HeaderControls>
-      <HeaderToggle ref={sabhaRef}>
-        <Button
-          aria-pressed="true"
-          data-value="lok"
-          onClick={handleSabhaClick}
-          icon={<LokSabha />}
-          iconSide="left"
-          kind="custom"
-        >
-          Lok Sabha
-        </Button>
-        <Button
-          aria-pressed="false"
-          data-value="vidhan"
-          onClick={handleSabhaClick}
-          icon={<VidhanSabha />}
-          iconSide="left"
-          kind="custom"
-        >
-          Vidhan Sabha
-        </Button>
-      </HeaderToggle>
+    <Wrapper>
+      <Header>
+        {sabha == 'Lok' ? (
+          <GradientLokSabha width={64} />
+        ) : (
+          <GradientVidhanSabha width={64} />
+        )}
+        <div>
+          <h2>{`${sabha} Sabha Constituency`}</h2>
+          <span>{`Explore ${
+            consCount ? consCount : '...'
+          } ${sabha} Sabha Constituencies`}</span>
+        </div>
+      </Header>
 
       <ConsMenu>
-        <ConstituencyWidget
-          fallBack={`Search for ${
-            selectedSabha === 'lok' ? 'Lok' : 'Vidhan'
-          } Sabha Constituency here...`}
-          allStates={handleSabhaChange(selectedSabha)}
-          newCompare={handleConsSelect}
-          currentItem={selectedItem?.cons}
+        <Combobox
+          options={states}
+          isSearchable={false}
+          isClearable
+          placeholder="Select a State"
+          isLoading={isLoading}
+          isDisabled={isLoading}
+          onChange={(e: any) => setSelectedState(e?.value)}
         />
-        <Button
-          kind="primary"
-          href={
-            selectedItem
-              ? `/${selectedItem.state}/${selectedSabha}/${selectedItem.cons}`
-              : null
-          }
-          onClick={
-            selectedItem?.cons == null
-              ? () => alert('Select a constituency')
-              : null
-          }
-        >
-          Explore
-        </Button>
+        <div>
+          <Combobox
+            options={constituenies}
+            isClearable
+            isDisabled={isLoading}
+            placeholder={`${
+              sabha === 'lok' ? 'Lok' : 'Vidhan'
+            } Sabha Constituency`}
+            onChange={(e: any) => setSelectedCons(e?.value)}
+            noOptionsMessage={() => 'Please select a state'}
+          />
+          <Button
+            kind="primary"
+            href={
+              selectedCons
+                ? `/${selectedState}/${sabha}/${selectedCons}`
+                : null
+            }
+            onClick={
+              !selectedCons ? () => alert('Select a constituency') : null
+            }
+          >
+            Explore
+          </Button>
+        </div>
       </ConsMenu>
       {trending && (
         <Trending>
@@ -114,58 +100,64 @@ const ConsSelector: React.FC<{
           </div>
         </Trending>
       )}
-    </HeaderControls>
+    </Wrapper>
   );
 };
 
 export default ConsSelector;
 
-export const HeaderControls = styled.div`
+export const Wrapper = styled.div`
+  flex-grow: 1;
   background-color: var(--color-white);
-  padding: 16px;
+  filter: drop-shadow(var(--box-shadow-1));
   border-radius: 4px;
-  margin: 0 auto;
+  padding: 16px;
+`;
+
+const Header = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-transform: capitalize;
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  span {
+    letter-spacing: 0.01em;
+    color: var(--text-light-medium);
+  }
+
+  @media (max-width: 480px) {
+    gap: 12px;
+    align-items: flex-start;
+
+    h2 {
+      font-size: 1.1rem;
+    }
+
+    span {
+      font-size: 0.875rem;
+    }
+  }
 `;
 
 export const ConsMenu = styled.div`
   display: flex;
-  align-items: stretch;
+  flex-direction: column;
   gap: 16px;
-  margin-top: 16px;
+  margin-top: 24px;
+  width: 100%;
 
-  @media (max-width: 720px) {
+  > div {
+    display: flex;
     flex-wrap: wrap;
-  }
-`;
+    gap: 16px;
 
-const HeaderToggle = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  border-bottom: var(--border-2);
-
-  button {
-    font-weight: 600;
-    padding-bottom: 10px;
-    border-bottom: 2px solid transparent;
-    padding-inline: 8px;
-    border-radius: 0;
-    color: var(--text-light-light);
-
-    svg {
-      fill: var(--color-grey-300);
-      max-width: 40px;
-      max-height: 40px;
-      transform: scale(0.8);
-    }
-
-    &[aria-pressed='true'] {
-      color: var(--color-amazon-100);
-      border-bottom-color: var(--color-amazon-100);
-
-      svg {
-        fill: var(--color-amazon-300);
-      }
+    > div {
+      flex-grow: 1;
     }
   }
 `;
@@ -173,7 +165,7 @@ const HeaderToggle = styled.div`
 const Trending = styled.div`
   display: flex;
   gap: 4px;
-  margin-top: 12px;
+  margin-top: 16px;
   flex-wrap: wrap;
 
   font-weight: 600;

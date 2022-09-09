@@ -97,12 +97,24 @@ const ReactSelectElement = styled(Select)`
       }
     }
 
-    &__value-container--is-multi {
+    &__control {
+      flex-grow: 1;
+    }
+
+    &__value-container {
       gap: 8px;
       padding: 7px 12px;
+    }
 
+    &__single-value {
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      padding-block: 4px;
+    }
+
+    &__input-container {
       input {
-        /* position: absolute; */
+        outline: none !important;
       }
     }
 
