@@ -61,6 +61,7 @@ const ConsSelector: React.FC<{
           isLoading={isLoading}
           isDisabled={isLoading}
           onChange={(e: any) => setSelectedState(e?.value)}
+          isLight
         />
         <div>
           <Combobox
@@ -72,6 +73,7 @@ const ConsSelector: React.FC<{
             } Sabha Constituency`}
             onChange={(e: any) => setSelectedCons(e?.value)}
             noOptionsMessage={() => 'Please select a state'}
+            isDark
           />
           <Button
             kind="primary"

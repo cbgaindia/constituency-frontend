@@ -1,3 +1,4 @@
+import { IconDropdown } from 'components/icons';
 import React from 'react';
 import Select, { components } from 'react-select';
 import styled from 'styled-components';
@@ -33,10 +34,20 @@ const CustomGroupHeading = (props) => {
   );
 };
 
-interface CustomProps {
+const DropdownIndicator = (props) => {
+  return (
+    <components.DropdownIndicator {...props}>
+      <IconDropdown width={32} fill="var(--color-grey-300)" />
+    </components.DropdownIndicator>
+  );
+};
+
+interface Props {
   isGrouped?: boolean;
+  isLight?: boolean;
+  isDark?: boolean;
 }
-type ComboboxProps = React.ComponentProps<typeof Select> & CustomProps;
+type ComboboxProps = React.ComponentProps<typeof Select> & Props;
 
 const Combobox = ({ isGrouped, ...props }: ComboboxProps) => {
   //  Custom filter function to handle grouped options
@@ -69,22 +80,22 @@ const Combobox = ({ isGrouped, ...props }: ComboboxProps) => {
     [props]
   );
 
-  if (isGrouped)
-    return (
-      <ReactSelectElement
-        classNamePrefix="react-select"
-        components={{ GroupHeading: CustomGroupHeading }}
-        filterOption={groupedFilter}
-        {...props}
-      />
-    );
-
-  return <ReactSelectElement classNamePrefix="react-select" {...props} />;
+  return (
+    <ReactSelectElement
+      classNamePrefix="react-select"
+      components={{
+        GroupHeading: isGrouped ? CustomGroupHeading : null,
+        DropdownIndicator,
+      }}
+      filterOption={groupedFilter}
+      {...props}
+    />
+  );
 };
 
 export default Combobox;
 
-const ReactSelectElement = styled(Select)`
+const ReactSelectElement = styled(Select)<Props>`
   .react-select {
     &__menu {
       margin-top: 1px;
@@ -99,6 +110,10 @@ const ReactSelectElement = styled(Select)`
 
     &__control {
       flex-grow: 1;
+      border: var(--border-1);
+      font-weight: 600;
+      background-color: ${(props) =>
+        props.isLight ? '#ebf0ee' : props.isDark ? '#cdd1cf' : 'white'};
     }
 
     &__value-container {
@@ -176,10 +191,6 @@ const ReactSelectElement = styled(Select)`
           background-color: #e5eae7;
         }
       }
-
-      /* &-active {
-        background-color: #e5eae7;
-      } */
     }
 
     &__option {
@@ -189,8 +200,17 @@ const ReactSelectElement = styled(Select)`
       cursor: pointer;
       border-radius: 2px;
 
-      &--is-focused {
+      &:hover {
         background-color: var(--color-grey-600);
+      }
+
+      &--is-selected {
+        font-weight: 600;
+        background-color: #368b8b;
+
+        &:hover {
+          background-color: #368b8b;
+        }
       }
     }
   }
