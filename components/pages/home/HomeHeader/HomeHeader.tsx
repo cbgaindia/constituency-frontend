@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { swrFetch } from 'utils/helper';
 import { consListFetch } from 'utils/fetch';
-import { ConsSelector } from 'components/pages/shared';
+import ConsSelector from './ConsSelector';
 import { lokTrending, vidhanTrending } from 'data/home';
 
 const HomeHeader = () => {
