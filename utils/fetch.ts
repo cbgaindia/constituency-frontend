@@ -76,10 +76,12 @@ export async function stateDataFetch(id, state = null) {
     false
   );
 
-  const stateData = sheet[0].find(
-    (o) => o.State.toLowerCase() == state.toLowerCase()
-  );
-  if (state) return stateData;
+  if (state) {
+    const stateData = sheet[0].find(
+      (o) => o.State.toLowerCase() == state.toLowerCase()
+    );
+    return stateData;
+  }
   return sheet[0];
 }
 

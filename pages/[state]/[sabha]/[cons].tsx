@@ -46,23 +46,7 @@ const ConsPage: React.FC<Props> = ({
   stateScheme,
   schemeData,
 }) => {
-  const [queryData, setQueryData] = React.useState<any>();
-
-  React.useEffect(() => {
-    const { state, sabha, cons } = query;
-    setQueryData({
-      state: upperCaseString(state),
-      sabha,
-      cons: upperCaseString(cons),
-    });
-  }, [query]);
-
-  const currentState = React.useCallback(
-    stateData.find(
-      (o) => o.State.toLowerCase() == queryData?.state.toLowerCase()
-    ),
-    [queryData]
-  );
+  const { state, sabha, cons } = query;
 
   const tabData = React.useMemo(
     () => [
@@ -73,9 +57,9 @@ const ConsPage: React.FC<Props> = ({
         icon: <OverViewIcon size={40} />,
         content: (
           <Overview
-            data={currentState}
+            data={stateData}
             schemeData={schemeData}
-            queryData={queryData}
+            queryData={{ state, sabha, cons }}
           />
         ),
       },
@@ -86,22 +70,21 @@ const ConsPage: React.FC<Props> = ({
         icon: <ExplorerIcon size={40} />,
         content: (
           <Explorer
-            queryData={queryData}
-            schemeList={stateScheme[currentState?.State]}
+            queryData={{ state, sabha, cons }}
+            schemeList={stateScheme[stateData.State]}
           />
         ),
       },
     ],
-    [currentState]
+    [stateData]
   );
 
   const seo = {
-    title: `${queryData?.cons} . ${queryData?.state} - Constituency Dashboard`,
-    description: `Explore scheme-wise fiscal information at the level of Lok Sabha and Vidhan Sabha constituencies in the state of ${queryData?.state}`,
+    title: `${cons} . ${state} - Constituency Dashboard`,
+    description: `Explore scheme-wise fiscal information at the level of Lok Sabha and Vidhan Sabha constituencies in the state of ${state}`,
   };
 
-  if (!['vidhan', 'lok'].includes(queryData?.sabha))
-    return <p>Incorrect URL!</p>;
+  if (!['vidhan', 'lok'].includes(sabha)) return <p>Incorrect URL!</p>;
   return (
     <>
       <Seo seo={seo} />
@@ -109,7 +92,7 @@ const ConsPage: React.FC<Props> = ({
         <>
           <main className="container">
             <Header
-              queryData={queryData}
+              queryData={{ state, sabha, cons }}
               vidhanData={schemeData?.ac.metadata.consList}
               lokData={schemeData?.pc.metadata.consList}
             />

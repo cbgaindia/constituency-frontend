@@ -1,11 +1,6 @@
 export default function LokSabha({ ...props }) {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      width={props.width ? props.width : 40}
-      fill="#ABB0AD"
-      {...props}
-    >
+    <svg viewBox="0 0 24 24" width={props.width ? props.width : 40} {...props}>
       <path
         fillRule="evenodd"
         clipRule="evenodd"

@@ -161,6 +161,10 @@ const SabhaSelector = styled.div`
       line-height: 0;
     }
 
+    svg {
+      fill: var(--color-grey-300);
+    }
+
     &[data-state='active'] {
       color: var(--color-amazon-300);
       border-color: var(--color-amazon-300);

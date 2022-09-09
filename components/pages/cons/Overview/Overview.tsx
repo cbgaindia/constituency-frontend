@@ -5,24 +5,17 @@ import { Summary } from 'components/pages/shared';
 import Snapshot from './Snapshot';
 
 const Overview = ({ data, queryData, schemeData }) => {
-  const summaryCards = [
-    {
-      text: 'Parliamentary Constituencies',
-      value: `${data['Parliamentary Constituencies']}`,
-    },
-    {
-      text: 'Assembly Constituencies',
-      value: `${data['Assembly Constituencies']}`,
-    },
-    {
-      text: 'Population (July 2022) (In Cr.)',
-      value: `${data['Population (July 2022) (In Cr.)']}`,
-    },
-    {
-      text: 'Area (In Square KM.)',
-      value: `${data['Area (In Square KM.)']}`,
-    },
-  ];
+  const summaryCards = React.useMemo(() => {
+    return Object.keys(data).reduce(function (result, key) {
+      if (key != 'State' && key != 'Description') {
+        result.push({
+          text: key,
+          value: data[key],
+        });
+      }
+      return result;
+    }, []);
+  }, [data]);
 
   return (
     <Wrapper>
@@ -45,7 +38,7 @@ const Overview = ({ data, queryData, schemeData }) => {
           <p>{data.Description}</p>
         </Main>
       </article>
-      <Summary title="Demographic Highlights" cards={summaryCards} />
+      <Summary title="Demographic Highlights" cards={summaryCards.slice(4)} />
       <Snapshot
         schemeData={schemeData}
         meta={queryData}

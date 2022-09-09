@@ -6,6 +6,7 @@ import { groupListByAlphabets, sortArrayOfObj } from 'utils/helper';
 import { LokSabha, VidhanSabha } from 'components/icons';
 import { Toolbar } from 'components/layouts';
 import SearchCons from './SearchCons';
+import { useWindowSize } from 'utils/hooks';
 
 const ConsMapView = dynamic(() => import('./ConsMapView'), {
   ssr: false,
@@ -18,6 +19,7 @@ const StateList = ({ data }) => {
   const [lokData, setLokData] = React.useState<any>([]);
   const [vidhanData, setVidhanData] = React.useState<any>([]);
   const [selectedSabha, setSelectedSabha] = React.useState<any>('vidhan');
+  const size = useWindowSize();
 
   React.useEffect(() => {
     // first sort the object, then group them by first character.
@@ -44,10 +46,12 @@ const StateList = ({ data }) => {
       return (
         <ConsWrapper>
           <MapWrapper>
-            <ConsMapView
-              consData={data}
-              meta={{ sabha: selectedSabha, state: data.state }}
-            />
+            {size.width > 810 && (
+              <ConsMapView
+                consData={data}
+                meta={{ sabha: selectedSabha, state: data.state }}
+              />
+            )}
           </MapWrapper>
 
           <ConsList>
@@ -114,7 +118,6 @@ const StateList = ({ data }) => {
       <h2>Explore Constituencies</h2>
       <Toolbar
         defaultValue="vidhan"
-        fullScreenId="stateListWrapper"
         data={stateData}
         onValueChange={(e) => setSelectedSabha(e)}
       />
