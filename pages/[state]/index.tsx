@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
-import styled from 'styled-components';
 
 import { consListFetch, stateDataFetch } from 'utils/fetch';
 import { getParameterCaseInsensitive } from 'utils/helper';
@@ -59,13 +58,6 @@ const State: React.FC<Props> = ({ query, consData, stateData }) => {
   );
 };
 
-const Fallback = styled.div`
-  margin-top: 32px;
-  font-weight: 600;
-  line-height: 1.24;
-  font-size: 2rem;
-`;
-
 export const getServerSideProps: GetServerSideProps = async ({
   res,
   query,
@@ -76,15 +68,15 @@ export const getServerSideProps: GetServerSideProps = async ({
   );
   const queryValue = query || {};
   const [stateData, consData] = await Promise.all([
-    stateDataFetch('State Info', query.state),
-    consListFetch(),
+    stateDataFetch(query.state),
+    consListFetch(query.state),
   ]);
 
   return {
     props: {
       query: queryValue,
-      consData,
-      stateData: stateData,
+      consData: consData,
+      stateData,
     },
   };
 };

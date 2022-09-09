@@ -2,7 +2,7 @@ import { read, utils as xlsxUtil } from 'xlsx';
 
 export async function fetchQuery(query, value) {
   const queryRes = await fetch(
-    `${process.env.NEXT_PUBLIC_CKAN_URL}/package_search?fq=${query}:"${value}" AND organization:constituency-wise-scheme-data AND  private:false&rows=50`
+    `${process.env.NEXT_PUBLIC_CKAN_URL}/package_search?fq=${query}:"${value}" AND organization:constituency-wise-scheme-data AND private:false`
   ).then((res) => res.json());
 
   return queryRes.result.results;
@@ -66,15 +66,12 @@ export async function stateSchemeFetch() {
   return stateScheme;
 }
 
-export async function stateDataFetch(id, state = null) {
-  const data = await fetch(
-    `${process.env.NEXT_PUBLIC_CKAN_URL}/package_search?fq=organization:constituency-wise-scheme-data%20AND%20schemeType:"${id}"`
-  ).then((res) => res.json());
+export async function stateDataFetch(state = null) {
+  // fetch CKAN JSON
+  const data = await fetchQuery('schemeType', 'State Info');
 
-  const sheet = await fetchSheets(
-    data.result.results[0].resources[0].url,
-    false
-  );
+  // fetch and generate XLSX Sheet - false: don't do array of array return
+  const sheet = await fetchSheets(data[0].resources[0].url, false);
 
   if (state) {
     const stateData = sheet[0].find(
@@ -85,29 +82,38 @@ export async function stateDataFetch(id, state = null) {
   return sheet[0];
 }
 
-export async function consListFetch(id = 'Cons Info') {
-  const data = await fetch(
-    `${process.env.NEXT_PUBLIC_CKAN_URL}/package_search?fq=organization:constituency-wise-scheme-data%20AND%20schemeType:"${id}"`
-  ).then((res) => res.json());
+export async function consListFetch(state = null) {
+  // fetch CKAN JSON
+  const data = await fetchQuery('schemeType', 'Cons Info');
 
-  const sheet = await fetchSheets(
-    data.result.results[0].resources[0].url,
-    false
-  );
+  // fetch and generate XLSX Sheet - false: don't do array of array return
+  const sheet = await fetchSheets(data[0].resources[0].url, false);
 
   const consListObj = {
     lok: {},
     vidhan: {},
   };
 
-  sheet[0].forEach((obj) => {
-    // check if there is a state object inside sabha
-    if (consListObj[obj.constituency_type][obj.state_ut_name]) {
-      consListObj[obj.constituency_type][obj.state_ut_name].push(obj);
-    } else {
-      consListObj[obj.constituency_type][obj.state_ut_name] = [obj];
-    }
-  });
+  if (state) {
+    sheet[0].forEach((obj) => {
+      // check if there is a state object inside sabha and the state matches query
+      if (state.toLowerCase() == obj.state_ut_name.toLowerCase())
+        if (consListObj[obj.constituency_type][obj.state_ut_name]) {
+          consListObj[obj.constituency_type][obj.state_ut_name].push(obj);
+        } else {
+          consListObj[obj.constituency_type][obj.state_ut_name] = [obj];
+        }
+    });
+  } else {
+    sheet[0].forEach((obj) => {
+      // check if there is a state object inside sabha
+      if (consListObj[obj.constituency_type][obj.state_ut_name]) {
+        consListObj[obj.constituency_type][obj.state_ut_name].push(obj);
+      } else {
+        consListObj[obj.constituency_type][obj.state_ut_name] = [obj];
+      }
+    });
+  }
 
   return consListObj;
 }
