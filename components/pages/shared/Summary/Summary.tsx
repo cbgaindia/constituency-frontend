@@ -38,7 +38,7 @@ export default Summary;
 const Wrapper = styled.div`
   margin-top: 24px;
   padding-bottom: 40px;
-  border-bottom: var(--separator-5);
+  border-bottom: var(--separator-6);
 
   > div {
     display: flex;

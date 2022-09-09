@@ -1,29 +1,21 @@
-import { Share } from 'components/actions';
-import { Summary } from 'components/pages/shared';
+import React from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
+import { Share } from 'components/actions';
+import { Summary } from 'components/pages/shared';
 
 const Header = ({ data }) => {
-  const summaryCards = data
-    ? [
-        {
-          text: 'Parliamentary Constituencies',
-          value: `${data['Parliamentary Constituencies']}`,
-        },
-        {
-          text: 'Assembly Constituencies',
-          value: `${data['Assembly Constituencies']}`,
-        },
-        {
-          text: 'Population (July 2022) (In Cr.)',
-          value: `${data['Population (July 2022) (In Cr.)']}`,
-        },
-        {
-          text: 'Area (In Square KM.)',
-          value: `${data['Area (In Square KM.)']}`,
-        },
-      ]
-    : [];
+  const summaryCards = React.useMemo(() => {
+    return Object.keys(data).reduce(function (result, key) {
+      if (key != 'State' && key != 'Description') {
+        result.push({
+          text: key,
+          value: data[key],
+        });
+      }
+      return result;
+    }, []);
+  }, [data]);
 
   return (
     <HeaderWrapper>
@@ -56,7 +48,7 @@ const Header = ({ data }) => {
             <span>Financial Year 2022-23</span>
           </SummaryTitle>
         }
-        cards={summaryCards}
+        cards={summaryCards.slice(4)} // --change-this
       />
     </HeaderWrapper>
   );

@@ -26,7 +26,6 @@ type Props = {
 };
 
 const State: React.FC<Props> = ({ query, consData, stateData }) => {
-  const [currentState, setCurrentState] = useState<any>();
   const [currentLokCons, setCurrentLokCons] = useState<any>([]);
   const [currentVidhanCons, setCurrentVidhanCons] = useState<any>([]);
   const state = query.state
@@ -42,13 +41,6 @@ const State: React.FC<Props> = ({ query, consData, stateData }) => {
     setCurrentLokCons(lok);
   }, [consData]);
 
-  useEffect(() => {
-    // get meta data of current state
-    setCurrentState(
-      stateData.find((o) => o.State.toLowerCase() == state.toLowerCase())
-    );
-  }, [stateData]);
-
   const seo = {
     title: `${state} - Constituency Dashboard`,
     description: `Explore scheme-wise fiscal information at the level of Lok Sabha and Vidhan Sabha constituencies in the state of ${state}`,
@@ -59,7 +51,7 @@ const State: React.FC<Props> = ({ query, consData, stateData }) => {
       {
         <>
           <main className="container">
-            <Header data={currentState} />
+            <Header data={stateData} />
             <React.Suspense
               fallback={<Fallback>Loading Constituencies...</Fallback>}
             >
@@ -95,7 +87,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   );
   const queryValue = query || {};
   const [stateData, consData] = await Promise.all([
-    stateDataFetch('State Info'),
+    stateDataFetch('State Info', query.state),
     consListFetch(),
   ]);
 
@@ -103,7 +95,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     props: {
       query: queryValue,
       consData,
-      stateData: stateData[0],
+      stateData: stateData,
     },
   };
 };

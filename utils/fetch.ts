@@ -66,7 +66,7 @@ export async function stateSchemeFetch() {
   return stateScheme;
 }
 
-export async function stateDataFetch(id) {
+export async function stateDataFetch(id, state = null) {
   const data = await fetch(
     `${process.env.NEXT_PUBLIC_CKAN_URL}/package_search?fq=organization:constituency-wise-scheme-data%20AND%20schemeType:"${id}"`
   ).then((res) => res.json());
@@ -76,7 +76,11 @@ export async function stateDataFetch(id) {
     false
   );
 
-  return sheet;
+  const stateData = sheet[0].find(
+    (o) => o.State.toLowerCase() == state.toLowerCase()
+  );
+  if (state) return stateData;
+  return sheet[0];
 }
 
 export async function consListFetch(id = 'Cons Info') {
