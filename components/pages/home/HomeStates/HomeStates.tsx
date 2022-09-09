@@ -16,7 +16,7 @@ const HomeStates = () => {
                 <a>
                   <Image
                     src={item.img}
-                    width={160}
+                    width={368}
                     height={160}
                     alt=""
                     className="img-cover"
@@ -55,14 +55,18 @@ const StateList = styled.ul`
   margin-top: 40px;
   padding-bottom: 16px;
 
-  overflow-x: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(384px, 100%), 1fr));
+  gap: 32px;
+
+  /* overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch; */
 
   li {
-    min-width: 176px;
-    scroll-snap-align: start;
+    /* min-width: 176px; */
+    /* scroll-snap-align: start; */
   }
 
   a {
