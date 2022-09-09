@@ -60,11 +60,15 @@ const ConsSelector: React.FC<{
           placeholder="Select a State"
           isLoading={isLoading}
           isDisabled={isLoading}
-          onChange={(e: any) => setSelectedState(e?.value)}
+          onChange={(e: any) => {
+            setSelectedState(e?.value);
+            setSelectedCons(null);
+          }}
           isLight
         />
         <div>
           <Combobox
+            key={JSON.stringify(constituenies)}
             options={constituenies}
             isClearable
             isDisabled={isLoading}
@@ -109,7 +113,6 @@ const ConsSelector: React.FC<{
 export default ConsSelector;
 
 export const Wrapper = styled.div`
-  flex-grow: 1;
   background-color: var(--color-white);
   filter: drop-shadow(var(--box-shadow-1));
   border-radius: 4px;
@@ -151,7 +154,6 @@ export const ConsMenu = styled.div`
   flex-direction: column;
   gap: 16px;
   margin-top: 24px;
-  width: 100%;
 
   > div {
     display: flex;
@@ -160,6 +162,7 @@ export const ConsMenu = styled.div`
 
     > div {
       flex-grow: 1;
+      flex-basis: 70%;
     }
   }
 `;

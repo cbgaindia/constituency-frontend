@@ -158,6 +158,20 @@ const ReactSelectElement = styled(Select)<Props>`
       margin: 2px;
     }
 
+    &__indicator-separator {
+      background-color: ${(props) =>
+        props.isDark ? 'var(--color-grey-300)' : ' var(--color-grey-400)'};
+    }
+
+    &__clear-indicator {
+      color: ${(props) =>
+        props.isDark ? 'var(--color-grey-300)' : ' var(--color-grey-400)'};
+
+      &:hover {
+        color: var(--color-grey-200);
+      }
+    }
+
     &__group {
       padding: 0;
       margin-bottom: 8px;
@@ -200,7 +214,7 @@ const ReactSelectElement = styled(Select)<Props>`
       cursor: pointer;
       border-radius: 2px;
 
-      &:hover {
+      &--is-focused {
         background-color: var(--color-grey-600);
       }
 

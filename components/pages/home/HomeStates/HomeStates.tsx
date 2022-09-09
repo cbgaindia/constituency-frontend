@@ -3,11 +3,13 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
 import { states } from 'data/home';
+import { HomeTitle } from 'styles/GlobalStyles';
 
 const HomeStates = () => {
   return (
     <Wrapper>
       <div className="container">
+        <HomeTitle className="gradient-maple">Explore via states</HomeTitle>
         <h2>Navigate to your Constituency via State</h2>
         <StateList>
           {states.map((item, index) => (

@@ -1,7 +1,5 @@
 import React from 'react';
-import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
-import { consListFetch } from 'utils/fetch';
 import { HomeHeader } from 'components/pages/home';
 
 const HomeStates = dynamic(
