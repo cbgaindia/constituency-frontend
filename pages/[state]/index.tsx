@@ -1,19 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
+import styled from 'styled-components';
 
 import { consListFetch, stateDataFetch } from 'utils/fetch';
 import { getParameterCaseInsensitive } from 'utils/helper';
 import Header from 'components/pages/state/Header';
-import styled from 'styled-components';
-
-const StateList = dynamic(
-  () => import('components/pages/state/StateList/StateList'),
-  {
-    ssr: false,
-    suspense: true,
-  }
-);
+import StateList from 'components/pages/state/StateList/StateList';
 
 const Seo = dynamic(() => import('components/common/Seo/Seo'), {
   ssr: false,
@@ -52,17 +45,13 @@ const State: React.FC<Props> = ({ query, consData, stateData }) => {
         <>
           <main className="container">
             <Header data={stateData} />
-            <React.Suspense
-              fallback={<Fallback>Loading Constituencies...</Fallback>}
-            >
-              <StateList
-                data={{
-                  lok: currentLokCons,
-                  vidhan: currentVidhanCons,
-                  state,
-                }}
-              />
-            </React.Suspense>
+            <StateList
+              data={{
+                lok: currentLokCons,
+                vidhan: currentVidhanCons,
+                state,
+              }}
+            />
           </main>
         </>
       }

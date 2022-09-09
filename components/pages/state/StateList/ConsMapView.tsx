@@ -1,8 +1,8 @@
-import { MapViz } from 'components/viz';
-import { useRouter } from 'next/router';
 import React from 'react';
-import styled from 'styled-components';
+import { useRouter } from 'next/router';
+import { MapViz } from 'components/viz';
 import { swrFetch } from 'utils/helper';
+import styled from 'styled-components';
 
 function generateMapData(obj) {
   const mapObj = [...obj].map((item) => {
@@ -23,36 +23,27 @@ const ConsMapView = ({ meta, consData }) => {
   );
 
   return isLoading ? (
-    <p>Loading...</p>
+    <LoadingMap>Loading Map...</LoadingMap>
   ) : (
-    <Wrapper>
-      <MapViz
-        mapFile={data}
-        meta={meta}
-        data={generateMapData(consData[meta.sabha])}
-        vizIndicators={[]}
-        onlyLabel
-        newMapItem={(e) => {
-          e ? router.push(`${meta.state}/${meta.sabha}/${e.mapName}`) : null;
-        }}
-      />
-    </Wrapper>
+    <MapViz
+      mapFile={data}
+      meta={meta}
+      data={generateMapData(consData[meta.sabha])}
+      vizIndicators={[]}
+      onlyLabel
+      newMapItem={(e) => {
+        e ? router.push(`${meta.state}/${meta.sabha}/${e.mapName}`) : null;
+      }}
+    />
   );
 };
 
 export default ConsMapView;
 
-const Wrapper = styled.div`
-  flex-basis: 70%;
-  /* flex-shrink: 1; */
-  flex-grow: 1;
-  background-color: var(--color-background-lighter);
-  padding: 24px;
-  border-radius: 4px;
-  border: var(--border-2);
-  filter: drop-shadow(var(--box-shadow-1));
-
-  @media (max-width: 810px) {
-    display: none;
-  }
+const LoadingMap = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

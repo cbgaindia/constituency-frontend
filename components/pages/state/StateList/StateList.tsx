@@ -1,11 +1,16 @@
 import React from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import styled from 'styled-components';
 import { groupListByAlphabets, sortArrayOfObj } from 'utils/helper';
 import { LokSabha, VidhanSabha } from 'components/icons';
-import SearchCons from './SearchCons';
 import { Toolbar } from 'components/layouts';
-import ConsMapView from './ConsMapView';
+import SearchCons from './SearchCons';
+
+const ConsMapView = dynamic(() => import('./ConsMapView'), {
+  ssr: false,
+  loading: () => <LoadingMap>Loading Map...</LoadingMap>,
+});
 
 const StateList = ({ data }) => {
   const [stateData, setStateData] = React.useState<any>([]);
@@ -38,10 +43,12 @@ const StateList = ({ data }) => {
     (item) => {
       return (
         <ConsWrapper>
-          <ConsMapView
-            consData={data}
-            meta={{ sabha: selectedSabha, state: data.state }}
-          />
+          <MapWrapper>
+            <ConsMapView
+              consData={data}
+              meta={{ sabha: selectedSabha, state: data.state }}
+            />
+          </MapWrapper>
 
           <ConsList>
             <SearchCons
@@ -120,6 +127,7 @@ export default StateList;
 const Wrapper = styled.div`
   margin-top: 32px;
   background-color: var(--color-background-light);
+  min-height: 764px;
 
   > span {
     letter-spacing: 0.04em;
@@ -150,6 +158,20 @@ const ConsLink = styled.a`
   }
 `;
 
+const MapWrapper = styled.div`
+  flex-basis: 70%;
+  flex-grow: 1;
+  background-color: var(--color-background-lighter);
+  padding: 24px;
+  border-radius: 4px;
+  border: var(--border-2);
+  filter: drop-shadow(var(--box-shadow-1));
+
+  @media (max-width: 810px) {
+    display: none;
+  }
+`;
+
 const ConsList = styled.div`
   display: flex;
   flex-direction: column;
@@ -170,7 +192,7 @@ const ConsList = styled.div`
     font-weight: 700;
     margin-top: 16px;
     text-transform: capitalize;
-    display: inline-block; //
+    display: inline-block;
   }
 
   ul {
@@ -185,4 +207,12 @@ const ConsWrapper = styled.div`
   display: flex;
   gap: 32px;
   margin-top: 16px;
+`;
+
+const LoadingMap = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
