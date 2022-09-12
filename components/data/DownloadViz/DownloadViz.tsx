@@ -97,7 +97,7 @@ const DownloadViz = ({ viz, meta, tableData = {} }: Props) => {
         import('html2canvas')
           .then((html2canvas) => {
             html2canvas
-              .default(document.querySelector(vizID), {
+              .default(document.querySelector(viz), {
                 scale: 2,
               })
               .then((canvasElm) => svg2img(canvasElm));

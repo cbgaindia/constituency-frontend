@@ -16,7 +16,6 @@ const Source = dynamic(() => import('components/pages/cons/Source'), {
 
 const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
   const [filtered, setFiltered] = useState([]);
-  const [currentViz, setCurrentViz] = useState('#mapView');
 
   const { state, scheme, indicator, schemeData } = meta;
   const { sabha } = meta || 'lok';
@@ -162,7 +161,7 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
               </div>
 
               <Source
-                currentViz={currentViz}
+                currentViz={'#mapView'}
                 meta={{
                   scheme,
                   state,

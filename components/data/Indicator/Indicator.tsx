@@ -35,7 +35,9 @@ const Indicator = ({
     <IndicatorWrapper className="indicator">
       <IndicatorTitle as={titleAs}>Indicators</IndicatorTitle>
       <fieldset ref={indicatorRef}>
-        <legend className="sr-only">Choose Indicator:</legend>
+        <legend data-html2canvas-ignore className="sr-only">
+          Choose Indicator:
+        </legend>
         {schemeData.data &&
           Object.values(schemeData.data).map(
             (item: any) =>

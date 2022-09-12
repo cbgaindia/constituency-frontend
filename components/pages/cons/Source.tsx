@@ -3,9 +3,12 @@ import styled from 'styled-components';
 import { Share } from 'components/actions';
 import dynamic from 'next/dynamic';
 
-const DownloadViz = dynamic(() => import('components/data/DownloadViz'), {
-  ssr: false,
-});
+const DownloadViz = dynamic(
+  () => import('components/data/DownloadViz/DownloadViz'),
+  {
+    ssr: false,
+  }
+);
 
 const Source: React.FC<{
   meta: any;

@@ -133,7 +133,7 @@ const Snapshot = ({ indicator, meta }: Props) => {
     <section>
       <SnapshotTitle>Scheme Performance Snapshots</SnapshotTitle>
 
-      <SnapshotWrapper>
+      <SnapshotWrapper id="snapshotWrapper">
         <Indicator
           newIndicator={(e) => {
             setSelectedIndicator(e);
@@ -159,7 +159,7 @@ const Snapshot = ({ indicator, meta }: Props) => {
           </SnapshotSchemeList>
           <SnapshotFooter>
             <Source
-              currentViz={'currentViz'}
+              currentViz={'#snapshotWrapper'}
               meta={{
                 state: meta.state,
                 indicator: indicator ? indicator : 'Opening Balance',
