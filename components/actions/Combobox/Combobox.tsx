@@ -83,6 +83,7 @@ const Combobox = ({ isGrouped, ...props }: ComboboxProps) => {
   return (
     <ReactSelectElement
       classNamePrefix="react-select"
+      menuPortalTarget={document.body}
       components={{
         GroupHeading: isGrouped ? CustomGroupHeading : null,
         DropdownIndicator,
