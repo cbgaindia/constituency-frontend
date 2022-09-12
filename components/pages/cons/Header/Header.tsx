@@ -1,9 +1,15 @@
-import { Share } from 'components/actions';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import styled from 'styled-components';
-import ConsSelectorModal from './ConsSelectorModal';
 
-const Header = ({ queryData, vidhanData, lokData }) => {
+const ConsSelectorModal = dynamic(() => import('./ConsSelectorModal'), {
+  ssr: false,
+});
+const Share = dynamic(() => import('components/actions/Share'), {
+  ssr: false,
+});
+
+const Header = ({ queryData }) => {
   return (
     <Wrapper>
       <Meta>
@@ -23,12 +29,7 @@ const Header = ({ queryData, vidhanData, lokData }) => {
             <h1 className="gradient-maple">{queryData.cons}</h1>
             <StateName>
               <span>{`(${queryData.state})`}</span>
-              <ConsSelectorModal
-                data={{
-                  vidhan: vidhanData,
-                  lok: lokData,
-                }}
-              />
+              <ConsSelectorModal />
             </StateName>
           </div>
         </ConsDetails>

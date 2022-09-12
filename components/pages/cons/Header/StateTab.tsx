@@ -32,8 +32,8 @@ const StateTab = ({ data, sabha }) => {
         {Object.keys(data) &&
           Object.keys(data).map((item) => {
             const sortedList = groupListByAlphabets(
-              sortArrayOfObj(data[item], 'constName'),
-              'constName'
+              sortArrayOfObj(data[item], 'constituency'),
+              'constituency'
             );
 
             return (
@@ -51,6 +51,8 @@ const StateTab = ({ data, sabha }) => {
 };
 
 const ConstituencyList = ({ list, state, sabha }) => {
+  console.log(list);
+
   const [consList, setConsList] = React.useState([...list]);
   function handleSearchChange(val, list) {
     const filteredList = handleArrOfObjSearch(val, list);
@@ -72,10 +74,10 @@ const ConstituencyList = ({ list, state, sabha }) => {
               <ul>
                 {group.children.map((cons) => (
                   <ConsLink
-                    href={`/${state}/${sabha}/${cons.constName}`}
-                    key={`${cons.constCode}`}
+                    href={`/${state}/${sabha}/${cons.constituency}`}
+                    key={`${cons.constituency_code}`}
                   >
-                    {cons.constName}
+                    {cons.constituency}
                   </ConsLink>
                 ))}
               </ul>

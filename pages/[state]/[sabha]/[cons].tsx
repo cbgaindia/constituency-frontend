@@ -4,16 +4,14 @@ import dynamic from 'next/dynamic';
 import styled from 'styled-components';
 
 import { dataTransform, stateDataFetch, stateSchemeFetch } from 'utils/fetch';
-import { upperCaseString } from 'utils/helper';
 
 import {
   Overview as OverViewIcon,
   Explorer as ExplorerIcon,
 } from 'components/icons';
+import { Header } from 'components/pages/cons';
+import Toolbar from 'components/layouts/Toolbar';
 
-const Header = dynamic(() => import('components/pages/cons/Header/Header'), {
-  ssr: false,
-});
 const Explorer = dynamic(
   () => import('components/pages/cons/Explorer/Explorer'),
   {
@@ -26,9 +24,7 @@ const Overview = dynamic(
     ssr: false,
   }
 );
-const Toolbar = dynamic(() => import('components/layouts/Toolbar'), {
-  ssr: false,
-});
+
 const Seo = dynamic(() => import('components/common/Seo/Seo'), {
   ssr: false,
 });
@@ -78,6 +74,7 @@ const ConsPage: React.FC<Props> = ({
     ],
     [stateData]
   );
+  console.log(schemeData?.ac.metadata.consList);
 
   const seo = {
     title: `${cons} . ${state} - Constituency Dashboard`,
@@ -91,11 +88,7 @@ const ConsPage: React.FC<Props> = ({
       {tabData ? (
         <>
           <main className="container">
-            <Header
-              queryData={{ state, sabha, cons }}
-              vidhanData={schemeData?.ac.metadata.consList}
-              lokData={schemeData?.pc.metadata.consList}
-            />
+            <Header queryData={{ state, sabha, cons }} />
             <Wrapper id="consPageWrapper">
               <Toolbar
                 defaultValue="overview"
@@ -124,14 +117,14 @@ export const getServerSideProps: GetServerSideProps = async ({
   const queryValue = query || {};
   const [stateScheme, stateData, schemeData] = await Promise.all([
     stateSchemeFetch(),
-    stateDataFetch('State Info'),
+    stateDataFetch(query.state),
     dataTransform('mgnrega'),
   ]);
 
   return {
     props: {
       query: queryValue,
-      stateData: stateData[0],
+      stateData: stateData,
       stateScheme,
       schemeData,
     },
