@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Button, Combobox } from 'components/actions';
 import { GradientLokSabha, GradientVidhanSabha } from 'components/icons';
-import { Skeleton } from '@opub-cdl/design-system';
 
 const ConsSelector: React.FC<{
   consData: any;
@@ -37,10 +36,6 @@ const ConsSelector: React.FC<{
       }));
   }, [selectedState]);
 
-  function skeleton(width) {
-    return <Skeleton variant="heading" css={{ width: width }} />;
-  }
-
   return (
     <Wrapper>
       <Header>
@@ -51,15 +46,9 @@ const ConsSelector: React.FC<{
         )}
         <div>
           <h2>{`${sabha} Sabha Constituency`}</h2>
-          <span>
-            Explore{' '}
-            {consCount ? (
-              consCount
-            ) : (
-              <Skeleton variant="heading" css={{ width: 35 }} />
-            )}{' '}
-            {sabha} Sabha Constituencies
-          </span>
+          <span>{`Explore ${
+            consCount ? consCount : '.......'
+          } ${sabha} Sabha Constituencies`}</span>
         </div>
       </Header>
 
@@ -144,13 +133,10 @@ const Header = styled.div`
   span {
     letter-spacing: 0.01em;
     color: var(--text-light-medium);
-    display: flex;
-    align-items: center;
-    gap: 4px;
   }
 
   @media (max-width: 480px) {
-    gap: 12px;
+    gap: 8px;
     align-items: flex-start;
 
     h2 {
@@ -159,6 +145,10 @@ const Header = styled.div`
 
     span {
       font-size: 0.875rem;
+    }
+
+    svg {
+      min-width: 45px;
     }
   }
 `;
