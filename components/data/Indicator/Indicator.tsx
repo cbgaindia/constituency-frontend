@@ -31,7 +31,6 @@ const Indicator = ({
     const elm = e.target;
     newIndicator(elm.id || elm.value);
   }
-
   return (
     <IndicatorWrapper className="indicator">
       <IndicatorTitle as={titleAs}>Indicators</IndicatorTitle>

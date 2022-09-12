@@ -36,12 +36,21 @@ const SnapshotCard = ({
         <>
           <SnapshotSchemeBar>
             <div>
-              <span>State Average</span>
-              <ProgressBar data-fill="pink" value={data.value.state} />
+              <AverageTitle>State Average</AverageTitle>
+              <div>
+                <ProgressBar data-fill="pink" value={data.value.state} />
+                <AverageValue>24,000 Cr.</AverageValue>
+              </div>
             </div>
             <div>
-              <span>Constituency</span>
-              <ProgressBar data-fill="teal" value={data.value.constituency} />
+              <AverageTitle>Constituency</AverageTitle>
+              <div>
+                <ProgressBar
+                  data-fill="teal"
+                  value={data.value.constituency}
+                />
+                <AverageValue>24,000 Cr.</AverageValue>
+              </div>
             </div>
           </SnapshotSchemeBar>
           <Button variant={'secondary-outline'}>Explore More</Button>
@@ -49,7 +58,7 @@ const SnapshotCard = ({
       ) : (
         <>
           <NoSchemeData>
-            <Notice fill="#E9B840" width={48} />
+            <Notice fill="#ABB0AD" width={48} />
             <p>
               The data is not available for the selected indicator and fiscal
               year!
@@ -125,27 +134,34 @@ const SnapshotSchemeBar = styled.div`
     align-items: center;
     gap: 20px;
 
-    > span {
-      font-size: 0.75rem;
-      line-height: 1.7;
-      color: var(--text-light-medium);
-      font-weight: 600;
-      flex-basis: 26%;
+    > div {
+      display: flex;
+      flex-grow: 1;
+      align-items: center;
+      background-color: var(--color-grey-600);
     }
 
     [role='progressbar'] {
-      --sizes-1: 8px;
+      --sizes-1: 20px;
       --radii-pill: 0;
       --colors-slate4: var(--color-grey-600);
       flex-grow: 1;
     }
 
     [data-fill='pink'] {
-      --colors-slate8: #de7992;
+      --colors-slate8: var(--color-flamingo-100);
+
+      + span {
+        color: var(--color-flamingo-400);
+      }
     }
 
     [data-fill='teal'] {
-      --colors-slate8: #4abebe;
+      --colors-slate8: var(--color-teal-100);
+
+      + span {
+        color: var(--color-teal-400);
+      }
     }
   }
 `;
@@ -165,4 +181,19 @@ const NoSchemeData = styled.div`
   svg {
     min-width: 48px;
   }
+`;
+
+const AverageTitle = styled.span`
+  font-size: 0.75rem;
+  line-height: 1.7;
+  color: var(--text-light-medium);
+  font-weight: 600;
+  flex-basis: 26%;
+`;
+const AverageValue = styled.span`
+  font-size: 0.625rem;
+  height: 100%;
+  line-height: 1.7;
+  padding-inline: 8px;
+  font-weight: 600;
 `;

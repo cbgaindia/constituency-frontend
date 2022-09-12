@@ -1,4 +1,5 @@
 import { read, utils as xlsxUtil } from 'xlsx';
+import { getParameterCaseInsensitive } from './helper';
 
 export async function fetchQuery(query, value) {
   const queryRes = await fetch(
@@ -33,7 +34,7 @@ export async function fetchSheets(link, aoa = true) {
   return result;
 }
 
-export async function stateSchemeFetch() {
+export async function stateSchemeFetch(state = null) {
   const stateList = await fetchQuery(
     'schemeType',
     'Centrally Sponsored Scheme'
@@ -63,7 +64,7 @@ export async function stateSchemeFetch() {
     return null;
   });
 
-  return stateScheme;
+  return state ? getParameterCaseInsensitive(stateScheme, state) : stateScheme;
 }
 
 export async function stateDataFetch(state = null) {

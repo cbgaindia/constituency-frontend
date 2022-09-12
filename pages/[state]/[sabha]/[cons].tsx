@@ -9,21 +9,9 @@ import {
   Overview as OverViewIcon,
   Explorer as ExplorerIcon,
 } from 'components/icons';
-import { Header } from 'components/pages/cons';
+import { Header, Explorer, Overview } from 'components/pages/cons';
 import Toolbar from 'components/layouts/Toolbar';
-
-const Explorer = dynamic(
-  () => import('components/pages/cons/Explorer/Explorer'),
-  {
-    ssr: false,
-  }
-);
-const Overview = dynamic(
-  () => import('components/pages/cons/Overview/Overview'),
-  {
-    ssr: false,
-  }
-);
+import { upperCaseString } from 'utils/helper';
 
 const Seo = dynamic(() => import('components/common/Seo/Seo'), {
   ssr: false,
@@ -36,12 +24,7 @@ type Props = {
   schemeData: any;
 };
 
-const ConsPage: React.FC<Props> = ({
-  query,
-  stateData,
-  stateScheme,
-  schemeData,
-}) => {
+const ConsPage: React.FC<Props> = ({ query, stateData, stateScheme }) => {
   const { state, sabha, cons } = query;
 
   const tabData = React.useMemo(
@@ -52,11 +35,7 @@ const ConsPage: React.FC<Props> = ({
         altName: 'Key Highights of Constituency',
         icon: <OverViewIcon size={40} />,
         content: (
-          <Overview
-            data={stateData}
-            schemeData={schemeData}
-            queryData={{ state, sabha, cons }}
-          />
+          <Overview data={stateData} queryData={{ state, sabha, cons }} />
         ),
       },
       {
@@ -67,17 +46,18 @@ const ConsPage: React.FC<Props> = ({
         content: (
           <Explorer
             queryData={{ state, sabha, cons }}
-            schemeList={stateScheme[stateData.State]}
+            schemeList={stateScheme}
           />
         ),
       },
     ],
     [stateData]
   );
-  console.log(schemeData?.ac.metadata.consList);
 
   const seo = {
-    title: `${cons} . ${state} - Constituency Dashboard`,
+    title: `${upperCaseString(cons)} . ${upperCaseString(
+      state
+    )} - Constituency Dashboard`,
     description: `Explore scheme-wise fiscal information at the level of Lok Sabha and Vidhan Sabha constituencies in the state of ${state}`,
   };
 
@@ -99,7 +79,7 @@ const ConsPage: React.FC<Props> = ({
           </main>
         </>
       ) : (
-        <>Wrong URL</>
+        <>Loading...</>
       )}
     </>
   );
@@ -115,10 +95,9 @@ export const getServerSideProps: GetServerSideProps = async ({
   );
 
   const queryValue = query || {};
-  const [stateScheme, stateData, schemeData] = await Promise.all([
-    stateSchemeFetch(),
+  const [stateScheme, stateData] = await Promise.all([
+    stateSchemeFetch(query.state),
     stateDataFetch(query.state),
-    dataTransform('mgnrega'),
   ]);
 
   return {
@@ -126,7 +105,6 @@ export const getServerSideProps: GetServerSideProps = async ({
       query: queryValue,
       stateData: stateData,
       stateScheme,
-      schemeData,
     },
   };
 };

@@ -51,8 +51,6 @@ const StateTab = ({ data, sabha }) => {
 };
 
 const ConstituencyList = ({ list, state, sabha }) => {
-  console.log(list);
-
   const [consList, setConsList] = React.useState([...list]);
   function handleSearchChange(val, list) {
     const filteredList = handleArrOfObjSearch(val, list);

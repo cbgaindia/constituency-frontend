@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Summary } from 'components/pages/shared';
 import Snapshot from './Snapshot';
 
-const Overview = ({ data, queryData, schemeData }) => {
+const Overview = ({ data, queryData }) => {
   const summaryCards = React.useMemo(() => {
     return Object.keys(data).reduce(function (result, key) {
       if (key != 'State' && key != 'Description') {
@@ -39,11 +39,7 @@ const Overview = ({ data, queryData, schemeData }) => {
         </Main>
       </article>
       <Summary title="Demographic Highlights" cards={summaryCards.slice(4)} />
-      <Snapshot
-        schemeData={schemeData}
-        meta={queryData}
-        indicator={'opening-balance'}
-      />
+      <Snapshot meta={queryData} indicator={'opening-balance'} />
     </Wrapper>
   );
 };

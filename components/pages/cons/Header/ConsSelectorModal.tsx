@@ -21,8 +21,6 @@ import { consListFetch } from 'utils/fetch';
 
 const ConsSelectorModal = () => {
   const { data, isLoading } = swrFetch(`/constList`, consListFetch);
-  console.log(data);
-
   return (
     <Wrapper>
       {!isLoading && (

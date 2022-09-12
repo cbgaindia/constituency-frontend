@@ -57,6 +57,20 @@ html {
   --color-maple-500 : ${theme.color_maple_500};
   --color-maple-600 : ${theme.color_maple_600};
 
+  --color-teal-100 : ${theme.color_teal_100};
+  --color-teal-200 : ${theme.color_teal_200};
+  --color-teal-300 : ${theme.color_teal_300};
+  --color-teal-400 : ${theme.color_teal_400};
+  --color-teal-500 : ${theme.color_teal_500};
+  --color-teal-600 : ${theme.color_teal_600};
+
+  --color-flamingo-100 : ${theme.color_flamingo_100};
+  --color-flamingo-200 : ${theme.color_flamingo_200};
+  --color-flamingo-300 : ${theme.color_flamingo_300};
+  --color-flamingo-400 : ${theme.color_flamingo_400};
+  --color-flamingo-500 : ${theme.color_flamingo_500};
+  --color-flamingo-600 : ${theme.color_flamingo_600};
+
   --color-carrot : ${theme.color_carrot};
   --color-carrot-2 : ${theme.color_carrot_2};
   --color-carrot-3 : ${theme.color_carrot_3};

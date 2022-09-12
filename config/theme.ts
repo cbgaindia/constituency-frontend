@@ -18,6 +18,20 @@ export const DEFAULT_THEME = {
   color_maple_500: '#634E1A',
   color_maple_600: '#483913',
 
+  color_teal_100: '#4ABEBE',
+  color_teal_200: '#41A8A8',
+  color_teal_300: '#368B8B',
+  color_teal_400: '#286767',
+  color_teal_500: '#1F5151',
+  color_teal_600: '#173B3B',
+
+  color_flamingo_100: '#DE7992',
+  color_flamingo_200: '#C46B81',
+  color_flamingo_300: '#A2586A',
+  color_flamingo_400: '#77404E',
+  color_flamingo_500: '#5E323D',
+  color_flamingo_600: '#361C23',
+
   color_olive_100: '#CCBE72',
   color_olive_200: '#B4A865',
   color_olive_300: '#958B53',
