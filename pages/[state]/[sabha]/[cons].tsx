@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import styled from 'styled-components';
 
-import { dataTransform, stateDataFetch, stateSchemeFetch } from 'utils/fetch';
+import { stateDataFetch, stateSchemeFetch } from 'utils/fetch';
 
 import {
   Overview as OverViewIcon,

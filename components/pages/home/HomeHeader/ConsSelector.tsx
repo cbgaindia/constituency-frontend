@@ -7,7 +7,7 @@ const ConsSelector: React.FC<{
   consData: any;
   trending?: any;
   sabha: string;
-  isLoading: boolean;
+  isLoading?: boolean;
 }> = ({ consData, trending, sabha, isLoading }) => {
   const [selectedState, setSelectedState] = useState(null);
   const [selectedCons, setSelectedCons] = useState(null);

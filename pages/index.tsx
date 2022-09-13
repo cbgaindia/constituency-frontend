@@ -1,6 +1,8 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import { HomeHeader } from 'components/pages/home';
+import { GetStaticProps } from 'next';
+import { consListFetch } from 'utils/fetch';
 
 const HomeStates = dynamic(
   () => import('components/pages/home/HomeStates/HomeStates'),
@@ -13,7 +15,7 @@ const Seo = dynamic(() => import('components/common/Seo/Seo'), {
   ssr: false,
 });
 
-export default function Home() {
+export default function Home({ stateData }) {
   const seo = {
     title: 'Welcome - Constituency Dashboard',
     description:
@@ -24,12 +26,19 @@ export default function Home() {
     <>
       <Seo seo={seo} />
       <main>
-        <HomeHeader />
+        <HomeHeader stateData={stateData} />
         <HomeStates />
-        {/* <HomeAbout /> */}
-        {/* <HomeHighlight /> */}
-        {/* <HomeQuiz /> */}
       </main>
     </>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const [stateData] = await Promise.all([consListFetch()]);
+
+  return {
+    props: {
+      stateData,
+    },
+  };
+};

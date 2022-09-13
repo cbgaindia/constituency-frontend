@@ -1,12 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { swrFetch } from 'utils/helper';
-import { consListFetch } from 'utils/fetch';
 import ConsSelector from './ConsSelector';
 import { lokTrending, vidhanTrending } from 'data/home';
 
-const HomeHeader = () => {
-  const { data, isLoading } = swrFetch(`/constList`, consListFetch);
+const HomeHeader = ({ stateData }) => {
   return (
     <Header>
       <div className="container">
@@ -15,14 +12,12 @@ const HomeHeader = () => {
         </h1>
         <SelectorWrapper>
           <ConsSelector
-            isLoading={isLoading}
-            consData={data?.lok}
+            consData={stateData?.lok}
             trending={lokTrending}
             sabha="lok"
           />
           <ConsSelector
-            isLoading={isLoading}
-            consData={data?.vidhan}
+            consData={stateData?.vidhan}
             trending={vidhanTrending}
             sabha="vidhan"
           />
