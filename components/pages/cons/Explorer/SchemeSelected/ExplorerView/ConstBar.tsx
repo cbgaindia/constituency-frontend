@@ -122,12 +122,15 @@ const ComboWrapper = styled.div`
   padding-top: 16px;
 
   #cons-selector {
-    flex-basis: 63%;
     flex-grow: 1;
+    flex-basis: 50%;
+
+    @media (max-width: 480px) {
+      width: 100%;
+    }
   }
 
   #year-selector {
-    flex-basis: 43%;
     flex-grow: 1;
   }
 `;
