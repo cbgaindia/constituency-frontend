@@ -5,9 +5,12 @@ import styled from 'styled-components';
 const ConsSelectorModal = dynamic(() => import('./ConsSelectorModal'), {
   ssr: false,
 });
-const Share = dynamic(() => import('components/actions/Share'), {
-  ssr: false,
-});
+const Share = dynamic(
+  () => import('components/actions/Share/').then((module) => module.Share),
+  {
+    ssr: false,
+  }
+);
 
 const Header = ({ queryData }) => {
   return (

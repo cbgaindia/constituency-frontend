@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Share } from 'components/actions';
+import { Share } from 'components/actions/Share';
 import dynamic from 'next/dynamic';
 
 const DownloadViz = dynamic(

@@ -1,4 +1,4 @@
-export default function FullScreen({ ...props }) {
+function FullScreen({ ...props }) {
   return (
     <svg width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
@@ -8,3 +8,5 @@ export default function FullScreen({ ...props }) {
     </svg>
   );
 }
+
+export { FullScreen };

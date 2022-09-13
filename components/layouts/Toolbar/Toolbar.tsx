@@ -8,8 +8,8 @@ import {
   TabsTrigger,
 } from '@opub-cdl/design-system';
 import styled from 'styled-components';
-import { Button } from 'components/actions';
-import { FullScreen } from 'components/icons';
+import { Button } from 'components/actions/Button';
+import { FullScreen } from 'components/icons/FullScreen';
 import { fullScreenMode } from 'utils/helper';
 
 type Props = {
@@ -67,7 +67,7 @@ const Toolbar = ({
   );
 };
 
-export default Toolbar;
+export { Toolbar };
 
 export const StyledTabsList = styled(TabsList)`
   background-color: var(--color-background-lighter);

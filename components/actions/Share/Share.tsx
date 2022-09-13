@@ -129,7 +129,7 @@ const Share: React.FC<{ title: string; size?: 'default' | 'compact' }> = ({
   );
 };
 
-export default Share;
+export { Share };
 
 const ShareComp = styled(DropdownMenuContent)`
   background-color: #fff;

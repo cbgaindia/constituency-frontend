@@ -16,7 +16,7 @@ export { default as LokSabha } from './LokSabha';
 export { default as VidhanSabha } from './VidhanSabha';
 export { default as Drop } from './Drop';
 export { default as Document } from './Document';
-export { default as FullScreen } from './FullScreen';
+export { FullScreen } from './FullScreen';
 export { default as Info } from './Info';
 export { default as Globe } from './Globe';
 export { default as TableIcon } from './TableIcon';

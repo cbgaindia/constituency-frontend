@@ -10,7 +10,7 @@ import {
   Explorer as ExplorerIcon,
 } from 'components/icons';
 import { Header, Explorer, Overview } from 'components/pages/cons';
-import Toolbar from 'components/layouts/Toolbar';
+import { Toolbar } from 'components/layouts';
 import { upperCaseString } from 'utils/helper';
 
 const Seo = dynamic(() => import('components/common/Seo/Seo'), {

@@ -53,37 +53,33 @@ type IconOnlyProps =
 
 type Props = ButtonProps & IconProps & LinkProps & IconOnlyProps;
 
-const Button = ({
-  kind = 'primary',
-  size = 'md',
-  children,
-  icon,
-  iconOnly,
-  bg,
-  href,
-  passRef,
-  iconSide = icon ? 'right' : null,
-  fluid = false,
-  ...props
-}: Props) => {
-  return (
+// eslint-disable-next-line react/display-name
+export const Button = React.forwardRef<
+  React.ElementRef<typeof ButtonWrapper>,
+  Props
+>(
+  ({
+    kind = 'primary',
+    size = 'md',
+    children,
+    icon,
+    iconOnly,
+    bg,
+    href,
+    iconSide = icon ? 'right' : null,
+    fluid = false,
+    ...props
+  }: Props) => (
     <ButtonWrapper
       as={href ? 'a' : null}
       href={href ? href : null}
-      bg={bg}
-      iconSide={iconSide}
-      iconOnly={iconOnly}
       buttonType={kind}
-      size={size}
-      ref={passRef ? passRef : null}
-      fluid={fluid}
+      ref={props.passRef}
       {...props}
     >
       {icon && iconSide == 'left' && icon}
       {iconOnly ? <span className="sr-only">{children}</span> : children}
       {icon && iconSide == 'right' && icon}
     </ButtonWrapper>
-  );
-};
-
-export default Button;
+  )
+);

@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
-import { Share } from 'components/actions';
+import { Share } from 'components/actions/Share';
 import { Summary } from 'components/pages/shared';
 
 const Header = ({ data }) => {

@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import styled from 'styled-components';
 import { groupListByAlphabets, sortArrayOfObj } from 'utils/helper';
 import { LokSabha, VidhanSabha } from 'components/icons';
-import { Toolbar } from 'components/layouts';
+import { Toolbar } from 'components/layouts/Toolbar';
 import SearchCons from './SearchCons';
 import { useWindowSize } from 'utils/hooks';
 

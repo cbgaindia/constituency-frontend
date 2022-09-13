@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { ArrowTail, Cross, Hamburger } from 'components/icons';
 import styled from 'styled-components';
-import { Button } from 'components/actions';
+import { Button } from 'components/actions/Button';
 import Modal from 'components/actions/Modal';
 import { sectionCollapse } from 'utils/helper';
 
