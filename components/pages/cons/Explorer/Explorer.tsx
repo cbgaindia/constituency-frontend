@@ -6,7 +6,11 @@ const Explorer = ({ schemeList, queryData }) => {
   const { query } = useRouter();
 
   return query.scheme ? (
-    <SchemeSelected queryData={queryData} schemeName={query.scheme} />
+    <SchemeSelected
+      schemeList={schemeList}
+      queryData={queryData}
+      schemeName={query.scheme}
+    />
   ) : (
     <AllSchemes schemeList={schemeList} />
   );

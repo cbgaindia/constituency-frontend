@@ -112,6 +112,7 @@ const ReactSelectElement = styled(Select)<Props>`
 
     &__control {
       flex-grow: 1;
+      border-radius: 2px;
       border: var(--border-1);
       font-weight: 600;
       background-color: ${(props) =>
@@ -124,9 +125,10 @@ const ReactSelectElement = styled(Select)<Props>`
     }
 
     &__single-value {
-      font-weight: 400;
+      font-weight: 600;
       letter-spacing: 0.01em;
       padding-block: 4px;
+      color: var(--text-light-high);
     }
 
     &__input-container {

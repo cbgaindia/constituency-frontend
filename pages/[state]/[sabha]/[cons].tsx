@@ -94,11 +94,15 @@ export const getServerSideProps: GetServerSideProps = async ({
     'public, s-maxage=10, stale-while-revalidate=59'
   );
 
-  const queryValue = query || {};
+  const queryValue: any = query || {};
+  if (!['vidhan', 'lok'].includes(queryValue.sabha)) return { notFound: true };
+
   const [stateScheme, stateData] = await Promise.all([
     stateSchemeFetch(query.state),
     stateDataFetch(query.state),
   ]);
+
+  if (!(stateData && stateScheme)) return { notFound: true };
 
   return {
     props: {

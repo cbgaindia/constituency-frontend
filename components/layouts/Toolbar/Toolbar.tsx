@@ -46,8 +46,9 @@ const Toolbar = ({
             </SabhaToggle>
             {fullScreenId && (
               <Button
-                icon={<FullScreen fill="#1D7548" />}
+                icon={<FullScreen fill="#1D7548" width="32" />}
                 iconOnly={true}
+                size="md"
                 kind="custom"
                 onClick={() => fullScreenMode(fullScreenId)}
                 id="fullScreen"

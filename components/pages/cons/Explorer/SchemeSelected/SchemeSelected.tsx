@@ -9,7 +9,7 @@ const reducer = (state: any, action: any) => {
   return { ...state, ...action };
 };
 
-const SchemeSelected = ({ schemeName, queryData }) => {
+const SchemeSelected = ({ schemeName, queryData, schemeList }) => {
   const fetcher = (url: string) => dataTransform(schemeName);
   const { data } = useSWR(`${queryData.state}/${schemeName}`, fetcher, {
     revalidateIfStale: false,
@@ -35,7 +35,7 @@ const SchemeSelected = ({ schemeName, queryData }) => {
 
   return (
     <>
-      <SchemeSearch />
+      <SchemeSearch meta={state} schemeList={schemeList} />
       <ExplorerWrapper>
         {!data ? (
           <div>Loading...</div>

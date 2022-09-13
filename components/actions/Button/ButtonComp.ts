@@ -99,19 +99,19 @@ const ButtonWrapper = styled.button<ButtonProps>`
   ${(props: any) => iconPadding(props.iconSide, props.size, props.iconOnly)}
 
   svg {
-    max-width: ${(props: any) =>
+    /* max-width: ${(props: any) =>
       props.size == 'sm' ? '18px' : props.iconOnly ? '32px' : '24px'};
     max-height: ${(props: any) =>
-      props.size == 'sm' ? '18px' : props.iconOnly ? '32px' : '24px'};
+      props.size == 'sm' ? '18px' : props.iconOnly ? '32px' : '24px'}; */
     fill: currentColor;
     pointer-events: none;
 
-    ${(props: any) =>
+    /* ${(props: any) =>
       !props.iconOnly
         ? props.iconSide == 'left'
           ? 'margin-inline-end: 0.5em'
           : 'margin-inline-start: 0.5em'
-        : null}
+        : null} */
   }
 `;
 

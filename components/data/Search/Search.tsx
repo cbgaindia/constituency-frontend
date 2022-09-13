@@ -58,6 +58,8 @@ export const Wrapper = styled.div`
 `;
 
 export const SearchInput = styled.input`
+  -webkit-appearance: none;
+
   border: 2px solid rgba(0, 0, 0, 0.04);
   border-radius: 4px;
   background-color: var(--color-background-light);

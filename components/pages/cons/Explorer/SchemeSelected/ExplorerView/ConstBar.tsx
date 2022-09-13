@@ -116,6 +116,7 @@ const Wrapper = styled.div`
 
 const ComboWrapper = styled.div`
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
   padding-inline: 16px;
   padding-top: 16px;
