@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Button, Combobox } from 'components/actions';
+import { Button } from 'components/actions/Button';
+import { Combobox } from 'components/actions/Combobox';
 import { GradientLokSabha, GradientVidhanSabha } from 'components/icons';
 
 const ConsSelector: React.FC<{

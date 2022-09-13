@@ -1,7 +1,7 @@
-import { IconDropdown } from 'components/icons';
 import React from 'react';
-import Select, { components } from 'react-select';
 import styled from 'styled-components';
+import Select, { components } from 'react-select';
+import { IconDropdown } from 'components/icons';
 
 const handleHeaderClick = (id) => {
   const node = document.querySelector(`#${id}`);
@@ -94,7 +94,7 @@ const Combobox = ({ isGrouped, ...props }: ComboboxProps) => {
   );
 };
 
-export default Combobox;
+export { Combobox };
 
 const ReactSelectElement = styled(Select)<Props>`
   .react-select {
