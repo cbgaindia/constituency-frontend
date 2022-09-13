@@ -189,6 +189,6 @@ const Trending = styled.div`
   }
 
   a {
-    color: var(--color-amazon-100);
+    color: var(--color-amazon-300);
   }
 `;

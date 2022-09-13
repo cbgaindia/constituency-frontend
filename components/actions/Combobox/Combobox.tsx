@@ -84,6 +84,7 @@ const Combobox = ({ isGrouped, ...props }: ComboboxProps) => {
     <ReactSelectElement
       classNamePrefix="react-select"
       menuPortalTarget={document.body}
+      aria-label={`${props.placeholder}` || 'Select an element'}
       components={{
         GroupHeading: isGrouped ? CustomGroupHeading : null,
         DropdownIndicator,
@@ -157,6 +158,7 @@ const ReactSelectElement = styled(Select)<Props>`
     &__placeholder {
       padding-block: 2px;
       margin: 2px;
+      color: var(--text-light-medium);
     }
 
     &__indicator-separator {

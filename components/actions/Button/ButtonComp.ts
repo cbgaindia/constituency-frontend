@@ -17,7 +17,7 @@ function bgColor(type: string, bg: string) {
   } else {
     switch (type) {
       case 'primary':
-        return 'var(--color-primary)';
+        return 'var(--color-amazon-300)';
       case 'secondary':
         return 'var(--color-maple-200)';
       default:
@@ -31,7 +31,7 @@ function color(type: string) {
     return 'null';
   }
   if (type == 'primary' || type == 'secondary') return 'var(--text-dark-high)';
-  else if (type == 'primary-outline') return 'var(--color-primary)';
+  else if (type == 'primary-outline') return 'var(--color-amazon-300)';
   else return 'var(--color-maple-200)';
 }
 
@@ -41,7 +41,7 @@ function border(type: string) {
   }
   if (type == 'primary' || type == 'secondary') return 'none';
   else if (type == 'primary-outline')
-    return `2px solid ${'var(--color-primary)'}`;
+    return `2px solid ${'var(--color-amazon-300)'}`;
   else return `2px solid ${'var(--color-maple-200)'}`;
 }
 
