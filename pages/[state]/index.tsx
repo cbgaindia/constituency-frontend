@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { GetServerSideProps } from 'next';
+import { GetStaticProps, GetStaticPaths } from 'next';
 import dynamic from 'next/dynamic';
 
 import { consListFetch, stateDataFetch } from 'utils/fetch';
@@ -12,35 +12,37 @@ const Seo = dynamic(() => import('components/common/Seo/Seo'), {
 });
 
 type Props = {
-  query: any;
+  pathName: string;
   consData: any;
   stateData: any;
 };
 
-const State: React.FC<Props> = ({ query, consData, stateData }) => {
+const State: React.FC<Props> = ({ pathName, consData, stateData }) => {
   const [currentLokCons, setCurrentLokCons] = useState<any>([]);
   const [currentVidhanCons, setCurrentVidhanCons] = useState<any>([]);
-  const state = query.state
-    .toLowerCase()
+  const state = pathName
+    ?.toLowerCase()
     .replace(/\b\w/g, (c) => c.toUpperCase());
 
   useEffect(() => {
     // get constituencies of current state
-    const vidhan = getParameterCaseInsensitive(consData?.vidhan, state);
-    const lok = getParameterCaseInsensitive(consData?.lok, state);
-
-    setCurrentVidhanCons(vidhan);
-    setCurrentLokCons(lok);
+    if (consData) {
+      const vidhan = getParameterCaseInsensitive(consData?.vidhan, state);
+      const lok = getParameterCaseInsensitive(consData?.lok, state);
+      setCurrentVidhanCons(vidhan);
+      setCurrentLokCons(lok);
+    }
   }, [consData]);
 
   const seo = {
     title: `${state} - Constituency Dashboard`,
     description: `Explore scheme-wise fiscal information at the level of Lok Sabha and Vidhan Sabha constituencies in the state of ${state}`,
   };
+
   return (
     <>
       <Seo seo={seo} />
-      {
+      {consData && (
         <>
           <main className="container">
             <Header data={stateData} />
@@ -53,32 +55,38 @@ const State: React.FC<Props> = ({ query, consData, stateData }) => {
             />
           </main>
         </>
-      }
+      )}
     </>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({
-  res,
-  query,
-}) => {
-  res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=10, stale-while-revalidate=59'
-  );
-  const queryValue = query || {};
-  const [stateData, consData] = await Promise.all([
-    stateDataFetch(query.state),
-    consListFetch(query.state),
-  ]);
-
+export const getStaticPaths: GetStaticPaths = async () => {
+  const stateData = await stateDataFetch();
   return {
-    props: {
-      query: queryValue,
-      consData: consData,
-      stateData,
-    },
+    paths: stateData.map((obj) => ({
+      params: {
+        state: obj.State.toLowerCase(),
+      },
+    })),
+    fallback: false,
   };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const { state } = params;
+
+  try {
+    const [stateData, consData] = await Promise.all([
+      stateDataFetch(state),
+      consListFetch(state),
+    ]);
+    return consData
+      ? { props: { pathName: state, consData: consData, stateData } }
+      : { notFound: true };
+  } catch (error) {
+    console.error(error);
+    return { notFound: true };
+  }
 };
 
 export default State;
