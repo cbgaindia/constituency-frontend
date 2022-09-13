@@ -58,18 +58,21 @@ export const Button = React.forwardRef<
   React.ElementRef<typeof ButtonWrapper>,
   Props
 >(
-  ({
-    kind = 'primary',
-    size = 'md',
-    children,
-    icon,
-    iconOnly,
-    bg,
-    href,
-    iconSide = icon ? 'right' : null,
-    fluid = false,
-    ...props
-  }: Props) => (
+  (
+    {
+      kind = 'primary',
+      size = 'md',
+      children,
+      icon,
+      iconOnly,
+      bg,
+      href,
+      iconSide = icon ? 'right' : null,
+      fluid = false,
+      ...props
+    }: Props,
+    forwardRef
+  ) => (
     <ButtonWrapper
       as={href ? 'a' : null}
       href={href ? href : null}

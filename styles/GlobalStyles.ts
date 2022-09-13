@@ -25,7 +25,7 @@ ${cssReset}
 ${cssNormalise}
 
 html {
-  --color-primary: ${theme.color_amazon_100};
+  --color-primary: ${theme.color_amazon_300};
   --color-secondary : ${theme.color_maple_300};
   --color-tertiary : ${theme.color_olive_100};
 

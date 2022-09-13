@@ -93,7 +93,7 @@ export const StyledTabsList = styled(TabsList)`
     }
 
     &[data-state='active'] {
-      color: var(--color-amazon-300);
+      color: var(--color-amazon-400);
       background-color: var(--color-amazon-00);
 
       svg {
@@ -101,7 +101,7 @@ export const StyledTabsList = styled(TabsList)`
       }
 
       span {
-        color: var(--color-amazon-200);
+        color: var(--color-amazon-400);
       }
     }
 
@@ -144,7 +144,7 @@ export const TabTriggerName = styled.div`
     line-height: 1.7;
     font-size: 0.75rem;
     font-weight: 400;
-    color: var(--text-light-light);
+    color: var(--text-light-medium);
     display: block;
   }
 `;

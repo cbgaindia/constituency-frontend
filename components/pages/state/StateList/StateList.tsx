@@ -149,7 +149,7 @@ const Wrapper = styled.div`
 `;
 
 const ConsLink = styled.a`
-  color: var(--color-amazon-100);
+  color: var(--color-amazon-300);
   font-weight: var(--font-weight-medium);
   text-decoration-color: transparent;
   text-decoration-thickness: 2px;
@@ -157,7 +157,7 @@ const ConsLink = styled.a`
 
   &:hover {
     text-decoration-color: inherit;
-    color: var(--color-amazon-300);
+    color: var(--color-amazon-400);
   }
 `;
 

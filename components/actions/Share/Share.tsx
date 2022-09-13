@@ -45,7 +45,11 @@ const Share: React.FC<{ title: string; size?: 'default' | 'compact' }> = ({
         <DropdownMenuTrigger asChild>
           <Button
             size={size}
-            css={{ display: 'flex', alignItems: 'center' }}
+            css={{
+              display: 'flex',
+              alignItems: 'center',
+              color: 'var(--color-primary)',
+            }}
             variant={'outline'}
           >
             Share
