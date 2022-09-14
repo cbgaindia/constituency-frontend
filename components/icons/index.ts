@@ -29,3 +29,5 @@ export { IconGeneralTrends } from './IconGeneralTrends';
 export { GradientLokSabha } from './GradientLokSabha';
 export { GradientVidhanSabha } from './GradientVidhanSabha';
 export { IconMinimize } from './IconMinimize';
+export { IconToggleOff } from './IconToggleOff';
+export { IconToggleOn } from './IconToggleOn';
