@@ -3,12 +3,18 @@ import styled from 'styled-components';
 import dynamic from 'next/dynamic';
 import { tabbedInterface } from 'utils/helper';
 
-import { Indicator, IndicatorMobile } from 'components/data';
-import StateMap from './StateMap';
+import { Indicator, IndicatorMobile } from 'components/data/Indicator';
 import { capitalize } from 'utils/helper';
 import { Globe, IconGeneralTrends } from 'components/icons';
 import { SourceWrapper } from 'components/pages/cons/Source';
-import ConstBar from './ConstBar';
+
+const ConstBar = dynamic(() => import('./ConstBar'), {
+  ssr: false,
+});
+
+const StateMap = dynamic(() => import('./StateMap'), {
+  ssr: false,
+});
 
 const Source = dynamic(() => import('components/pages/cons/Source'), {
   ssr: false,

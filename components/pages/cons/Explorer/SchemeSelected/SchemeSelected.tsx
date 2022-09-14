@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import useSWR from 'swr';
 import ExplorerView from './ExplorerView';
 import { dataTransform } from 'utils/fetch';
-import { SchemeSearch } from './SchemeSearch';
+import { SubHeading } from './SubHeading';
 
 const reducer = (state: any, action: any) => {
   return { ...state, ...action };
@@ -35,7 +35,7 @@ const SchemeSelected = ({ schemeName, queryData, schemeList }) => {
 
   return (
     <>
-      <SchemeSearch meta={state} schemeList={schemeList} />
+      <SubHeading meta={state} schemeList={schemeList} />
       <ExplorerWrapper>
         {!data ? (
           <div>Loading...</div>

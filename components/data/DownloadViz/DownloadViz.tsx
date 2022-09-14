@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { saveAs } from 'file-saver';
-import { Download } from 'components/icons';
+import { Download } from 'components/icons/Download';
 import { Box, Button } from '@opub-cdl/design-system';
 // import { Button } from 'components/actions';
 
@@ -87,25 +87,21 @@ const DownloadViz = ({ viz, meta, tableData = {} }: Props) => {
       .then((img) => saveAs(img.src, `${fileName(meta)}.jpeg`.toLowerCase()));
   }
 
-  function downloadSelector(viz) {
+  async function downloadSelector(viz) {
     if (viz == '#tableView')
       export_table_to_csv(tableData, `${fileName(meta)}.csv`.toLowerCase());
     else {
-      const vizID = viz === '#reportViz' ? '#reportViz' : '#mapViewContainer';
-
-      if (typeof window !== 'undefined') {
-        import('html2canvas')
-          .then((html2canvas) => {
-            html2canvas
-              .default(document.querySelector(viz), {
-                scale: 2,
-              })
-              .then((canvasElm) => svg2img(canvasElm));
-          })
-          .catch((e) => {
-            console.error('load failed');
-          });
-      }
+      await import('html2canvas')
+        .then((html2canvas) => {
+          html2canvas
+            .default(document.querySelector(viz), {
+              scale: 2,
+            })
+            .then((canvasElm) => svg2img(canvasElm));
+        })
+        .catch((e) => {
+          console.error('load failed');
+        });
     }
   }
 

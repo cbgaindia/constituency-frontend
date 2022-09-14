@@ -1,4 +1,5 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import styled from 'styled-components';
 import {
   Box,
@@ -21,6 +22,7 @@ import { consListFetch } from 'utils/fetch';
 
 const ConsSelectorModal = () => {
   const { data, isLoading } = swrFetch(`/constList`, consListFetch);
+
   return (
     <Wrapper>
       {!isLoading && (
@@ -59,10 +61,10 @@ const ConsSelectorModal = () => {
                   </SabhaSelector>
                 </TabsList>
                 <TabsContent value="lok">
-                  <StateTab data={data.lok} sabha="lok" />
+                  <StateTab data={data?.lok} sabha="lok" />
                 </TabsContent>
                 <TabsContent value="vidhan">
-                  <StateTab data={data.vidhan} sabha="vidhan" />
+                  <StateTab data={data?.vidhan} sabha="vidhan" />
                 </TabsContent>
               </Tabs>
             </Content>

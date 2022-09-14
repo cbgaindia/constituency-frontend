@@ -9,9 +9,17 @@ import {
   Overview as OverViewIcon,
   Explorer as ExplorerIcon,
 } from 'components/icons';
-import { Header, Explorer, Overview } from 'components/pages/cons';
-import { Toolbar } from 'components/layouts';
+import { Header } from 'components/pages/cons/Header';
+import { Toolbar } from 'components/layouts/Toolbar';
 import { upperCaseString } from 'utils/helper';
+import { Overview } from 'components/pages/cons';
+
+const Explorer = dynamic(
+  () => import('components/pages/cons/Explorer/Explorer'),
+  {
+    ssr: false,
+  }
+);
 
 const Seo = dynamic(() => import('components/common/Seo/Seo'), {
   ssr: false,
@@ -65,7 +73,7 @@ const ConsPage: React.FC<Props> = ({ query, stateData, stateScheme }) => {
   return (
     <>
       <Seo seo={seo} />
-      {tabData ? (
+      {
         <>
           <main className="container">
             <Header queryData={{ state, sabha, cons }} />
@@ -78,9 +86,7 @@ const ConsPage: React.FC<Props> = ({ query, stateData, stateScheme }) => {
             </Wrapper>
           </main>
         </>
-      ) : (
-        <>Loading...</>
-      )}
+      }
     </>
   );
 };

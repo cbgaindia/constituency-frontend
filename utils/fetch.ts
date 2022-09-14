@@ -16,7 +16,7 @@ export async function fetchSheets(link, aoa = true) {
       if (!res.ok) throw new Error('fetch failed');
       return res.arrayBuffer();
     })
-    .then((ab) => {
+    .then(async (ab) => {
       const file = new Uint8Array(ab);
       const workbook = read(file, { type: 'array' });
 

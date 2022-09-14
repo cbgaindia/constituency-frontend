@@ -1,3 +1,3 @@
-export { Header } from './Header';
-export { Overview } from './Overview';
-export { Explorer } from './Explorer';
+export { Header } from './Header/Header';
+export { Overview } from './Overview/Overview';
+export { default as Explorer } from './Explorer/Explorer';

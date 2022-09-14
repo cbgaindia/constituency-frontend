@@ -32,8 +32,7 @@ const Header = ({ queryData }) => {
             <h1 className="gradient-maple">{queryData.cons}</h1>
             <StateName>
               <span>{`(${queryData.state})`}</span>
-              {/* <ConsSelectorModal />  */}
-              {/* --changethis */}
+              {/* <ConsSelectorModal /> */}
             </StateName>
           </div>
         </ConsDetails>
@@ -43,7 +42,7 @@ const Header = ({ queryData }) => {
   );
 };
 
-export default Header;
+export { Header };
 
 const Wrapper = styled.div`
   margin-top: 32px;

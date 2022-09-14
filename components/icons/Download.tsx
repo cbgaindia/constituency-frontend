@@ -1,4 +1,4 @@
-export default function Download({ ...props }) {
+export function Download({ ...props }) {
   return (
     <svg
       viewBox="0 0 24 24"

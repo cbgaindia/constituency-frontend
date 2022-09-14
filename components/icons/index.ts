@@ -1,7 +1,7 @@
 export { default as IconDropdown } from './IconDropdown';
 export { default as ArrowTail } from './ArrowTail';
 export { default as Cross } from './Cross';
-export { default as Download } from './Download';
+export { Download } from './Download';
 export { default as ExternalLink } from './ExternalLink';
 export { default as Facebook } from './Facebook';
 export { default as Linkedin } from './Linkedin';
@@ -28,3 +28,4 @@ export { IconArrowRight } from './IconArrowRight';
 export { IconGeneralTrends } from './IconGeneralTrends';
 export { GradientLokSabha } from './GradientLokSabha';
 export { GradientVidhanSabha } from './GradientVidhanSabha';
+export { IconMinimize } from './IconMinimize';
