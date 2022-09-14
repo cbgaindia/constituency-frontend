@@ -170,6 +170,12 @@ const MapWrapper = styled.div`
   border: var(--border-2);
   filter: drop-shadow(var(--box-shadow-1));
 
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  height: 680px;
+
   @media (max-width: 810px) {
     display: none;
   }
