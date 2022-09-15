@@ -95,14 +95,14 @@ const StateList = ({ data }) => {
         value: 'vidhan',
         name: 'Vidhan Sabha',
         altName: 'Parliament Constituency',
-        icon: <VidhanSabha />,
+        icon: <VidhanSabha width="40" />,
         content: generateConsList({ value: 'vidhan', list: vidhanData }),
       },
       {
         value: 'lok',
         name: 'Lok Sabha',
         altName: 'Assembly Constituency',
-        icon: <LokSabha />,
+        icon: <LokSabha width="40" />,
         content: generateConsList({ value: 'lok', list: lokData }),
       },
     ]);

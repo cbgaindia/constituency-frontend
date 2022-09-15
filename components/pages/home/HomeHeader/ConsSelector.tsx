@@ -40,7 +40,7 @@ const ConsSelector: React.FC<{
   return (
     <Wrapper>
       <Header>
-        {sabha == 'Lok' ? (
+        {sabha == 'lok' ? (
           <GradientLokSabha width={64} />
         ) : (
           <GradientVidhanSabha width={64} />
