@@ -25,6 +25,11 @@ const StateMap = dynamic(() => import('./StateMap'), {
   loading: () => <LoadingDiv>Loading Map...</LoadingDiv>,
 });
 
+const Table = dynamic(() => import('components/data/Table'), {
+  ssr: false,
+  loading: () => <LoadingDiv>Loading Table...</LoadingDiv>,
+});
+
 const Source = dynamic(() => import('components/pages/cons/Source'), {
   ssr: false,
 });
@@ -32,6 +37,8 @@ const Source = dynamic(() => import('components/pages/cons/Source'), {
 const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
   const [filtered, setFiltered] = useState([]);
   const [currentTab, setCurrentTab] = useState('consView');
+  const [tableData, setTableData] = useState<any>({});
+  const [showTable, setShowTable] = useState<any>(false);
 
   const { state, scheme, indicator, schemeData } = meta;
   const { sabha } = meta || 'lok';
@@ -39,6 +46,46 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
   useLayoutEffect(() => {
     handleNewIndicator(indicator || schemeData.metadata?.indicators[0]);
   }, [schemeData, schemeRaw]);
+
+  useEffect(() => {
+    if (meta.allYears && filtered) {
+      // setting tabular data
+      const tableHeader = [
+        { Header: 'Constituency', accessor: 'constHeader' },
+      ];
+
+      meta.allYears.forEach((element) =>
+        tableHeader.push({
+          Header: `${indicator.replaceAll('-', ' ')} ${element.label}`,
+          accessor: `${indicator}-${element.label}`,
+        })
+      );
+
+      const rowData = [];
+      if (filtered[meta.year]) {
+        Object.values(filtered[meta.year]).forEach((item, index) => {
+          const tempObj = {
+            [tableHeader[0].accessor]:
+              schemeData.metadata.consList[capitalize(state)][index]
+                ?.constName,
+          };
+
+          Object.keys(filtered).map(
+            (item1, index1) =>
+              (tempObj[tableHeader[index1 + 1].accessor] =
+                filtered[item1][index + 1])
+          );
+          rowData.push(tempObj);
+        });
+      }
+
+      const tableData = {
+        header: tableHeader,
+        rows: rowData,
+      };
+      setTableData(tableData);
+    }
+  }, [filtered]);
 
   function handleNewIndicator(val: any) {
     if (val) {
@@ -81,7 +128,16 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
     {
       id: 'consView',
       graph: filtered ? (
-        <ConstBar filteredData={filtered} meta={meta} />
+        showTable ? (
+          <Table
+            header={
+              tableData.header ? tableData.header : ['table not available']
+            }
+            rows={tableData.rows ? tableData.rows : []}
+          />
+        ) : (
+          <ConstBar filteredData={filtered} meta={meta} />
+        )
       ) : (
         <p>No data</p>
       ),
@@ -90,14 +146,19 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
       id: 'mapView',
       graph:
         filtered && filtered[meta.year] ? (
-          <StateMap meta={meta} schemeData={filtered[meta.year]} />
+          showTable ? (
+            <Table
+              header={
+                tableData.header ? tableData.header : ['table not available']
+              }
+              rows={tableData.rows ? tableData.rows : []}
+            />
+          ) : (
+            <StateMap meta={meta} schemeData={filtered[meta.year]} />
+          )
         ) : (
           <p>No data</p>
         ),
-    },
-    {
-      id: 'table',
-      graph: <div></div>,
     },
   ];
 
@@ -134,12 +195,15 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
                       ))}
                     </div>
 
-                    <TableTab value="table">
+                    <TableTab
+                      aria-selected={showTable}
+                      onClick={() => setShowTable(!showTable)}
+                    >
                       Table View
-                      {currentTab != 'table' ? (
-                        <IconToggleOff fill="#888F8B" />
-                      ) : (
+                      {showTable ? (
                         <IconToggleOn fill="#888F8B" />
+                      ) : (
+                        <IconToggleOff fill="#888F8B" />
                       )}
                     </TableTab>
                   </VizHeader>
@@ -281,7 +345,7 @@ export const VizTabs = styled(TabsTrigger)`
   }
 `;
 
-export const TableTab = styled(TabsTrigger)`
+export const TableTab = styled.button`
   white-space: nowrap;
   text-overflow: ellipsis;
 
@@ -299,14 +363,8 @@ export const TableTab = styled(TabsTrigger)`
   }
 
   &[aria-selected='true'] {
-    color: var(--color-amazon-100);
-
     svg {
       fill: var(--color-amazon-300);
-
-      &.svg-stroke {
-        stroke: var(--color-amazon-300);
-      }
     }
   }
 `;

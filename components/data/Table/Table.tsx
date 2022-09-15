@@ -210,7 +210,7 @@ const Wrapper = styled.div`
   }
 
   ${MenuButton} {
-    min-width: 80px;
+    width: fit-content;
   }
 
   ${MenuContent} {
