@@ -51,12 +51,7 @@ const ConsPage: React.FC<Props> = ({ query, stateData, stateScheme }) => {
         name: 'Explorer',
         altName: 'Scheme Data of Constituency',
         icon: <ExplorerIcon size={40} />,
-        content: (
-          <Explorer
-            queryData={{ state, sabha, cons }}
-            schemeList={stateScheme}
-          />
-        ),
+        content: <Explorer queryData={query} schemeList={stateScheme} />,
       },
     ],
     [stateData]

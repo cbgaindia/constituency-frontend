@@ -9,8 +9,11 @@ import {
   CollapsibleTrigger,
 } from '@opub-cdl/design-system';
 import { IconMinimize } from 'components/icons';
+import { useRouter } from 'next/router';
 
-export const SubHeading = ({ meta, schemeList }) => {
+export const SubHeading = ({ meta, schemeList, queryData }) => {
+  const router = useRouter();
+
   const [open, setOpen] = React.useState(false);
 
   const schemes = React.useMemo(() => {
@@ -36,20 +39,25 @@ export const SubHeading = ({ meta, schemeList }) => {
           alt=""
           className="img-cover"
         />
-        {
-          <Combobox
-            options={schemes}
-            key={meta.schemeName}
-            isSearchable={false}
-            placeholder="Select a scheme"
-            isLoading={!meta.schemeData}
-            defaultValue={{
-              value: meta.scheme,
-              label: meta.schemeName,
-            }}
-            isLight
-          />
-        }
+
+        <Combobox
+          options={schemes}
+          key={meta.schemeName}
+          isSearchable={false}
+          placeholder="Select a scheme"
+          isLoading={!schemes}
+          onChange={(e: any) =>
+            router.push({
+              pathname: `/${queryData.state}/${queryData.sabha}/${queryData.cons}`,
+              query: { scheme: e.value },
+            })
+          }
+          defaultValue={{
+            value: queryData.scheme,
+            label: meta.schemeName,
+          }}
+          isLight
+        />
       </SchemeWrapper>
       <EditorialWrapper>
         <Collapsible open={open} onOpenChange={setOpen}>
