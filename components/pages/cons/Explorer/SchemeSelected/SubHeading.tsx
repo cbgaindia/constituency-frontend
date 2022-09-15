@@ -3,12 +3,10 @@ import React from 'react';
 import Image from 'next/image';
 import { IconGeneralAdd } from 'components/icons/IconlAdd';
 import { Combobox } from 'components/actions/Combobox';
-import { Button } from 'components/actions/Button';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-  IconButton,
 } from '@opub-cdl/design-system';
 import { IconMinimize } from 'components/icons';
 
