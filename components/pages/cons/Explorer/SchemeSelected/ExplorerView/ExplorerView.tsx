@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import dynamic from 'next/dynamic';
-import { tabbedInterface } from 'utils/helper';
 
 import { Indicator, IndicatorMobile } from 'components/data/Indicator';
 import { capitalize } from 'utils/helper';
@@ -34,7 +33,7 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
   const { state, scheme, indicator, schemeData } = meta;
   const { sabha } = meta || 'lok';
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (sabha == 'lok') {
       dispatch({
         schemeData: schemeRaw.pc,
@@ -45,7 +44,7 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
       });
   }, [sabha, schemeRaw]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     handleNewIndicator(indicator || schemeData.metadata?.indicators[0]);
   }, [schemeData, schemeRaw]);
 

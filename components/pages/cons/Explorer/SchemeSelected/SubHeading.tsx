@@ -38,19 +38,19 @@ export const SubHeading = ({ meta, schemeList }) => {
           alt=""
           className="img-cover"
         />
-        {meta.schemeData && (
+        {
           <Combobox
             options={schemes}
             isSearchable={false}
-            isClearable
             placeholder="Select a scheme"
+            isLoading={!meta.schemeData}
             defaultValue={{
               value: meta.scheme,
               label: meta.schemeData.metadata?.name,
             }}
             isLight
           />
-        )}
+        }
       </SchemeWrapper>
       <EditorialWrapper>
         <Collapsible open={open} onOpenChange={setOpen}>

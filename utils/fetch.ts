@@ -127,7 +127,7 @@ export function generateSlug(slug) {
   return null;
 }
 
-export async function dataTransform(id) {
+export async function dataTransform(id, sabha = null) {
   const obj: any = {
     ac: {},
     pc: {},
@@ -149,7 +149,7 @@ export async function dataTransform(id) {
       slug = data[0].name || '';
     });
 
-    if (acUrl) {
+    if (acUrl && sabha != 'lok') {
       await fetchSheets(acUrl).then((res) => {
         const dataParse = res[0];
         const metaParse = res[1];
@@ -236,7 +236,7 @@ export async function dataTransform(id) {
       });
     }
 
-    if (pcUrl) {
+    if (pcUrl && sabha != 'vidhan') {
       await fetchSheets(pcUrl).then((res) => {
         const dataParse = res[0];
         const metaParse = res[1];
