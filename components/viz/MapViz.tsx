@@ -4,6 +4,7 @@ import {
   TooltipComponent,
   VisualMapComponent,
   GeoComponent,
+  ToolboxComponent,
 } from 'echarts/components';
 import { MapChart } from 'echarts/charts';
 import { SVGRenderer } from 'echarts/renderers';
@@ -42,6 +43,50 @@ const MapViz = ({
                 ? params.data.mapName
                 : `${params.data.mapName}: ${params.data.value}`;
             else return 'No data';
+          },
+        },
+        toolbox: {
+          show: true,
+          bottom: 16,
+          right: 16,
+          feature: {
+            dataZoom: {
+              yAxisIndex: false,
+            },
+            brush: {
+              type: ['lineX', 'clear'],
+            },
+            dataView: {
+              readOnly: true,
+              optionToContent: function (opt) {
+                console.log(opt.series[0].data);
+
+                var axisData = opt.series[0].data;
+                var table =
+                  '<table style="width:100%;text-align:left"><tbody><tr>' +
+                  '<td style="width: 300px;"><strong>Constituency</strong></td>' +
+                  '<td><strong>Code</strong></td>' +
+                  '<td><strong>Value</strong></td>' +
+                  '</tr>';
+                for (var i = 0, l = axisData.length; i < l; i++) {
+                  table +=
+                    '<tr>' +
+                    '<td>' +
+                    axisData[i].mapName +
+                    '</td>' +
+                    '<td>' +
+                    axisData[i].name +
+                    '</td>' +
+                    '<td>' +
+                    axisData[i].value +
+                    '</td>' +
+                    '</tr>';
+                }
+                table += '</tbody></table>';
+                return table;
+              },
+            },
+            saveAsImage: {},
           },
         },
         visualMap: vizIndicators.length
@@ -112,6 +157,7 @@ const MapViz = ({
     GeoComponent,
     MapChart,
     SVGRenderer,
+    ToolboxComponent,
   ]);
 
   return (
