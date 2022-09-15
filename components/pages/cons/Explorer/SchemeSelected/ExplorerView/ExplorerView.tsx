@@ -144,21 +144,20 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
     },
     {
       id: 'mapView',
-      graph:
-        filtered && filtered[meta.year] ? (
-          showTable ? (
-            <Table
-              header={
-                tableData.header ? tableData.header : ['table not available']
-              }
-              rows={tableData.rows ? tableData.rows : []}
-            />
-          ) : (
-            <StateMap meta={meta} schemeData={filtered[meta.year]} />
-          )
+      graph: filtered ? (
+        showTable ? (
+          <Table
+            header={
+              tableData.header ? tableData.header : ['table not available']
+            }
+            rows={tableData.rows ? tableData.rows : []}
+          />
         ) : (
-          <p>No data</p>
-        ),
+          <StateMap meta={meta} schemeData={filtered} />
+        )
+      ) : (
+        <p>No data</p>
+      ),
     },
   ];
 

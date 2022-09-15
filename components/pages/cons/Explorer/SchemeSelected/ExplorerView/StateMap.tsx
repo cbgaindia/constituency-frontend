@@ -3,11 +3,13 @@ import { MapViz } from 'components/viz';
 import styled from 'styled-components';
 import { swrFetch } from 'utils/helper';
 import { Menu } from 'components/actions';
+import useEffectOnChange from 'utils/hooks';
 
 const StateMap = ({ meta, schemeData }) => {
   const [mapValues, setMapvalues] = useState([]);
   const [mapIndicator, setMapIndicator] = useState(undefined);
   const [year, setYear] = useState(meta.year);
+  const [filteredData, setFilteredData] = useState(schemeData[year]);
 
   const { data, isLoading } = swrFetch(
     `/assets/maps/${meta.sabha}/${meta.state}.json`
@@ -15,8 +17,8 @@ const StateMap = ({ meta, schemeData }) => {
 
   // preparing indicator data for echarts component
   useEffect(() => {
-    if (schemeData) {
-      const stateData = Object.values(schemeData).map(Number);
+    if (filteredData) {
+      const stateData = Object.values(filteredData).map(Number);
       stateData.sort(function (a, b) {
         return a - b;
       });
@@ -71,14 +73,19 @@ const StateMap = ({ meta, schemeData }) => {
           ];
       setMapIndicator(vizIndicators);
     }
-  }, [schemeData, data]);
+  }, [filteredData, data]);
+
+  // changing map chart values on sabha change
+  useEffectOnChange(() => {
+    setFilteredData(schemeData[year]);
+  }, [year]);
 
   // changing map chart values on sabha change
   useEffect(() => {
-    if (data && schemeData) {
-      const tempData = Object.keys(schemeData).map((item: any) => ({
+    if (data && filteredData) {
+      const tempData = Object.keys(filteredData).map((item: any) => ({
         name: item,
-        value: schemeData[item] || 0,
+        value: filteredData[item] || 0,
         mapName: data.features.filter((obj) => {
           return obj?.properties['GEO_NO'] === item;
         })[0]?.properties['GEO_NAME'],
@@ -86,7 +93,7 @@ const StateMap = ({ meta, schemeData }) => {
 
       setMapvalues(tempData);
     }
-  }, [data, schemeData, meta.sabha]);
+  }, [data, filteredData, meta.sabha]);
 
   // const newMapItem = useCallback((e) => {
   //   if (e) {
