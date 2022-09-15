@@ -56,14 +56,12 @@ export const SubHeading = ({ meta, schemeList }) => {
         <Collapsible open={open} onOpenChange={setOpen}>
           <EditorialHeader>
             <span>Scheme Editorial Notes</span>
-            <CollapsibleTrigger>
-              <IconButton aria-label="Expand scheme Editorial notes" size="2">
-                {!open ? (
-                  <IconGeneralAdd fill="#888F8B" />
-                ) : (
-                  <IconMinimize fill="#888F8B" />
-                )}
-              </IconButton>
+            <CollapsibleTrigger aria-label="Expand scheme Editorial notes">
+              {!open ? (
+                <IconGeneralAdd fill="#888F8B" />
+              ) : (
+                <IconMinimize fill="#888F8B" />
+              )}
             </CollapsibleTrigger>
           </EditorialHeader>
           <CollapsibleContent>

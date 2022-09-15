@@ -17,18 +17,30 @@ import {
 } from '@opub-cdl/design-system';
 import { Cross, IconDropdown, LokSabha, VidhanSabha } from 'components/icons';
 import StateTab from './StateTab';
-import { swrFetch } from 'utils/helper';
 import { consListFetch } from 'utils/fetch';
+import { swrFetch } from 'utils/helper';
 
 const ConsSelectorModal = () => {
   const { data, isLoading } = swrFetch(`/constList`, consListFetch);
 
   return (
     <Wrapper>
-      {!isLoading && (
+      {isLoading ? (
+        <IconButton
+          aria-label="Open dialog"
+          size="2"
+          css={{ fill: '#888f8b' }}
+        >
+          <IconDropdown width={32} />
+        </IconButton>
+      ) : (
         <Dialog>
           <StyledDialogTrigger asChild>
-            <IconButton aria-label="Open dialog" size="2">
+            <IconButton
+              aria-label="Open dialog"
+              size="2"
+              css={{ fill: '#888f8b' }}
+            >
               <IconDropdown width={32} />
             </IconButton>
           </StyledDialogTrigger>
