@@ -42,7 +42,7 @@ const ConsMapView = ({ meta, consData }) => {
 
       <MapNote>
         <Info fill="#D7AA3B" />
-        Double click on any constituency to explore more about it.
+        Click on any constituency to explore more about it.
       </MapNote>
     </>
   );

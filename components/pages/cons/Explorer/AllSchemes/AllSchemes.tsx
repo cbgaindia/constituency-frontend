@@ -4,7 +4,7 @@ import SchemeCard from './SchemeCard';
 const AllSchemes = ({ schemeList }) => {
   return (
     <Wrapper>
-      <h2>Start exploring some featured scheme</h2>
+      <h2>Which Scheme Do You Want To Explore?</h2>
       <ul>
         {schemeList.map((item) => (
           <SchemeCard data={item} key={item.scheme_slug} />

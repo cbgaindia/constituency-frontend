@@ -1,5 +1,5 @@
+import { GradientLokSabha, GradientVidhanSabha } from 'components/icons';
 import dynamic from 'next/dynamic';
-import Image from 'next/image';
 import styled from 'styled-components';
 
 const ConsSelectorModal = dynamic(() => import('./ConsSelectorModal'), {
@@ -16,13 +16,11 @@ const Header = ({ queryData }) => {
   return (
     <Wrapper>
       <Meta>
-        <Image
-          src={`/assets/icons/${queryData.sabha}.svg`}
-          alt=""
-          width={80}
-          height={80}
-          className="cons__sabha-icon"
-        />
+        {queryData.sabha === 'lok' ? (
+          <GradientLokSabha width={80} />
+        ) : (
+          <GradientVidhanSabha width={80} />
+        )}
 
         <ConsDetails>
           <SabhaName>{`${
@@ -58,10 +56,15 @@ const Meta = styled.div`
   gap: 16px;
   align-items: center;
 
-  > span {
+  > svg {
+    min-width: 80px;
     @media (max-width: 460px) {
-      display: none !important;
+      display: none;
     }
+  }
+
+  @media (max-width: 600px) {
+    align-items: flex-start;
   }
 `;
 
