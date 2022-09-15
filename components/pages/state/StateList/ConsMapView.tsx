@@ -24,7 +24,7 @@ const ConsMapView = ({ meta, consData }) => {
   );
 
   return isLoading ? (
-    <LoadingMap>Loading Map...</LoadingMap>
+    <LoadingDiv>Loading Map...</LoadingDiv>
   ) : (
     <>
       <Wrapper>
@@ -54,12 +54,13 @@ const Wrapper = styled.div`
   height: 100%;
 `;
 
-const LoadingMap = styled.div`
+export const LoadingDiv = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: var(--color-background-light);
 `;
 
 const MapNote = styled.aside`

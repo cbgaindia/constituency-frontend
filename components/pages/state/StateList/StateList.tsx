@@ -7,10 +7,11 @@ import { LokSabha, VidhanSabha } from 'components/icons';
 import { Toolbar } from 'components/layouts/Toolbar';
 import SearchCons from './SearchCons';
 import { useWindowSize } from 'utils/hooks';
+import { LoadingDiv } from './ConsMapView';
 
 const ConsMapView = dynamic(() => import('./ConsMapView'), {
   ssr: false,
-  loading: () => <LoadingMap>Loading Map...</LoadingMap>,
+  loading: () => <LoadingDiv>Loading Map...</LoadingDiv>,
 });
 
 const StateList = ({ data }) => {
@@ -216,12 +217,4 @@ const ConsWrapper = styled.div`
   display: flex;
   gap: 32px;
   margin-top: 16px;
-`;
-
-const LoadingMap = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;

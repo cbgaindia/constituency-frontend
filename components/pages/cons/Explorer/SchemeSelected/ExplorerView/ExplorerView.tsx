@@ -13,13 +13,16 @@ import {
   TabsTrigger,
 } from '@opub-cdl/design-system';
 import { IconToggleOff } from 'components/icons/IconToggleOff';
+import { LoadingDiv } from 'components/pages/state/StateList/ConsMapView';
 
 const ConstBar = dynamic(() => import('./ConstBar'), {
   ssr: false,
+  loading: () => <LoadingDiv>Loading Bar Chart...</LoadingDiv>,
 });
 
 const StateMap = dynamic(() => import('./StateMap'), {
   ssr: false,
+  loading: () => <LoadingDiv>Loading Map...</LoadingDiv>,
 });
 
 const Source = dynamic(() => import('components/pages/cons/Source'), {
@@ -77,17 +80,16 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
   const vizItems = [
     {
       id: 'consView',
-      graph:
-        (sabha == 'lok' || sabha == 'vidhan') && filtered ? (
-          <ConstBar filteredData={filtered} meta={meta} />
-        ) : (
-          <p>No data</p>
-        ),
+      graph: filtered ? (
+        <ConstBar filteredData={filtered} meta={meta} />
+      ) : (
+        <p>No data</p>
+      ),
     },
     {
       id: 'mapView',
       graph:
-        (sabha == 'lok' || sabha == 'vidhan') && filtered ? (
+        filtered && filtered[meta.year] ? (
           <StateMap meta={meta} schemeData={filtered[meta.year]} />
         ) : (
           <p>No data</p>
