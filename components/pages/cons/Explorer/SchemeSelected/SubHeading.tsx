@@ -39,12 +39,13 @@ export const SubHeading = ({ meta, schemeList }) => {
         {
           <Combobox
             options={schemes}
+            key={meta.schemeName}
             isSearchable={false}
             placeholder="Select a scheme"
             isLoading={!meta.schemeData}
             defaultValue={{
               value: meta.scheme,
-              label: meta.schemeData.metadata?.name,
+              label: meta.schemeName,
             }}
             isLight
           />

@@ -127,7 +127,7 @@ export function generateSlug(slug) {
   return null;
 }
 
-export async function dataTransform(id, sabha = null) {
+export async function dataTransform(id, sabha = null, schemeObj = null) {
   const obj: any = {
     ac: {},
     pc: {},
@@ -139,16 +139,23 @@ export async function dataTransform(id, sabha = null) {
   let slug: string;
   let acUrl: string;
   let pcUrl: string;
-  await fetchQuery('slug', id).then((data) => {
-    data[0].resources.forEach((file) => {
-      if (file.name.includes('pc.xlsx')) pcUrl = file.url;
-      else if (file.name.includes('ac.xlsx')) acUrl = file.url;
-    });
 
-    name = data[0].extras[0].value;
-    type = data[0].extras[1].value;
-    slug = data[0].name || '';
-  });
+  if (schemeObj) {
+    name = schemeObj.extras[0].value;
+    type = schemeObj.extras[1].value;
+    slug = schemeObj.name || '';
+  } else {
+    await fetchQuery('slug', id).then((data) => {
+      data[0].resources.forEach((file) => {
+        if (file.name.includes('pc.xlsx')) pcUrl = file.url;
+        else if (file.name.includes('ac.xlsx')) acUrl = file.url;
+      });
+
+      name = data[0].extras[0].value;
+      type = data[0].extras[1].value;
+      slug = data[0].name || '';
+    });
+  }
 
   const urlArr =
     sabha == 'lok' ? [pcUrl] : sabha == 'vidhan' ? [acUrl] : [acUrl, pcUrl];

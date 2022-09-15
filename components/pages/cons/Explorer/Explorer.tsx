@@ -9,7 +9,7 @@ const Explorer = ({ schemeList, queryData }) => {
     <SchemeSelected
       schemeList={schemeList}
       queryData={queryData}
-      schemeName={query.scheme}
+      schemeSlug={query.scheme}
     />
   ) : (
     <AllSchemes schemeList={schemeList} />
