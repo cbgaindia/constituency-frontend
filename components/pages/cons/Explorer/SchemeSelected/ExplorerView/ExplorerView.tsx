@@ -34,17 +34,6 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
   const { sabha } = meta || 'lok';
 
   useLayoutEffect(() => {
-    if (sabha == 'lok') {
-      dispatch({
-        schemeData: schemeRaw.pc,
-      });
-    } else
-      dispatch({
-        schemeData: schemeRaw.ac,
-      });
-  }, [sabha, schemeRaw]);
-
-  useLayoutEffect(() => {
     handleNewIndicator(indicator || schemeData.metadata?.indicators[0]);
   }, [schemeData, schemeRaw]);
 
@@ -99,11 +88,7 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
       id: 'mapView',
       graph:
         (sabha == 'lok' || sabha == 'vidhan') && filtered ? (
-          <StateMap
-            meta={meta}
-            schemeData={filtered[meta.year]}
-            dispatch={dispatch}
-          />
+          <StateMap meta={meta} schemeData={filtered[meta.year]} />
         ) : (
           <p>No data</p>
         ),
@@ -190,6 +175,7 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
       )}
     </>
   );
+  1;
 };
 
 export default React.memo(ExplorerView);

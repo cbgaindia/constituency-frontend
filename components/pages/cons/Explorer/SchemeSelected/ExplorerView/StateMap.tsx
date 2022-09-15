@@ -1,37 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { MapViz } from 'components/viz';
 import styled from 'styled-components';
-import { capitalize, swrFetch } from 'utils/helper';
+import { swrFetch } from 'utils/helper';
 import { Menu } from 'components/actions';
 
-const StateMap = ({ meta, schemeData, dispatch }) => {
+const StateMap = ({ meta, schemeData }) => {
   const [mapValues, setMapvalues] = useState([]);
   const [mapIndicator, setMapIndicator] = useState(undefined);
-  const [financialYears, setFinancialYears] = useState(undefined);
+  const [year, setYear] = useState(meta.year);
 
   const { data, isLoading } = swrFetch(
     `/assets/maps/${meta.sabha}/${meta.state}.json`
   );
-
-  useEffect(() => {
-    // fill up available financial years for state+sabha
-    if (meta.schemeData.data) {
-      const years = Object.keys(
-        Object.values(meta.schemeData.data)[0]['state_Obj'][
-          capitalize(meta.state)
-        ]
-      ).map((item) => ({
-        value: item,
-        label: item,
-      }));
-      setFinancialYears(years); // all years
-
-      dispatch({
-        year: meta.year ? meta.year : years[0].value,
-        allYears: years,
-      });
-    }
-  }, [meta.year, meta.schemeData]);
 
   // preparing indicator data for echarts component
   useEffect(() => {
@@ -130,18 +110,14 @@ const StateMap = ({ meta, schemeData, dispatch }) => {
       ) : (
         mapIndicator && (
           <>
-            {financialYears && (
+            {meta.allYears && (
               <YearSelector>
                 <Menu
-                  value={meta.year}
+                  value={year}
                   showLabel={false}
-                  options={financialYears}
+                  options={meta.allYears}
                   heading="Financial Year:"
-                  handleChange={(e) =>
-                    dispatch({
-                      year: e,
-                    })
-                  }
+                  handleChange={(e) => setYear(e)}
                 />
               </YearSelector>
             )}
