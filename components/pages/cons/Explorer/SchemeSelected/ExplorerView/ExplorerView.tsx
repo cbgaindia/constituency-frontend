@@ -316,6 +316,7 @@ export const VizTabs = styled(TabsTrigger)`
   border-bottom: 2px solid transparent;
   font-weight: bold;
   color: hsla(0, 0%, 0%, 0.32);
+  text-transform: capitalize;
 
   max-width: 265px;
 

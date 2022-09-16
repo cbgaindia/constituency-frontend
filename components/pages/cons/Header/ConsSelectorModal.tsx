@@ -133,6 +133,8 @@ const StyledDialogContent = styled(DialogContent)`
 
   width: 90vw;
   max-width: 548px;
+  height: calc(100vh - 40px);
+  max-height: 840px;
   animation: ${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1) !important;
 
   filter: drop-shadow(var(--box-shadow-1));

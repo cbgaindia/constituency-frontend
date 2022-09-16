@@ -1,5 +1,6 @@
 import { GradientLokSabha, GradientVidhanSabha } from 'components/icons';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import styled from 'styled-components';
 
 const ConsSelectorModal = dynamic(() => import('./ConsSelectorModal'), {
@@ -29,7 +30,11 @@ const Header = ({ queryData }) => {
           <div>
             <h1 className="gradient-maple">{queryData.cons}</h1>
             <StateName>
-              <span>{`(${queryData.state})`}</span>
+              <span>
+                <Link href={`/${queryData.state.toLowerCase()}`}>
+                  <a>{`(${queryData.state})`}</a>
+                </Link>
+              </span>
               <ConsSelectorModal />
             </StateName>
           </div>
@@ -91,8 +96,16 @@ const ConsDetails = styled.div`
     }
 
     span {
-      color: var(--text-light-light);
-      font-size: 1.5rem;
+      color: #4190cc;
+      font-size: 1.2rem;
+
+      /* a {
+        text-decoration-color: transparent;
+
+        &:hover {
+          text-decoration-color: inherit;
+        }
+      } */
     }
   }
 `;

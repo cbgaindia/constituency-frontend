@@ -134,7 +134,7 @@ const StyleTrigger = styled(TabsTrigger)`
 const StyledContent = styled(TabsContent)`
   > div {
     height: 656px;
-    height: clamp(300px, 90vh, 656px);
+    height: clamp(300px, calc(100vh - 220px), 656px);
     overflow-y: scroll;
     background-color: var(--color-background-lighter);
     width: 100%;

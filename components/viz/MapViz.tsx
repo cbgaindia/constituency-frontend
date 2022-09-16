@@ -50,17 +50,15 @@ const MapViz = ({
           bottom: 16,
           right: 16,
           feature: {
-            dataZoom: {
-              yAxisIndex: false,
-            },
+            // dataZoom: {
+            //   yAxisIndex: false,
+            // },
             brush: {
               type: ['lineX', 'clear'],
             },
             dataView: {
               readOnly: true,
               optionToContent: function (opt) {
-                console.log(opt.series[0].data);
-
                 var axisData = opt.series[0].data;
                 var table =
                   '<table style="width:100%;text-align:left"><tbody><tr>' +
@@ -86,7 +84,9 @@ const MapViz = ({
                 return table;
               },
             },
-            saveAsImage: {},
+            saveAsImage: {
+              title: 'Save as SVG',
+            },
           },
         },
         visualMap: vizIndicators.length

@@ -54,7 +54,7 @@ export const SubHeading = ({ meta, schemeList, queryData }) => {
           }
           defaultValue={{
             value: queryData.scheme,
-            label: meta.schemeName,
+            label: meta.schemeName || 'Loading...',
           }}
           isLight
         />
@@ -108,6 +108,7 @@ const SchemeWrapper = styled.div`
 
   > div {
     flex-grow: 1;
+    width: 100%;
   }
 
   @media (max-width: 580px) {
