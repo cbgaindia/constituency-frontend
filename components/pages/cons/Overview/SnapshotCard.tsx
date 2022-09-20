@@ -1,6 +1,8 @@
 import { Button, ProgressBar } from '@opub-cdl/design-system';
 import { Notice } from 'components/icons';
 import Image from 'next/image';
+import { ToolbarContext } from 'pages/[state]/[sabha]/[cons]';
+import React from 'react';
 import styled from 'styled-components';
 
 const SnapshotCard = ({
@@ -15,6 +17,7 @@ const SnapshotCard = ({
     };
   };
 }) => {
+  const toolbarFunc = React.useContext(ToolbarContext);
   return (
     <SnapshotSchemeCard key={data.title}>
       <CardTitle>
@@ -64,7 +67,9 @@ const SnapshotCard = ({
               year!
             </p>
           </NoSchemeData>
-          <Button variant={'secondary-outline'}>Explore Other Data</Button>
+          <Button onClick={() => toolbarFunc()} variant={'secondary-outline'}>
+            Explore Other Data
+          </Button>
         </>
       )}
     </SnapshotSchemeCard>

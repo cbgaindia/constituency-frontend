@@ -17,6 +17,7 @@ type Props = {
   fullScreenId?: string;
   onValueChange?: (e) => void;
   defaultValue?: string;
+  value?: string;
 };
 
 const Toolbar = ({
@@ -24,10 +25,11 @@ const Toolbar = ({
   onValueChange,
   fullScreenId,
   defaultValue,
+  value,
 }: Props) => {
   return (
     <Tabs
-      defaultValue={defaultValue ? defaultValue : data[0].value}
+      value={value}
       onValueChange={onValueChange ? (e) => onValueChange(e) : null}
     >
       {data.length > 0 && (

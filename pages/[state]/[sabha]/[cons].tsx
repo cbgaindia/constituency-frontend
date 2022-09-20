@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import styled from 'styled-components';
@@ -31,9 +31,15 @@ type Props = {
   stateData: any;
   schemeData: any;
 };
+export const ToolbarContext = React.createContext(null);
 
 const ConsPage: React.FC<Props> = ({ query, stateData, stateScheme }) => {
+  const [currentToolbar, setCurrentToolbar] = useState('overview');
   const { state, sabha, cons } = query;
+  function handleToolbarSwitch() {
+    setCurrentToolbar('explorer');
+    window.scrollTo(0, 0);
+  }
 
   const tabData = React.useMemo(
     () => [
@@ -43,7 +49,9 @@ const ConsPage: React.FC<Props> = ({ query, stateData, stateScheme }) => {
         altName: 'Key Highights of Constituency',
         icon: <OverViewIcon size={40} />,
         content: (
-          <Overview data={stateData} queryData={{ state, sabha, cons }} />
+          <ToolbarContext.Provider value={handleToolbarSwitch}>
+            <Overview data={stateData} queryData={{ state, sabha, cons }} />
+          </ToolbarContext.Provider>
         ),
       },
       {
@@ -74,7 +82,9 @@ const ConsPage: React.FC<Props> = ({ query, stateData, stateScheme }) => {
             <Header queryData={{ state, sabha, cons }} />
             <Wrapper id="consPageWrapper">
               <Toolbar
-                defaultValue="overview"
+                value={currentToolbar}
+                // defaultValue={currentToolbar}
+                onValueChange={(e) => setCurrentToolbar(e)}
                 fullScreenId="consPageWrapper"
                 data={tabData}
               />

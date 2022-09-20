@@ -118,7 +118,7 @@ const StateList = ({ data }) => {
     <Wrapper id="stateListWrapper">
       <h2>Explore Constituencies</h2>
       <Toolbar
-        defaultValue="vidhan"
+        value={selectedSabha}
         data={stateData}
         onValueChange={(e) => setSelectedSabha(e)}
       />
