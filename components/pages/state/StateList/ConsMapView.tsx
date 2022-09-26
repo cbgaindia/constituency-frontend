@@ -35,7 +35,9 @@ const ConsMapView = ({ meta, consData }) => {
           vizIndicators={[]}
           onlyLabel
           newMapItem={(e) => {
-            e ? router.push(`${meta.state}/${meta.sabha}/${e.mapName}`) : null;
+            e
+              ? router.push(`${meta.state}/${meta.sabha}?cons_code=${e.name}`)
+              : null;
           }}
         />
       </Wrapper>

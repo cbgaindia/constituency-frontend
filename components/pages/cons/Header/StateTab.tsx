@@ -72,7 +72,7 @@ const ConstituencyList = ({ list, state, sabha }) => {
               <ul>
                 {group.children.map((cons) => (
                   <ConsLink
-                    href={`/${state}/${sabha}/${cons.constituency}`}
+                    href={`/${state}/${sabha}?cons_code=${cons.constituency_code}`}
                     key={`${cons.constituency_code}`}
                   >
                     {cons.constituency}
