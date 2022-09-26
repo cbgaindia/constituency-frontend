@@ -20,9 +20,7 @@ type Props = {
 const State: React.FC<Props> = ({ pathName, consData, stateData }) => {
   const [currentLokCons, setCurrentLokCons] = useState<any>([]);
   const [currentVidhanCons, setCurrentVidhanCons] = useState<any>([]);
-  const state = pathName
-    ?.toLowerCase()
-    .replace(/\b\w/g, (c) => c.toUpperCase());
+  const state = pathName?.toLowerCase();
 
   useEffect(() => {
     // get constituencies of current state
@@ -35,7 +33,9 @@ const State: React.FC<Props> = ({ pathName, consData, stateData }) => {
   }, [consData]);
 
   const seo = {
-    title: `${state} - Constituency Dashboard`,
+    title: `${state?.replace(/\b\w/g, (c) =>
+      c.toUpperCase()
+    )} - Constituency Dashboard`,
     description: `Explore scheme-wise fiscal information at the level of Lok Sabha and Vidhan Sabha constituencies in the state of ${state}`,
   };
 
