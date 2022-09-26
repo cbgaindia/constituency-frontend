@@ -8,6 +8,7 @@ type Props = {
   selectedIndicator: any;
   schemeData: any;
   titleAs?: 'h2' | 'h3' | 'h4' | 'span' | 'p';
+  returnName?: false | true;
 };
 
 const Indicator = ({
@@ -15,6 +16,7 @@ const Indicator = ({
   selectedIndicator,
   schemeData,
   titleAs = 'h4',
+  returnName = false,
 }: Props) => {
   const indicatorRef = useRef(null);
   useEffect(() => {
@@ -29,6 +31,7 @@ const Indicator = ({
   function handleIndicatorChange(e: any) {
     e.stopPropagation();
     const elm = e.target;
+
     newIndicator(elm.id || elm.value);
   }
   return (
@@ -46,9 +49,11 @@ const Indicator = ({
                   onClick={handleIndicatorChange}
                   color="var(--color-amazon-300)"
                   data-selected={
-                    selectedIndicator == item.slug ? 'true' : 'false'
+                    selectedIndicator == (returnName ? item.name : item.slug)
+                      ? 'true'
+                      : 'false'
                   }
-                  id={item.slug}
+                  id={returnName ? item.name : item.slug}
                   text={
                     <>
                       {item.name}

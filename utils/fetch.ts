@@ -95,6 +95,7 @@ export async function consListFetch(state = null) {
     vidhan: {},
   };
 
+  // generate the JSON for state based constituency list
   if (state) {
     sheet[0].forEach((obj) => {
       // check if there is a state object inside sabha and the state matches query

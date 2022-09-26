@@ -41,8 +41,9 @@ const SnapshotCard = ({ data }: { data: any }) => {
                 <ProgressBar
                   data-fill="teal"
                   value={data.value.constituency}
+                  max={data.value.constituency + 200}
                 />
-                <AverageValue>24,000 Cr.</AverageValue>
+                <AverageValue>{data.value.constituency} Cr.</AverageValue>
               </div>
             </div>
           </SnapshotSchemeBar>

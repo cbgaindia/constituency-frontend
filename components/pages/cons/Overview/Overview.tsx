@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Summary } from 'components/pages/shared';
 import Snapshot from './Snapshot';
 
-const Overview = ({ data, queryData, schemeList }) => {
+const Overview = ({ data, queryData, schemeList, consData }) => {
   const summaryCards = React.useMemo(() => {
     return Object.keys(data).reduce(function (result, key) {
       if (key != 'State' && key != 'Description') {
@@ -14,7 +14,7 @@ const Overview = ({ data, queryData, schemeList }) => {
       }
       return result;
     }, []);
-  }, [data]);
+  }, [data]); // --change-this it's using state data
 
   return (
     <Wrapper id="overview-wrapper">
@@ -27,8 +27,9 @@ const Overview = ({ data, queryData, schemeList }) => {
       <Summary title="Demographic Highlights" cards={summaryCards.slice(4)} />
       <Snapshot
         meta={queryData}
-        indicator={'opening-balance'}
+        indicator={'Opening Balance'}
         schemeList={schemeList}
+        data={consData.fiscal_year}
       />
     </Wrapper>
   );

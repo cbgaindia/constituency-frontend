@@ -9,21 +9,19 @@ type Props = {
   indicator: string;
   meta: any;
   schemeList: any;
+  data: any;
 };
 
-const Snapshot = ({ indicator, meta, schemeList }: Props) => {
+const Snapshot = ({ indicator, meta, schemeList, data }: Props) => {
   const [selectedIndicator, setSelectedIndicator] = React.useState(indicator);
-  const [selectedYear, setSelectedYear] = React.useState('2018-19');
-  const tempYears = [
-    {
-      label: '2018-19',
-      value: '2018-19',
-    },
-    {
-      label: '2019-20',
-      value: '2019-20',
-    },
-  ];
+  const [selectedYear, setSelectedYear] = React.useState(Object.keys(data)[0]);
+
+  const yearList = React.useMemo(() => {
+    return Object.keys(data).map((item) => ({
+      label: item,
+      value: item,
+    }));
+  }, [data]);
 
   const tempIndicators = {
     data: [
@@ -80,55 +78,16 @@ const Snapshot = ({ indicator, meta, schemeList }: Props) => {
     ],
   };
 
-  const tempCardList: {
-    img: string;
-    title: string;
-    value?: {
-      state: number;
-      constituency: number;
-    };
-  }[] = [
-    {
-      img: '/assets/images/cbga_logo.png',
-      title: 'Mid-Day Meal Programme (MDM)',
-      value: {
-        state: 30,
-        constituency: 40,
-      },
-    },
-    {
-      img: '/assets/images/placeholder.jpg',
-      title: 'Swachh Bharat Mission-Gramin (SBMG)',
-      value: {
-        state: 80,
-        constituency: 30,
-      },
-    },
-    {
-      img: '/assets/schemes/nhm.png',
-      title: 'National Health Mission (NHM)',
-    },
-    {
-      img: '/assets/images/placeholder.jpg',
-      title: 'National Social Assistance Programme (NSAP)',
-      value: {
-        state: 20,
-        constituency: 40,
-      },
-    },
-    {
-      img: '/assets/schemes/nhm.png',
-      title: 'Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)',
-    },
-    {
-      img: '/assets/images/placeholder.jpg',
-      title: 'Pradhan Mantri Awaas Yojana - Grameen (PMAY)',
-      value: {
-        state: 75,
-        constituency: 50,
-      },
-    },
-  ];
+  function getConsValue(slug) {
+    if (
+      data[selectedYear][slug] &&
+      data[selectedYear][slug][selectedIndicator]
+    ) {
+      return Math.abs(data[selectedYear][slug][selectedIndicator]);
+    }
+    return false;
+  }
+  console.log(selectedIndicator);
 
   return (
     <section>
@@ -141,13 +100,14 @@ const Snapshot = ({ indicator, meta, schemeList }: Props) => {
           }}
           selectedIndicator={selectedIndicator}
           schemeData={tempIndicators}
+          returnName={true}
         />
         <SnapshotSchemes>
           <SnapshotSchemeTitle>
             <h4>All Schemes</h4>
             <Menu
               value={selectedYear}
-              options={tempYears}
+              options={yearList}
               heading="Financial Year:"
               handleChange={(e) => setSelectedYear(e)}
             />
@@ -156,13 +116,15 @@ const Snapshot = ({ indicator, meta, schemeList }: Props) => {
             {schemeList &&
               schemeList.map((item) => (
                 <SnapshotCard
-                  key={item.title}
+                  key={item.scheme_slug}
                   data={{
                     ...item,
-                    value: {
-                      state: 75,
-                      constituency: 50,
-                    },
+                    value: getConsValue(item.scheme_slug)
+                      ? {
+                          state: 75,
+                          constituency: getConsValue(item.scheme_slug),
+                        }
+                      : null,
                   }}
                 />
               ))}
