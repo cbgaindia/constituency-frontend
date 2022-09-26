@@ -32,6 +32,7 @@ type Props = {
   stateData: any;
   schemeData: any;
   consData: any;
+  node;
 };
 export const ToolbarContext = React.createContext(null);
 
@@ -40,8 +41,11 @@ const ConsPage: React.FC<Props> = ({
   stateData,
   stateScheme,
   consData,
+  node,
 }) => {
   const [view, setView] = useState('overview');
+  console.log(node);
+
   const router = useRouter();
   const { state, sabha, scheme, cons_code } = query;
   const { constituency_name: cons } = consData;
@@ -143,9 +147,14 @@ export const getServerSideProps: GetServerSideProps = async ({
   const queryValue: any = query || {};
   if (!['vidhan', 'lok'].includes(queryValue.sabha)) return { notFound: true };
 
-  const json = await fetch(
-    'http://localhost:3000/assets/json/bihar_ac.json'
-  ).then((res) => res.json());
+  const fileLink =
+    process.env.NODE_ENV === 'production'
+      ? 'http://52.30.188.232:8003/'
+      : 'http://localhost:3000';
+
+  const json = await fetch(`${fileLink}/assets/json/bihar_ac.json`).then(
+    (res) => res.json()
+  );
 
   const [stateScheme, stateData] = await Promise.all([
     stateSchemeFetch(query.state),
@@ -161,6 +170,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       stateData: stateData,
       stateScheme,
       consData: json[queryValue.cons_code],
+      node: process.env.NODE_ENV,
     },
   };
 };
