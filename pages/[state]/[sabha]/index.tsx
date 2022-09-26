@@ -108,7 +108,6 @@ const ConsPage: React.FC<Props> = ({
     )} - Constituency Dashboard`,
     description: `Explore scheme-wise fiscal information at the level of Lok Sabha and Vidhan Sabha constituencies in the state of ${state}`,
   };
-  console.log(consData);
 
   return (
     <>

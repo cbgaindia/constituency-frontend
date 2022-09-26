@@ -86,7 +86,7 @@ const StateMap = ({ meta, schemeData }) => {
       const tempData = Object.keys(filteredData).map((item: any) => ({
         name: item,
         value: filteredData[item] || 0,
-        mapName: data.features.filter((obj) => {
+        mapName: data?.features.filter((obj) => {
           return obj?.properties['GEO_NO'] === item;
         })[0]?.properties['GEO_NAME'],
       }));

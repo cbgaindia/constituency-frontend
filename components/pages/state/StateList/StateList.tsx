@@ -70,7 +70,7 @@ const StateList = ({ data }) => {
                         {group.children.map((cons) => (
                           <li key={cons.constituency_code + cons.constituency}>
                             <Link
-                              href={`/${data.state}/${item.value}/${cons.constituency}`}
+                              href={`/${data.state}/${item.value}?cons_code=${cons.constituency_code}`}
                               passHref
                             >
                               <ConsLink>{cons.constituency}</ConsLink>

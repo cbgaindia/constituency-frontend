@@ -83,11 +83,10 @@ const Snapshot = ({ indicator, meta, schemeList, data }: Props) => {
       data[selectedYear][slug] &&
       data[selectedYear][slug][selectedIndicator]
     ) {
-      return Math.abs(data[selectedYear][slug][selectedIndicator]);
+      return Math.abs(data[selectedYear][slug][selectedIndicator]); // --change-this handle negative
     }
     return false;
   }
-  console.log(selectedIndicator);
 
   return (
     <section>

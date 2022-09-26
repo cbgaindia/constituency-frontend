@@ -22,7 +22,7 @@ const MapViz = ({
 
   const memoMap = React.useMemo(() => {
     const tempObj = { ...mapFile };
-    tempObj.features.forEach(
+    tempObj?.features?.forEach(
       (obj) => (obj.properties['GEO_NO'] = String(obj.properties['GEO_NO']))
     );
     return tempObj;
