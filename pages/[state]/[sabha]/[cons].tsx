@@ -13,6 +13,7 @@ import { Header } from 'components/pages/cons/Header';
 import { Toolbar } from 'components/layouts/Toolbar';
 import { upperCaseString } from 'utils/helper';
 import { Overview } from 'components/pages/cons';
+import { useRouter } from 'next/router';
 
 const Explorer = dynamic(
   () => import('components/pages/cons/Explorer/Explorer'),
@@ -34,10 +35,17 @@ type Props = {
 export const ToolbarContext = React.createContext(null);
 
 const ConsPage: React.FC<Props> = ({ query, stateData, stateScheme }) => {
-  const [currentToolbar, setCurrentToolbar] = useState('overview');
-  const { state, sabha, cons } = query;
-  function handleToolbarSwitch() {
-    setCurrentToolbar('explorer');
+  const [view, setView] = useState('overview');
+  const router = useRouter();
+  const { state, sabha, cons, scheme } = router.query;
+  function handleToolbarSwitch(e) {
+    const tabState = e == 'list' ? 'explorer' : e;
+    setView(tabState);
+    router.replace({
+      pathname: `/${state}/${sabha}/${cons}`,
+      query: { view: tabState, scheme: e == 'list' ? 'all' : scheme },
+    });
+
     window.scrollTo(0, 0);
   }
 
@@ -72,7 +80,6 @@ const ConsPage: React.FC<Props> = ({ query, stateData, stateScheme }) => {
     description: `Explore scheme-wise fiscal information at the level of Lok Sabha and Vidhan Sabha constituencies in the state of ${state}`,
   };
 
-  if (!['vidhan', 'lok'].includes(sabha)) return <p>Incorrect URL!</p>;
   return (
     <>
       <Seo seo={seo} />
@@ -82,9 +89,8 @@ const ConsPage: React.FC<Props> = ({ query, stateData, stateScheme }) => {
             <Header queryData={{ state, sabha, cons }} />
             <Wrapper id="consPageWrapper">
               <Toolbar
-                value={currentToolbar}
-                // defaultValue={currentToolbar}
-                onValueChange={(e) => setCurrentToolbar(e)}
+                value={view}
+                onValueChange={(e) => handleToolbarSwitch(e)}
                 fullScreenId="consPageWrapper"
                 data={tabData}
               />

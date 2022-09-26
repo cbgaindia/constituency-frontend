@@ -67,7 +67,10 @@ const SnapshotCard = ({
               year!
             </p>
           </NoSchemeData>
-          <Button onClick={() => toolbarFunc()} variant={'secondary-outline'}>
+          <Button
+            onClick={() => toolbarFunc('list')}
+            variant={'secondary-outline'}
+          >
             Explore Other Data
           </Button>
         </>

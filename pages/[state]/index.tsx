@@ -20,7 +20,7 @@ type Props = {
 const State: React.FC<Props> = ({ pathName, consData, stateData }) => {
   const [currentLokCons, setCurrentLokCons] = useState<any>([]);
   const [currentVidhanCons, setCurrentVidhanCons] = useState<any>([]);
-  const state = pathName?.toLowerCase();
+  const state = pathName;
 
   useEffect(() => {
     // get constituencies of current state
