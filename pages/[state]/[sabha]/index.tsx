@@ -45,20 +45,33 @@ const ConsPage: React.FC<Props> = ({
   const router = useRouter();
   const { state, sabha, scheme, cons_code } = query;
   const { constituency_name: cons } = consData;
-  function handleToolbarSwitch(e) {
-    const tabState = e == 'list' ? 'explorer' : e;
+  function handleToolbarSwitch(e: string) {
+    function isTabbed(val: string) {
+      if (['explorer', 'overview'].includes(val)) return true;
+      return false;
+    }
+
+    function showScheme(val) {
+      if (isTabbed(val)) {
+        if (scheme) return scheme;
+        return '';
+      }
+      if (val == 'list') return '';
+      return val;
+    }
+
+    const tabState = isTabbed(e) ? e : 'explorer';
     setView(tabState);
     router.replace({
       pathname: `/${state}/${sabha}`,
       query: {
         cons_code,
-        scheme: e != 'list' ? scheme : '',
+        scheme: showScheme(e),
       },
     });
 
     window.scrollTo(0, 0);
   }
-  console.log(consData);
 
   const tabData = React.useMemo(
     () => [

@@ -1,26 +1,12 @@
 import { Button, ProgressBar } from '@opub-cdl/design-system';
 import { Notice } from 'components/icons';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { ToolbarContext } from 'pages/[state]/[sabha]';
 import React from 'react';
 import styled from 'styled-components';
 import SchemesData from 'utils/schemesData';
 
 const SnapshotCard = ({ data }: { data: any }) => {
-  const router = useRouter();
-  const { state, sabha, cons, scheme } = router.query;
-
-  // function handleSchemeClick(e) {
-  //   router.replace({
-  //     pathname: `/${state}/${sabha}/${cons}`,
-  //     query: {
-  //       view: 'explorer',
-  //       scheme: e,
-  //     },
-  //   });
-  // }
-
   const toolbarFunc = React.useContext(ToolbarContext);
   return (
     <SnapshotSchemeCard>
@@ -61,7 +47,7 @@ const SnapshotCard = ({ data }: { data: any }) => {
             </div>
           </SnapshotSchemeBar>
           <Button
-            // onClick={() => handleSchemeClick(data.scheme_name)}
+            onClick={() => toolbarFunc(data.scheme_slug)}
             variant={'secondary-outline'}
           >
             Explore More
