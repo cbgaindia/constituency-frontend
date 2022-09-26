@@ -31,7 +31,7 @@ type Props = {
   stateScheme: any;
   stateData: any;
   schemeData: any;
-  json: any;
+  consData: any;
 };
 export const ToolbarContext = React.createContext(null);
 
@@ -39,35 +39,26 @@ const ConsPage: React.FC<Props> = ({
   query,
   stateData,
   stateScheme,
-  json,
+  consData,
 }) => {
   const [view, setView] = useState('overview');
   const router = useRouter();
-  const { state, sabha, cons, scheme } = router.query;
+  const { state, sabha, scheme, cons_code } = query;
+  const { constituency_name: cons } = consData;
   function handleToolbarSwitch(e) {
     const tabState = e == 'list' ? 'explorer' : e;
     setView(tabState);
     router.replace({
-      pathname: `/${state}/${sabha}/${cons}`,
+      pathname: `/${state}/${sabha}`,
       query: {
-        view: tabState,
-        scheme: e == 'list' ? 'all' : scheme ? scheme : 'all',
+        cons_code,
+        scheme: e != 'list' ? scheme : '',
       },
     });
 
     window.scrollTo(0, 0);
   }
-
-  const schemeList = React.useMemo(() => {
-    const arr = [];
-    Object.keys(json.fiscal_year).forEach((item) => {
-      Object.keys(json.fiscal_year[item]).forEach((schemeName) => {
-        if (arr.indexOf(schemeName) == -1) arr.push(schemeName);
-      });
-    });
-
-    return arr;
-  }, []);
+  console.log(consData);
 
   const tabData = React.useMemo(
     () => [
@@ -81,7 +72,7 @@ const ConsPage: React.FC<Props> = ({
             <Overview
               data={stateData}
               queryData={{ state, sabha, cons }}
-              schemeList={schemeList}
+              schemeList={stateScheme}
             />
           </ToolbarContext.Provider>
         ),
@@ -147,14 +138,15 @@ export const getServerSideProps: GetServerSideProps = async ({
     stateDataFetch(query.state),
   ]);
 
-  if (!(stateData && stateScheme)) return { notFound: true };
+  if (!(stateData && stateScheme && queryValue.cons_code))
+    return { notFound: true };
 
   return {
     props: {
       query: queryValue,
       stateData: stateData,
       stateScheme,
-      json: json[1],
+      consData: json[queryValue.cons_code],
     },
   };
 };

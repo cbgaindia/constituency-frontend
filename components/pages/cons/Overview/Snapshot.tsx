@@ -8,9 +8,10 @@ import SnapshotCard from './SnapshotCard';
 type Props = {
   indicator: string;
   meta: any;
+  schemeList: any;
 };
 
-const Snapshot = ({ indicator, meta }: Props) => {
+const Snapshot = ({ indicator, meta, schemeList }: Props) => {
   const [selectedIndicator, setSelectedIndicator] = React.useState(indicator);
   const [selectedYear, setSelectedYear] = React.useState('2018-19');
   const tempYears = [
@@ -152,9 +153,18 @@ const Snapshot = ({ indicator, meta }: Props) => {
             />
           </SnapshotSchemeTitle>
           <SnapshotSchemeList>
-            {tempCardList &&
-              tempCardList.map((item) => (
-                <SnapshotCard key={item.title} data={item} />
+            {schemeList &&
+              schemeList.map((item) => (
+                <SnapshotCard
+                  key={item.title}
+                  data={{
+                    ...item,
+                    value: {
+                      state: 75,
+                      constituency: 50,
+                    },
+                  }}
+                />
               ))}
           </SnapshotSchemeList>
           <SnapshotFooter>

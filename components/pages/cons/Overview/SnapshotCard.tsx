@@ -1,29 +1,33 @@
 import { Button, ProgressBar } from '@opub-cdl/design-system';
 import { Notice } from 'components/icons';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { ToolbarContext } from 'pages/[state]/[sabha]/[cons]';
 import React from 'react';
 import styled from 'styled-components';
+import SchemesData from 'utils/schemesData';
 
-const SnapshotCard = ({
-  data,
-}: {
-  data: {
-    img: string;
-    title: string;
-    value?: {
-      state: number;
-      constituency: number;
-    };
-  };
-}) => {
+const SnapshotCard = ({ data }: { data: any }) => {
+  const router = useRouter();
+  const { state, sabha, cons, scheme } = router.query;
+
+  // function handleSchemeClick(e) {
+  //   router.replace({
+  //     pathname: `/${state}/${sabha}/${cons}`,
+  //     query: {
+  //       view: 'explorer',
+  //       scheme: e,
+  //     },
+  //   });
+  // }
+
   const toolbarFunc = React.useContext(ToolbarContext);
   return (
-    <SnapshotSchemeCard key={data.title}>
+    <SnapshotSchemeCard>
       <CardTitle>
         <figure>
           <Image
-            src={data.img ? data.img : '/assets/images/placeholder.jpg'}
+            src={SchemesData[data.scheme_slug].logo}
             width={72}
             height={72}
             layout="fixed"
@@ -32,7 +36,7 @@ const SnapshotCard = ({
           />
         </figure>
 
-        <h5>{data.title}</h5>
+        <h5>{data.scheme_name}</h5>
       </CardTitle>
       <Separator role="none" />
       {data.value ? (
@@ -56,7 +60,12 @@ const SnapshotCard = ({
               </div>
             </div>
           </SnapshotSchemeBar>
-          <Button variant={'secondary-outline'}>Explore More</Button>
+          <Button
+            // onClick={() => handleSchemeClick(data.scheme_name)}
+            variant={'secondary-outline'}
+          >
+            Explore More
+          </Button>
         </>
       ) : (
         <>
