@@ -32,7 +32,6 @@ type Props = {
   stateData: any;
   schemeData: any;
   consData: any;
-  node;
 };
 export const ToolbarContext = React.createContext(null);
 
@@ -41,11 +40,8 @@ const ConsPage: React.FC<Props> = ({
   stateData,
   stateScheme,
   consData,
-  node,
 }) => {
   const [view, setView] = useState('overview');
-  console.log(node);
-
   const router = useRouter();
   const { state, sabha, scheme, cons_code } = query;
   const { constituency_name: cons } = consData;
@@ -170,7 +166,6 @@ export const getServerSideProps: GetServerSideProps = async ({
       stateData: stateData,
       stateScheme,
       consData: json[queryValue.cons_code],
-      node: process.env.NODE_ENV,
     },
   };
 };
