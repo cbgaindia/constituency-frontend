@@ -78,7 +78,7 @@ const StateMap = ({ meta, schemeData }) => {
   // changing map chart values on sabha change
   useEffectOnChange(() => {
     setFilteredData(schemeData[year]);
-  }, [year]);
+  }, [year, schemeData]);
 
   // changing map chart values on sabha change
   useEffect(() => {
