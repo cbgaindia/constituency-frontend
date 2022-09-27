@@ -35,7 +35,7 @@ const ConstBar = ({ meta, filteredData }) => {
       //   setBarData(barValues);
       // }
 
-      const barValues1 = [meta.constituency];
+      const barValues1 = [meta.cons_code];
 
       const headerArr = ['Constituency'];
       Object.keys(filteredData).map((year) => {
@@ -47,33 +47,28 @@ const ConstBar = ({ meta, filteredData }) => {
     }
   }, [filteredData]);
 
-  const states = [
-    {
-      label: 'Mizoram',
-      options: [
-        { value: 'Aska', label: 'Aska' },
-        { value: 'vidhan', label: 'vidhan' },
-        { value: meta.constituency, label: meta.constituency },
-      ],
-    },
-    {
-      label: 'Meghalaya',
-      options: [
-        { value: 'Sikkim', label: 'Sikkim' },
-        { value: 'Odisha', label: 'Odisha' },
-      ],
-    },
-  ];
+  const constList = React.useMemo(() => {
+    const consList = meta.schemeData.metadata
+      ? meta.schemeData.metadata.consList
+      : {};
+    return Object.keys(consList).map((state) => ({
+      label: state,
+      options: consList[state].map((item) => ({
+        value: item.constCode,
+        label: item.constName,
+      })),
+    }));
+  }, [meta.schemeData]);
 
   return (
     <Wrapper>
       <ComboWrapper>
-        {meta.constituency && (
+        {meta.cons_code && (
           <Combobox
-            options={states}
+            options={constList}
             defaultValue={{
-              value: meta.constituency,
-              label: meta.constituency,
+              value: meta.cons_code,
+              label: meta.cons_name,
             }}
             isMulti
             isGrouped

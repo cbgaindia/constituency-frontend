@@ -56,6 +56,7 @@ const SchemeSelected = ({ queryData, schemeList }) => {
     scheme: queryData.scheme || '',
     sabha: queryData.sabha || 'lok',
     cons_code: queryData.cons_code || '',
+    cons_name: queryData.cons || '',
     schemeName: queryData.scheme
       ? schemeList.filter((e) => e.scheme_slug == queryData.scheme)[0]
           .scheme_name

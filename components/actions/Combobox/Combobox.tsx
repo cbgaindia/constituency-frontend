@@ -57,7 +57,8 @@ const Combobox = ({ isGrouped, ...props }: ComboboxProps) => {
       string = string.toLocaleLowerCase();
 
       // default search
-      if (label.includes(string) || value.includes(string)) return true;
+      if (label.includes(string) || String(value).includes(string))
+        return true;
 
       // check if a group as the filter string as label
       const groupOptions: any = props.options.filter((group: any) =>
