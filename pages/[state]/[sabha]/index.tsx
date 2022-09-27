@@ -11,7 +11,7 @@ import {
 } from 'components/icons';
 import { Header } from 'components/pages/cons/Header';
 import { Toolbar } from 'components/layouts/Toolbar';
-import { upperCaseString } from 'utils/helper';
+import { capitalize } from 'utils/helper';
 import { Overview } from 'components/pages/cons';
 import { useRouter } from 'next/router';
 
@@ -99,7 +99,7 @@ const ConsPage: React.FC<Props> = ({ stateData, stateScheme, consData }) => {
   );
 
   const seo = {
-    title: `${upperCaseString(cons)} . ${upperCaseString(
+    title: `${capitalize(cons)} . ${capitalize(
       state
     )} - Constituency Dashboard`,
     description: `Explore scheme-wise fiscal information at the level of Lok Sabha and Vidhan Sabha constituencies in the state of ${state}`,

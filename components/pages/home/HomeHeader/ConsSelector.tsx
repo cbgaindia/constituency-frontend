@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Button } from 'components/actions/Button';
 import { Combobox } from 'components/actions/Combobox';
 import { GradientLokSabha, GradientVidhanSabha } from 'components/icons';
-import { upperCaseString } from 'utils/helper';
+import { capitalize } from 'utils/helper';
 
 const ConsSelector: React.FC<{
   consData: any;
@@ -22,7 +22,7 @@ const ConsSelector: React.FC<{
         count += consData[state].length;
         return {
           value: state,
-          label: upperCaseString(state),
+          label: capitalize(state),
         };
       });
       SetConsCount(count);

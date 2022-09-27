@@ -37,18 +37,6 @@ export function debounce(func, timeout = 1000) {
   };
 }
 
-export function capitalize(state) {
-  var splitStr = state.toLowerCase().split(' ');
-  for (var i = 0; i < splitStr.length; i++) {
-    // You do not need to check if i is larger than splitStr length, as your for does that for you
-    // Assign it back to the array
-    splitStr[i] =
-      splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
-  }
-  // Directly return the joined string
-  return splitStr.join(' ');
-}
-
 // function to create tabbed interface
 export function tabbedInterface(tablist, panels) {
   // Get relevant elements and collections
@@ -216,6 +204,6 @@ export function fullScreenMode(id: string) {
   }
 }
 
-export function upperCaseString(str) {
+export function capitalize(str) {
   return str.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
 }

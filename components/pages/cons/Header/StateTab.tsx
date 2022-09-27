@@ -101,6 +101,7 @@ const Wrapper = styled.div`
 
 const StyleTrigger = styled(TabsTrigger)`
   width: 100% !important;
+  text-transform: capitalize;
 
   > span {
     width: 100%;
