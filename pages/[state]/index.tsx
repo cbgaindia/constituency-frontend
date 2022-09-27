@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import dynamic from 'next/dynamic';
 
-import { consListFetch, fetchJSON, stateDataFetch } from 'utils/fetch';
+import { fetchJSON, stateDataFetch } from 'utils/fetch';
 import { getParameterCaseInsensitive } from 'utils/helper';
 import Header from 'components/pages/state/Header';
 import StateList from 'components/pages/state/StateList/StateList';
@@ -38,7 +38,6 @@ const State: React.FC<Props> = ({ pathName, constList, stateData }) => {
     )} - Constituency Dashboard`,
     description: `Explore scheme-wise fiscal information at the level of Lok Sabha and Vidhan Sabha constituencies in the state of ${state}`,
   };
-  console.log(constList);
 
   return (
     <>
@@ -77,7 +76,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { state }: any = params;
 
   try {
-    const [stateData] = await Promise.all([stateDataFetch(state)]);
+    const stateData = await stateDataFetch(state);
 
     const jsonData: any = await fetchJSON('Cons Info');
     const finalJSON = {

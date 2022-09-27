@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import dynamic from 'next/dynamic';
 import { HomeHeader } from 'components/pages/home';
 import { GetStaticProps } from 'next';
-import { consListFetch, fetchJSON, fetchQuery } from 'utils/fetch';
+import { fetchJSON } from 'utils/fetch';
 
 const HomeStates = dynamic(
   () => import('components/pages/home/HomeStates/HomeStates'),

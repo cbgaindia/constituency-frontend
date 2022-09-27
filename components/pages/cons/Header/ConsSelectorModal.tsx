@@ -17,11 +17,11 @@ import {
 } from '@opub-cdl/design-system';
 import { Cross, IconDropdown, LokSabha, VidhanSabha } from 'components/icons';
 import StateTab from './StateTab';
-import { consListFetch } from 'utils/fetch';
+import { fetchJSON } from 'utils/fetch';
 import { swrFetch } from 'utils/helper';
 
 const ConsSelectorModal = () => {
-  const { data, isLoading } = swrFetch(`/constList`, consListFetch);
+  const { data, isLoading } = swrFetch(`/constList`, fetchJSON, ['Cons Info']);
 
   return (
     <Wrapper>
