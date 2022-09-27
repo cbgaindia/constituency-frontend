@@ -19,7 +19,6 @@ const MapViz = ({
   onlyLabel = false,
 }) => {
   const [mapOptions, setMapOptions] = useState({});
-
   const memoMap = React.useMemo(() => {
     const tempObj = { ...mapFile };
     tempObj?.features?.forEach(

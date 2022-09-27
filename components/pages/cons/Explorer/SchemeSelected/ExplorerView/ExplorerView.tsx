@@ -44,12 +44,12 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
   const { sabha } = meta || 'lok';
 
   useLayoutEffect(() => {
-    handleNewIndicator(indicator || schemeData.metadata?.indicators[0]);
+    handleNewIndicator(schemeData.metadata?.indicators[0]);
   }, [schemeData, schemeRaw]);
 
+  // setting tabular data
   useEffect(() => {
     if (meta.allYears && filtered) {
-      // setting tabular data
       const tableHeader = [
         { Header: 'Constituency', accessor: 'constHeader' },
       ];

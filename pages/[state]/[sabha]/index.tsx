@@ -27,7 +27,6 @@ const Seo = dynamic(() => import('components/common/Seo/Seo'), {
 });
 
 type Props = {
-  query: any;
   stateScheme: any;
   stateData: any;
   schemeData: any;
@@ -35,15 +34,10 @@ type Props = {
 };
 export const ToolbarContext = React.createContext(null);
 
-const ConsPage: React.FC<Props> = ({
-  query,
-  stateData,
-  stateScheme,
-  consData,
-}) => {
+const ConsPage: React.FC<Props> = ({ stateData, stateScheme, consData }) => {
   const [view, setView] = useState('overview');
   const router = useRouter();
-  const { state, sabha, scheme, cons_code } = query;
+  const { state, sabha, scheme, cons_code } = router.query;
   const { constituency_name: cons } = consData;
   function handleToolbarSwitch(e: string) {
     function isTabbed(val: string) {
@@ -96,7 +90,9 @@ const ConsPage: React.FC<Props> = ({
         name: 'Explorer',
         altName: 'Scheme Data of Constituency',
         icon: <ExplorerIcon size={40} />,
-        content: <Explorer queryData={query} schemeList={stateScheme} />,
+        content: (
+          <Explorer queryData={router.query} schemeList={stateScheme} />
+        ),
       },
     ],
     [stateData]
@@ -162,7 +158,6 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   return {
     props: {
-      query: queryValue,
       stateData: stateData,
       stateScheme,
       consData: json[queryValue.cons_code],

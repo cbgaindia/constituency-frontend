@@ -40,7 +40,7 @@ const ConstBar = ({ meta, filteredData }) => {
       const headerArr = ['Constituency'];
       Object.keys(filteredData).map((year) => {
         headerArr.push(year);
-        barValues1.push(filteredData[year][2]); // --change-this 2 to dynamic
+        barValues1.push(filteredData[year][meta.cons_code]);
       });
       const barValues = [headerArr, barValues1];
       setBarData(barValues);
