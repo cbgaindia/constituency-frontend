@@ -55,14 +55,13 @@ const SchemeSelected = ({ queryData, schemeList }) => {
     state: queryData.state || '',
     scheme: queryData.scheme || '',
     sabha: queryData.sabha || 'lok',
-    constituency: queryData.cons || '',
+    cons_code: queryData.cons_code || '',
     schemeName: 'Loading...',
     schemeData: '',
     indicator: '',
     year: '',
     allYears: [],
     unit: '',
-    consCode: '',
     vizType: 'map',
   };
   const [reducerState, dispatch] = React.useReducer(reducer, initalState);

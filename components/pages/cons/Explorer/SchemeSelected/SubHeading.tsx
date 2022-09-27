@@ -47,9 +47,9 @@ export const SubHeading = ({ meta, schemeList, queryData }) => {
           placeholder="Select a scheme"
           isLoading={!schemes}
           onChange={(e: any) =>
-            router.push({
-              pathname: `/${queryData.state}/${queryData.sabha}/${queryData.cons}`,
-              query: { scheme: e.value },
+            router.replace({
+              pathname: `/${queryData.state}/${queryData.sabha}`,
+              query: { cons_code: queryData.cons_code, scheme: e.value },
             })
           }
           defaultValue={{

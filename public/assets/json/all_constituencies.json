@@ -1,0 +1,5502 @@
+{
+  "lok": {
+    "bihar": [
+      {
+        "constituency": "Valmiki Nagar",
+        "constituency_code": 1
+      },
+      {
+        "constituency": "Paschim Champaran",
+        "constituency_code": 2
+      },
+      {
+        "constituency": "Purvi Champaran",
+        "constituency_code": 3
+      },
+      {
+        "constituency": "Sheohar",
+        "constituency_code": 4
+      },
+      {
+        "constituency": "Sitamarhi",
+        "constituency_code": 5
+      },
+      {
+        "constituency": "Madhubani",
+        "constituency_code": 6
+      },
+      {
+        "constituency": "Jhanjharpur",
+        "constituency_code": 7
+      },
+      {
+        "constituency": "Supaul",
+        "constituency_code": 8
+      },
+      {
+        "constituency": "Araria",
+        "constituency_code": 9
+      },
+      {
+        "constituency": "Kishanganj",
+        "constituency_code": 10
+      },
+      {
+        "constituency": "Katihar",
+        "constituency_code": 11
+      },
+      {
+        "constituency": "Purnia",
+        "constituency_code": 12
+      },
+      {
+        "constituency": "Madhepura",
+        "constituency_code": 13
+      },
+      {
+        "constituency": "Darbhanga",
+        "constituency_code": 14
+      },
+      {
+        "constituency": "Muzaffarpur",
+        "constituency_code": 15
+      },
+      {
+        "constituency": "Vaishali",
+        "constituency_code": 16
+      },
+      {
+        "constituency": "Gopalganj (Sc)",
+        "constituency_code": 17
+      },
+      {
+        "constituency": "Siwan",
+        "constituency_code": 18
+      },
+      {
+        "constituency": "Maharajganj",
+        "constituency_code": 19
+      },
+      {
+        "constituency": "Saran",
+        "constituency_code": 20
+      },
+      {
+        "constituency": "Hajipur(Sc)",
+        "constituency_code": 21
+      },
+      {
+        "constituency": "Ujiarpur",
+        "constituency_code": 22
+      },
+      {
+        "constituency": "Samastipur(Sc)",
+        "constituency_code": 23
+      },
+      {
+        "constituency": "Begusarai",
+        "constituency_code": 24
+      },
+      {
+        "constituency": "Khagaria",
+        "constituency_code": 25
+      },
+      {
+        "constituency": "Bhagalpur",
+        "constituency_code": 26
+      },
+      {
+        "constituency": "Banka",
+        "constituency_code": 27
+      },
+      {
+        "constituency": "Munger",
+        "constituency_code": 28
+      },
+      {
+        "constituency": "Nalanda",
+        "constituency_code": 29
+      },
+      {
+        "constituency": "Patna Sahib",
+        "constituency_code": 30
+      },
+      {
+        "constituency": "Pataliputra",
+        "constituency_code": 31
+      },
+      {
+        "constituency": "Arrah",
+        "constituency_code": 32
+      },
+      {
+        "constituency": "Buxar",
+        "constituency_code": 33
+      },
+      {
+        "constituency": "Sasaram (Sc)",
+        "constituency_code": 34
+      },
+      {
+        "constituency": "Karakat",
+        "constituency_code": 35
+      },
+      {
+        "constituency": "Jahanabad",
+        "constituency_code": 36
+      },
+      {
+        "constituency": "Aurangabad",
+        "constituency_code": 37
+      },
+      {
+        "constituency": "Gaya(Sc)",
+        "constituency_code": 38
+      },
+      {
+        "constituency": "Nawada",
+        "constituency_code": 39
+      },
+      {
+        "constituency": "Jamui (Sc)",
+        "constituency_code": 40
+      }
+    ],
+    "chhattisgarh": [
+      {
+        "constituency": "Surguja (St)",
+        "constituency_code": 1
+      },
+      {
+        "constituency": "Raigarh (St)",
+        "constituency_code": 2
+      },
+      {
+        "constituency": "Janjgir-Champa (Sc)",
+        "constituency_code": 3
+      },
+      {
+        "constituency": "Korba",
+        "constituency_code": 4
+      },
+      {
+        "constituency": "Bilaspur",
+        "constituency_code": 5
+      },
+      {
+        "constituency": "Rajnandgaon",
+        "constituency_code": 6
+      },
+      {
+        "constituency": "Durg",
+        "constituency_code": 7
+      },
+      {
+        "constituency": "Raipur",
+        "constituency_code": 8
+      },
+      {
+        "constituency": "Mahasamund",
+        "constituency_code": 9
+      },
+      {
+        "constituency": "Bastar (St)",
+        "constituency_code": 10
+      },
+      {
+        "constituency": "Kanker (St)",
+        "constituency_code": 11
+      }
+    ],
+    "jharkhand": [
+      {
+        "constituency": "Rajmahal (St)",
+        "constituency_code": 1
+      },
+      {
+        "constituency": "Dumka (St)",
+        "constituency_code": 2
+      },
+      {
+        "constituency": "Godda",
+        "constituency_code": 3
+      },
+      {
+        "constituency": "Chatra",
+        "constituency_code": 4
+      },
+      {
+        "constituency": "Koderma",
+        "constituency_code": 5
+      },
+      {
+        "constituency": "Giridih",
+        "constituency_code": 6
+      },
+      {
+        "constituency": "Dhanbad",
+        "constituency_code": 7
+      },
+      {
+        "constituency": "Ranchi",
+        "constituency_code": 8
+      },
+      {
+        "constituency": "Jamshedpur",
+        "constituency_code": 9
+      },
+      {
+        "constituency": "Singhbhum (St)",
+        "constituency_code": 10
+      },
+      {
+        "constituency": "Khunti (St)",
+        "constituency_code": 11
+      },
+      {
+        "constituency": "Lohardaga (St)",
+        "constituency_code": 12
+      },
+      {
+        "constituency": "Palamu (Sc)",
+        "constituency_code": 13
+      },
+      {
+        "constituency": "Hazaribag",
+        "constituency_code": 14
+      }
+    ],
+    "maharashtra": [
+      {
+        "constituency": "Nandurbar (St)",
+        "constituency_code": 1
+      },
+      {
+        "constituency": "Dhule",
+        "constituency_code": 2
+      },
+      {
+        "constituency": "Jalgaon",
+        "constituency_code": 3
+      },
+      {
+        "constituency": "Raver",
+        "constituency_code": 4
+      },
+      {
+        "constituency": "Buldhana",
+        "constituency_code": 5
+      },
+      {
+        "constituency": "Akola",
+        "constituency_code": 6
+      },
+      {
+        "constituency": "Amravati (Sc)",
+        "constituency_code": 7
+      },
+      {
+        "constituency": "Wardha",
+        "constituency_code": 8
+      },
+      {
+        "constituency": "Ramtek (Sc)",
+        "constituency_code": 9
+      },
+      {
+        "constituency": "Bhandara",
+        "constituency_code": 11
+      },
+      {
+        "constituency": "Gadchiroli",
+        "constituency_code": 12
+      },
+      {
+        "constituency": "Chandrapur",
+        "constituency_code": 13
+      },
+      {
+        "constituency": "Yavatmal-Washim",
+        "constituency_code": 14
+      },
+      {
+        "constituency": "Hingoli",
+        "constituency_code": 15
+      },
+      {
+        "constituency": "Nanded",
+        "constituency_code": 16
+      },
+      {
+        "constituency": "Parbhani",
+        "constituency_code": 17
+      },
+      {
+        "constituency": "Jalna",
+        "constituency_code": 18
+      },
+      {
+        "constituency": "Aurangabad",
+        "constituency_code": 19
+      },
+      {
+        "constituency": "Dindori (St)",
+        "constituency_code": 20
+      },
+      {
+        "constituency": "Nashik",
+        "constituency_code": 21
+      },
+      {
+        "constituency": "Palghar",
+        "constituency_code": 22
+      },
+      {
+        "constituency": "Bhiwandi",
+        "constituency_code": 23
+      },
+      {
+        "constituency": "Kalyan",
+        "constituency_code": 24
+      },
+      {
+        "constituency": "Thane",
+        "constituency_code": 25
+      },
+      {
+        "constituency": "Raigad",
+        "constituency_code": 32
+      },
+      {
+        "constituency": "Maval",
+        "constituency_code": 33
+      },
+      {
+        "constituency": "Pune",
+        "constituency_code": 34
+      },
+      {
+        "constituency": "Baramati",
+        "constituency_code": 35
+      },
+      {
+        "constituency": "Shirur",
+        "constituency_code": 36
+      },
+      {
+        "constituency": "Ahmednagar",
+        "constituency_code": 37
+      },
+      {
+        "constituency": "Shirdi (Sc)",
+        "constituency_code": 38
+      },
+      {
+        "constituency": "Beed",
+        "constituency_code": 39
+      },
+      {
+        "constituency": "Osmanabad",
+        "constituency_code": 40
+      },
+      {
+        "constituency": "Latur (Sc)",
+        "constituency_code": 41
+      },
+      {
+        "constituency": "Solapur (Sc)",
+        "constituency_code": 42
+      },
+      {
+        "constituency": "Madha",
+        "constituency_code": 43
+      },
+      {
+        "constituency": "Sangli",
+        "constituency_code": 44
+      },
+      {
+        "constituency": "Satara",
+        "constituency_code": 45
+      },
+      {
+        "constituency": "Ratnagiri",
+        "constituency_code": 46
+      },
+      {
+        "constituency": "Kolhapur",
+        "constituency_code": 47
+      },
+      {
+        "constituency": "Hatkanangle",
+        "constituency_code": 48
+      }
+    ],
+    "odisha": [
+      {
+        "constituency": "Bargarh",
+        "constituency_code": 1
+      },
+      {
+        "constituency": "Sundargarh (ST)",
+        "constituency_code": 2
+      },
+      {
+        "constituency": "Sambalpur",
+        "constituency_code": 3
+      },
+      {
+        "constituency": "Keonjhar (ST)",
+        "constituency_code": 4
+      },
+      {
+        "constituency": "Mayurbhanj (ST)",
+        "constituency_code": 5
+      },
+      {
+        "constituency": "Balasore",
+        "constituency_code": 6
+      },
+      {
+        "constituency": "Bhadrak (SC)",
+        "constituency_code": 7
+      },
+      {
+        "constituency": "Jajpur (SC)",
+        "constituency_code": 8
+      },
+      {
+        "constituency": "Dhenkanal",
+        "constituency_code": 9
+      },
+      {
+        "constituency": "Bolangir",
+        "constituency_code": 10
+      },
+      {
+        "constituency": "Kalahandi",
+        "constituency_code": 11
+      },
+      {
+        "constituency": "Nabarangpur (ST)",
+        "constituency_code": 12
+      },
+      {
+        "constituency": "Kandhamal",
+        "constituency_code": 13
+      },
+      {
+        "constituency": "Cuttack",
+        "constituency_code": 14
+      },
+      {
+        "constituency": "Kendrapara",
+        "constituency_code": 15
+      },
+      {
+        "constituency": "Jagatsinghpur (SC)",
+        "constituency_code": 16
+      },
+      {
+        "constituency": "Puri",
+        "constituency_code": 17
+      },
+      {
+        "constituency": "Bhubaneswar",
+        "constituency_code": 18
+      },
+      {
+        "constituency": "Aska",
+        "constituency_code": 19
+      },
+      {
+        "constituency": "Berhampur",
+        "constituency_code": 20
+      },
+      {
+        "constituency": "Koraput (ST)",
+        "constituency_code": 21
+      }
+    ],
+    "uttar pradesh": [
+      {
+        "constituency": "Saharanpur",
+        "constituency_code": 1
+      },
+      {
+        "constituency": "Kairana",
+        "constituency_code": 2
+      },
+      {
+        "constituency": "Muzaffarnagar",
+        "constituency_code": 3
+      },
+      {
+        "constituency": "Bijnor",
+        "constituency_code": 4
+      },
+      {
+        "constituency": "Nagina (SC)",
+        "constituency_code": 5
+      },
+      {
+        "constituency": "Moradabad",
+        "constituency_code": 6
+      },
+      {
+        "constituency": "Rampur",
+        "constituency_code": 7
+      },
+      {
+        "constituency": "Sambhal",
+        "constituency_code": 8
+      },
+      {
+        "constituency": "Amroha",
+        "constituency_code": 9
+      },
+      {
+        "constituency": "Meerut",
+        "constituency_code": 10
+      },
+      {
+        "constituency": "Baghpat",
+        "constituency_code": 11
+      },
+      {
+        "constituency": "Ghaziabad",
+        "constituency_code": 12
+      },
+      {
+        "constituency": "Gautam Buddha Nagar",
+        "constituency_code": 13
+      },
+      {
+        "constituency": "Bulandshahr (SC)",
+        "constituency_code": 14
+      },
+      {
+        "constituency": "Aligarh",
+        "constituency_code": 15
+      },
+      {
+        "constituency": "Hathras (SC)",
+        "constituency_code": 16
+      },
+      {
+        "constituency": "Mathura",
+        "constituency_code": 17
+      },
+      {
+        "constituency": "Agra (SC)",
+        "constituency_code": 18
+      },
+      {
+        "constituency": "Fatehpur Sikri",
+        "constituency_code": 19
+      },
+      {
+        "constituency": "Firozabad",
+        "constituency_code": 20
+      },
+      {
+        "constituency": "Mainpuri",
+        "constituency_code": 21
+      },
+      {
+        "constituency": "Etah",
+        "constituency_code": 22
+      },
+      {
+        "constituency": "Badaun",
+        "constituency_code": 23
+      },
+      {
+        "constituency": "Aonla",
+        "constituency_code": 24
+      },
+      {
+        "constituency": "Bareilly",
+        "constituency_code": 25
+      },
+      {
+        "constituency": "Pilibhit",
+        "constituency_code": 26
+      },
+      {
+        "constituency": "Shahjahanpur (SC)",
+        "constituency_code": 27
+      },
+      {
+        "constituency": "Kheri",
+        "constituency_code": 28
+      },
+      {
+        "constituency": "Dhaurahra",
+        "constituency_code": 29
+      },
+      {
+        "constituency": "Sitapur",
+        "constituency_code": 30
+      },
+      {
+        "constituency": "Hardoi (SC)",
+        "constituency_code": 31
+      },
+      {
+        "constituency": "Misrikh (SC)",
+        "constituency_code": 32
+      },
+      {
+        "constituency": "Unnao",
+        "constituency_code": 33
+      },
+      {
+        "constituency": "Mohanlalganj (SC)",
+        "constituency_code": 34
+      },
+      {
+        "constituency": "Rae Bareli",
+        "constituency_code": 36
+      },
+      {
+        "constituency": "Amethi",
+        "constituency_code": 37
+      },
+      {
+        "constituency": "Sultanpur",
+        "constituency_code": 38
+      },
+      {
+        "constituency": "Pratapgarh",
+        "constituency_code": 39
+      },
+      {
+        "constituency": "Farrukhabad",
+        "constituency_code": 40
+      },
+      {
+        "constituency": "Etawah (SC)",
+        "constituency_code": 41
+      },
+      {
+        "constituency": "Kannauj",
+        "constituency_code": 42
+      },
+      {
+        "constituency": "Kanpur",
+        "constituency_code": 43
+      },
+      {
+        "constituency": "Akbarpur",
+        "constituency_code": 44
+      },
+      {
+        "constituency": "Jalaun (SC)",
+        "constituency_code": 45
+      },
+      {
+        "constituency": "Jhansi",
+        "constituency_code": 46
+      },
+      {
+        "constituency": "Hamirpur",
+        "constituency_code": 47
+      },
+      {
+        "constituency": "Banda",
+        "constituency_code": 48
+      },
+      {
+        "constituency": "Fatehpur",
+        "constituency_code": 49
+      },
+      {
+        "constituency": "Kaushambi (SC)",
+        "constituency_code": 50
+      },
+      {
+        "constituency": "Phulpur",
+        "constituency_code": 51
+      },
+      {
+        "constituency": "Allahabad",
+        "constituency_code": 52
+      },
+      {
+        "constituency": "Barabanki (SC)",
+        "constituency_code": 53
+      },
+      {
+        "constituency": "Faizabad",
+        "constituency_code": 54
+      },
+      {
+        "constituency": "Ambedkar Nagar",
+        "constituency_code": 55
+      },
+      {
+        "constituency": "Bahraich (SC)",
+        "constituency_code": 56
+      },
+      {
+        "constituency": "Kaiserganj",
+        "constituency_code": 57
+      },
+      {
+        "constituency": "Shrawasti",
+        "constituency_code": 58
+      },
+      {
+        "constituency": "Gonda",
+        "constituency_code": 59
+      },
+      {
+        "constituency": "Domariyaganj",
+        "constituency_code": 60
+      },
+      {
+        "constituency": "Basti",
+        "constituency_code": 61
+      },
+      {
+        "constituency": "Sant Kabir Nagar",
+        "constituency_code": 62
+      },
+      {
+        "constituency": "Maharajganj",
+        "constituency_code": 63
+      },
+      {
+        "constituency": "Gorakhpur",
+        "constituency_code": 64
+      },
+      {
+        "constituency": "Kushi Nagar",
+        "constituency_code": 65
+      },
+      {
+        "constituency": "Deoria",
+        "constituency_code": 66
+      },
+      {
+        "constituency": "Bansgaon (SC)",
+        "constituency_code": 67
+      },
+      {
+        "constituency": "Lalganj (SC)",
+        "constituency_code": 68
+      },
+      {
+        "constituency": "Azamgarh",
+        "constituency_code": 69
+      },
+      {
+        "constituency": "Ghosi",
+        "constituency_code": 70
+      },
+      {
+        "constituency": "Salempur",
+        "constituency_code": 71
+      },
+      {
+        "constituency": "Ballia",
+        "constituency_code": 72
+      },
+      {
+        "constituency": "Jaunpur",
+        "constituency_code": 73
+      },
+      {
+        "constituency": "Machhlishahr (SC)",
+        "constituency_code": 74
+      },
+      {
+        "constituency": "Ghazipur",
+        "constituency_code": 75
+      },
+      {
+        "constituency": "Chandauli",
+        "constituency_code": 76
+      },
+      {
+        "constituency": "Varanasi",
+        "constituency_code": 77
+      },
+      {
+        "constituency": "Bhadohi",
+        "constituency_code": 78
+      },
+      {
+        "constituency": "Mirzapur",
+        "constituency_code": 79
+      },
+      {
+        "constituency": "Robertsganj (SC)",
+        "constituency_code": 80
+      }
+    ]
+  },
+  "vidhan": {
+    "bihar": [
+      {
+        "constituency": "Valmiki Nagar",
+        "constituency_code": 1
+      },
+      {
+        "constituency": "Ramnagar (SC)",
+        "constituency_code": 2
+      },
+      {
+        "constituency": "Narkatiaganj",
+        "constituency_code": 3
+      },
+      {
+        "constituency": "Bagaha",
+        "constituency_code": 4
+      },
+      {
+        "constituency": "Lauriya",
+        "constituency_code": 5
+      },
+      {
+        "constituency": "Nautan",
+        "constituency_code": 6
+      },
+      {
+        "constituency": "Chanpatia",
+        "constituency_code": 7
+      },
+      {
+        "constituency": "Bettiah",
+        "constituency_code": 8
+      },
+      {
+        "constituency": "Sikta",
+        "constituency_code": 9
+      },
+      {
+        "constituency": "Raxaul",
+        "constituency_code": 10
+      },
+      {
+        "constituency": "Sugauli",
+        "constituency_code": 11
+      },
+      {
+        "constituency": "Narkatia",
+        "constituency_code": 12
+      },
+      {
+        "constituency": "Harsidhi (SC)",
+        "constituency_code": 13
+      },
+      {
+        "constituency": "Govindganj",
+        "constituency_code": 14
+      },
+      {
+        "constituency": "Kesaria",
+        "constituency_code": 15
+      },
+      {
+        "constituency": "Kalyanpur",
+        "constituency_code": 16
+      },
+      {
+        "constituency": "Pipra",
+        "constituency_code": 17
+      },
+      {
+        "constituency": "Madhuban",
+        "constituency_code": 18
+      },
+      {
+        "constituency": "Motihari",
+        "constituency_code": 19
+      },
+      {
+        "constituency": "Chiraia",
+        "constituency_code": 20
+      },
+      {
+        "constituency": "Dhaka",
+        "constituency_code": 21
+      },
+      {
+        "constituency": "Sheohar",
+        "constituency_code": 22
+      },
+      {
+        "constituency": "Riga",
+        "constituency_code": 23
+      },
+      {
+        "constituency": "Bathnaha (SC)",
+        "constituency_code": 24
+      },
+      {
+        "constituency": "Parihar",
+        "constituency_code": 25
+      },
+      {
+        "constituency": "Sursand",
+        "constituency_code": 26
+      },
+      {
+        "constituency": "Bajpatti",
+        "constituency_code": 27
+      },
+      {
+        "constituency": "Sitamarhi",
+        "constituency_code": 28
+      },
+      {
+        "constituency": "Runnisaidpur",
+        "constituency_code": 29
+      },
+      {
+        "constituency": "Belsand",
+        "constituency_code": 30
+      },
+      {
+        "constituency": "Harlakhi",
+        "constituency_code": 31
+      },
+      {
+        "constituency": "Benipatti",
+        "constituency_code": 32
+      },
+      {
+        "constituency": "Khajauli",
+        "constituency_code": 33
+      },
+      {
+        "constituency": "Babubarhi",
+        "constituency_code": 34
+      },
+      {
+        "constituency": "Bisfi",
+        "constituency_code": 35
+      },
+      {
+        "constituency": "Madhubani",
+        "constituency_code": 36
+      },
+      {
+        "constituency": "Rajnagar(SC)",
+        "constituency_code": 37
+      },
+      {
+        "constituency": "Jhanjharpur",
+        "constituency_code": 38
+      },
+      {
+        "constituency": "Phulparas",
+        "constituency_code": 39
+      },
+      {
+        "constituency": "Laukaha",
+        "constituency_code": 40
+      },
+      {
+        "constituency": "Nirmali",
+        "constituency_code": 41
+      },
+      {
+        "constituency": "Pipra",
+        "constituency_code": 42
+      },
+      {
+        "constituency": "Supaul",
+        "constituency_code": 43
+      },
+      {
+        "constituency": "Triveniganj (SC)",
+        "constituency_code": 44
+      },
+      {
+        "constituency": "Chhatapur",
+        "constituency_code": 45
+      },
+      {
+        "constituency": "Narpatganj",
+        "constituency_code": 46
+      },
+      {
+        "constituency": "Raniganj (SC)",
+        "constituency_code": 47
+      },
+      {
+        "constituency": "Forbesganj",
+        "constituency_code": 48
+      },
+      {
+        "constituency": "Araria",
+        "constituency_code": 49
+      },
+      {
+        "constituency": "Jokihat",
+        "constituency_code": 50
+      },
+      {
+        "constituency": "Sikti",
+        "constituency_code": 51
+      },
+      {
+        "constituency": "Bahadurganj",
+        "constituency_code": 52
+      },
+      {
+        "constituency": "Thakurganj",
+        "constituency_code": 53
+      },
+      {
+        "constituency": "Kishanganj",
+        "constituency_code": 54
+      },
+      {
+        "constituency": "Kochadhaman",
+        "constituency_code": 55
+      },
+      {
+        "constituency": "Amour",
+        "constituency_code": 56
+      },
+      {
+        "constituency": "Baisi",
+        "constituency_code": 57
+      },
+      {
+        "constituency": "Kasba",
+        "constituency_code": 58
+      },
+      {
+        "constituency": "Banmankhi (SC)",
+        "constituency_code": 59
+      },
+      {
+        "constituency": "Rupauli",
+        "constituency_code": 60
+      },
+      {
+        "constituency": "Dhamdaha",
+        "constituency_code": 61
+      },
+      {
+        "constituency": "Purnia/Purnea",
+        "constituency_code": 62
+      },
+      {
+        "constituency": "Katihar",
+        "constituency_code": 63
+      },
+      {
+        "constituency": "Kadwa",
+        "constituency_code": 64
+      },
+      {
+        "constituency": "Balrampur",
+        "constituency_code": 65
+      },
+      {
+        "constituency": "Pranpur",
+        "constituency_code": 66
+      },
+      {
+        "constituency": "Manihari (ST)",
+        "constituency_code": 67
+      },
+      {
+        "constituency": "Barari",
+        "constituency_code": 68
+      },
+      {
+        "constituency": "Korha (SC)",
+        "constituency_code": 69
+      },
+      {
+        "constituency": "Alamnagar",
+        "constituency_code": 70
+      },
+      {
+        "constituency": "Bihariganj",
+        "constituency_code": 71
+      },
+      {
+        "constituency": "Singheshwar (SC)",
+        "constituency_code": 72
+      },
+      {
+        "constituency": "Madhepura",
+        "constituency_code": 73
+      },
+      {
+        "constituency": "Sonbarsha (SC)",
+        "constituency_code": 74
+      },
+      {
+        "constituency": "Saharsa",
+        "constituency_code": 75
+      },
+      {
+        "constituency": "Simri Bakhtiarpur",
+        "constituency_code": 76
+      },
+      {
+        "constituency": "Mahishi",
+        "constituency_code": 77
+      },
+      {
+        "constituency": "Kusheshwar Asthan (SC)",
+        "constituency_code": 78
+      },
+      {
+        "constituency": "Gaura Bauram",
+        "constituency_code": 79
+      },
+      {
+        "constituency": "Benipur",
+        "constituency_code": 80
+      },
+      {
+        "constituency": "Alinagar",
+        "constituency_code": 81
+      },
+      {
+        "constituency": "Darbhanga Rural",
+        "constituency_code": 82
+      },
+      {
+        "constituency": "Darbhanga",
+        "constituency_code": 83
+      },
+      {
+        "constituency": "Hayaghat",
+        "constituency_code": 84
+      },
+      {
+        "constituency": "Bahadurpur",
+        "constituency_code": 85
+      },
+      {
+        "constituency": "Keoti",
+        "constituency_code": 86
+      },
+      {
+        "constituency": "Jale",
+        "constituency_code": 87
+      },
+      {
+        "constituency": "Gaighat",
+        "constituency_code": 88
+      },
+      {
+        "constituency": "Aurai",
+        "constituency_code": 89
+      },
+      {
+        "constituency": "Minapur",
+        "constituency_code": 90
+      },
+      {
+        "constituency": "Bochahan(SC)",
+        "constituency_code": 91
+      },
+      {
+        "constituency": "Sakra (SC)",
+        "constituency_code": 92
+      },
+      {
+        "constituency": "Kurhani",
+        "constituency_code": 93
+      },
+      {
+        "constituency": "Muzzaffarpur",
+        "constituency_code": 94
+      },
+      {
+        "constituency": "Kanti",
+        "constituency_code": 95
+      },
+      {
+        "constituency": "Baruraj",
+        "constituency_code": 96
+      },
+      {
+        "constituency": "Paroo",
+        "constituency_code": 97
+      },
+      {
+        "constituency": "Sahebganj",
+        "constituency_code": 98
+      },
+      {
+        "constituency": "Baikunthpur",
+        "constituency_code": 99
+      },
+      {
+        "constituency": "Barauli",
+        "constituency_code": 100
+      },
+      {
+        "constituency": "Gopalganj",
+        "constituency_code": 101
+      },
+      {
+        "constituency": "Kuchaikote",
+        "constituency_code": 102
+      },
+      {
+        "constituency": "Bhore(SC)",
+        "constituency_code": 103
+      },
+      {
+        "constituency": "Hathua",
+        "constituency_code": 104
+      },
+      {
+        "constituency": "Siwan",
+        "constituency_code": 105
+      },
+      {
+        "constituency": "Ziradei",
+        "constituency_code": 106
+      },
+      {
+        "constituency": "Darauli (SC)",
+        "constituency_code": 107
+      },
+      {
+        "constituency": "Raghunathpur",
+        "constituency_code": 108
+      },
+      {
+        "constituency": "Daraunda",
+        "constituency_code": 109
+      },
+      {
+        "constituency": "Barharia",
+        "constituency_code": 110
+      },
+      {
+        "constituency": "Goriakothi",
+        "constituency_code": 111
+      },
+      {
+        "constituency": "Maharajganj",
+        "constituency_code": 112
+      },
+      {
+        "constituency": "Ekma",
+        "constituency_code": 113
+      },
+      {
+        "constituency": "Manjhi",
+        "constituency_code": 114
+      },
+      {
+        "constituency": "Baniapur",
+        "constituency_code": 115
+      },
+      {
+        "constituency": "Taraiya",
+        "constituency_code": 116
+      },
+      {
+        "constituency": "Marhaura",
+        "constituency_code": 117
+      },
+      {
+        "constituency": "Chapra",
+        "constituency_code": 118
+      },
+      {
+        "constituency": "Garkha(SC)",
+        "constituency_code": 119
+      },
+      {
+        "constituency": "Amnour",
+        "constituency_code": 120
+      },
+      {
+        "constituency": "Parsa",
+        "constituency_code": 121
+      },
+      {
+        "constituency": "Sonepur",
+        "constituency_code": 122
+      },
+      {
+        "constituency": "Hajipur",
+        "constituency_code": 123
+      },
+      {
+        "constituency": "Lalganj",
+        "constituency_code": 124
+      },
+      {
+        "constituency": "Vaishali",
+        "constituency_code": 125
+      },
+      {
+        "constituency": "Mahua",
+        "constituency_code": 126
+      },
+      {
+        "constituency": "Raja Pakar(SC)",
+        "constituency_code": 127
+      },
+      {
+        "constituency": "Raghopur",
+        "constituency_code": 128
+      },
+      {
+        "constituency": "Mahnar",
+        "constituency_code": 129
+      },
+      {
+        "constituency": "Patepur (SC)",
+        "constituency_code": 130
+      },
+      {
+        "constituency": "Kalyanpur(SC)",
+        "constituency_code": 131
+      },
+      {
+        "constituency": "Warisnagar",
+        "constituency_code": 132
+      },
+      {
+        "constituency": "Samastipur",
+        "constituency_code": 133
+      },
+      {
+        "constituency": "Ujiarpur",
+        "constituency_code": 134
+      },
+      {
+        "constituency": "Morwa",
+        "constituency_code": 135
+      },
+      {
+        "constituency": "Sarairanjan",
+        "constituency_code": 136
+      },
+      {
+        "constituency": "Mohiuddinnagar",
+        "constituency_code": 137
+      },
+      {
+        "constituency": "Bibhutipur",
+        "constituency_code": 138
+      },
+      {
+        "constituency": "Rosera (SC)",
+        "constituency_code": 139
+      },
+      {
+        "constituency": "Hasanpur",
+        "constituency_code": 140
+      },
+      {
+        "constituency": "Cheria Bariarpur",
+        "constituency_code": 141
+      },
+      {
+        "constituency": "Bachhwara",
+        "constituency_code": 142
+      },
+      {
+        "constituency": "Teghra",
+        "constituency_code": 143
+      },
+      {
+        "constituency": "Matihani",
+        "constituency_code": 144
+      },
+      {
+        "constituency": "Sahebpur Kamal",
+        "constituency_code": 145
+      },
+      {
+        "constituency": "Begusarai",
+        "constituency_code": 146
+      },
+      {
+        "constituency": "Bakhri (SC)",
+        "constituency_code": 147
+      },
+      {
+        "constituency": "Alauli (SC)",
+        "constituency_code": 148
+      },
+      {
+        "constituency": "Khagaria",
+        "constituency_code": 149
+      },
+      {
+        "constituency": "Beldaur",
+        "constituency_code": 150
+      },
+      {
+        "constituency": "Parbatta",
+        "constituency_code": 151
+      },
+      {
+        "constituency": "Bihpur",
+        "constituency_code": 152
+      },
+      {
+        "constituency": "Gopalpur",
+        "constituency_code": 153
+      },
+      {
+        "constituency": "Pirpainti (SC)",
+        "constituency_code": 154
+      },
+      {
+        "constituency": "Kahalgaon",
+        "constituency_code": 155
+      },
+      {
+        "constituency": "Sultanganj",
+        "constituency_code": 157
+      },
+      {
+        "constituency": "Nathnagar",
+        "constituency_code": 158
+      },
+      {
+        "constituency": "Amarpur",
+        "constituency_code": 159
+      },
+      {
+        "constituency": "Dhoraiya (SC)",
+        "constituency_code": 160
+      },
+      {
+        "constituency": "Banka",
+        "constituency_code": 161
+      },
+      {
+        "constituency": "Katoria (ST)",
+        "constituency_code": 162
+      },
+      {
+        "constituency": "Belhar",
+        "constituency_code": 163
+      },
+      {
+        "constituency": "Tarapur",
+        "constituency_code": 164
+      },
+      {
+        "constituency": "Munger",
+        "constituency_code": 165
+      },
+      {
+        "constituency": "Jamalpur",
+        "constituency_code": 166
+      },
+      {
+        "constituency": "Suryagarha",
+        "constituency_code": 167
+      },
+      {
+        "constituency": "Lakshisarai",
+        "constituency_code": 168
+      },
+      {
+        "constituency": "Sheikhpura",
+        "constituency_code": 169
+      },
+      {
+        "constituency": "Barbigha",
+        "constituency_code": 170
+      },
+      {
+        "constituency": "Asthawan",
+        "constituency_code": 171
+      },
+      {
+        "constituency": "Biharsharif/ Bihar",
+        "constituency_code": 172
+      },
+      {
+        "constituency": "Rajgir (SC)",
+        "constituency_code": 173
+      },
+      {
+        "constituency": "Islampur",
+        "constituency_code": 174
+      },
+      {
+        "constituency": "Hilsa",
+        "constituency_code": 175
+      },
+      {
+        "constituency": "Nalanda",
+        "constituency_code": 176
+      },
+      {
+        "constituency": "Harnaut",
+        "constituency_code": 177
+      },
+      {
+        "constituency": "Mokama",
+        "constituency_code": 178
+      },
+      {
+        "constituency": "Barh",
+        "constituency_code": 179
+      },
+      {
+        "constituency": "Bakhtiarpur",
+        "constituency_code": 180
+      },
+      {
+        "constituency": "Digha",
+        "constituency_code": 181
+      },
+      {
+        "constituency": "Fatuha",
+        "constituency_code": 185
+      },
+      {
+        "constituency": "Danapur",
+        "constituency_code": 186
+      },
+      {
+        "constituency": "Maner",
+        "constituency_code": 187
+      },
+      {
+        "constituency": "Phulwari (SC)",
+        "constituency_code": 188
+      },
+      {
+        "constituency": "Masaurhi (SC)",
+        "constituency_code": 189
+      },
+      {
+        "constituency": "Paliganj",
+        "constituency_code": 190
+      },
+      {
+        "constituency": "Bikram",
+        "constituency_code": 191
+      },
+      {
+        "constituency": "Sandesh",
+        "constituency_code": 192
+      },
+      {
+        "constituency": "Barhara",
+        "constituency_code": 193
+      },
+      {
+        "constituency": "Arrah",
+        "constituency_code": 194
+      },
+      {
+        "constituency": "Agiaon (SC)",
+        "constituency_code": 195
+      },
+      {
+        "constituency": "Tarari",
+        "constituency_code": 196
+      },
+      {
+        "constituency": "Jagdishpur",
+        "constituency_code": 197
+      },
+      {
+        "constituency": "Shahpur",
+        "constituency_code": 198
+      },
+      {
+        "constituency": "Brahmpur",
+        "constituency_code": 199
+      },
+      {
+        "constituency": "Buxar",
+        "constituency_code": 200
+      },
+      {
+        "constituency": "Dumraon",
+        "constituency_code": 201
+      },
+      {
+        "constituency": "Rajpur (SC)",
+        "constituency_code": 202
+      },
+      {
+        "constituency": "Ramgarh",
+        "constituency_code": 203
+      },
+      {
+        "constituency": "Mohania (SC)",
+        "constituency_code": 204
+      },
+      {
+        "constituency": "Bhabua",
+        "constituency_code": 205
+      },
+      {
+        "constituency": "Chainpur",
+        "constituency_code": 206
+      },
+      {
+        "constituency": "Chenari (SC)",
+        "constituency_code": 207
+      },
+      {
+        "constituency": "Sasaram",
+        "constituency_code": 208
+      },
+      {
+        "constituency": "Kargahar",
+        "constituency_code": 209
+      },
+      {
+        "constituency": "Dinara",
+        "constituency_code": 210
+      },
+      {
+        "constituency": "Nokha",
+        "constituency_code": 211
+      },
+      {
+        "constituency": "Dehri",
+        "constituency_code": 212
+      },
+      {
+        "constituency": "Karakat",
+        "constituency_code": 213
+      },
+      {
+        "constituency": "Arwal",
+        "constituency_code": 214
+      },
+      {
+        "constituency": "Kurtha",
+        "constituency_code": 215
+      },
+      {
+        "constituency": "Jehanabad",
+        "constituency_code": 216
+      },
+      {
+        "constituency": "Ghosi",
+        "constituency_code": 217
+      },
+      {
+        "constituency": "Makhdumpur (SC)",
+        "constituency_code": 218
+      },
+      {
+        "constituency": "Goh",
+        "constituency_code": 219
+      },
+      {
+        "constituency": "Obra",
+        "constituency_code": 220
+      },
+      {
+        "constituency": "Nabinagar",
+        "constituency_code": 221
+      },
+      {
+        "constituency": "Kutumba (SC)",
+        "constituency_code": 222
+      },
+      {
+        "constituency": "Aurangabad",
+        "constituency_code": 223
+      },
+      {
+        "constituency": "Rafiganj",
+        "constituency_code": 224
+      },
+      {
+        "constituency": "Gurua",
+        "constituency_code": 225
+      },
+      {
+        "constituency": "Sherghati",
+        "constituency_code": 226
+      },
+      {
+        "constituency": "Imamganj(SC)",
+        "constituency_code": 227
+      },
+      {
+        "constituency": "Barachatti(SC)",
+        "constituency_code": 228
+      },
+      {
+        "constituency": "Bodh Gaya(SC)",
+        "constituency_code": 229
+      },
+      {
+        "constituency": "Gaya Town",
+        "constituency_code": 230
+      },
+      {
+        "constituency": "Tikari",
+        "constituency_code": 231
+      },
+      {
+        "constituency": "Belaganj",
+        "constituency_code": 232
+      },
+      {
+        "constituency": "Atri",
+        "constituency_code": 233
+      },
+      {
+        "constituency": "Wazirganj",
+        "constituency_code": 234
+      },
+      {
+        "constituency": "Rajauli(SC)",
+        "constituency_code": 235
+      },
+      {
+        "constituency": "Hisua",
+        "constituency_code": 236
+      },
+      {
+        "constituency": "Nawada",
+        "constituency_code": 237
+      },
+      {
+        "constituency": "Gobindpur",
+        "constituency_code": 238
+      },
+      {
+        "constituency": "Warsaliganj",
+        "constituency_code": 239
+      },
+      {
+        "constituency": "Sikandra(SC)",
+        "constituency_code": 240
+      },
+      {
+        "constituency": "Jamui",
+        "constituency_code": 241
+      },
+      {
+        "constituency": "Jhajha",
+        "constituency_code": 242
+      },
+      {
+        "constituency": "Chakai",
+        "constituency_code": 243
+      }
+    ],
+    "chhattisgarh": [
+      {
+        "constituency": "Bharatpur-Sonhat (ST)",
+        "constituency_code": 1
+      },
+      {
+        "constituency": "Manendragarh",
+        "constituency_code": 2
+      },
+      {
+        "constituency": "Baikunthpur",
+        "constituency_code": 3
+      },
+      {
+        "constituency": "Premnagar",
+        "constituency_code": 4
+      },
+      {
+        "constituency": "Bhatgaon",
+        "constituency_code": 5
+      },
+      {
+        "constituency": "Pratappur (ST)",
+        "constituency_code": 6
+      },
+      {
+        "constituency": "Ramanujganj (ST)",
+        "constituency_code": 7
+      },
+      {
+        "constituency": "Samri (ST)",
+        "constituency_code": 8
+      },
+      {
+        "constituency": "Lundra (ST)",
+        "constituency_code": 9
+      },
+      {
+        "constituency": "Ambikapur",
+        "constituency_code": 10
+      },
+      {
+        "constituency": "Sitapur (ST)",
+        "constituency_code": 11
+      },
+      {
+        "constituency": "Jashpur (ST)",
+        "constituency_code": 12
+      },
+      {
+        "constituency": "Kunkuri (ST)",
+        "constituency_code": 13
+      },
+      {
+        "constituency": "Pathalgaon (ST)",
+        "constituency_code": 14
+      },
+      {
+        "constituency": "Lailunga (ST)",
+        "constituency_code": 15
+      },
+      {
+        "constituency": "Raigarh",
+        "constituency_code": 16
+      },
+      {
+        "constituency": "Sarangarh (SC)",
+        "constituency_code": 17
+      },
+      {
+        "constituency": "Kharsia",
+        "constituency_code": 18
+      },
+      {
+        "constituency": "Dharamjaigarh (ST)",
+        "constituency_code": 19
+      },
+      {
+        "constituency": "Rampur (ST)",
+        "constituency_code": 20
+      },
+      {
+        "constituency": "Korba",
+        "constituency_code": 21
+      },
+      {
+        "constituency": "Katghora",
+        "constituency_code": 22
+      },
+      {
+        "constituency": "Pali-Tanakhar (ST)",
+        "constituency_code": 23
+      },
+      {
+        "constituency": "Marwahi (ST)",
+        "constituency_code": 24
+      },
+      {
+        "constituency": "Kota",
+        "constituency_code": 25
+      },
+      {
+        "constituency": "Lormi",
+        "constituency_code": 26
+      },
+      {
+        "constituency": "Mungeli (SC)",
+        "constituency_code": 27
+      },
+      {
+        "constituency": "Takhatpur",
+        "constituency_code": 28
+      },
+      {
+        "constituency": "Bilha",
+        "constituency_code": 29
+      },
+      {
+        "constituency": "Bilaspur",
+        "constituency_code": 30
+      },
+      {
+        "constituency": "Beltara",
+        "constituency_code": 31
+      },
+      {
+        "constituency": "Masturi (SC)",
+        "constituency_code": 32
+      },
+      {
+        "constituency": "Akaltara",
+        "constituency_code": 33
+      },
+      {
+        "constituency": "Janjgir Champa",
+        "constituency_code": 34
+      },
+      {
+        "constituency": "Sakti",
+        "constituency_code": 35
+      },
+      {
+        "constituency": "Chandrapura",
+        "constituency_code": 36
+      },
+      {
+        "constituency": "Jaijaipur",
+        "constituency_code": 37
+      },
+      {
+        "constituency": "Pamgarh (SC)",
+        "constituency_code": 38
+      },
+      {
+        "constituency": "Saraipali (SC)",
+        "constituency_code": 39
+      },
+      {
+        "constituency": "Basna",
+        "constituency_code": 40
+      },
+      {
+        "constituency": "Khallari",
+        "constituency_code": 41
+      },
+      {
+        "constituency": "Mahasamund",
+        "constituency_code": 42
+      },
+      {
+        "constituency": "Bilaigarh (SC)",
+        "constituency_code": 43
+      },
+      {
+        "constituency": "Kasdol",
+        "constituency_code": 44
+      },
+      {
+        "constituency": "Baloda Bazar",
+        "constituency_code": 45
+      },
+      {
+        "constituency": "Bhatapara",
+        "constituency_code": 46
+      },
+      {
+        "constituency": "Dharsiwa",
+        "constituency_code": 47
+      },
+      {
+        "constituency": "Arang (SC)",
+        "constituency_code": 52
+      },
+      {
+        "constituency": "Abhanpur",
+        "constituency_code": 53
+      },
+      {
+        "constituency": "Rajim",
+        "constituency_code": 54
+      },
+      {
+        "constituency": "Bindranawagarh (ST)",
+        "constituency_code": 55
+      },
+      {
+        "constituency": "Sihawa (ST)",
+        "constituency_code": 56
+      },
+      {
+        "constituency": "Kurud",
+        "constituency_code": 57
+      },
+      {
+        "constituency": "Dhamtari",
+        "constituency_code": 58
+      },
+      {
+        "constituency": "Sanjari Balod",
+        "constituency_code": 59
+      },
+      {
+        "constituency": "Dondi Lohara (ST)",
+        "constituency_code": 60
+      },
+      {
+        "constituency": "Gunderdehi",
+        "constituency_code": 61
+      },
+      {
+        "constituency": "Patan",
+        "constituency_code": 62
+      },
+      {
+        "constituency": "Durg-Rural",
+        "constituency_code": 63
+      },
+      {
+        "constituency": "Ahiwara (SC)",
+        "constituency_code": 67
+      },
+      {
+        "constituency": "Saja",
+        "constituency_code": 68
+      },
+      {
+        "constituency": "Bemetara",
+        "constituency_code": 69
+      },
+      {
+        "constituency": "Nawagarh (SC)",
+        "constituency_code": 70
+      },
+      {
+        "constituency": "Pandariya",
+        "constituency_code": 71
+      },
+      {
+        "constituency": "Kawardha",
+        "constituency_code": 72
+      },
+      {
+        "constituency": "Khairagarh",
+        "constituency_code": 73
+      },
+      {
+        "constituency": "Dongargarh (SC)",
+        "constituency_code": 74
+      },
+      {
+        "constituency": "Rajnandgaon",
+        "constituency_code": 75
+      },
+      {
+        "constituency": "Dongargaon",
+        "constituency_code": 76
+      },
+      {
+        "constituency": "Khujji",
+        "constituency_code": 77
+      },
+      {
+        "constituency": "Mohala-Manpur (ST)",
+        "constituency_code": 78
+      },
+      {
+        "constituency": "Antagarh (ST)",
+        "constituency_code": 79
+      },
+      {
+        "constituency": "Bhanupratappur (ST)",
+        "constituency_code": 80
+      },
+      {
+        "constituency": "Kanker (ST)",
+        "constituency_code": 81
+      },
+      {
+        "constituency": "Keshkal (ST)",
+        "constituency_code": 82
+      },
+      {
+        "constituency": "Kondagaon (ST)",
+        "constituency_code": 83
+      },
+      {
+        "constituency": "Narayanpur (ST)",
+        "constituency_code": 84
+      },
+      {
+        "constituency": "Bastar (ST)",
+        "constituency_code": 85
+      },
+      {
+        "constituency": "Jagdalpur",
+        "constituency_code": 86
+      },
+      {
+        "constituency": "Chitrakot (ST)",
+        "constituency_code": 87
+      },
+      {
+        "constituency": "Dantewada (ST)",
+        "constituency_code": 88
+      },
+      {
+        "constituency": "Bijapur (ST)",
+        "constituency_code": 89
+      },
+      {
+        "constituency": "Konta (ST)",
+        "constituency_code": 90
+      }
+    ],
+    "jharkhand": [
+      {
+        "constituency": "Rajmahal",
+        "constituency_code": 1
+      },
+      {
+        "constituency": "Boiro (ST)",
+        "constituency_code": 2
+      },
+      {
+        "constituency": "Barhait (ST)",
+        "constituency_code": 3
+      },
+      {
+        "constituency": "Litipara (ST)",
+        "constituency_code": 4
+      },
+      {
+        "constituency": "Pakur",
+        "constituency_code": 5
+      },
+      {
+        "constituency": "Maheshpur (ST)",
+        "constituency_code": 6
+      },
+      {
+        "constituency": "Sikaripara (ST)",
+        "constituency_code": 7
+      },
+      {
+        "constituency": "Nala",
+        "constituency_code": 8
+      },
+      {
+        "constituency": "Jamtara",
+        "constituency_code": 9
+      },
+      {
+        "constituency": "Dumka (ST)",
+        "constituency_code": 10
+      },
+      {
+        "constituency": "Jama (ST)",
+        "constituency_code": 11
+      },
+      {
+        "constituency": "Jarmundi",
+        "constituency_code": 12
+      },
+      {
+        "constituency": "Madhupur",
+        "constituency_code": 13
+      },
+      {
+        "constituency": "Sarath",
+        "constituency_code": 14
+      },
+      {
+        "constituency": "Deoghar (SC)",
+        "constituency_code": 15
+      },
+      {
+        "constituency": "Poreyahat",
+        "constituency_code": 16
+      },
+      {
+        "constituency": "Godda",
+        "constituency_code": 17
+      },
+      {
+        "constituency": "Mahagama",
+        "constituency_code": 18
+      },
+      {
+        "constituency": "Kodarma",
+        "constituency_code": 19
+      },
+      {
+        "constituency": "Barkatha",
+        "constituency_code": 20
+      },
+      {
+        "constituency": "Barhi",
+        "constituency_code": 21
+      },
+      {
+        "constituency": "Barkagaon",
+        "constituency_code": 22
+      },
+      {
+        "constituency": "Ramgarh",
+        "constituency_code": 23
+      },
+      {
+        "constituency": "Mandu",
+        "constituency_code": 24
+      },
+      {
+        "constituency": "Hazaribagh",
+        "constituency_code": 25
+      },
+      {
+        "constituency": "Simaria",
+        "constituency_code": 26
+      },
+      {
+        "constituency": "Chatra (SC)",
+        "constituency_code": 27
+      },
+      {
+        "constituency": "Dhanwar",
+        "constituency_code": 28
+      },
+      {
+        "constituency": "Bagodar",
+        "constituency_code": 29
+      },
+      {
+        "constituency": "Jamua (SC)",
+        "constituency_code": 30
+      },
+      {
+        "constituency": "Gandey",
+        "constituency_code": 31
+      },
+      {
+        "constituency": "Giridih",
+        "constituency_code": 32
+      },
+      {
+        "constituency": "Dumri",
+        "constituency_code": 33
+      },
+      {
+        "constituency": "Gomia",
+        "constituency_code": 34
+      },
+      {
+        "constituency": "Bermo",
+        "constituency_code": 35
+      },
+      {
+        "constituency": "Bokaro",
+        "constituency_code": 36
+      },
+      {
+        "constituency": "Chandankiyari (SC)",
+        "constituency_code": 37
+      },
+      {
+        "constituency": "Sindri",
+        "constituency_code": 38
+      },
+      {
+        "constituency": "Nirsa",
+        "constituency_code": 39
+      },
+      {
+        "constituency": "Dhanbad",
+        "constituency_code": 40
+      },
+      {
+        "constituency": "Tundi",
+        "constituency_code": 42
+      },
+      {
+        "constituency": "Baghmara",
+        "constituency_code": 43
+      },
+      {
+        "constituency": "Baharagora",
+        "constituency_code": 44
+      },
+      {
+        "constituency": "Ghatsila (ST)",
+        "constituency_code": 45
+      },
+      {
+        "constituency": "Potka (ST)",
+        "constituency_code": 46
+      },
+      {
+        "constituency": "Jugsalai (SC)",
+        "constituency_code": 47
+      },
+      {
+        "constituency": "Jamshedpur West",
+        "constituency_code": 49
+      },
+      {
+        "constituency": "Ichagarh",
+        "constituency_code": 50
+      },
+      {
+        "constituency": "Seraikella (ST)",
+        "constituency_code": 51
+      },
+      {
+        "constituency": "Chaibasa (ST)",
+        "constituency_code": 52
+      },
+      {
+        "constituency": "Majhgaon (ST)",
+        "constituency_code": 53
+      },
+      {
+        "constituency": "Jaganathpur (ST)",
+        "constituency_code": 54
+      },
+      {
+        "constituency": "Manoharpur (ST)",
+        "constituency_code": 55
+      },
+      {
+        "constituency": "Chakradharpur (ST)",
+        "constituency_code": 56
+      },
+      {
+        "constituency": "Kharsawan (ST)",
+        "constituency_code": 57
+      },
+      {
+        "constituency": "Tamar (ST)",
+        "constituency_code": 58
+      },
+      {
+        "constituency": "Torpa (ST)",
+        "constituency_code": 59
+      },
+      {
+        "constituency": "Khunti (ST)",
+        "constituency_code": 60
+      },
+      {
+        "constituency": "Silli",
+        "constituency_code": 61
+      },
+      {
+        "constituency": "Khijri (ST)",
+        "constituency_code": 62
+      },
+      {
+        "constituency": "Hatia",
+        "constituency_code": 64
+      },
+      {
+        "constituency": "Kanke (SC)",
+        "constituency_code": 65
+      },
+      {
+        "constituency": "Mandar (ST)",
+        "constituency_code": 66
+      },
+      {
+        "constituency": "Sisai (ST)",
+        "constituency_code": 67
+      },
+      {
+        "constituency": "Gumla (ST)",
+        "constituency_code": 68
+      },
+      {
+        "constituency": "Bishunpur (ST)",
+        "constituency_code": 69
+      },
+      {
+        "constituency": "Simdega (ST)",
+        "constituency_code": 70
+      },
+      {
+        "constituency": "Kolebira (ST)",
+        "constituency_code": 71
+      },
+      {
+        "constituency": "Lohardaga (ST)",
+        "constituency_code": 72
+      },
+      {
+        "constituency": "Manika (ST)",
+        "constituency_code": 73
+      },
+      {
+        "constituency": "Latehar (SC)",
+        "constituency_code": 74
+      },
+      {
+        "constituency": "Panki",
+        "constituency_code": 75
+      },
+      {
+        "constituency": "Daltonganj",
+        "constituency_code": 76
+      },
+      {
+        "constituency": "Bishrampur",
+        "constituency_code": 77
+      },
+      {
+        "constituency": "Chhatarpur (SC)",
+        "constituency_code": 78
+      },
+      {
+        "constituency": "Hussainabad",
+        "constituency_code": 79
+      },
+      {
+        "constituency": "Garhwa",
+        "constituency_code": 80
+      },
+      {
+        "constituency": "Bhawanathpur",
+        "constituency_code": 81
+      }
+    ],
+    "maharashtra": [
+      {
+        "constituency": "Akkalkuwa (ST)",
+        "constituency_code": 1
+      },
+      {
+        "constituency": "Shahada (ST)",
+        "constituency_code": 2
+      },
+      {
+        "constituency": "Nandurbar (ST)",
+        "constituency_code": 3
+      },
+      {
+        "constituency": "Nawapur (ST)",
+        "constituency_code": 4
+      },
+      {
+        "constituency": "Sakri (ST)",
+        "constituency_code": 5
+      },
+      {
+        "constituency": "Dhule Rural",
+        "constituency_code": 6
+      },
+      {
+        "constituency": "Sindkheda",
+        "constituency_code": 8
+      },
+      {
+        "constituency": "Shirpur (ST)",
+        "constituency_code": 9
+      },
+      {
+        "constituency": "Chopda (ST)",
+        "constituency_code": 10
+      },
+      {
+        "constituency": "Raver",
+        "constituency_code": 11
+      },
+      {
+        "constituency": "Bhusawal (SC)",
+        "constituency_code": 12
+      },
+      {
+        "constituency": "Jalgaon (Rural)",
+        "constituency_code": 14
+      },
+      {
+        "constituency": "Amalner",
+        "constituency_code": 15
+      },
+      {
+        "constituency": "Erandol",
+        "constituency_code": 16
+      },
+      {
+        "constituency": "Chalisgaon",
+        "constituency_code": 17
+      },
+      {
+        "constituency": "Pachora",
+        "constituency_code": 18
+      },
+      {
+        "constituency": "Jamner",
+        "constituency_code": 19
+      },
+      {
+        "constituency": "Muktainagar",
+        "constituency_code": 20
+      },
+      {
+        "constituency": "Malkapur",
+        "constituency_code": 21
+      },
+      {
+        "constituency": "Buldhana",
+        "constituency_code": 22
+      },
+      {
+        "constituency": "Chikhli",
+        "constituency_code": 23
+      },
+      {
+        "constituency": "Sindhkhed Raja",
+        "constituency_code": 24
+      },
+      {
+        "constituency": "Mehkar (SC)",
+        "constituency_code": 25
+      },
+      {
+        "constituency": "Khamgaon",
+        "constituency_code": 26
+      },
+      {
+        "constituency": "Jalgaon",
+        "constituency_code": 27
+      },
+      {
+        "constituency": "Akot",
+        "constituency_code": 28
+      },
+      {
+        "constituency": "Balapur",
+        "constituency_code": 29
+      },
+      {
+        "constituency": "Akola East",
+        "constituency_code": 31
+      },
+      {
+        "constituency": "Murtizapur (SC)",
+        "constituency_code": 32
+      },
+      {
+        "constituency": "Risod",
+        "constituency_code": 33
+      },
+      {
+        "constituency": "Washim (SC)",
+        "constituency_code": 34
+      },
+      {
+        "constituency": "Karanja",
+        "constituency_code": 35
+      },
+      {
+        "constituency": "Dhamangaon Railway",
+        "constituency_code": 36
+      },
+      {
+        "constituency": "Badnera",
+        "constituency_code": 37
+      },
+      {
+        "constituency": "Teosa",
+        "constituency_code": 39
+      },
+      {
+        "constituency": "Daryapur (SC)",
+        "constituency_code": 40
+      },
+      {
+        "constituency": "Melghat (ST)",
+        "constituency_code": 41
+      },
+      {
+        "constituency": "Achalpur",
+        "constituency_code": 42
+      },
+      {
+        "constituency": "Morshi",
+        "constituency_code": 43
+      },
+      {
+        "constituency": "Arvi",
+        "constituency_code": 44
+      },
+      {
+        "constituency": "Deoli",
+        "constituency_code": 45
+      },
+      {
+        "constituency": "Hinganghat",
+        "constituency_code": 46
+      },
+      {
+        "constituency": "Wardha",
+        "constituency_code": 47
+      },
+      {
+        "constituency": "Katol",
+        "constituency_code": 48
+      },
+      {
+        "constituency": "Savner",
+        "constituency_code": 49
+      },
+      {
+        "constituency": "Hingna",
+        "constituency_code": 50
+      },
+      {
+        "constituency": "Umred (SC)",
+        "constituency_code": 51
+      },
+      {
+        "constituency": "Kamthi",
+        "constituency_code": 58
+      },
+      {
+        "constituency": "Ramtek",
+        "constituency_code": 59
+      },
+      {
+        "constituency": "Tumsar",
+        "constituency_code": 60
+      },
+      {
+        "constituency": "Bhandara (SC)",
+        "constituency_code": 61
+      },
+      {
+        "constituency": "Sakoli",
+        "constituency_code": 62
+      },
+      {
+        "constituency": "Arjuni Morgaon (SC)",
+        "constituency_code": 63
+      },
+      {
+        "constituency": "Tirora",
+        "constituency_code": 64
+      },
+      {
+        "constituency": "Gondia",
+        "constituency_code": 65
+      },
+      {
+        "constituency": "Amgaon (ST)",
+        "constituency_code": 66
+      },
+      {
+        "constituency": "Armori (ST)",
+        "constituency_code": 67
+      },
+      {
+        "constituency": "Gadchiroli (ST)",
+        "constituency_code": 68
+      },
+      {
+        "constituency": "Aheri (ST)",
+        "constituency_code": 69
+      },
+      {
+        "constituency": "Rajura",
+        "constituency_code": 70
+      },
+      {
+        "constituency": "Chandrapur (SC)",
+        "constituency_code": 71
+      },
+      {
+        "constituency": "Ballarpur",
+        "constituency_code": 72
+      },
+      {
+        "constituency": "Bramhapuri",
+        "constituency_code": 73
+      },
+      {
+        "constituency": "Chimur",
+        "constituency_code": 74
+      },
+      {
+        "constituency": "Warora",
+        "constituency_code": 75
+      },
+      {
+        "constituency": "Wani",
+        "constituency_code": 76
+      },
+      {
+        "constituency": "Ralegaon (ST)",
+        "constituency_code": 77
+      },
+      {
+        "constituency": "Yavatmal",
+        "constituency_code": 78
+      },
+      {
+        "constituency": "Digras",
+        "constituency_code": 79
+      },
+      {
+        "constituency": "Arni (ST)",
+        "constituency_code": 80
+      },
+      {
+        "constituency": "Pusad",
+        "constituency_code": 81
+      },
+      {
+        "constituency": "Umarkhed (SC)",
+        "constituency_code": 82
+      },
+      {
+        "constituency": "Kinwat",
+        "constituency_code": 83
+      },
+      {
+        "constituency": "Hadgaon",
+        "constituency_code": 84
+      },
+      {
+        "constituency": "Bhokar",
+        "constituency_code": 85
+      },
+      {
+        "constituency": "Nanded North",
+        "constituency_code": 86
+      },
+      {
+        "constituency": "Nanded South",
+        "constituency_code": 87
+      },
+      {
+        "constituency": "Loha",
+        "constituency_code": 88
+      },
+      {
+        "constituency": "Naigaon",
+        "constituency_code": 89
+      },
+      {
+        "constituency": "Deglur (SC)",
+        "constituency_code": 90
+      },
+      {
+        "constituency": "Mukhed",
+        "constituency_code": 91
+      },
+      {
+        "constituency": "Basmath",
+        "constituency_code": 92
+      },
+      {
+        "constituency": "Kalamnuri",
+        "constituency_code": 93
+      },
+      {
+        "constituency": "Hingoli",
+        "constituency_code": 94
+      },
+      {
+        "constituency": "Jintur",
+        "constituency_code": 95
+      },
+      {
+        "constituency": "Parbhani",
+        "constituency_code": 96
+      },
+      {
+        "constituency": "Gangakhed",
+        "constituency_code": 97
+      },
+      {
+        "constituency": "Pathri",
+        "constituency_code": 98
+      },
+      {
+        "constituency": "Partur",
+        "constituency_code": 99
+      },
+      {
+        "constituency": "Gansavangi",
+        "constituency_code": 100
+      },
+      {
+        "constituency": "Jalna",
+        "constituency_code": 101
+      },
+      {
+        "constituency": "Badnapur (SC)",
+        "constituency_code": 102
+      },
+      {
+        "constituency": "Bhokardan",
+        "constituency_code": 103
+      },
+      {
+        "constituency": "Sillod",
+        "constituency_code": 104
+      },
+      {
+        "constituency": "Kannad",
+        "constituency_code": 105
+      },
+      {
+        "constituency": "Phulambari",
+        "constituency_code": 106
+      },
+      {
+        "constituency": "Aurangabad (Central)",
+        "constituency_code": 107
+      },
+      {
+        "constituency": "Aurangabad (West) (SC)",
+        "constituency_code": 108
+      },
+      {
+        "constituency": "Paithan",
+        "constituency_code": 110
+      },
+      {
+        "constituency": "Gangapur",
+        "constituency_code": 111
+      },
+      {
+        "constituency": "Vaijapur",
+        "constituency_code": 112
+      },
+      {
+        "constituency": "Nandgaon",
+        "constituency_code": 113
+      },
+      {
+        "constituency": "Malegaon (Central)",
+        "constituency_code": 114
+      },
+      {
+        "constituency": "Malegaon (Outer)",
+        "constituency_code": 115
+      },
+      {
+        "constituency": "Balgan (ST)",
+        "constituency_code": 116
+      },
+      {
+        "constituency": "Kalwan (ST)",
+        "constituency_code": 117
+      },
+      {
+        "constituency": "Chandwad",
+        "constituency_code": 118
+      },
+      {
+        "constituency": "Yevla",
+        "constituency_code": 119
+      },
+      {
+        "constituency": "Sinnar",
+        "constituency_code": 120
+      },
+      {
+        "constituency": "Niphad",
+        "constituency_code": 121
+      },
+      {
+        "constituency": "Dindori (ST)",
+        "constituency_code": 122
+      },
+      {
+        "constituency": "Deolali (SC)",
+        "constituency_code": 126
+      },
+      {
+        "constituency": "Igatpuri (ST)",
+        "constituency_code": 127
+      },
+      {
+        "constituency": "Dahanu (ST)",
+        "constituency_code": 128
+      },
+      {
+        "constituency": "Vekramgrth (ST)",
+        "constituency_code": 129
+      },
+      {
+        "constituency": "Palghar (ST)",
+        "constituency_code": 130
+      },
+      {
+        "constituency": "Boisar (ST)",
+        "constituency_code": 131
+      },
+      {
+        "constituency": "Vasai",
+        "constituency_code": 133
+      },
+      {
+        "constituency": "Bhiwandi Rural (ST)",
+        "constituency_code": 134
+      },
+      {
+        "constituency": "Shahapur (ST)",
+        "constituency_code": 135
+      },
+      {
+        "constituency": "Bhiwandi West",
+        "constituency_code": 136
+      },
+      {
+        "constituency": "Bhiwandi East",
+        "constituency_code": 137
+      },
+      {
+        "constituency": "Kalyan West",
+        "constituency_code": 138
+      },
+      {
+        "constituency": "Murbad",
+        "constituency_code": 139
+      },
+      {
+        "constituency": "Ambarnath (SC)",
+        "constituency_code": 140
+      },
+      {
+        "constituency": "Ulhasnagar",
+        "constituency_code": 141
+      },
+      {
+        "constituency": "Kalyan East",
+        "constituency_code": 142
+      },
+      {
+        "constituency": "Kalyan Rural",
+        "constituency_code": 144
+      },
+      {
+        "constituency": "Meera Bhayandar",
+        "constituency_code": 145
+      },
+      {
+        "constituency": "Ovala Majiwada",
+        "constituency_code": 146
+      },
+      {
+        "constituency": "Kopri",
+        "constituency_code": 147
+      },
+      {
+        "constituency": "Thane",
+        "constituency_code": 148
+      },
+      {
+        "constituency": "Mumbra",
+        "constituency_code": 149
+      },
+      {
+        "constituency": "Airoli",
+        "constituency_code": 150
+      },
+      {
+        "constituency": "Belapur",
+        "constituency_code": 151
+      },
+      {
+        "constituency": "Panvel",
+        "constituency_code": 188
+      },
+      {
+        "constituency": "Karjat",
+        "constituency_code": 189
+      },
+      {
+        "constituency": "Uran",
+        "constituency_code": 190
+      },
+      {
+        "constituency": "Pen",
+        "constituency_code": 191
+      },
+      {
+        "constituency": "Alibag",
+        "constituency_code": 192
+      },
+      {
+        "constituency": "Shrivardhan",
+        "constituency_code": 193
+      },
+      {
+        "constituency": "Mahad",
+        "constituency_code": 194
+      },
+      {
+        "constituency": "Junnar",
+        "constituency_code": 195
+      },
+      {
+        "constituency": "Ambegaon",
+        "constituency_code": 196
+      },
+      {
+        "constituency": "Khed Alandi",
+        "constituency_code": 197
+      },
+      {
+        "constituency": "Shirur",
+        "constituency_code": 198
+      },
+      {
+        "constituency": "Daund",
+        "constituency_code": 199
+      },
+      {
+        "constituency": "Indapur",
+        "constituency_code": 200
+      },
+      {
+        "constituency": "Baramati",
+        "constituency_code": 201
+      },
+      {
+        "constituency": "Purandar",
+        "constituency_code": 202
+      },
+      {
+        "constituency": "Bhor",
+        "constituency_code": 203
+      },
+      {
+        "constituency": "Maval",
+        "constituency_code": 204
+      },
+      {
+        "constituency": "Chinchwad",
+        "constituency_code": 205
+      },
+      {
+        "constituency": "Pimpri (SC)",
+        "constituency_code": 206
+      },
+      {
+        "constituency": "Bhosari",
+        "constituency_code": 207
+      },
+      {
+        "constituency": "Vadgaon Sheri",
+        "constituency_code": 208
+      },
+      {
+        "constituency": "Khadakwasala",
+        "constituency_code": 211
+      },
+      {
+        "constituency": "Hadapsar",
+        "constituency_code": 213
+      },
+      {
+        "constituency": "Akole (ST)",
+        "constituency_code": 216
+      },
+      {
+        "constituency": "Sangmner",
+        "constituency_code": 217
+      },
+      {
+        "constituency": "Shirdi",
+        "constituency_code": 218
+      },
+      {
+        "constituency": "Kopargaon",
+        "constituency_code": 219
+      },
+      {
+        "constituency": "Shrirampur (SC)",
+        "constituency_code": 220
+      },
+      {
+        "constituency": "Nevasa",
+        "constituency_code": 221
+      },
+      {
+        "constituency": "Shevgaon",
+        "constituency_code": 222
+      },
+      {
+        "constituency": "Rahuri",
+        "constituency_code": 223
+      },
+      {
+        "constituency": "Parner",
+        "constituency_code": 224
+      },
+      {
+        "constituency": "Shrigonda",
+        "constituency_code": 226
+      },
+      {
+        "constituency": "Karjat Jamkhed",
+        "constituency_code": 227
+      },
+      {
+        "constituency": "Georai",
+        "constituency_code": 228
+      },
+      {
+        "constituency": "Majalgaon",
+        "constituency_code": 229
+      },
+      {
+        "constituency": "Beed",
+        "constituency_code": 230
+      },
+      {
+        "constituency": "Ashti",
+        "constituency_code": 231
+      },
+      {
+        "constituency": "Kaij (SC)",
+        "constituency_code": 232
+      },
+      {
+        "constituency": "Parli",
+        "constituency_code": 233
+      },
+      {
+        "constituency": "Latur Rural",
+        "constituency_code": 234
+      },
+      {
+        "constituency": "Latur City",
+        "constituency_code": 235
+      },
+      {
+        "constituency": "Ahmedpur",
+        "constituency_code": 236
+      },
+      {
+        "constituency": "Udgir (SC)",
+        "constituency_code": 237
+      },
+      {
+        "constituency": "Nilanga",
+        "constituency_code": 238
+      },
+      {
+        "constituency": "Ausa",
+        "constituency_code": 239
+      },
+      {
+        "constituency": "Omerga (SC)",
+        "constituency_code": 240
+      },
+      {
+        "constituency": "Tuljapur",
+        "constituency_code": 241
+      },
+      {
+        "constituency": "Osmanabad",
+        "constituency_code": 242
+      },
+      {
+        "constituency": "Paranda",
+        "constituency_code": 243
+      },
+      {
+        "constituency": "Karmala",
+        "constituency_code": 244
+      },
+      {
+        "constituency": "Madha",
+        "constituency_code": 245
+      },
+      {
+        "constituency": "Barshi",
+        "constituency_code": 246
+      },
+      {
+        "constituency": "Mohol (SC)",
+        "constituency_code": 247
+      },
+      {
+        "constituency": "Solapur City North",
+        "constituency_code": 248
+      },
+      {
+        "constituency": "Akkalkot",
+        "constituency_code": 250
+      },
+      {
+        "constituency": "Solapur South",
+        "constituency_code": 251
+      },
+      {
+        "constituency": "Pandharpur",
+        "constituency_code": 252
+      },
+      {
+        "constituency": "Sangola",
+        "constituency_code": 253
+      },
+      {
+        "constituency": "Malshiras (SC)",
+        "constituency_code": 254
+      },
+      {
+        "constituency": "Phaltan (SC)",
+        "constituency_code": 255
+      },
+      {
+        "constituency": "Wai",
+        "constituency_code": 256
+      },
+      {
+        "constituency": "Koregaon",
+        "constituency_code": 257
+      },
+      {
+        "constituency": "Man",
+        "constituency_code": 258
+      },
+      {
+        "constituency": "Karad North",
+        "constituency_code": 259
+      },
+      {
+        "constituency": "Karad South",
+        "constituency_code": 260
+      },
+      {
+        "constituency": "Patan",
+        "constituency_code": 261
+      },
+      {
+        "constituency": "Satara",
+        "constituency_code": 262
+      },
+      {
+        "constituency": "Dapoli",
+        "constituency_code": 263
+      },
+      {
+        "constituency": "Guhagar",
+        "constituency_code": 264
+      },
+      {
+        "constituency": "Chiplun",
+        "constituency_code": 265
+      },
+      {
+        "constituency": "Ratnagiri",
+        "constituency_code": 266
+      },
+      {
+        "constituency": "Rajapur",
+        "constituency_code": 267
+      },
+      {
+        "constituency": "Kankavli",
+        "constituency_code": 268
+      },
+      {
+        "constituency": "Kudal",
+        "constituency_code": 269
+      },
+      {
+        "constituency": "Sawantwadi",
+        "constituency_code": 270
+      },
+      {
+        "constituency": "Chandgad",
+        "constituency_code": 271
+      },
+      {
+        "constituency": "Radhanagari",
+        "constituency_code": 272
+      },
+      {
+        "constituency": "Kagal",
+        "constituency_code": 273
+      },
+      {
+        "constituency": "Kolhapur South",
+        "constituency_code": 274
+      },
+      {
+        "constituency": "Karvir",
+        "constituency_code": 275
+      },
+      {
+        "constituency": "Shahuwadi",
+        "constituency_code": 277
+      },
+      {
+        "constituency": "Hatkanangle (SC)",
+        "constituency_code": 278
+      },
+      {
+        "constituency": "Ichalkaranji",
+        "constituency_code": 279
+      },
+      {
+        "constituency": "Shirol",
+        "constituency_code": 280
+      },
+      {
+        "constituency": "Miraj (SC)",
+        "constituency_code": 281
+      },
+      {
+        "constituency": "Sangli",
+        "constituency_code": 282
+      },
+      {
+        "constituency": "Islampur",
+        "constituency_code": 283
+      },
+      {
+        "constituency": "Shirala",
+        "constituency_code": 284
+      },
+      {
+        "constituency": "Palus",
+        "constituency_code": 285
+      },
+      {
+        "constituency": "Khanpur",
+        "constituency_code": 286
+      },
+      {
+        "constituency": "Tasgaon",
+        "constituency_code": 287
+      },
+      {
+        "constituency": "Jat",
+        "constituency_code": 288
+      }
+    ],
+    "odisha": [
+      {
+        "constituency": "Padampur",
+        "constituency_code": 1
+      },
+      {
+        "constituency": "Bijepur",
+        "constituency_code": 2
+      },
+      {
+        "constituency": "Bargarh",
+        "constituency_code": 3
+      },
+      {
+        "constituency": "Attabira (SC)",
+        "constituency_code": 4
+      },
+      {
+        "constituency": "Bhatli",
+        "constituency_code": 5
+      },
+      {
+        "constituency": "Brajarajnagar",
+        "constituency_code": 6
+      },
+      {
+        "constituency": "Jharsuguda",
+        "constituency_code": 7
+      },
+      {
+        "constituency": "Talsara (ST)",
+        "constituency_code": 8
+      },
+      {
+        "constituency": "Sundargarh (ST)",
+        "constituency_code": 9
+      },
+      {
+        "constituency": "Biramitrapur (ST)",
+        "constituency_code": 10
+      },
+      {
+        "constituency": "Raghunathpali (SC)",
+        "constituency_code": 11
+      },
+      {
+        "constituency": "Rourkela",
+        "constituency_code": 12
+      },
+      {
+        "constituency": "Rajgangpur (ST)",
+        "constituency_code": 13
+      },
+      {
+        "constituency": "Bonai (ST)",
+        "constituency_code": 14
+      },
+      {
+        "constituency": "Kuchinda (ST)",
+        "constituency_code": 15
+      },
+      {
+        "constituency": "Rengali (SC)",
+        "constituency_code": 16
+      },
+      {
+        "constituency": "Rairakhol",
+        "constituency_code": 18
+      },
+      {
+        "constituency": "Deogarh",
+        "constituency_code": 19
+      },
+      {
+        "constituency": "Telkoi (ST)",
+        "constituency_code": 20
+      },
+      {
+        "constituency": "Ghasipura",
+        "constituency_code": 21
+      },
+      {
+        "constituency": "Anandapur (SC)",
+        "constituency_code": 22
+      },
+      {
+        "constituency": "Patna (ST)",
+        "constituency_code": 23
+      },
+      {
+        "constituency": "Keonjhar (ST)",
+        "constituency_code": 24
+      },
+      {
+        "constituency": "Champua",
+        "constituency_code": 25
+      },
+      {
+        "constituency": "Jashipur (ST)",
+        "constituency_code": 26
+      },
+      {
+        "constituency": "Saraskana (ST)",
+        "constituency_code": 27
+      },
+      {
+        "constituency": "Rairangpur (ST)",
+        "constituency_code": 28
+      },
+      {
+        "constituency": "Bangriposi (ST)",
+        "constituency_code": 29
+      },
+      {
+        "constituency": "Karanjia (ST)",
+        "constituency_code": 30
+      },
+      {
+        "constituency": "Udala (ST)",
+        "constituency_code": 31
+      },
+      {
+        "constituency": "Badasahi (SC)",
+        "constituency_code": 32
+      },
+      {
+        "constituency": "Baripada (ST)",
+        "constituency_code": 33
+      },
+      {
+        "constituency": "Morada",
+        "constituency_code": 34
+      },
+      {
+        "constituency": "Jaleswar",
+        "constituency_code": 35
+      },
+      {
+        "constituency": "Bhograi",
+        "constituency_code": 36
+      },
+      {
+        "constituency": "Basta",
+        "constituency_code": 37
+      },
+      {
+        "constituency": "Balasore",
+        "constituency_code": 38
+      },
+      {
+        "constituency": "Remuna (SC)",
+        "constituency_code": 39
+      },
+      {
+        "constituency": "Nilgiri",
+        "constituency_code": 40
+      },
+      {
+        "constituency": "Soro (SC)",
+        "constituency_code": 41
+      },
+      {
+        "constituency": "Simulia",
+        "constituency_code": 42
+      },
+      {
+        "constituency": "Bhandaripokhari",
+        "constituency_code": 43
+      },
+      {
+        "constituency": "Bhadrak",
+        "constituency_code": 44
+      },
+      {
+        "constituency": "Basudevpur",
+        "constituency_code": 45
+      },
+      {
+        "constituency": "Dhamnagar",
+        "constituency_code": 46
+      },
+      {
+        "constituency": "Chandabal",
+        "constituency_code": 47
+      },
+      {
+        "constituency": "Binjharpur (SC)",
+        "constituency_code": 48
+      },
+      {
+        "constituency": "Bari",
+        "constituency_code": 49
+      },
+      {
+        "constituency": "Barachana",
+        "constituency_code": 50
+      },
+      {
+        "constituency": "Dharmasala",
+        "constituency_code": 51
+      },
+      {
+        "constituency": "Jajpur",
+        "constituency_code": 52
+      },
+      {
+        "constituency": "Korei",
+        "constituency_code": 53
+      },
+      {
+        "constituency": "Sukinda",
+        "constituency_code": 54
+      },
+      {
+        "constituency": "Dhenkanal",
+        "constituency_code": 55
+      },
+      {
+        "constituency": "Hindol (SC)",
+        "constituency_code": 56
+      },
+      {
+        "constituency": "Kamakhyanagar",
+        "constituency_code": 57
+      },
+      {
+        "constituency": "Parjanga",
+        "constituency_code": 58
+      },
+      {
+        "constituency": "Pallahara",
+        "constituency_code": 59
+      },
+      {
+        "constituency": "Talcher",
+        "constituency_code": 60
+      },
+      {
+        "constituency": "Angul",
+        "constituency_code": 61
+      },
+      {
+        "constituency": "Chhendipada (SC)",
+        "constituency_code": 62
+      },
+      {
+        "constituency": "Athamallik",
+        "constituency_code": 63
+      },
+      {
+        "constituency": "Birmaharajpur (SC)",
+        "constituency_code": 64
+      },
+      {
+        "constituency": "Sonepur",
+        "constituency_code": 65
+      },
+      {
+        "constituency": "Loisingha (SC)",
+        "constituency_code": 66
+      },
+      {
+        "constituency": "Patnagarh",
+        "constituency_code": 67
+      },
+      {
+        "constituency": "Bolangir",
+        "constituency_code": 68
+      },
+      {
+        "constituency": "Titlagarh",
+        "constituency_code": 69
+      },
+      {
+        "constituency": "Kantabanji",
+        "constituency_code": 70
+      },
+      {
+        "constituency": "Nuapada",
+        "constituency_code": 71
+      },
+      {
+        "constituency": "Kharia",
+        "constituency_code": 72
+      },
+      {
+        "constituency": "Umerkote (ST)",
+        "constituency_code": 73
+      },
+      {
+        "constituency": "Jharigam (ST)",
+        "constituency_code": 74
+      },
+      {
+        "constituency": "Nabarangpur (ST)",
+        "constituency_code": 75
+      },
+      {
+        "constituency": "Dabugam (ST)",
+        "constituency_code": 76
+      },
+      {
+        "constituency": "Lanjigarh (ST)",
+        "constituency_code": 77
+      },
+      {
+        "constituency": "Junagarh",
+        "constituency_code": 78
+      },
+      {
+        "constituency": "Dharamgarh",
+        "constituency_code": 79
+      },
+      {
+        "constituency": "Bhawanipatna (SC)",
+        "constituency_code": 80
+      },
+      {
+        "constituency": "Narla",
+        "constituency_code": 81
+      },
+      {
+        "constituency": "Baliguda (ST)",
+        "constituency_code": 82
+      },
+      {
+        "constituency": "G. Udayagiri (ST)",
+        "constituency_code": 83
+      },
+      {
+        "constituency": "Phulbani (ST)",
+        "constituency_code": 84
+      },
+      {
+        "constituency": "Kantamal",
+        "constituency_code": 85
+      },
+      {
+        "constituency": "Boudh",
+        "constituency_code": 86
+      },
+      {
+        "constituency": "Baramba",
+        "constituency_code": 87
+      },
+      {
+        "constituency": "Banki",
+        "constituency_code": 88
+      },
+      {
+        "constituency": "Athagarh",
+        "constituency_code": 89
+      },
+      {
+        "constituency": "Choudwar- Cuttack",
+        "constituency_code": 91
+      },
+      {
+        "constituency": "Choudwar_Cuttack",
+        "constituency_code": 91
+      },
+      {
+        "constituency": "Niali (SC)",
+        "constituency_code": 92
+      },
+      {
+        "constituency": "Cuttack Sadar (SC)",
+        "constituency_code": 93
+      },
+      {
+        "constituency": "Salipur",
+        "constituency_code": 94
+      },
+      {
+        "constituency": "Mahanga",
+        "constituency_code": 95
+      },
+      {
+        "constituency": "Patkura",
+        "constituency_code": 96
+      },
+      {
+        "constituency": "Kendrapara (SC)",
+        "constituency_code": 97
+      },
+      {
+        "constituency": "Aul",
+        "constituency_code": 98
+      },
+      {
+        "constituency": "Rajanagar",
+        "constituency_code": 99
+      },
+      {
+        "constituency": "Mahakalapada",
+        "constituency_code": 100
+      },
+      {
+        "constituency": "Paradeep",
+        "constituency_code": 101
+      },
+      {
+        "constituency": "Tirtol (SC)",
+        "constituency_code": 102
+      },
+      {
+        "constituency": "Balikuda- Erasama",
+        "constituency_code": 103
+      },
+      {
+        "constituency": "Balikuda_Erasama",
+        "constituency_code": 103
+      },
+      {
+        "constituency": "Jagatsinghpur",
+        "constituency_code": 104
+      },
+      {
+        "constituency": "Kakatpur (SC)",
+        "constituency_code": 105
+      },
+      {
+        "constituency": "Nimapara",
+        "constituency_code": 106
+      },
+      {
+        "constituency": "Puri",
+        "constituency_code": 107
+      },
+      {
+        "constituency": "Brahmagiri",
+        "constituency_code": 108
+      },
+      {
+        "constituency": "Satyabadi",
+        "constituency_code": 109
+      },
+      {
+        "constituency": "Pipili",
+        "constituency_code": 110
+      },
+      {
+        "constituency": "Jayadev (SC)",
+        "constituency_code": 111
+      },
+      {
+        "constituency": "Bhubaneswar North",
+        "constituency_code": 113
+      },
+      {
+        "constituency": "Ekamra- Bhubaneswar",
+        "constituency_code": 114
+      },
+      {
+        "constituency": "Ekamra_Bhubaneswar",
+        "constituency_code": 114
+      },
+      {
+        "constituency": "Jatani",
+        "constituency_code": 115
+      },
+      {
+        "constituency": "Begunia",
+        "constituency_code": 116
+      },
+      {
+        "constituency": "Khurda",
+        "constituency_code": 117
+      },
+      {
+        "constituency": "Chilika",
+        "constituency_code": 118
+      },
+      {
+        "constituency": "Ranpur",
+        "constituency_code": 119
+      },
+      {
+        "constituency": "Khandapada",
+        "constituency_code": 120
+      },
+      {
+        "constituency": "Daspalla (SC)",
+        "constituency_code": 121
+      },
+      {
+        "constituency": "Nayagarh",
+        "constituency_code": 122
+      },
+      {
+        "constituency": "Bhanjanagar",
+        "constituency_code": 123
+      },
+      {
+        "constituency": "Polasara",
+        "constituency_code": 124
+      },
+      {
+        "constituency": "Kabisuryanagar",
+        "constituency_code": 125
+      },
+      {
+        "constituency": "Khalikote (SC)",
+        "constituency_code": 126
+      },
+      {
+        "constituency": "Chhatrapur (SC)",
+        "constituency_code": 127
+      },
+      {
+        "constituency": "Aska",
+        "constituency_code": 128
+      },
+      {
+        "constituency": "Surada",
+        "constituency_code": 129
+      },
+      {
+        "constituency": "Sanakhemundi",
+        "constituency_code": 130
+      },
+      {
+        "constituency": "Hinjili",
+        "constituency_code": 131
+      },
+      {
+        "constituency": "Gopalpur",
+        "constituency_code": 132
+      },
+      {
+        "constituency": "Digapahandi",
+        "constituency_code": 134
+      },
+      {
+        "constituency": "Chikiti",
+        "constituency_code": 135
+      },
+      {
+        "constituency": "Mohana (ST)",
+        "constituency_code": 136
+      },
+      {
+        "constituency": "Paralakhemundi",
+        "constituency_code": 137
+      },
+      {
+        "constituency": "Gunupur (ST)",
+        "constituency_code": 138
+      },
+      {
+        "constituency": "Bissam Cuttack (ST)",
+        "constituency_code": 139
+      },
+      {
+        "constituency": "Rayagada (ST)",
+        "constituency_code": 140
+      },
+      {
+        "constituency": "Lakshmipur (ST)",
+        "constituency_code": 141
+      },
+      {
+        "constituency": "Kotpad (ST)",
+        "constituency_code": 142
+      },
+      {
+        "constituency": "Jeypore",
+        "constituency_code": 143
+      },
+      {
+        "constituency": "Koraput (SC)",
+        "constituency_code": 144
+      },
+      {
+        "constituency": "Pottangi (ST)",
+        "constituency_code": 145
+      },
+      {
+        "constituency": "Malkangiri (ST)",
+        "constituency_code": 146
+      },
+      {
+        "constituency": "Chitrakonda (ST)",
+        "constituency_code": 147
+      }
+    ],
+    "uttar pradesh": [
+      {
+        "constituency": "Behat",
+        "constituency_code": 1
+      },
+      {
+        "constituency": "Nakur",
+        "constituency_code": 2
+      },
+      {
+        "constituency": "Saharanpur Nagar",
+        "constituency_code": 3
+      },
+      {
+        "constituency": "Saharanpur",
+        "constituency_code": 4
+      },
+      {
+        "constituency": "Deoband",
+        "constituency_code": 5
+      },
+      {
+        "constituency": "Rampur Maniharan(Sc)",
+        "constituency_code": 6
+      },
+      {
+        "constituency": "Gangoh",
+        "constituency_code": 7
+      },
+      {
+        "constituency": "Kairana",
+        "constituency_code": 8
+      },
+      {
+        "constituency": "Thana Bhawan",
+        "constituency_code": 9
+      },
+      {
+        "constituency": "Shamli",
+        "constituency_code": 10
+      },
+      {
+        "constituency": "Budhana",
+        "constituency_code": 11
+      },
+      {
+        "constituency": "Charthawal",
+        "constituency_code": 12
+      },
+      {
+        "constituency": "Purqazi (Sc)",
+        "constituency_code": 13
+      },
+      {
+        "constituency": "Muzaffar Nagar",
+        "constituency_code": 14
+      },
+      {
+        "constituency": "Khatauli",
+        "constituency_code": 15
+      },
+      {
+        "constituency": "Meerapur",
+        "constituency_code": 16
+      },
+      {
+        "constituency": "Najibabad",
+        "constituency_code": 17
+      },
+      {
+        "constituency": "Nagina (Sc)",
+        "constituency_code": 18
+      },
+      {
+        "constituency": "Barhapur",
+        "constituency_code": 19
+      },
+      {
+        "constituency": "Dhampur",
+        "constituency_code": 20
+      },
+      {
+        "constituency": "Nehtaur (Sc)",
+        "constituency_code": 21
+      },
+      {
+        "constituency": "Bijnor",
+        "constituency_code": 22
+      },
+      {
+        "constituency": "Chandpur",
+        "constituency_code": 23
+      },
+      {
+        "constituency": "Noorpur",
+        "constituency_code": 24
+      },
+      {
+        "constituency": "Kanth",
+        "constituency_code": 25
+      },
+      {
+        "constituency": "Thakurdwara",
+        "constituency_code": 26
+      },
+      {
+        "constituency": "Moradabad Rural",
+        "constituency_code": 27
+      },
+      {
+        "constituency": "Moradabad Nagar",
+        "constituency_code": 28
+      },
+      {
+        "constituency": "Kundarki",
+        "constituency_code": 29
+      },
+      {
+        "constituency": "Bilari",
+        "constituency_code": 30
+      },
+      {
+        "constituency": "Chandausi (Sc)",
+        "constituency_code": 31
+      },
+      {
+        "constituency": "Asmoli",
+        "constituency_code": 32
+      },
+      {
+        "constituency": "Sambhal",
+        "constituency_code": 33
+      },
+      {
+        "constituency": "Suar",
+        "constituency_code": 34
+      },
+      {
+        "constituency": "Chamraua",
+        "constituency_code": 35
+      },
+      {
+        "constituency": "Bilaspur",
+        "constituency_code": 36
+      },
+      {
+        "constituency": "Rampur",
+        "constituency_code": 37
+      },
+      {
+        "constituency": "Milak (Sc)",
+        "constituency_code": 38
+      },
+      {
+        "constituency": "Dhanaura (Sc)",
+        "constituency_code": 39
+      },
+      {
+        "constituency": "Naugawan Sadat",
+        "constituency_code": 40
+      },
+      {
+        "constituency": "Amroha",
+        "constituency_code": 41
+      },
+      {
+        "constituency": "Hasanpur",
+        "constituency_code": 42
+      },
+      {
+        "constituency": "Siwalkhas",
+        "constituency_code": 43
+      },
+      {
+        "constituency": "Sardhana",
+        "constituency_code": 44
+      },
+      {
+        "constituency": "Hastinapur (Sc)",
+        "constituency_code": 45
+      },
+      {
+        "constituency": "Kithore",
+        "constituency_code": 46
+      },
+      {
+        "constituency": "Meerut Cantt.",
+        "constituency_code": 47
+      },
+      {
+        "constituency": "Meerut South",
+        "constituency_code": 49
+      },
+      {
+        "constituency": "Chhaprauli",
+        "constituency_code": 50
+      },
+      {
+        "constituency": "Baraut",
+        "constituency_code": 51
+      },
+      {
+        "constituency": "Baghpat",
+        "constituency_code": 52
+      },
+      {
+        "constituency": "Loni",
+        "constituency_code": 53
+      },
+      {
+        "constituency": "Muradnagar",
+        "constituency_code": 54
+      },
+      {
+        "constituency": "Ghaziabad",
+        "constituency_code": 56
+      },
+      {
+        "constituency": "Modi Nagar",
+        "constituency_code": 57
+      },
+      {
+        "constituency": "Dholana",
+        "constituency_code": 58
+      },
+      {
+        "constituency": "Hapur (Sc)",
+        "constituency_code": 59
+      },
+      {
+        "constituency": "Garhmukteshwar",
+        "constituency_code": 60
+      },
+      {
+        "constituency": "Noida",
+        "constituency_code": 61
+      },
+      {
+        "constituency": "Dadri",
+        "constituency_code": 62
+      },
+      {
+        "constituency": "Jewar",
+        "constituency_code": 63
+      },
+      {
+        "constituency": "Sikandrabad",
+        "constituency_code": 64
+      },
+      {
+        "constituency": "Bulandshahr",
+        "constituency_code": 65
+      },
+      {
+        "constituency": "Syana",
+        "constituency_code": 66
+      },
+      {
+        "constituency": "Anupshahr",
+        "constituency_code": 67
+      },
+      {
+        "constituency": "Debai",
+        "constituency_code": 68
+      },
+      {
+        "constituency": "Shikarpur",
+        "constituency_code": 69
+      },
+      {
+        "constituency": "Khurja (Sc)",
+        "constituency_code": 70
+      },
+      {
+        "constituency": "Khair (Sc)",
+        "constituency_code": 71
+      },
+      {
+        "constituency": "Barauli",
+        "constituency_code": 72
+      },
+      {
+        "constituency": "Atrauli",
+        "constituency_code": 73
+      },
+      {
+        "constituency": "Chharra",
+        "constituency_code": 74
+      },
+      {
+        "constituency": "Koil",
+        "constituency_code": 75
+      },
+      {
+        "constituency": "Aligarh",
+        "constituency_code": 76
+      },
+      {
+        "constituency": "Iglas (Sc)",
+        "constituency_code": 77
+      },
+      {
+        "constituency": "Hathras (Sc)",
+        "constituency_code": 78
+      },
+      {
+        "constituency": "Sadabad",
+        "constituency_code": 79
+      },
+      {
+        "constituency": "Sikandra Rao",
+        "constituency_code": 80
+      },
+      {
+        "constituency": "Chhata",
+        "constituency_code": 81
+      },
+      {
+        "constituency": "Mant",
+        "constituency_code": 82
+      },
+      {
+        "constituency": "Goverdhan",
+        "constituency_code": 83
+      },
+      {
+        "constituency": "Mathura",
+        "constituency_code": 84
+      },
+      {
+        "constituency": "Baldev (Sc)",
+        "constituency_code": 85
+      },
+      {
+        "constituency": "Etmadpur",
+        "constituency_code": 86
+      },
+      {
+        "constituency": "Agra Cantt. (Sc)",
+        "constituency_code": 87
+      },
+      {
+        "constituency": "Agra South",
+        "constituency_code": 88
+      },
+      {
+        "constituency": "Agra North",
+        "constituency_code": 89
+      },
+      {
+        "constituency": "Agra Rural (Sc)",
+        "constituency_code": 90
+      },
+      {
+        "constituency": "Fatehpur Sikri",
+        "constituency_code": 91
+      },
+      {
+        "constituency": "Kheragarh",
+        "constituency_code": 92
+      },
+      {
+        "constituency": "Fatehabad",
+        "constituency_code": 93
+      },
+      {
+        "constituency": "Bah",
+        "constituency_code": 94
+      },
+      {
+        "constituency": "Tundla (Sc)",
+        "constituency_code": 95
+      },
+      {
+        "constituency": "Jasrana",
+        "constituency_code": 96
+      },
+      {
+        "constituency": "Firozabad",
+        "constituency_code": 97
+      },
+      {
+        "constituency": "Shikohabad",
+        "constituency_code": 98
+      },
+      {
+        "constituency": "Sirsaganj",
+        "constituency_code": 99
+      },
+      {
+        "constituency": "Kasganj",
+        "constituency_code": 100
+      },
+      {
+        "constituency": "Amanpur",
+        "constituency_code": 101
+      },
+      {
+        "constituency": "Patiyali",
+        "constituency_code": 102
+      },
+      {
+        "constituency": "Aliganj",
+        "constituency_code": 103
+      },
+      {
+        "constituency": "Etah",
+        "constituency_code": 104
+      },
+      {
+        "constituency": "Marhara",
+        "constituency_code": 105
+      },
+      {
+        "constituency": "Jalesar (Sc)",
+        "constituency_code": 106
+      },
+      {
+        "constituency": "Mainpuri",
+        "constituency_code": 107
+      },
+      {
+        "constituency": "Bhongaon",
+        "constituency_code": 108
+      },
+      {
+        "constituency": "Kishani (Sc)",
+        "constituency_code": 109
+      },
+      {
+        "constituency": "Karhal",
+        "constituency_code": 110
+      },
+      {
+        "constituency": "Gunnaur",
+        "constituency_code": 111
+      },
+      {
+        "constituency": "Bisauli (Sc)",
+        "constituency_code": 112
+      },
+      {
+        "constituency": "Sahaswan",
+        "constituency_code": 113
+      },
+      {
+        "constituency": "Bilsi",
+        "constituency_code": 114
+      },
+      {
+        "constituency": "Badaun",
+        "constituency_code": 115
+      },
+      {
+        "constituency": "Shekhupur",
+        "constituency_code": 116
+      },
+      {
+        "constituency": "Dataganj",
+        "constituency_code": 117
+      },
+      {
+        "constituency": "Baheri",
+        "constituency_code": 118
+      },
+      {
+        "constituency": "Meerganj",
+        "constituency_code": 119
+      },
+      {
+        "constituency": "Bhojipura",
+        "constituency_code": 120
+      },
+      {
+        "constituency": "Nawabganj",
+        "constituency_code": 121
+      },
+      {
+        "constituency": "Faridpur (Sc)",
+        "constituency_code": 122
+      },
+      {
+        "constituency": "Bithari Chainpur",
+        "constituency_code": 123
+      },
+      {
+        "constituency": "Bareilly",
+        "constituency_code": 124
+      },
+      {
+        "constituency": "Bareilly Cantt.",
+        "constituency_code": 125
+      },
+      {
+        "constituency": "Aonla",
+        "constituency_code": 126
+      },
+      {
+        "constituency": "Pilibhit",
+        "constituency_code": 127
+      },
+      {
+        "constituency": "Barkhera",
+        "constituency_code": 128
+      },
+      {
+        "constituency": "Puranpur (Sc)",
+        "constituency_code": 129
+      },
+      {
+        "constituency": "Bisalpur",
+        "constituency_code": 130
+      },
+      {
+        "constituency": "Katra",
+        "constituency_code": 131
+      },
+      {
+        "constituency": "Jalalabad",
+        "constituency_code": 132
+      },
+      {
+        "constituency": "Tilhar",
+        "constituency_code": 133
+      },
+      {
+        "constituency": "Powayan (Sc)",
+        "constituency_code": 134
+      },
+      {
+        "constituency": "Shahjahanpur",
+        "constituency_code": 135
+      },
+      {
+        "constituency": "Dadraul",
+        "constituency_code": 136
+      },
+      {
+        "constituency": "Palia",
+        "constituency_code": 137
+      },
+      {
+        "constituency": "Nighasan",
+        "constituency_code": 138
+      },
+      {
+        "constituency": "Gola Gokrannath",
+        "constituency_code": 139
+      },
+      {
+        "constituency": "Sri Nagar (Sc)",
+        "constituency_code": 140
+      },
+      {
+        "constituency": "Dhaurahra",
+        "constituency_code": 141
+      },
+      {
+        "constituency": "Lakhimpur",
+        "constituency_code": 142
+      },
+      {
+        "constituency": "Kasta (Sc)",
+        "constituency_code": 143
+      },
+      {
+        "constituency": "Mohammdi",
+        "constituency_code": 144
+      },
+      {
+        "constituency": "Maholi",
+        "constituency_code": 145
+      },
+      {
+        "constituency": "Sitapur",
+        "constituency_code": 146
+      },
+      {
+        "constituency": "Hargaon (Sc)",
+        "constituency_code": 147
+      },
+      {
+        "constituency": "Laharpur",
+        "constituency_code": 148
+      },
+      {
+        "constituency": "Biswan",
+        "constituency_code": 149
+      },
+      {
+        "constituency": "Sevata",
+        "constituency_code": 150
+      },
+      {
+        "constituency": "Mahmoodabad",
+        "constituency_code": 151
+      },
+      {
+        "constituency": "Sidhauli (Sc)",
+        "constituency_code": 152
+      },
+      {
+        "constituency": "Misrikh (Sc)",
+        "constituency_code": 153
+      },
+      {
+        "constituency": "Sawaijpur",
+        "constituency_code": 154
+      },
+      {
+        "constituency": "Shahabad",
+        "constituency_code": 155
+      },
+      {
+        "constituency": "Hardoi",
+        "constituency_code": 156
+      },
+      {
+        "constituency": "Gopamau (Sc)",
+        "constituency_code": 157
+      },
+      {
+        "constituency": "Sandi (Sc)",
+        "constituency_code": 158
+      },
+      {
+        "constituency": "Bilgram-Mallanwan",
+        "constituency_code": 159
+      },
+      {
+        "constituency": "Balamau (Sc)",
+        "constituency_code": 160
+      },
+      {
+        "constituency": "Sandila",
+        "constituency_code": 161
+      },
+      {
+        "constituency": "Bangermau",
+        "constituency_code": 162
+      },
+      {
+        "constituency": "Safipur (Sc)",
+        "constituency_code": 163
+      },
+      {
+        "constituency": "Mohan (Sc)",
+        "constituency_code": 164
+      },
+      {
+        "constituency": "Unnao",
+        "constituency_code": 165
+      },
+      {
+        "constituency": "Bhagwantnagar",
+        "constituency_code": 166
+      },
+      {
+        "constituency": "Purwa",
+        "constituency_code": 167
+      },
+      {
+        "constituency": "Malihabad (Sc)",
+        "constituency_code": 168
+      },
+      {
+        "constituency": "Bakshi-Ka-Talab",
+        "constituency_code": 169
+      },
+      {
+        "constituency": "Sarojini Nagar",
+        "constituency_code": 170
+      },
+      {
+        "constituency": "Mohanlalganj (Sc)",
+        "constituency_code": 176
+      },
+      {
+        "constituency": "Bachhrawan (Sc)",
+        "constituency_code": 177
+      },
+      {
+        "constituency": "Tiloi",
+        "constituency_code": 178
+      },
+      {
+        "constituency": "Harchandpur",
+        "constituency_code": 179
+      },
+      {
+        "constituency": "Rae Bareli",
+        "constituency_code": 180
+      },
+      {
+        "constituency": "Salon (Sc)",
+        "constituency_code": 181
+      },
+      {
+        "constituency": "Sareni",
+        "constituency_code": 182
+      },
+      {
+        "constituency": "Unchahar",
+        "constituency_code": 183
+      },
+      {
+        "constituency": "Jagdishpur (Sc)",
+        "constituency_code": 184
+      },
+      {
+        "constituency": "Gauriganj",
+        "constituency_code": 185
+      },
+      {
+        "constituency": "Amethi",
+        "constituency_code": 186
+      },
+      {
+        "constituency": "Isauli",
+        "constituency_code": 187
+      },
+      {
+        "constituency": "Sultanpur",
+        "constituency_code": 188
+      },
+      {
+        "constituency": "Sadar",
+        "constituency_code": 189
+      },
+      {
+        "constituency": "Lambhua",
+        "constituency_code": 190
+      },
+      {
+        "constituency": "Kadipur (Sc)",
+        "constituency_code": 191
+      },
+      {
+        "constituency": "Kaimganj (Sc)",
+        "constituency_code": 192
+      },
+      {
+        "constituency": "Amritpur",
+        "constituency_code": 193
+      },
+      {
+        "constituency": "Farrukhabad",
+        "constituency_code": 194
+      },
+      {
+        "constituency": "Bhojpur",
+        "constituency_code": 195
+      },
+      {
+        "constituency": "Chhibramau",
+        "constituency_code": 196
+      },
+      {
+        "constituency": "Tirwa",
+        "constituency_code": 197
+      },
+      {
+        "constituency": "Kannauj (Sc)",
+        "constituency_code": 198
+      },
+      {
+        "constituency": "Jaswantnagar",
+        "constituency_code": 199
+      },
+      {
+        "constituency": "Etawah",
+        "constituency_code": 200
+      },
+      {
+        "constituency": "Bharthana (Sc)",
+        "constituency_code": 201
+      },
+      {
+        "constituency": "Bidhuna",
+        "constituency_code": 202
+      },
+      {
+        "constituency": "Dibiyapur",
+        "constituency_code": 203
+      },
+      {
+        "constituency": "Auraiya (Sc)",
+        "constituency_code": 204
+      },
+      {
+        "constituency": "Rasulabad (Sc)",
+        "constituency_code": 205
+      },
+      {
+        "constituency": "Akbarpur-Raniya",
+        "constituency_code": 206
+      },
+      {
+        "constituency": "Sikandra",
+        "constituency_code": 207
+      },
+      {
+        "constituency": "Bhognipur",
+        "constituency_code": 208
+      },
+      {
+        "constituency": "Bilhaur (Sc)",
+        "constituency_code": 209
+      },
+      {
+        "constituency": "Bithoor",
+        "constituency_code": 210
+      },
+      {
+        "constituency": "Kalyanpur",
+        "constituency_code": 211
+      },
+      {
+        "constituency": "Govindnagar",
+        "constituency_code": 212
+      },
+      {
+        "constituency": "Maharajpur",
+        "constituency_code": 217
+      },
+      {
+        "constituency": "Ghatampur (Sc)",
+        "constituency_code": 218
+      },
+      {
+        "constituency": "Madhaugarh",
+        "constituency_code": 219
+      },
+      {
+        "constituency": "Kalpi",
+        "constituency_code": 220
+      },
+      {
+        "constituency": "Orai (Sc)",
+        "constituency_code": 221
+      },
+      {
+        "constituency": "Babina",
+        "constituency_code": 222
+      },
+      {
+        "constituency": "Jhansi Nagar",
+        "constituency_code": 223
+      },
+      {
+        "constituency": "Mauranipur (Sc)",
+        "constituency_code": 224
+      },
+      {
+        "constituency": "Garautha",
+        "constituency_code": 225
+      },
+      {
+        "constituency": "Lalitpur",
+        "constituency_code": 226
+      },
+      {
+        "constituency": "Mehroni (Sc)",
+        "constituency_code": 227
+      },
+      {
+        "constituency": "Hamirpur",
+        "constituency_code": 228
+      },
+      {
+        "constituency": "Rath (Sc)",
+        "constituency_code": 229
+      },
+      {
+        "constituency": "Mahoba",
+        "constituency_code": 230
+      },
+      {
+        "constituency": "Charkhari",
+        "constituency_code": 231
+      },
+      {
+        "constituency": "Tindwari",
+        "constituency_code": 232
+      },
+      {
+        "constituency": "Baberu",
+        "constituency_code": 233
+      },
+      {
+        "constituency": "Naraini (Sc)",
+        "constituency_code": 234
+      },
+      {
+        "constituency": "Banda",
+        "constituency_code": 235
+      },
+      {
+        "constituency": "Chitrakoot",
+        "constituency_code": 236
+      },
+      {
+        "constituency": "Manikpur",
+        "constituency_code": 237
+      },
+      {
+        "constituency": "Jahanabad",
+        "constituency_code": 238
+      },
+      {
+        "constituency": "Bindki",
+        "constituency_code": 239
+      },
+      {
+        "constituency": "Fatehpur",
+        "constituency_code": 240
+      },
+      {
+        "constituency": "Ayah Shah",
+        "constituency_code": 241
+      },
+      {
+        "constituency": "Husainganj",
+        "constituency_code": 242
+      },
+      {
+        "constituency": "Khaga (Sc)",
+        "constituency_code": 243
+      },
+      {
+        "constituency": "Rampur Khas",
+        "constituency_code": 244
+      },
+      {
+        "constituency": "Babaganj (Sc)",
+        "constituency_code": 245
+      },
+      {
+        "constituency": "Kunda",
+        "constituency_code": 246
+      },
+      {
+        "constituency": "Bishwavnathganj",
+        "constituency_code": 247
+      },
+      {
+        "constituency": "Pratapgarh",
+        "constituency_code": 248
+      },
+      {
+        "constituency": "Patti",
+        "constituency_code": 249
+      },
+      {
+        "constituency": "Raniganj",
+        "constituency_code": 250
+      },
+      {
+        "constituency": "Sirathu",
+        "constituency_code": 251
+      },
+      {
+        "constituency": "Manjhanpur (Sc)",
+        "constituency_code": 252
+      },
+      {
+        "constituency": "Chail",
+        "constituency_code": 253
+      },
+      {
+        "constituency": "Phaphamau",
+        "constituency_code": 254
+      },
+      {
+        "constituency": "Soraon (Sc)",
+        "constituency_code": 255
+      },
+      {
+        "constituency": "Phulpur",
+        "constituency_code": 256
+      },
+      {
+        "constituency": "Pratappur",
+        "constituency_code": 257
+      },
+      {
+        "constituency": "Handia",
+        "constituency_code": 258
+      },
+      {
+        "constituency": "Meja",
+        "constituency_code": 259
+      },
+      {
+        "constituency": "Karachhana",
+        "constituency_code": 260
+      },
+      {
+        "constituency": "Bara (Sc)",
+        "constituency_code": 264
+      },
+      {
+        "constituency": "Koraon (Sc)",
+        "constituency_code": 265
+      },
+      {
+        "constituency": "Kursi",
+        "constituency_code": 266
+      },
+      {
+        "constituency": "Ram Nagar",
+        "constituency_code": 267
+      },
+      {
+        "constituency": "Barabanki",
+        "constituency_code": 268
+      },
+      {
+        "constituency": "Zaidpur (Sc)",
+        "constituency_code": 269
+      },
+      {
+        "constituency": "Dariyabad",
+        "constituency_code": 270
+      },
+      {
+        "constituency": "Rudauli",
+        "constituency_code": 271
+      },
+      {
+        "constituency": "Haidergarh (Sc)",
+        "constituency_code": 272
+      },
+      {
+        "constituency": "Milkipur (Sc)",
+        "constituency_code": 273
+      },
+      {
+        "constituency": "Bikapur",
+        "constituency_code": 274
+      },
+      {
+        "constituency": "Ayodhya",
+        "constituency_code": 275
+      },
+      {
+        "constituency": "Goshainganj",
+        "constituency_code": 276
+      },
+      {
+        "constituency": "Katehari",
+        "constituency_code": 277
+      },
+      {
+        "constituency": "Tanda",
+        "constituency_code": 278
+      },
+      {
+        "constituency": "Alapur (Sc)",
+        "constituency_code": 279
+      },
+      {
+        "constituency": "Jalalpur",
+        "constituency_code": 280
+      },
+      {
+        "constituency": "Akbarpur",
+        "constituency_code": 281
+      },
+      {
+        "constituency": "Balha (Sc)",
+        "constituency_code": 282
+      },
+      {
+        "constituency": "Nanpara",
+        "constituency_code": 283
+      },
+      {
+        "constituency": "Matera",
+        "constituency_code": 284
+      },
+      {
+        "constituency": "Mahasi",
+        "constituency_code": 285
+      },
+      {
+        "constituency": "Bahraich",
+        "constituency_code": 286
+      },
+      {
+        "constituency": "Payagpur",
+        "constituency_code": 287
+      },
+      {
+        "constituency": "Kaiserganj",
+        "constituency_code": 288
+      },
+      {
+        "constituency": "Bhinga",
+        "constituency_code": 289
+      },
+      {
+        "constituency": "Shrawasti",
+        "constituency_code": 290
+      },
+      {
+        "constituency": "Tulsipur",
+        "constituency_code": 291
+      },
+      {
+        "constituency": "Gainsari",
+        "constituency_code": 292
+      },
+      {
+        "constituency": "Utraula",
+        "constituency_code": 293
+      },
+      {
+        "constituency": "Balrampur (Sc)",
+        "constituency_code": 294
+      },
+      {
+        "constituency": "Mehnaun",
+        "constituency_code": 295
+      },
+      {
+        "constituency": "Gonda",
+        "constituency_code": 296
+      },
+      {
+        "constituency": "Katra Bazar",
+        "constituency_code": 297
+      },
+      {
+        "constituency": "Colonelganj",
+        "constituency_code": 298
+      },
+      {
+        "constituency": "Tarabganj",
+        "constituency_code": 299
+      },
+      {
+        "constituency": "Mankapur (Sc)",
+        "constituency_code": 300
+      },
+      {
+        "constituency": "Gaura",
+        "constituency_code": 301
+      },
+      {
+        "constituency": "Shohratgarh",
+        "constituency_code": 302
+      },
+      {
+        "constituency": "Kapilvastu (Sc)",
+        "constituency_code": 303
+      },
+      {
+        "constituency": "Bansi",
+        "constituency_code": 304
+      },
+      {
+        "constituency": "Itwa",
+        "constituency_code": 305
+      },
+      {
+        "constituency": "Domariyaganj",
+        "constituency_code": 306
+      },
+      {
+        "constituency": "Harraiya",
+        "constituency_code": 307
+      },
+      {
+        "constituency": "Kaptanganj",
+        "constituency_code": 308
+      },
+      {
+        "constituency": "Rudhauli",
+        "constituency_code": 309
+      },
+      {
+        "constituency": "Basti Sadar",
+        "constituency_code": 310
+      },
+      {
+        "constituency": "Mahadewa (Sc)",
+        "constituency_code": 311
+      },
+      {
+        "constituency": "Menhdawal",
+        "constituency_code": 312
+      },
+      {
+        "constituency": "Khalilabad",
+        "constituency_code": 313
+      },
+      {
+        "constituency": "Dhanghata (Sc)",
+        "constituency_code": 314
+      },
+      {
+        "constituency": "Pharenda",
+        "constituency_code": 315
+      },
+      {
+        "constituency": "Nautanwa",
+        "constituency_code": 316
+      },
+      {
+        "constituency": "Siswa",
+        "constituency_code": 317
+      },
+      {
+        "constituency": "Maharajganj (Sc)",
+        "constituency_code": 318
+      },
+      {
+        "constituency": "Paniyra",
+        "constituency_code": 319
+      },
+      {
+        "constituency": "Caimpiyarganj",
+        "constituency_code": 320
+      },
+      {
+        "constituency": "Pipraich",
+        "constituency_code": 321
+      },
+      {
+        "constituency": "Gorakhpur Urban",
+        "constituency_code": 322
+      },
+      {
+        "constituency": "Gorakhpur Rural",
+        "constituency_code": 323
+      },
+      {
+        "constituency": "Sahajanwa",
+        "constituency_code": 324
+      },
+      {
+        "constituency": "Khajani (Sc)",
+        "constituency_code": 325
+      },
+      {
+        "constituency": "Chauri-Chaura",
+        "constituency_code": 326
+      },
+      {
+        "constituency": "Bansgaon (Sc)",
+        "constituency_code": 327
+      },
+      {
+        "constituency": "Chillupar",
+        "constituency_code": 328
+      },
+      {
+        "constituency": "Khadda",
+        "constituency_code": 329
+      },
+      {
+        "constituency": "Padrauna",
+        "constituency_code": 330
+      },
+      {
+        "constituency": "Tamkuhi Raj",
+        "constituency_code": 331
+      },
+      {
+        "constituency": "Fazilnagar",
+        "constituency_code": 332
+      },
+      {
+        "constituency": "Kushinagar",
+        "constituency_code": 333
+      },
+      {
+        "constituency": "Hata",
+        "constituency_code": 334
+      },
+      {
+        "constituency": "Ramkola (Sc)",
+        "constituency_code": 335
+      },
+      {
+        "constituency": "Rudrapur",
+        "constituency_code": 336
+      },
+      {
+        "constituency": "Deoria",
+        "constituency_code": 337
+      },
+      {
+        "constituency": "Pathardeva",
+        "constituency_code": 338
+      },
+      {
+        "constituency": "Rampur Karkhana",
+        "constituency_code": 339
+      },
+      {
+        "constituency": "Bhatpar Rani",
+        "constituency_code": 340
+      },
+      {
+        "constituency": "Salempur (Sc)",
+        "constituency_code": 341
+      },
+      {
+        "constituency": "Barhaj",
+        "constituency_code": 342
+      },
+      {
+        "constituency": "Atrauliya",
+        "constituency_code": 343
+      },
+      {
+        "constituency": "Gopalpur",
+        "constituency_code": 344
+      },
+      {
+        "constituency": "Sagri",
+        "constituency_code": 345
+      },
+      {
+        "constituency": "Mubarakpur",
+        "constituency_code": 346
+      },
+      {
+        "constituency": "Azamgarh",
+        "constituency_code": 347
+      },
+      {
+        "constituency": "Nizamabad",
+        "constituency_code": 348
+      },
+      {
+        "constituency": "Phoolpur-Pawai",
+        "constituency_code": 349
+      },
+      {
+        "constituency": "Didarganj",
+        "constituency_code": 350
+      },
+      {
+        "constituency": "Lalganj (Sc)",
+        "constituency_code": 351
+      },
+      {
+        "constituency": "Mehnagar (Sc)",
+        "constituency_code": 352
+      },
+      {
+        "constituency": "Madhuban",
+        "constituency_code": 353
+      },
+      {
+        "constituency": "Ghosi",
+        "constituency_code": 354
+      },
+      {
+        "constituency": "Muhammadabad-Gohna (Sc)",
+        "constituency_code": 355
+      },
+      {
+        "constituency": "Mau",
+        "constituency_code": 356
+      },
+      {
+        "constituency": "Belthara Road (Sc)",
+        "constituency_code": 357
+      },
+      {
+        "constituency": "Rasara",
+        "constituency_code": 358
+      },
+      {
+        "constituency": "Sikanderpur",
+        "constituency_code": 359
+      },
+      {
+        "constituency": "Phephana",
+        "constituency_code": 360
+      },
+      {
+        "constituency": "Ballia Nagar",
+        "constituency_code": 361
+      },
+      {
+        "constituency": "Bansdih",
+        "constituency_code": 362
+      },
+      {
+        "constituency": "Bairia",
+        "constituency_code": 363
+      },
+      {
+        "constituency": "Badlapur",
+        "constituency_code": 364
+      },
+      {
+        "constituency": "Shahganj",
+        "constituency_code": 365
+      },
+      {
+        "constituency": "Jaunpur",
+        "constituency_code": 366
+      },
+      {
+        "constituency": "Malhani",
+        "constituency_code": 367
+      },
+      {
+        "constituency": "Mungra Badshahpur",
+        "constituency_code": 368
+      },
+      {
+        "constituency": "Machhlishahr (Sc)",
+        "constituency_code": 369
+      },
+      {
+        "constituency": "Mariyahu",
+        "constituency_code": 370
+      },
+      {
+        "constituency": "Zafrabad",
+        "constituency_code": 371
+      },
+      {
+        "constituency": "Kerakat (Sc)",
+        "constituency_code": 372
+      },
+      {
+        "constituency": "Jakhanian",
+        "constituency_code": 373
+      },
+      {
+        "constituency": "Saidpur (Sc)",
+        "constituency_code": 374
+      },
+      {
+        "constituency": "Ghazipur",
+        "constituency_code": 375
+      },
+      {
+        "constituency": "Jangipur (Sc)",
+        "constituency_code": 376
+      },
+      {
+        "constituency": "Zahoorabad",
+        "constituency_code": 377
+      },
+      {
+        "constituency": "Mohammadabad",
+        "constituency_code": 378
+      },
+      {
+        "constituency": "Zamania",
+        "constituency_code": 379
+      },
+      {
+        "constituency": "Mughalsarai",
+        "constituency_code": 380
+      },
+      {
+        "constituency": "Sakaldiha",
+        "constituency_code": 381
+      },
+      {
+        "constituency": "Saiyadraja",
+        "constituency_code": 382
+      },
+      {
+        "constituency": "Chakia (Sc)",
+        "constituency_code": 383
+      },
+      {
+        "constituency": "Pindra",
+        "constituency_code": 384
+      },
+      {
+        "constituency": "Ajagara (Sc)",
+        "constituency_code": 385
+      },
+      {
+        "constituency": "Shivpur",
+        "constituency_code": 386
+      },
+      {
+        "constituency": "Rohaniya",
+        "constituency_code": 387
+      },
+      {
+        "constituency": "Varanasi North",
+        "constituency_code": 388
+      },
+      {
+        "constituency": "Varanasi Cantt.",
+        "constituency_code": 390
+      },
+      {
+        "constituency": "Sevapuri",
+        "constituency_code": 391
+      },
+      {
+        "constituency": "Bhadohi",
+        "constituency_code": 392
+      },
+      {
+        "constituency": "Gyanpur",
+        "constituency_code": 393
+      },
+      {
+        "constituency": "Aurai (Sc)",
+        "constituency_code": 394
+      },
+      {
+        "constituency": "Chhanbey (Sc)",
+        "constituency_code": 395
+      },
+      {
+        "constituency": "Mirzapur",
+        "constituency_code": 396
+      },
+      {
+        "constituency": "Majhawan",
+        "constituency_code": 397
+      },
+      {
+        "constituency": "Chunar",
+        "constituency_code": 398
+      },
+      {
+        "constituency": "Marihan",
+        "constituency_code": 399
+      },
+      {
+        "constituency": "Ghorawal",
+        "constituency_code": 400
+      },
+      {
+        "constituency": "Robertsganj",
+        "constituency_code": 401
+      },
+      {
+        "constituency": "Obra",
+        "constituency_code": 402
+      },
+      {
+        "constituency": "Duddhi (Sc)",
+        "constituency_code": 403
+      }
+    ]
+  }
+}

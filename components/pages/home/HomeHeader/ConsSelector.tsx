@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Button } from 'components/actions/Button';
 import { Combobox } from 'components/actions/Combobox';
 import { GradientLokSabha, GradientVidhanSabha } from 'components/icons';
+import { upperCaseString } from 'utils/helper';
 
 const ConsSelector: React.FC<{
   consData: any;
@@ -21,7 +22,7 @@ const ConsSelector: React.FC<{
         count += consData[state].length;
         return {
           value: state,
-          label: state,
+          label: upperCaseString(state),
         };
       });
       SetConsCount(count);
@@ -32,7 +33,7 @@ const ConsSelector: React.FC<{
   const constituenies = React.useMemo(() => {
     if (selectedState)
       return Object.values(consData[selectedState]).map((item: any) => ({
-        value: item.constituency,
+        value: item.constituency_code,
         label: item.constituency,
       }));
   }, [selectedState]);
@@ -84,7 +85,7 @@ const ConsSelector: React.FC<{
             kind="primary"
             href={
               selectedCons
-                ? `/${selectedState}/${sabha}/${selectedCons}`
+                ? `/${selectedState}/${sabha}?cons_code=${selectedCons}`
                 : null
             }
             onClick={

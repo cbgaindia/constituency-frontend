@@ -95,7 +95,7 @@ const Wrapper = styled.div`
   margin-top: 16px;
 
   [role='tablist'] {
-    flex-basis: 170px;
+    flex-basis: 175px;
   }
 `;
 

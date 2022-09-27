@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { HomeHeader } from 'components/pages/home';
 import { GetStaticProps } from 'next';
-import { consListFetch } from 'utils/fetch';
+import { consListFetch, fetchQuery } from 'utils/fetch';
 
 const HomeStates = dynamic(
   () => import('components/pages/home/HomeStates/HomeStates'),
@@ -34,11 +34,14 @@ export default function Home({ stateData }) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const [stateData] = await Promise.all([consListFetch()]);
+  const jsonUrl = await fetchQuery('schemeType', 'Cons Info').then(
+    (res) => res[0].resources.filter((e) => e.format == 'JSON')[0].url
+  );
+  const jsonData = await fetch(jsonUrl).then((res) => res.json());
 
   return {
     props: {
-      stateData,
+      stateData: jsonData,
     },
   };
 };
