@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { HomeHeader } from 'components/pages/home';
 import { GetStaticProps } from 'next';
-import { consListFetch, fetchQuery } from 'utils/fetch';
+import { consListFetch, fetchJSON, fetchQuery } from 'utils/fetch';
 
 const HomeStates = dynamic(
   () => import('components/pages/home/HomeStates/HomeStates'),
@@ -15,7 +15,7 @@ const Seo = dynamic(() => import('components/common/Seo/Seo'), {
   ssr: false,
 });
 
-export default function Home({ stateData }) {
+export default function Home({ constList }) {
   const seo = {
     title: 'Welcome - Constituency Dashboard',
     description:
@@ -26,7 +26,7 @@ export default function Home({ stateData }) {
     <>
       <Seo seo={seo} />
       <main>
-        <HomeHeader stateData={stateData} />
+        <HomeHeader constList={constList} />
         <HomeStates />
       </main>
     </>
@@ -34,14 +34,11 @@ export default function Home({ stateData }) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const jsonUrl = await fetchQuery('schemeType', 'Cons Info').then(
-    (res) => res[0].resources.filter((e) => e.format == 'JSON')[0].url
-  );
-  const jsonData = await fetch(jsonUrl).then((res) => res.json());
+  const jsonData = await fetchJSON('Cons Info');
 
   return {
     props: {
-      stateData: jsonData,
+      constList: jsonData,
     },
   };
 };

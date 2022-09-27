@@ -9,6 +9,15 @@ export async function fetchQuery(query, value) {
   return queryRes.result.results;
 }
 
+export async function fetchJSON(schemeType, key = null) {
+  const jsonUrl = await fetchQuery('schemeType', schemeType).then(
+    (res) => res[0].resources.filter((e) => e.format == 'JSON')[0].url
+  );
+  const jsonData = await fetch(jsonUrl).then((res) => res.json());
+  if (key) return jsonData[key];
+  return jsonData;
+}
+
 export async function fetchSheets(link, aoa = true) {
   const result = [];
   await fetch(link)

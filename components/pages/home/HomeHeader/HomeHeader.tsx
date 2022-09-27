@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import ConsSelector from './ConsSelector';
 import { lokTrending, vidhanTrending } from 'data/home';
 
-const HomeHeader = ({ stateData }) => {
+const HomeHeader = ({ constList }) => {
   return (
     <Header>
       <div className="container">
@@ -12,12 +12,12 @@ const HomeHeader = ({ stateData }) => {
         </h1>
         <SelectorWrapper>
           <ConsSelector
-            consData={stateData?.lok}
+            consData={constList?.lok}
             trending={lokTrending}
             sabha="lok"
           />
           <ConsSelector
-            consData={stateData?.vidhan}
+            consData={constList?.vidhan}
             trending={vidhanTrending}
             sabha="vidhan"
           />
