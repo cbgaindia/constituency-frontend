@@ -46,44 +46,44 @@ interface Props {
   isGrouped?: boolean;
   isLight?: boolean;
   isDark?: boolean;
+  disableOptions?: boolean;
 }
 type ComboboxProps = React.ComponentProps<typeof Select> & Props;
 
-const Combobox = ({ isGrouped, ...props }: ComboboxProps) => {
+const Combobox = ({
+  isGrouped,
+  disableOptions = false,
+  ...props
+}: ComboboxProps) => {
   //  Custom filter function to handle grouped options
-  const groupedFilter = React.useCallback(
-    ({ label, value }, string) => {
-      label = label.toLocaleLowerCase();
-      string = string.toLocaleLowerCase();
+  const groupedFilter = React.useCallback(({ label, value }, string) => {
+    label = label.toLocaleLowerCase();
+    string = string.toLocaleLowerCase();
 
-      // default search
-      if (label.includes(string) || String(value).includes(string))
-        return true;
+    // default search
+    if (label.includes(string) || String(value).includes(string)) return true;
 
-      // check if a group as the filter string as label
-      const groupOptions: any = props.options.filter((group: any) =>
-        group.label.toLocaleLowerCase().includes(string)
-      );
+    // check if a group as the filter string as label
+    const groupOptions: any = props.options.filter((group: any) =>
+      group.label.toLocaleLowerCase().includes(string)
+    );
 
-      if (groupOptions) {
-        for (const groupOption of groupOptions) {
-          // Check if current option is in group
-          const option = groupOption.options?.find(
-            (opt) => opt.value === value
-          );
-          if (option) {
-            return true;
-          }
+    if (groupOptions) {
+      for (const groupOption of groupOptions) {
+        // Check if current option is in group
+        const option = groupOption.options?.find((opt) => opt.value === value);
+        if (option) {
+          return true;
         }
       }
-      return false;
-    },
-    [props]
-  );
+    }
+    return false;
+  }, []);
 
   return (
     <ReactSelectElement
       classNamePrefix="react-select"
+      isOptionDisabled={() => disableOptions}
       menuPortalTarget={document.body}
       aria-label={`${props.placeholder}` || 'Select an element'}
       components={{

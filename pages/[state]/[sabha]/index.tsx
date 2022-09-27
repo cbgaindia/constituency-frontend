@@ -163,7 +163,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     props: {
       stateData: stateData,
       stateScheme,
-      consData: json[queryValue.cons_code],
+      consData: json['constituency_data'][queryValue.cons_code],
     },
   };
 };
