@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import dynamic from 'next/dynamic';
 
-import { consListFetch, stateDataFetch } from 'utils/fetch';
+import { consListFetch, fetchJSON, stateDataFetch } from 'utils/fetch';
 import { getParameterCaseInsensitive } from 'utils/helper';
 import Header from 'components/pages/state/Header';
 import StateList from 'components/pages/state/StateList/StateList';
@@ -13,24 +13,24 @@ const Seo = dynamic(() => import('components/common/Seo/Seo'), {
 
 type Props = {
   pathName: string;
-  consData: any;
+  constList: any;
   stateData: any;
 };
 
-const State: React.FC<Props> = ({ pathName, consData, stateData }) => {
+const State: React.FC<Props> = ({ pathName, constList, stateData }) => {
   const [currentLokCons, setCurrentLokCons] = useState<any>([]);
   const [currentVidhanCons, setCurrentVidhanCons] = useState<any>([]);
   const state = pathName;
 
   useEffect(() => {
     // get constituencies of current state
-    if (consData) {
-      const vidhan = getParameterCaseInsensitive(consData?.vidhan, state);
-      const lok = getParameterCaseInsensitive(consData?.lok, state);
+    if (constList) {
+      const vidhan = getParameterCaseInsensitive(constList?.vidhan, state);
+      const lok = getParameterCaseInsensitive(constList?.lok, state);
       setCurrentVidhanCons(vidhan);
       setCurrentLokCons(lok);
     }
-  }, [consData]);
+  }, [constList]);
 
   const seo = {
     title: `${state?.replace(/\b\w/g, (c) =>
@@ -38,11 +38,12 @@ const State: React.FC<Props> = ({ pathName, consData, stateData }) => {
     )} - Constituency Dashboard`,
     description: `Explore scheme-wise fiscal information at the level of Lok Sabha and Vidhan Sabha constituencies in the state of ${state}`,
   };
+  console.log(constList);
 
   return (
     <>
       <Seo seo={seo} />
-      {consData && (
+      {constList && (
         <>
           <main className="container">
             <Header data={stateData} />
@@ -73,15 +74,19 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { state } = params;
+  const { state }: any = params;
 
   try {
-    const [stateData, consData] = await Promise.all([
-      stateDataFetch(state),
-      consListFetch(state),
-    ]);
-    return consData
-      ? { props: { pathName: state, consData: consData, stateData } }
+    const [stateData] = await Promise.all([stateDataFetch(state)]);
+
+    const jsonData: any = await fetchJSON('Cons Info');
+    const finalJSON = {
+      lok: { [state]: jsonData.lok[state] },
+      vidhan: { [state]: jsonData.vidhan[state] },
+    };
+
+    return finalJSON
+      ? { props: { pathName: state, constList: finalJSON, stateData } }
       : { notFound: true };
   } catch (error) {
     console.error(error);
