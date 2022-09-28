@@ -31,8 +31,15 @@ const SnapshotCard = ({ data }: { data: any }) => {
             <div>
               <AverageTitle>State Average</AverageTitle>
               <div>
-                <ProgressBar data-fill="pink" value={data.value.state} />
-                <AverageValue>24,000 Cr.</AverageValue>
+                <ProgressBar
+                  data-min={data.value.state.min}
+                  max={data.value.state.max}
+                  data-fill="pink"
+                  value={data.value.state.avg}
+                />
+                <AverageValue>
+                  {data.value.state.avg.toFixed(2)} Cr.
+                </AverageValue>
               </div>
             </div>
             <div>
@@ -40,10 +47,13 @@ const SnapshotCard = ({ data }: { data: any }) => {
               <div>
                 <ProgressBar
                   data-fill="teal"
+                  data-min={data.value.state.min}
+                  max={data.value.state.max}
                   value={data.value.constituency}
-                  max={data.value.constituency + 200}
                 />
-                <AverageValue>{data.value.constituency} Cr.</AverageValue>
+                <AverageValue>
+                  {data.value.constituency.toFixed(2)} Cr.
+                </AverageValue>
               </div>
             </div>
           </SnapshotSchemeBar>

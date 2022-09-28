@@ -30,15 +30,15 @@ type Props = {
   stateScheme: any;
   stateData: any;
   schemeData: any;
-  consData: any;
+  data: any;
 };
 export const ToolbarContext = React.createContext(null);
 
-const ConsPage: React.FC<Props> = ({ stateData, stateScheme, consData }) => {
+const ConsPage: React.FC<Props> = ({ stateData, stateScheme, data }) => {
   const [view, setView] = useState('overview');
   const router = useRouter();
   const { state, sabha, scheme, cons_code } = router.query;
-  const { constituency_name: cons } = consData;
+  const { constituency_name: cons } = data.consData;
   function handleToolbarSwitch(e: string) {
     function isTabbed(val: string) {
       if (['explorer', 'overview'].includes(val)) return true;
@@ -77,10 +77,10 @@ const ConsPage: React.FC<Props> = ({ stateData, stateScheme, consData }) => {
         content: (
           <ToolbarContext.Provider value={handleToolbarSwitch}>
             <Overview
-              data={stateData}
+              stateData={stateData}
               queryData={{ state, sabha, cons }}
               schemeList={stateScheme}
-              consData={consData}
+              data={data}
             />
           </ToolbarContext.Provider>
         ),
@@ -163,7 +163,10 @@ export const getServerSideProps: GetServerSideProps = async ({
     props: {
       stateData: stateData,
       stateScheme,
-      consData: json['constituency_data'][queryValue.cons_code],
+      data: {
+        consData: json['constituency_data'][queryValue.cons_code],
+        stateAvg: json['state_avg'],
+      },
     },
   };
 };

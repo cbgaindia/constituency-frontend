@@ -9,81 +9,67 @@ type Props = {
   indicator: string;
   meta: any;
   schemeList: any;
-  data: any;
+  consData: any;
+  stateAvg: any;
 };
 
-const Snapshot = ({ indicator, meta, schemeList, data }: Props) => {
-  const [selectedIndicator, setSelectedIndicator] = React.useState(indicator);
-  const [selectedYear, setSelectedYear] = React.useState(Object.keys(data)[0]);
+const Snapshot = ({
+  indicator,
+  meta,
+  schemeList,
+  consData,
+  stateAvg,
+}: Props) => {
+  const [selectedIndicator, setSelectedIndicator] = React.useState(
+    'Budget Utilisation'
+  );
+  const [selectedYear, setSelectedYear] = React.useState(
+    Object.keys(consData)[0]
+  );
 
   const yearList = React.useMemo(() => {
-    return Object.keys(data).map((item) => ({
+    return Object.keys(consData).map((item) => ({
       label: item,
       value: item,
     }));
-  }, [data]);
+  }, [consData]);
 
+  // TODO remove temporary indicators
   const tempIndicators = {
     data: [
       {
-        name: 'Opening Balance',
+        name: 'Budget Utilisation',
         description:
           'Amount reported as balance under the scheme by the end of the previous Financial Year (FY)',
-        slug: 'opening-balance',
+        slug: 'indicator_1',
       },
       {
-        name: 'Total Available Fund',
+        name: 'Unspent Balance',
         description:
           'Based on the demand from the states / UTs funds are made available by the Union Government for the scheme.',
-        slug: 'total-available-fund',
+        slug: 'indicator_2',
       },
       {
-        name: 'Total Expenditure on Wages',
+        name: 'Total Amount Disbursed to Other Beneficiaries',
         description:
           'Total expenditure incurred on wage payments to labourers',
-        slug: 'total-expenditure-on-wages',
+        slug: 'indicator_3',
       },
       {
-        name: 'Total Expenditure on Materials',
+        name: 'Total Amount Due',
         description: 'Total expenditure incurred on procuring materials',
-        slug: 'total-expenditure-on-materials',
-      },
-      {
-        name: 'Total Expenditure on Taxes',
-        description: 'Total expenditure incurred tax payments',
-        slug: 'total-expenditure-on-taxes',
-      },
-      {
-        name: 'Total Expenditure on Admin Expenses',
-        description: 'Total expenditure incurred tax payments',
-        slug: 'total-expenditure-on-admin-expenses',
-      },
-      {
-        name: 'Grand Total Expenditure',
-        description: 'Aggregate expenditure on wage, materials, admin & tax',
-        slug: 'grand-total-expenditure',
-      },
-      {
-        name: 'Total Unspent Balance',
-        description:
-          'The total unspent balance is the difference between the total available fund and grand total expenditure (including payment due). ',
-        slug: 'total-unspent-balance',
-      },
-      {
-        name: 'Total Payment Due',
-        description:
-          'The amount is due for payment to labourers, material cost, admin and costs for admin expenses',
-        slug: 'total-payment-due',
+        slug: 'indicator_4',
       },
     ],
   };
 
-  function getConsValue(slug) {
+  function getProgressValue(obj, slug) {
     if (
-      data[selectedYear][slug] &&
-      data[selectedYear][slug][selectedIndicator]
+      obj[selectedYear][slug] &&
+      obj[selectedYear][slug][selectedIndicator]
     ) {
-      return Math.abs(data[selectedYear][slug][selectedIndicator]); // TODO handle negative
+      if (obj == stateAvg) return obj[selectedYear][slug][selectedIndicator];
+      return Math.abs(obj[selectedYear][slug][selectedIndicator]); // TODO handle negative
     }
     return false;
   }
@@ -118,12 +104,20 @@ const Snapshot = ({ indicator, meta, schemeList, data }: Props) => {
                   key={item.scheme_slug}
                   data={{
                     ...item,
-                    value: getConsValue(item.scheme_slug)
-                      ? {
-                          state: 75,
-                          constituency: getConsValue(item.scheme_slug),
-                        }
-                      : null,
+                    value:
+                      getProgressValue(stateAvg, item.scheme_slug) &&
+                      getProgressValue(consData, item.scheme_slug)
+                        ? {
+                            state: getProgressValue(
+                              stateAvg,
+                              item.scheme_slug
+                            ),
+                            constituency: getProgressValue(
+                              consData,
+                              item.scheme_slug
+                            ),
+                          }
+                        : null,
                   }}
                 />
               ))}
