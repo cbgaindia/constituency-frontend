@@ -133,7 +133,6 @@ const GroupBarChart: React.FC<BarChartProps> = ({
       echarts={echarts}
       option={option}
       notMerge={true}
-      lazyUpdate={true}
       style={{
         height: '500px',
       }}

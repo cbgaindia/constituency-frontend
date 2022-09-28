@@ -5,6 +5,7 @@ import { GroupBarChart } from 'components/viz';
 import { getParameterCaseInsensitive } from 'utils/helper';
 
 const ConstBar = ({ meta, filteredData }) => {
+  const [isPending, startTransition] = React.useTransition();
   const [barData, setBarData] = React.useState([]);
   const [selectedCons, setSelectedCons] = React.useState([
     { state: meta.state, code: meta.cons_code },
@@ -14,21 +15,18 @@ const ConstBar = ({ meta, filteredData }) => {
   ]);
 
   React.useEffect(() => {
-    setSelectedYears([{ value: meta.year, label: meta.year }]);
+    startTransition(() => {
+      setSelectedYears([{ value: meta.year, label: meta.year }]);
+    });
   }, [meta.year]);
 
-  React.useEffect(() => {
-    if (
-      meta.cons_code &&
-      meta.state &&
-      selectedYears[0].value &&
-      meta.indicator
-    ) {
-      getStateConstData(selectedYears, selectedCons);
+  React.useLayoutEffect(() => {
+    if (meta.cons_code && meta.state && meta.indicator) {
+      !isPending && generateBarChart(selectedYears, selectedCons);
     }
   }, [meta, selectedCons, selectedYears]);
 
-  function getStateConstData(years, constituencies) {
+  function generateBarChart(years, constituencies) {
     const barChartHeader = ['Year'];
 
     //  years object to store the values in arrays
@@ -38,25 +36,34 @@ const ConstBar = ({ meta, filteredData }) => {
     });
 
     constituencies.forEach((elm) => {
-      const state_obj = Object.values(meta.schemeData.data).filter(
+      const indicatorFiltered = Object.values(meta.schemeData.data).filter(
         (e: any) => e.slug == meta.indicator
-      )[0]['state_Obj'];
+      )[0];
 
-      const { state, code } = elm;
-      barChartHeader.push(String(code));
+      if (indicatorFiltered) {
+        const state_obj = indicatorFiltered['state_Obj'];
 
-      //  for each year, fill the constituency value
-      Object.keys(yearsObj).length &&
-        Object.keys(yearsObj).forEach((yearElm) => {
-          const constValue = getParameterCaseInsensitive(state_obj, state)[
-            yearElm
-          ][code];
-          yearsObj[yearElm].push(constValue);
-        });
+        const { state, code } = elm;
+        barChartHeader.push(String(code));
+
+        //  for each year, fill the constituency value
+        Object.keys(yearsObj).length &&
+          Object.keys(yearsObj).forEach((yearElm) => {
+            const yearFiltered = getParameterCaseInsensitive(state_obj, state)[
+              yearElm
+            ];
+            if (yearFiltered) {
+              const constValue = yearFiltered[code];
+              yearsObj[yearElm].push(constValue);
+            }
+          });
+      }
     });
 
     const barChartArr = [barChartHeader, ...Object.values(yearsObj)];
-    setBarData(barChartArr);
+    startTransition(() => {
+      setBarData(barChartArr);
+    });
   }
 
   function handleConstChange(e) {
@@ -64,7 +71,9 @@ const ConstBar = ({ meta, filteredData }) => {
       state: obj.value.state,
       code: obj.value.code,
     }));
-    setSelectedCons(arr);
+    startTransition(() => {
+      setSelectedCons(arr);
+    });
   }
 
   // generate grouped constituency list based on state

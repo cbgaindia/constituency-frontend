@@ -123,6 +123,7 @@ const ReactSelectElement = styled(Select)<Props>`
     &__value-container {
       gap: 8px;
       padding: 7px 12px;
+      flex-wrap: nowrap;
     }
 
     &__single-value {
