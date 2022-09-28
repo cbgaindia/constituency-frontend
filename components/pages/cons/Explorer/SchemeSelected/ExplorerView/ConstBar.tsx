@@ -105,6 +105,7 @@ const ConstBar = ({ meta, filteredData }) => {
             isMulti
             isGrouped
             id="cons-selector"
+            placeholder="Add more constituency to compare"
           />
         )}
         {meta.year && (
@@ -115,6 +116,7 @@ const ConstBar = ({ meta, filteredData }) => {
             isMulti
             isSearchable={false}
             id="year-selector"
+            placeholder="Select financial year"
           />
         )}
       </ComboWrapper>
