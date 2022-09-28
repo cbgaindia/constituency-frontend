@@ -3,7 +3,11 @@ import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import styled from 'styled-components';
 
-import { stateDataFetch, stateSchemeFetch } from 'utils/fetch';
+import {
+  stateDataFetch,
+  stateMetadataFetch,
+  stateSchemeFetch,
+} from 'utils/fetch';
 
 import {
   Overview as OverViewIcon,
@@ -28,13 +32,13 @@ const Seo = dynamic(() => import('components/common/Seo/Seo'), {
 
 type Props = {
   stateScheme: any;
-  stateData: any;
+  stateMetadata: any;
   schemeData: any;
   data: any;
 };
 export const ToolbarContext = React.createContext(null);
 
-const ConsPage: React.FC<Props> = ({ stateData, stateScheme, data }) => {
+const ConsPage: React.FC<Props> = ({ stateMetadata, stateScheme, data }) => {
   const [view, setView] = useState('overview');
   const router = useRouter();
   const { state, sabha, scheme, cons_code } = router.query;
@@ -77,7 +81,7 @@ const ConsPage: React.FC<Props> = ({ stateData, stateScheme, data }) => {
         content: (
           <ToolbarContext.Provider value={handleToolbarSwitch}>
             <Overview
-              stateData={stateData}
+              stateMetadata={stateMetadata}
               queryData={{ state, sabha, cons }}
               schemeList={stateScheme}
               data={data}
@@ -98,7 +102,7 @@ const ConsPage: React.FC<Props> = ({ stateData, stateScheme, data }) => {
         ),
       },
     ],
-    [stateData]
+    [stateMetadata]
   );
 
   const seo = {
@@ -147,25 +151,26 @@ export const getServerSideProps: GetServerSideProps = async ({
       ? 'http://52.30.188.232:8003/'
       : 'http://localhost:3000';
 
-  const json = await fetch(`${fileLink}/assets/json/bihar_ac.json`).then(
-    (res) => res.json()
-  );
+  // const json = await fetch(`${fileLink}/assets/json/bihar_ac.json`).then(
+  //   (res) => res.json()
+  // );
 
-  const [stateScheme, stateData] = await Promise.all([
-    stateSchemeFetch(query.state),
-    stateDataFetch(query.state),
+  const [stateScheme, stateMetadata, stateData] = await Promise.all([
+    stateSchemeFetch(queryValue.state.replaceAll('-', ' ')),
+    stateMetadataFetch(queryValue.state.replaceAll('-', ' ')),
+    stateDataFetch(queryValue.state, queryValue.sabha),
   ]);
 
-  if (!(stateData && stateScheme && queryValue.cons_code))
+  if (!(stateMetadata && stateScheme && queryValue.cons_code))
     return { notFound: true };
 
   return {
     props: {
-      stateData: stateData,
+      stateMetadata: stateMetadata,
       stateScheme,
       data: {
-        consData: json['constituency_data'][queryValue.cons_code],
-        stateAvg: json['state_avg'],
+        consData: stateData['constituency_data'][queryValue.cons_code],
+        stateAvg: stateData['state_avg'],
       },
     },
   };

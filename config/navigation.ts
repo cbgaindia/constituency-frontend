@@ -27,7 +27,7 @@ export const navList = {
           name: 'Odisha',
         },
         {
-          link: '/uttar pradesh',
+          link: '/uttar-pradesh',
           name: 'Uttar Pradesh',
         },
       ],
@@ -36,10 +36,6 @@ export const navList = {
       link: '/about',
       name: 'About Us',
     },
-    // {
-    //   link: '/explorer?scheme=mgnrega&state=Uttar Pradesh',
-    //   name: 'Explorer',
-    // },
     {
       link: 'https://drive.google.com/drive/folders/1_Qm_yDHBlcSTvoYdV0bc9b79DRF-pzJs',
       name: 'Methodology and Resources',

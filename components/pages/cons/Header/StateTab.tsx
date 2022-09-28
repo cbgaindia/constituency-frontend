@@ -22,7 +22,7 @@ const StateTab = ({ data, sabha }) => {
             Object.keys(data).map((item) => (
               <StyleTrigger value={item} key={item}>
                 <span>
-                  {item}
+                  {item.replaceAll('-', ' ')}
                   <IconArrowRight width={24} />
                 </span>
               </StyleTrigger>

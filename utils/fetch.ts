@@ -84,7 +84,7 @@ export async function stateSchemeFetch(state = null) {
   return state ? getParameterCaseInsensitive(stateScheme, state) : stateScheme;
 }
 
-export async function stateDataFetch(state = null) {
+export async function stateMetadataFetch(state = null) {
   // fetch CKAN JSON
   const data = await fetchQuery('schemeType', 'State Info');
 
@@ -98,6 +98,26 @@ export async function stateDataFetch(state = null) {
     return stateData;
   }
   return sheet[0];
+}
+
+export async function stateDataFetch(state, sabha) {
+  const res: any = await fetch(
+    `https://ckan.civicdatalab.in/api/3/action/package_search?fq=slug:"${state}" AND organization:state-wise-scheme-data AND private:false`
+  )
+    .then((res) => res.json())
+    .then((res) => res.result.results[0])
+    .catch((e) => {
+      console.error(e);
+      return 0;
+    });
+  const jsonUrl = res.resources.filter(
+    (e) =>
+      e.format == 'JSON' && e.name.includes(sabha == 'lok' ? '_pc' : '_ac')
+  )[0].url;
+
+  const jsonObj = await fetch(jsonUrl).then((res) => res.json());
+
+  return jsonObj;
 }
 
 export async function consListFetch(state = null) {
@@ -145,7 +165,7 @@ export function generateSlug(slug) {
   return null;
 }
 
-export async function dataTransform(id, sabha = null, schemeObj = null) {
+export async function schemeDataFetch(id, sabha = null, schemeObj = null) {
   const obj: any = {
     ac: {},
     pc: {},
@@ -273,7 +293,7 @@ export async function dataTransform(id, sabha = null, schemeObj = null) {
 }
 
 export async function consDescFetch() {
-  const constDesc = await stateDataFetch('const_desc');
+  const constDesc = await stateMetadataFetch('const_desc');
   const ac = constDesc[0];
   const pc = constDesc[1];
   const finalObj = {

@@ -32,7 +32,7 @@ const Header = ({ queryData }) => {
             <StateName>
               <span>
                 <Link href={`/${queryData.state.toLowerCase()}`}>
-                  <a>{`(${queryData.state})`}</a>
+                  <a>{`(${queryData.state.replaceAll('-', ' ')})`}</a>
                 </Link>
               </span>
               <ConsSelectorModal />

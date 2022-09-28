@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import dynamic from 'next/dynamic';
 
-import { fetchJSON, stateDataFetch } from 'utils/fetch';
-import { getParameterCaseInsensitive } from 'utils/helper';
+import { fetchJSON, stateMetadataFetch } from 'utils/fetch';
+import { capitalize, getParameterCaseInsensitive } from 'utils/helper';
 import Header from 'components/pages/state/Header';
 import StateList from 'components/pages/state/StateList/StateList';
 
@@ -21,6 +21,7 @@ const State: React.FC<Props> = ({ pathName, constList, stateData }) => {
   const [currentLokCons, setCurrentLokCons] = useState<any>([]);
   const [currentVidhanCons, setCurrentVidhanCons] = useState<any>([]);
   const state = pathName;
+  console.log(state);
 
   useEffect(() => {
     // get constituencies of current state
@@ -33,8 +34,8 @@ const State: React.FC<Props> = ({ pathName, constList, stateData }) => {
   }, [constList]);
 
   const seo = {
-    title: `${state?.replace(/\b\w/g, (c) =>
-      c.toUpperCase()
+    title: `${capitalize(
+      state.replaceAll('-', ' ')
     )} - Constituency Dashboard`,
     description: `Explore scheme-wise fiscal information at the level of Lok Sabha and Vidhan Sabha constituencies in the state of ${state}`,
   };
@@ -61,11 +62,11 @@ const State: React.FC<Props> = ({ pathName, constList, stateData }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const stateData = await stateDataFetch();
+  const stateData = await stateMetadataFetch();
   return {
     paths: stateData.map((obj) => ({
       params: {
-        state: obj.State.toLowerCase(),
+        state: obj.State.replace(/\s+/g, '-').toLowerCase(),
       },
     })),
     fallback: false,
@@ -74,9 +75,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { state }: any = params;
-
+  const stateNormalised = state.replaceAll('-', ' ');
   try {
-    const stateData = await stateDataFetch(state);
+    const stateData = await stateMetadataFetch(stateNormalised);
 
     const jsonData: any = await fetchJSON('Cons Info');
     const finalJSON = {
@@ -85,7 +86,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     };
 
     return finalJSON
-      ? { props: { pathName: state, constList: finalJSON, stateData } }
+      ? {
+          props: {
+            pathName: state,
+            constList: finalJSON,
+            stateData,
+          },
+        }
       : { notFound: true };
   } catch (error) {
     console.error(error);

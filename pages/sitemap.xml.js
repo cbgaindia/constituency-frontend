@@ -9,7 +9,7 @@ const states = [
   'jharkhand',
   'maharashtra',
   'odisha',
-  'uttar pradesh',
+  'uttar-pradesh',
 ];
 
 export const getServerSideProps = async function ({ res }) {
