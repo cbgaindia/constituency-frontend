@@ -8,7 +8,7 @@ const ConstBar = ({ meta, filteredData }) => {
   const [isPending, startTransition] = React.useTransition();
   const [barData, setBarData] = React.useState([]);
   const [selectedCons, setSelectedCons] = React.useState([
-    { state: meta.state, code: meta.cons_code },
+    { state: meta.state, code: meta.cons_code, name: meta.cons_name },
   ]);
   const [selectedYears, setSelectedYears] = React.useState<any>([
     { value: meta.year, label: meta.year },
@@ -43,8 +43,8 @@ const ConstBar = ({ meta, filteredData }) => {
       if (indicatorFiltered) {
         const state_obj = indicatorFiltered['state_Obj'];
 
-        const { state, code } = elm;
-        barChartHeader.push(String(code));
+        const { state, code, name } = elm;
+        barChartHeader.push(String(name));
 
         //  for each year, fill the constituency value
         Object.keys(yearsObj).length &&
@@ -65,13 +65,13 @@ const ConstBar = ({ meta, filteredData }) => {
       setBarData(barChartArr);
     });
   }
-
   function handleConstChange(e) {
-    const arr = e.map((obj) => ({
-      state: obj.value.state,
-      code: obj.value.code,
-    }));
     startTransition(() => {
+      const arr = e.map((obj) => ({
+        state: obj.value.state,
+        code: obj.value.code,
+        name: obj.label,
+      }));
       setSelectedCons(arr);
     });
   }

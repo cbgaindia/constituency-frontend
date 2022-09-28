@@ -14,7 +14,7 @@ const Overview = ({ data, queryData, schemeList, consData }) => {
       }
       return result;
     }, []);
-  }, [data]); // --change-this it's using state data
+  }, [data]); // TODO it's using state data
 
   return (
     <Wrapper id="overview-wrapper">
