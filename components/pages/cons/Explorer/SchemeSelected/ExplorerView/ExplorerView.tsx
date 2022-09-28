@@ -206,24 +206,27 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
                       )}
                     </TableTab>
                   </VizHeader>
+                  <div id="vizWrapperDownload">
+                    <Title>
+                      {`${
+                        schemeData.metadata?.name
+                      } . ${meta.indicator.replace(
+                        '-',
+                        ' '
+                      )} ${`(${meta.year})`} . ${meta.state}`}
+                    </Title>
 
-                  <Title>
-                    {`${schemeData.metadata?.name} . ${meta.indicator.replace(
-                      '-',
-                      ' '
-                    )} ${`(${meta.year})`} . ${meta.state}`}
-                  </Title>
-
-                  {vizItems.map((item, index) => (
-                    <VizGraph key={`vizItem-${index}`} value={item.id}>
-                      {item.graph}
-                    </VizGraph>
-                  ))}
+                    {vizItems.map((item, index) => (
+                      <VizGraph key={`vizItem-${index}`} value={item.id}>
+                        {item.graph}
+                      </VizGraph>
+                    ))}
+                  </div>
                 </Tabs>
               </div>
 
               <Source
-                currentViz={'#mapView'}
+                currentViz={'#vizWrapperDownload'}
                 meta={{
                   scheme,
                   state,
