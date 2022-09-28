@@ -267,8 +267,7 @@ export async function schemeDataFetch(id, sabha = null, schemeObj = null) {
           }
           state_Obj[dataParse[j][0]] = { ...fiscal_year };
         }
-        const indicatorSlug =
-          generateSlug(metaObj[`indicator-${i - 4}-name`]) || '';
+        const indicatorSlug = metaObj[`indicator-${i - 4}-name`] || '';
 
         tempObj.metadata.indicators.push(indicatorSlug);
 
@@ -323,4 +322,12 @@ export async function consDescFetch() {
     }
   });
   return finalObj;
+}
+
+export async function fetchIndicators() {
+  const url = await fetchQuery('dataType', 'IndicatorsList').then(
+    (res) => res[0].resources[0].url
+  );
+  const json = await fetch(url).then((res) => res.json());
+  return json;
 }

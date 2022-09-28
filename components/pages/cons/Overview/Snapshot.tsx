@@ -2,6 +2,8 @@ import { Menu } from 'components/actions';
 import { Indicator } from 'components/data';
 import React from 'react';
 import styled from 'styled-components';
+import { fetchIndicators } from 'utils/fetch';
+import { swrFetch } from 'utils/helper';
 import Source from '../Source';
 import SnapshotCard from './SnapshotCard';
 
@@ -20,11 +22,15 @@ const Snapshot = ({
   consData,
   stateAvg,
 }: Props) => {
-  const [selectedIndicator, setSelectedIndicator] = React.useState(
-    'Budget Utilisation'
-  );
+  const [selectedIndicator, setSelectedIndicator] =
+    React.useState('Budget Allocation');
   const [selectedYear, setSelectedYear] = React.useState(
     Object.keys(consData)[0]
+  );
+
+  const { data: indicatorData, isLoading } = swrFetch(
+    `indicatorList`,
+    fetchIndicators
   );
 
   const yearList = React.useMemo(() => {
@@ -34,34 +40,23 @@ const Snapshot = ({
     }));
   }, [consData]);
 
-  // TODO remove temporary indicators
-  const tempIndicators = {
-    data: [
-      {
-        name: 'Budget Utilisation',
-        description:
-          'Amount reported as balance under the scheme by the end of the previous Financial Year (FY)',
-        slug: 'indicator_1',
-      },
-      {
-        name: 'Unspent Balance',
-        description:
-          'Based on the demand from the states / UTs funds are made available by the Union Government for the scheme.',
-        slug: 'indicator_2',
-      },
-      {
-        name: 'Total Amount Disbursed to Other Beneficiaries',
-        description:
-          'Total expenditure incurred on wage payments to labourers',
-        slug: 'indicator_3',
-      },
-      {
-        name: 'Total Amount Due',
-        description: 'Total expenditure incurred on procuring materials',
-        slug: 'indicator_4',
-      },
-    ],
-  };
+  const indicatorList = React.useMemo(() => {
+    const indicatorArr = [];
+    indicatorData
+      ? Object.values(indicatorData).forEach((elm) => {
+          Object.keys(elm).forEach((item) => {
+            indicatorArr.push({
+              name: item,
+              description: elm[item].description,
+              slug: item,
+              unit: elm[item].unit,
+              note: elm[item].note,
+            });
+          });
+        })
+      : [];
+    return indicatorArr;
+  }, [indicatorData]);
 
   function getProgressValue(obj, slug) {
     if (
@@ -84,7 +79,7 @@ const Snapshot = ({
             setSelectedIndicator(e);
           }}
           selectedIndicator={selectedIndicator}
-          schemeData={tempIndicators}
+          data={indicatorList}
           returnName={true}
         />
         <SnapshotSchemes>

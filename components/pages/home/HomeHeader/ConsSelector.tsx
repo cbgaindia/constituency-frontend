@@ -22,7 +22,7 @@ const ConsSelector: React.FC<{
         count += consData[state].length;
         return {
           value: state,
-          label: capitalize(state),
+          label: capitalize(state.replaceAll('-', ' ')),
         };
       });
       SetConsCount(count);

@@ -6,7 +6,7 @@ import styled from 'styled-components';
 type Props = {
   newIndicator: any;
   selectedIndicator: any;
-  schemeData: any;
+  data: any;
   titleAs?: 'h2' | 'h3' | 'h4' | 'span' | 'p';
   returnName?: false | true;
 };
@@ -14,7 +14,7 @@ type Props = {
 const Indicator = ({
   newIndicator,
   selectedIndicator,
-  schemeData,
+  data,
   titleAs = 'h4',
   returnName = false,
 }: Props) => {
@@ -26,7 +26,7 @@ const Indicator = ({
       );
       if (indicatorELm) indicatorELm.checked = true;
     }
-  }, [selectedIndicator]);
+  }, [selectedIndicator, data]);
 
   function handleIndicatorChange(e: any) {
     e.stopPropagation();
@@ -34,6 +34,7 @@ const Indicator = ({
 
     newIndicator(elm.id || elm.value);
   }
+
   return (
     <IndicatorWrapper className="indicator">
       <IndicatorTitle as={titleAs}>Indicators</IndicatorTitle>
@@ -41,8 +42,8 @@ const Indicator = ({
         <legend data-html2canvas-ignore className="sr-only">
           Choose Indicator:
         </legend>
-        {schemeData.data &&
-          Object.values(schemeData.data).map(
+        {data &&
+          data.map(
             (item: any) =>
               item && (
                 <Radio

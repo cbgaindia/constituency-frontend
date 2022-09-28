@@ -175,7 +175,7 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
             <Indicator
               newIndicator={(e) => handleNewIndicator(e)}
               selectedIndicator={indicator}
-              schemeData={schemeData}
+              data={Object.values(schemeData.data ? schemeData.data : {})}
             />
 
             <VizWrapper id="mapViewContainer">
