@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { GroupBarChart } from 'components/viz';
 import { getParameterCaseInsensitive } from 'utils/helper';
 
-const ConstBar = ({ meta, filteredData }) => {
+const ConstBar = ({ meta, schemeData }) => {
   const [isPending, startTransition] = React.useTransition();
   const [barData, setBarData] = React.useState([]);
   const [selectedCons, setSelectedCons] = React.useState([
@@ -36,22 +36,17 @@ const ConstBar = ({ meta, filteredData }) => {
     });
 
     constituencies.forEach((elm) => {
-      const indicatorFiltered = Object.values(meta.schemeData.data).filter(
-        (e: any) => e.slug == meta.indicator
-      )[0];
-
-      if (indicatorFiltered) {
-        const state_obj = indicatorFiltered['state_Obj'];
-
+      if (Object.values(schemeData).length) {
         const { state, code, name } = elm;
         barChartHeader.push(String(name));
 
         //  for each year, fill the constituency value
         Object.keys(yearsObj).length &&
           Object.keys(yearsObj).forEach((yearElm) => {
-            const yearFiltered = getParameterCaseInsensitive(state_obj, state)[
-              yearElm
-            ];
+            const yearFiltered = getParameterCaseInsensitive(
+              schemeData,
+              state
+            )[yearElm];
             if (yearFiltered) {
               const constValue = yearFiltered[code];
               yearsObj[yearElm].push(constValue);

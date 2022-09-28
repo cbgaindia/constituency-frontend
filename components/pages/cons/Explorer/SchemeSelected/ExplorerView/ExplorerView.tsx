@@ -35,7 +35,7 @@ const Source = dynamic(() => import('components/pages/cons/Source'), {
 });
 
 const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
-  const [filtered, setFiltered] = useState([]);
+  const [filtered, setFiltered] = useState({});
   const [currentTab, setCurrentTab] = useState('consView');
   const [tableData, setTableData] = useState<any>({});
   const [showTable, setShowTable] = useState<any>(false);
@@ -48,6 +48,7 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
   }, [schemeData, schemeRaw]);
 
   // setting tabular data
+  // TODO set new table format for both bar and map charts
   useEffect(() => {
     if (meta.allYears && filtered) {
       const tableHeader = [
@@ -95,8 +96,7 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
           (item) => schemeData.data[item].slug === val
         );
         if (schemeData.data[indicatorID]) {
-          const filtered =
-            schemeData.data[indicatorID]['state_Obj'][capitalize(state)];
+          const filtered = schemeData.data[indicatorID]['state_Obj'];
           dispatch({
             unit: schemeData.data[indicatorID].unit,
             indicator: val,
@@ -136,7 +136,7 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
             rows={tableData.rows ? tableData.rows : []}
           />
         ) : (
-          <ConstBar filteredData={filtered} meta={meta} />
+          <ConstBar meta={meta} schemeData={filtered} />
         )
       ) : (
         <p>No data</p>

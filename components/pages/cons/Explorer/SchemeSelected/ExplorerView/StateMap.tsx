@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MapViz } from 'components/viz';
 import styled from 'styled-components';
-import { swrFetch } from 'utils/helper';
+import { getParameterCaseInsensitive, swrFetch } from 'utils/helper';
 import { Menu } from 'components/actions';
 import useEffectOnChange from 'utils/hooks';
 
@@ -9,7 +9,9 @@ const StateMap = ({ meta, schemeData }) => {
   const [mapValues, setMapvalues] = useState([]);
   const [mapIndicator, setMapIndicator] = useState(undefined);
   const [year, setYear] = useState(meta.year);
-  const [filteredData, setFilteredData] = useState(schemeData[year]);
+  const [filteredData, setFilteredData] = useState(
+    getParameterCaseInsensitive(schemeData, meta.state)[year]
+  );
 
   const { data, isLoading } = swrFetch(
     `/assets/maps/${meta.sabha}/${meta.state}.json`
@@ -77,7 +79,7 @@ const StateMap = ({ meta, schemeData }) => {
 
   // changing map chart values on sabha change
   useEffectOnChange(() => {
-    setFilteredData(schemeData[year]);
+    setFilteredData(getParameterCaseInsensitive(schemeData, meta.state)[year]);
   }, [year, schemeData]);
 
   // changing map chart values on sabha change
