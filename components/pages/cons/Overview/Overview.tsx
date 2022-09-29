@@ -26,8 +26,7 @@ const Overview = ({ stateMetadata, queryData, schemeList, data }) => {
       </Main>
       <Summary title="Demographic Highlights" cards={summaryCards.slice(4)} />
       <Snapshot
-        meta={queryData}
-        indicator={'Opening Balance'}
+        queryData={queryData}
         schemeList={schemeList}
         consData={data.consData.fiscal_year}
         stateAvg={data.stateAvg}

@@ -21,7 +21,6 @@ const State: React.FC<Props> = ({ pathName, constList, stateData }) => {
   const [currentLokCons, setCurrentLokCons] = useState<any>([]);
   const [currentVidhanCons, setCurrentVidhanCons] = useState<any>([]);
   const state = pathName;
-  console.log(state);
 
   useEffect(() => {
     // get constituencies of current state

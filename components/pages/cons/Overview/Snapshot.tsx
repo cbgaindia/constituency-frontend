@@ -4,26 +4,21 @@ import React from 'react';
 import styled from 'styled-components';
 import { fetchIndicators } from 'utils/fetch';
 import { swrFetch } from 'utils/helper';
+import useEffectOnChange from 'utils/hooks';
 import Source from '../Source';
 import SnapshotCard from './SnapshotCard';
 
 type Props = {
-  indicator: string;
-  meta: any;
+  queryData: any;
   schemeList: any;
   consData: any;
   stateAvg: any;
 };
 
-const Snapshot = ({
-  indicator,
-  meta,
-  schemeList,
-  consData,
-  stateAvg,
-}: Props) => {
-  const [selectedIndicator, setSelectedIndicator] =
-    React.useState('Budget Allocation');
+const Snapshot = ({ queryData, schemeList, consData, stateAvg }: Props) => {
+  const [selectedIndicator, setSelectedIndicator] = React.useState(
+    queryData.indicator ? queryData.indicator : 'Budget Allocation'
+  );
   const [selectedYear, setSelectedYear] = React.useState(
     Object.keys(consData)[0]
   );
@@ -32,6 +27,17 @@ const Snapshot = ({
     `indicatorList`,
     fetchIndicators
   );
+
+  useEffectOnChange(() => {
+    window.history.pushState(
+      {
+        scheme: queryData.scheme,
+        indicator: selectedIndicator,
+      },
+      '',
+      `/${queryData.state}/${queryData.sabha}/${queryData.cons}?scheme=${queryData.scheme}&indicator=${selectedIndicator}`
+    );
+  }, [selectedIndicator]);
 
   const yearList = React.useMemo(() => {
     return Object.keys(consData).map((item) => ({
@@ -101,6 +107,7 @@ const Snapshot = ({
               schemeList.map((item) => (
                 <SnapshotCard
                   key={item.scheme_slug}
+                  indicator={selectedIndicator}
                   data={{
                     ...item,
                     value:
@@ -125,9 +132,11 @@ const Snapshot = ({
             <Source
               currentViz={'#overview-wrapper'}
               meta={{
-                state: meta.state,
-                indicator: indicator ? indicator : 'Opening Balance',
-                sabha: meta.sabha,
+                state: queryData.state,
+                indicator: selectedIndicator
+                  ? selectedIndicator
+                  : 'Opening Balance',
+                sabha: queryData.sabha,
               }}
               source={'Lorem Ipsum is simply dummy text'}
             />

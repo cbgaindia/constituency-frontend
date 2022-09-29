@@ -6,7 +6,13 @@ import React from 'react';
 import styled from 'styled-components';
 import SchemesData from 'utils/schemesData';
 
-const SnapshotCard = ({ data }: { data: any }) => {
+const SnapshotCard = ({
+  data,
+  indicator,
+}: {
+  data: any;
+  indicator: string;
+}) => {
   const toolbarFunc = React.useContext(ToolbarContext);
   return (
     <SnapshotSchemeCard>
@@ -58,7 +64,7 @@ const SnapshotCard = ({ data }: { data: any }) => {
             </div>
           </SnapshotSchemeBar>
           <Button
-            onClick={() => toolbarFunc(data.scheme_slug)}
+            onClick={() => toolbarFunc(data.scheme_slug, indicator)}
             variant={'secondary-outline'}
           >
             Explore More

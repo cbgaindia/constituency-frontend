@@ -34,7 +34,7 @@ const Source = dynamic(() => import('components/pages/cons/Source'), {
   ssr: false,
 });
 
-const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
+const ExplorerView = ({ meta, dispatch }) => {
   const [filtered, setFiltered] = useState({});
   const [currentTab, setCurrentTab] = useState('consView');
   const [tableData, setTableData] = useState<any>({});
@@ -44,8 +44,8 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
   const { sabha } = meta || 'lok';
 
   useLayoutEffect(() => {
-    handleNewIndicator(schemeData.metadata?.indicators[0]);
-  }, [schemeData, schemeRaw]);
+    handleNewIndicator(indicator);
+  }, [indicator]);
 
   // setting tabular data
   // TODO set new table format for both bar and map charts
@@ -90,6 +90,32 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
 
   function handleNewIndicator(val: any) {
     if (val) {
+      window.history.replaceState(
+        {
+          scheme,
+          indicator: val,
+        },
+        'bar',
+        `/${state}/${sabha}/${meta.cons}?scheme=${scheme}&indicator=${val}`
+      );
+
+      // Router.push(
+      //   {
+      //     pathname: `/${state}/${sabha}/${meta.cons}`,
+      //     query: {
+      //       scheme,
+      //       indicator: val,
+      //     },
+      //   },
+      //   {
+      //     pathname: `/${state}/${sabha}/${meta.cons}`,
+      //     query: {
+      //       scheme,
+      //       indicator: val,
+      //     },
+      //   },
+      //   { scroll: false, shallow: true }
+      // );
       // filter based on selected indicator for state + sabha
       if (schemeData.data) {
         const indicatorID = Object.keys(schemeData.data).find(
@@ -165,11 +191,15 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
     <>
       {filtered ? (
         <>
-          <IndicatorMobile
-            indicators={schemeData.data ? Object.values(schemeData.data) : []}
-            newIndicator={(e) => handleNewIndicator(e)}
-            selectedIndicator={indicator}
-          />
+          {indicator && (
+            <IndicatorMobile
+              indicators={
+                schemeData.data ? Object.values(schemeData.data) : []
+              }
+              newIndicator={(e) => handleNewIndicator(e)}
+              selectedIndicator={indicator}
+            />
+          )}
 
           <Wrapper>
             <Indicator
@@ -210,7 +240,7 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
                     <Title>
                       {`${
                         schemeData.metadata?.name
-                      } . ${meta.indicator.replace(
+                      } . ${meta.indicator?.replace(
                         '-',
                         ' '
                       )} ${`(${meta.year})`} . ${meta.state}`}

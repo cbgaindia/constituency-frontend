@@ -39,13 +39,24 @@ type Props = {
 export const ToolbarContext = React.createContext(null);
 
 const ConsPage: React.FC<Props> = ({ stateMetadata, stateScheme, data }) => {
-  console.log(data);
-
   const [view, setView] = useState('overview');
   const router = useRouter();
-  const { state, sabha, scheme, cons } = router.query;
+  const { state, sabha, scheme, cons, indicator } = router.query;
   const { constituency_name: cons_name } = data.consData;
-  function handleToolbarSwitch(e: string) {
+
+  function handleToolbarSwitch(e: string, cardIndicator = null) {
+    if (cardIndicator) {
+      router.replace({
+        pathname: `/${state}/${sabha}/${cons}`,
+        query: {
+          scheme: showScheme(e),
+          indicator: cardIndicator,
+        },
+      });
+      setView('explorer');
+      return;
+    }
+
     function isTabbed(val: string) {
       if (['explorer', 'overview'].includes(val)) return true;
       return false;
@@ -62,10 +73,12 @@ const ConsPage: React.FC<Props> = ({ stateMetadata, stateScheme, data }) => {
 
     const tabState = isTabbed(e) ? e : 'explorer';
     setView(tabState);
+
     router.replace({
       pathname: `/${state}/${sabha}/${cons}`,
       query: {
         scheme: showScheme(e),
+        indicator,
       },
     });
 
@@ -83,7 +96,7 @@ const ConsPage: React.FC<Props> = ({ stateMetadata, stateScheme, data }) => {
           <ToolbarContext.Provider value={handleToolbarSwitch}>
             <Overview
               stateMetadata={stateMetadata}
-              queryData={{ state, sabha, cons, cons_name }}
+              queryData={{ ...router.query, cons_name }}
               schemeList={stateScheme}
               data={data}
             />
@@ -97,7 +110,7 @@ const ConsPage: React.FC<Props> = ({ stateMetadata, stateScheme, data }) => {
         icon: <ExplorerIcon size={40} />,
         content: (
           <Explorer
-            queryData={{ ...router.query, cons_name: cons_name }}
+            queryData={{ ...router.query, cons_name }}
             schemeList={stateScheme}
           />
         ),

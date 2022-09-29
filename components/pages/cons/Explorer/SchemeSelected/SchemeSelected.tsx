@@ -25,8 +25,11 @@ const SchemeSelected = ({ queryData, schemeList }) => {
   });
 
   React.useEffect(() => {
-    dispatch({ schemeName: schemeObj?.extras[0].value });
-  }, [schemeObj]);
+    dispatch({
+      schemeName: schemeObj?.extras[0].value,
+      indicator: queryData.indicator,
+    });
+  }, [schemeObj, queryData.indicator]);
 
   React.useEffect(() => {
     if (data) {
@@ -62,7 +65,7 @@ const SchemeSelected = ({ queryData, schemeList }) => {
           .scheme_name
       : 'Loading...',
     schemeData: '',
-    indicator: '',
+    indicator: queryData.indicator ? queryData.indicator : '',
     year: '',
     allYears: [],
     unit: '',
@@ -78,15 +81,11 @@ const SchemeSelected = ({ queryData, schemeList }) => {
         queryData={queryData}
       />
       <ExplorerWrapper>
-        {!data ? (
+        {!reducerState.schemeData ? (
           <div>Loading...</div>
         ) : (
           <>
-            <ExplorerView
-              schemeRaw={data}
-              meta={reducerState}
-              dispatch={dispatch}
-            />
+            <ExplorerView meta={reducerState} dispatch={dispatch} />
           </>
         )}
       </ExplorerWrapper>
