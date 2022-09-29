@@ -85,7 +85,7 @@ const ConsSelector: React.FC<{
             kind="primary"
             href={
               selectedCons
-                ? `/${selectedState}/${sabha}?cons_code=${selectedCons}`
+                ? `/${selectedState}/${sabha}/${selectedCons}`
                 : null
             }
             onClick={

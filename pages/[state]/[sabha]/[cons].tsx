@@ -39,10 +39,12 @@ type Props = {
 export const ToolbarContext = React.createContext(null);
 
 const ConsPage: React.FC<Props> = ({ stateMetadata, stateScheme, data }) => {
+  console.log(data);
+
   const [view, setView] = useState('overview');
   const router = useRouter();
-  const { state, sabha, scheme, cons_code } = router.query;
-  const { constituency_name: cons } = data.consData;
+  const { state, sabha, scheme, cons } = router.query;
+  const { constituency_name: cons_name } = data.consData;
   function handleToolbarSwitch(e: string) {
     function isTabbed(val: string) {
       if (['explorer', 'overview'].includes(val)) return true;
@@ -61,9 +63,8 @@ const ConsPage: React.FC<Props> = ({ stateMetadata, stateScheme, data }) => {
     const tabState = isTabbed(e) ? e : 'explorer';
     setView(tabState);
     router.replace({
-      pathname: `/${state}/${sabha}`,
+      pathname: `/${state}/${sabha}/${cons}`,
       query: {
-        cons_code,
         scheme: showScheme(e),
       },
     });
@@ -82,7 +83,7 @@ const ConsPage: React.FC<Props> = ({ stateMetadata, stateScheme, data }) => {
           <ToolbarContext.Provider value={handleToolbarSwitch}>
             <Overview
               stateMetadata={stateMetadata}
-              queryData={{ state, sabha, cons }}
+              queryData={{ state, sabha, cons, cons_name }}
               schemeList={stateScheme}
               data={data}
             />
@@ -96,7 +97,7 @@ const ConsPage: React.FC<Props> = ({ stateMetadata, stateScheme, data }) => {
         icon: <ExplorerIcon size={40} />,
         content: (
           <Explorer
-            queryData={{ ...router.query, cons: cons }}
+            queryData={{ ...router.query, cons_name: cons_name }}
             schemeList={stateScheme}
           />
         ),
@@ -106,7 +107,7 @@ const ConsPage: React.FC<Props> = ({ stateMetadata, stateScheme, data }) => {
   );
 
   const seo = {
-    title: `${capitalize(cons)} . ${capitalize(
+    title: `${capitalize(cons_name)} . ${capitalize(
       state
     )} - Constituency Dashboard`,
     description: `Explore scheme-wise fiscal information at the level of Lok Sabha and Vidhan Sabha constituencies in the state of ${state}`,
@@ -118,7 +119,7 @@ const ConsPage: React.FC<Props> = ({ stateMetadata, stateScheme, data }) => {
       {
         <>
           <main className="container">
-            <Header queryData={{ state, sabha, cons }} />
+            <Header queryData={{ state, sabha, cons, cons_name }} />
             <Wrapper id="consPageWrapper">
               <Toolbar
                 value={view}
@@ -161,7 +162,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     stateDataFetch(queryValue.state, queryValue.sabha),
   ]);
 
-  if (!(stateMetadata && stateScheme && queryValue.cons_code))
+  if (!(stateMetadata && stateScheme && queryValue.cons))
     return { notFound: true };
 
   return {
@@ -169,7 +170,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       stateMetadata: stateMetadata,
       stateScheme,
       data: {
-        consData: stateData['constituency_data'][queryValue.cons_code],
+        consData: stateData['constituency_data'][queryValue.cons],
         stateAvg: stateData['state_avg'],
       },
     },

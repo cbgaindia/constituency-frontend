@@ -29,7 +29,7 @@ const Header = ({ queryData }) => {
             queryData.sabha === 'lok' ? 'Lok' : 'Vidhan'
           } Sabha contituency`}</SabhaName>
           <div>
-            <h1 className="gradient-maple">{queryData.cons}</h1>
+            <h1 className="gradient-maple">{queryData.cons_name}</h1>
             <StateName>
               <span>
                 <Link href={`/${queryData.state.toLowerCase()}`}>
@@ -47,7 +47,7 @@ const Header = ({ queryData }) => {
           </div>
         </ConsDetails>
       </Meta>
-      <Share title={queryData.cons + ' page'} />
+      <Share title={queryData.cons_name + ' page'} />
     </Wrapper>
   );
 };

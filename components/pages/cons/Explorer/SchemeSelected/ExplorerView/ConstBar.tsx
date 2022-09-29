@@ -8,7 +8,7 @@ const ConstBar = ({ meta, schemeData }) => {
   const [isPending, startTransition] = React.useTransition();
   const [barData, setBarData] = React.useState([]);
   const [selectedCons, setSelectedCons] = React.useState([
-    { state: meta.state, code: meta.cons_code, name: meta.cons_name },
+    { state: meta.state, code: meta.cons, name: meta.cons_name },
   ]);
   const [selectedYears, setSelectedYears] = React.useState<any>([
     { value: meta.year, label: meta.year },
@@ -21,7 +21,7 @@ const ConstBar = ({ meta, schemeData }) => {
   }, [meta.year]);
 
   React.useLayoutEffect(() => {
-    if (meta.cons_code && meta.state && meta.indicator) {
+    if (meta.cons && meta.state && meta.indicator) {
       !isPending && generateBarChart(selectedYears, selectedCons);
     }
   }, [meta, selectedCons, selectedYears]);
@@ -88,13 +88,13 @@ const ConstBar = ({ meta, schemeData }) => {
   return (
     <Wrapper>
       <ComboWrapper>
-        {meta.cons_code && (
+        {meta.cons && (
           <Combobox
             options={constList}
             disableOptions={selectedCons.length >= 4}
             onChange={(e) => handleConstChange(e)}
             defaultValue={{
-              value: { code: meta.cons_code, state: meta.state },
+              value: { code: meta.cons, state: meta.state },
               label: meta.cons_name,
             }}
             isMulti

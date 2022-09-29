@@ -20,7 +20,7 @@ const Overview = ({ stateMetadata, queryData, schemeList, data }) => {
     <Wrapper id="overview-wrapper">
       <Main>
         <div>
-          <h2>About {queryData.cons}</h2>
+          <h2>About {queryData.cons_name}</h2>
         </div>
         <p>{stateMetadata.Description}</p>
       </Main>

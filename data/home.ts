@@ -1,22 +1,22 @@
 export const lokTrending = [
   {
     text: 'Allahabad . Uttar Pradesh',
-    link: '/uttar-pradesh/lok?cons_code=12',
+    link: '/uttar-pradesh/lok/12',
   },
   {
     text: 'Harsidhi (Sc) . Odisha',
-    link: '/odisha/lok?cons_code=13',
+    link: '/odisha/lok/13',
   },
 ];
 
 export const vidhanTrending = [
   {
     text: 'Govindganj . Uttar Pradesh',
-    link: '/uttar-pradesh/vidhan?cons_code=14',
+    link: '/uttar-pradesh/vidhan/14',
   },
   {
     text: 'Kesaria . Odisha',
-    link: '/odisha/vidhan?cons_code=15',
+    link: '/odisha/vidhan/15',
   },
 ];
 
