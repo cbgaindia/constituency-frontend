@@ -206,6 +206,7 @@ const Navitem = styled.a`
 
   &:hover {
     background-color: var(--nav-bg-hover);
+    text-decoration: underline;
   }
 
   &.active {
@@ -267,6 +268,11 @@ const Navitem = styled.a`
       display: flex;
       justify-content: space-between;
       align-items: center;
+      text-decoration-color: transparent;
+
+      &:hover {
+        text-decoration-color: inherit;
+      }
     }
   }
 `;
