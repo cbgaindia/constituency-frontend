@@ -2,6 +2,7 @@ import { GradientLokSabha, GradientVidhanSabha } from 'components/icons';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import styled from 'styled-components';
+import ConsSelectorMobile from './ConsSelectorMobile';
 
 const ConsSelectorModal = dynamic(() => import('./ConsSelectorModal'), {
   ssr: false,
@@ -35,7 +36,13 @@ const Header = ({ queryData }) => {
                   <a>{`(${queryData.state.replaceAll('-', ' ')})`}</a>
                 </Link>
               </span>
-              <ConsSelectorModal />
+
+              <div className="selector-mobile">
+                <ConsSelectorMobile />
+              </div>
+              <div className="selector-desktop">
+                <ConsSelectorModal />
+              </div>
             </StateName>
           </div>
         </ConsDetails>
@@ -114,6 +121,18 @@ const StateName = styled.div`
   display: flex;
   align-items: center;
   gap: 4px;
+
+  .selector-mobile {
+    display: none;
+    @media (max-width: 480px) {
+      display: block;
+    }
+  }
+  .selector-desktop {
+    @media (max-width: 480px) {
+      display: none;
+    }
+  }
 `;
 
 const SabhaName = styled.span`

@@ -61,7 +61,7 @@ export const Header = styled.div`
   background-color: var(--color-grey-600);
   border-radius: 12px 12px 0px 0px;
   padding-inline: 24px;
-  padding-block: 24px 20px;
+  padding-block: 20px 16px;
   border-bottom: var(--separator-5-2);
 
   @media (max-width: 540px) {
@@ -70,7 +70,7 @@ export const Header = styled.div`
 
   h1 {
     font-weight: var(--font-weight-medium);
-    font-size: 20px;
+    font-size: 16px;
     line-height: 26px;
     margin: 0;
   }

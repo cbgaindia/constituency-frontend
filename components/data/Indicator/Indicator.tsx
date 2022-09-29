@@ -83,6 +83,7 @@ const Info = styled.div`
   color: var(--text-light-medium);
   grid-column: 2/3;
   pointer-events: none;
+  margin-top: -10px;
 `;
 
 export const IndicatorWrapper = styled.div`
