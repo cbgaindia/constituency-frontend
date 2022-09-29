@@ -21,7 +21,7 @@ export default Radio;
 export const RadioItem = styled.label`
   display: grid;
   grid-template-columns: 1em auto;
-  gap: 0.5em;
+  gap: 16px;
   color: var(--text-light-medium);
 
   input {
@@ -34,7 +34,9 @@ export const RadioItem = styled.label`
     color: currentColor;
     width: 1.15em;
     height: 1.15em;
-    border: 0.15em solid  ${(props) => (props.color ? props.color : 'currentColor')};;
+    min-width: 1.15em;
+    border: 0.15em solid
+      ${(props) => (props.color ? props.color : 'currentColor')};
     border-radius: 50%;
     transform: translateY(0.2em);
 

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Toggletip } from 'components/layouts';
 import styled from 'styled-components';
 import { Button, Modal } from 'components/actions';
 import Radio from 'components/layouts/Radio';
@@ -108,7 +107,7 @@ const IndicatorMobile = ({ indicators, newIndicator, selectedIndicator }) => {
           <Fieldset id="modalSort-mobile">
             <legend className="sr-only">Select Indicator</legend>
             {indicators &&
-              Object.values(indicators).map(
+              indicators.map(
                 (item: any) =>
                   item && (
                     <Radio
@@ -132,7 +131,10 @@ const IndicatorMobile = ({ indicators, newIndicator, selectedIndicator }) => {
                   )
               )}
           </Fieldset>
-          <DataAlterFooter cancel={cancelSortChange} apply={applySortChange} />
+          <DataAlterFooter
+            cancel={() => cancelSortChange()}
+            apply={() => applySortChange()}
+          />
         </Wrapper>
       </Modal>
     </>
@@ -187,11 +189,11 @@ export const Fieldset = styled.fieldset`
   overflow-y: auto;
 
   input {
-    margin-right: 12px;
     accent-color: var(--color-primary);
 
     &[type='radio'] {
       padding: 6px 0;
+
       transform: scale(1.5);
     }
   }
@@ -226,6 +228,7 @@ export const Footer = styled.div`
 
   button {
     width: 100%;
+    display: block;
   }
 
   @media (max-width: 540px) {

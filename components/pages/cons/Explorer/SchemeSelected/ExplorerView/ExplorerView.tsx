@@ -166,7 +166,7 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
       {filtered ? (
         <>
           <IndicatorMobile
-            indicators={schemeData.data}
+            indicators={schemeData.data ? Object.values(schemeData.data) : []}
             newIndicator={(e) => handleNewIndicator(e)}
             selectedIndicator={indicator}
           />
@@ -175,7 +175,7 @@ const ExplorerView = ({ meta, schemeRaw, dispatch }) => {
             <Indicator
               newIndicator={(e) => handleNewIndicator(e)}
               selectedIndicator={indicator}
-              data={Object.values(schemeData.data ? schemeData.data : {})}
+              data={schemeData.data ? Object.values(schemeData.data) : []}
             />
 
             <VizWrapper id="mapViewContainer">
