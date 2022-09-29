@@ -1,5 +1,5 @@
 import { Menu } from 'components/actions';
-import { Indicator } from 'components/data';
+import { Indicator, IndicatorMobile } from 'components/data';
 import React from 'react';
 import styled from 'styled-components';
 import { fetchIndicators } from 'utils/fetch';
@@ -73,6 +73,11 @@ const Snapshot = ({
     <section>
       <SnapshotTitle>Scheme Performance Snapshots</SnapshotTitle>
 
+      <IndicatorMobile
+        indicators={indicatorList}
+        newIndicator={(e) => setSelectedIndicator(e)}
+        selectedIndicator={selectedIndicator}
+      />
       <SnapshotWrapper id="snapshotWrapper">
         <Indicator
           newIndicator={(e) => {
@@ -80,7 +85,6 @@ const Snapshot = ({
           }}
           selectedIndicator={selectedIndicator}
           data={indicatorList}
-          returnName={true}
         />
         <SnapshotSchemes>
           <SnapshotSchemeTitle>
