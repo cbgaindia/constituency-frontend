@@ -17,7 +17,7 @@ const SchemeSelected = ({ queryData, schemeList }) => {
   const dispatchCons = metaReducer.dispatch;
 
   const { data: schemeRes } = swrFetch(
-    `${process.env.NEXT_PUBLIC_CKAN_URL}/package_search?fq=slug:"${scheme}" AND organization:constituency-wise-scheme-data AND private:false`
+    `${process.env.NEXT_PUBLIC_CKAN_URL}/package_search?fq=slug:"${scheme}" AND organization:constituency-v3 AND private:false`
   );
   const schemeObj = schemeRes?.result.results[0];
 
@@ -42,9 +42,7 @@ const SchemeSelected = ({ queryData, schemeList }) => {
 
       if (schemeData.data) {
         const years = Object.keys(
-          Object.values(schemeData.data)[0]['state_Obj'][
-            capitalize(queryData.state)
-          ]
+          Object.values(schemeData.data)[0]['state_Obj'][queryData.state]
         ).map((item) => ({
           value: item,
           label: item,

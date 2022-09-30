@@ -259,7 +259,7 @@ export async function newSchemeDataFetch(id, sabha = null, schemeObj = null) {
         let fiscal_year = {};
         const state_Obj = {};
         for (let j = 1; j < dataParse.length; j += 1) {
-          if (!(dataParse[j][0] in state_Obj)) {
+          if (!(generateSlug(dataParse[j][0]) in state_Obj)) {
             fiscal_year = {};
           }
           if (dataParse[j][4]) {
@@ -270,7 +270,7 @@ export async function newSchemeDataFetch(id, sabha = null, schemeObj = null) {
                 : parseFloat(dataParse[j][i]).toFixed(2),
             };
           }
-          state_Obj[dataParse[j][0]] = { ...fiscal_year };
+          state_Obj[generateSlug(dataParse[j][0])] = { ...fiscal_year };
         }
         const indicatorSlug =
           generateSlug(metaObj[`indicator_${i - 4}_common_name`]) ||

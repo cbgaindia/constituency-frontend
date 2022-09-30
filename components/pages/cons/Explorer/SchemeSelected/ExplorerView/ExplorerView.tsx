@@ -68,19 +68,19 @@ const ExplorerView = ({ meta, dispatch }) => {
       );
 
       const rowData = [];
-      if (filtered[meta.year]) {
-        Object.values(filtered[meta.year]).forEach((item, index) => {
+      if (filtered[state] && filtered[state][meta.year]) {
+        Object.values(filtered[state][meta.year]).forEach((item, index) => {
           const tempObj = {
             [tableHeader[0].accessor]:
               schemeData.metadata.consList[capitalize(state)][index]
                 ?.constName,
           };
 
-          Object.keys(filtered).map(
-            (item1, index1) =>
-              (tempObj[tableHeader[index1 + 1].accessor] =
-                filtered[item1][index + 1])
-          );
+          Object.keys(filtered[state]).forEach((item1, index1) => {
+            tempObj[tableHeader[index1 + 1].accessor] =
+              filtered[state][item1][index + 1];
+          });
+
           rowData.push(tempObj);
         });
       }
@@ -89,6 +89,7 @@ const ExplorerView = ({ meta, dispatch }) => {
         header: tableHeader,
         rows: rowData,
       };
+
       setTableData(tableData);
     }
   }, [filtered]);
