@@ -7,9 +7,8 @@ import { Box, Button } from '@opub-cdl/design-system';
 function fileName(meta) {
   // If there is no type, eg: table, don;t add it to the name
   if (meta.constituency)
-    return `${meta.constituency} . ${meta.state} . ${meta.scheme} . ${meta.indicator}`.toLowerCase();
-  else
-    return `${meta.state} . ${meta.scheme} . ${meta.indicator}`.toLowerCase();
+    return `${meta.constituency}_${meta.state}_${meta.scheme}_${meta.indicator}`.toLowerCase();
+  else return `${meta.state}_${meta.scheme}_${meta.indicator}`.toLowerCase();
 }
 
 function download_csv(csv, filename) {

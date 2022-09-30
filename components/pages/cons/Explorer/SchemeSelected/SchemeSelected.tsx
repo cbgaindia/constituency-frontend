@@ -4,7 +4,7 @@ import useSWR from 'swr';
 import ExplorerView from './ExplorerView';
 import { newSchemeDataFetch } from 'utils/fetch';
 import SubHeading from './SubHeading';
-import { capitalize, swrFetch } from 'utils/helper';
+import { swrFetch } from 'utils/helper';
 import { ConstituencyPage } from 'pages/[state]/[sabha]/[cons]';
 
 const reducer = (state: any, action: any) => {
@@ -13,28 +13,31 @@ const reducer = (state: any, action: any) => {
 
 const SchemeSelected = ({ queryData, schemeList }) => {
   const { metaReducer } = React.useContext(ConstituencyPage);
-  const { indicator, scheme } = metaReducer.obj;
+  const { indicator } = metaReducer.obj;
   const dispatchCons = metaReducer.dispatch;
 
   const { data: schemeRes } = swrFetch(
-    `${process.env.NEXT_PUBLIC_CKAN_URL}/package_search?fq=slug:"${scheme}" AND organization:constituency-v3 AND private:false`
+    `${process.env.NEXT_PUBLIC_CKAN_URL}/package_search?fq=slug:"${queryData.scheme}" AND organization:constituency-v3 AND private:false`
   );
   const schemeObj = schemeRes?.result.results[0];
 
   const newFetcher = () =>
     newSchemeDataFetch(queryData.scheme, queryData.sabha, schemeObj);
-  const { data } = useSWR(`${queryData.state}/${scheme}/new`, newFetcher, {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-  });
+  const { data } = useSWR(
+    `${queryData.state}/${queryData.scheme}/new`,
+    newFetcher,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
+  );
 
   React.useEffect(() => {
     dispatch({
       schemeName: schemeObj?.extras[0].value,
-      indicator: queryData.indicator,
     });
-  }, [schemeObj, queryData.indicator]);
+  }, [schemeObj]);
 
   React.useEffect(() => {
     if (data) {
@@ -88,7 +91,7 @@ const SchemeSelected = ({ queryData, schemeList }) => {
         ) : (
           <>
             <ExplorerView
-              meta={{ ...reducerState, scheme, indicator }}
+              meta={{ ...reducerState, scheme: queryData.scheme, indicator }}
               dispatch={dispatch}
             />
           </>

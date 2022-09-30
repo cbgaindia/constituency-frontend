@@ -241,17 +241,19 @@ const ExplorerView = ({ meta, dispatch }) => {
                   </div>
                 </Tabs>
               </div>
-
-              <Source
-                currentViz={'#vizWrapperDownload'}
-                meta={{
-                  scheme,
-                  state,
-                  indicator: indicator ? indicator : 'Opening Balance',
-                  sabha,
-                }}
-                source={schemeData.metadata?.source}
-              />
+              {scheme && (
+                <Source
+                  currentViz={showTable ? '#tableView' : '#vizWrapperDownload'}
+                  tableData={tableData}
+                  meta={{
+                    scheme,
+                    state,
+                    indicator: indicator ? indicator : 'Opening Balance',
+                    sabha,
+                  }}
+                  source={schemeData.metadata?.source}
+                />
+              )}
             </VizWrapper>
           </Wrapper>
         </>
