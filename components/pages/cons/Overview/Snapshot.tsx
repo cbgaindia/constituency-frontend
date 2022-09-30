@@ -1,8 +1,9 @@
 import { Menu } from 'components/actions';
 import { Indicator, IndicatorMobile } from 'components/data';
+import { ConstituencyPage } from 'pages/[state]/[sabha]/[cons]';
 import React from 'react';
 import styled from 'styled-components';
-import { fetchIndicators } from 'utils/fetch';
+import { fetchIndicators, generateSlug } from 'utils/fetch';
 import { swrFetch } from 'utils/helper';
 import useEffectOnChange from 'utils/hooks';
 import Source from '../Source';
@@ -16,12 +17,18 @@ type Props = {
 };
 
 const Snapshot = ({ queryData, schemeList, consData, stateAvg }: Props) => {
-  const [selectedIndicator, setSelectedIndicator] = React.useState(
-    queryData.indicator ? queryData.indicator : 'Budget Allocation'
-  );
   const [selectedYear, setSelectedYear] = React.useState(
     Object.keys(consData)[0]
   );
+
+  const { meta } = React.useContext(ConstituencyPage);
+  const [indicator, setIndicator] = React.useState(
+    meta.metaReducer.indicator
+      ? meta.metaReducer.indicator
+      : 'budget-allocation'
+  );
+  const { scheme } = meta.metaReducer;
+  const { dispatch } = meta;
 
   const { data: indicatorData, isLoading } = swrFetch(
     `indicatorList`,
@@ -29,15 +36,19 @@ const Snapshot = ({ queryData, schemeList, consData, stateAvg }: Props) => {
   );
 
   useEffectOnChange(() => {
-    window.history.pushState(
+    setIndicator(meta.metaReducer.indicator);
+  }, [meta.metaReducer]);
+
+  useEffectOnChange(() => {
+    window.history.replaceState(
       {
-        scheme: queryData.scheme,
-        indicator: selectedIndicator,
+        scheme: scheme,
+        indicator: indicator,
       },
       '',
-      `/${queryData.state}/${queryData.sabha}/${queryData.cons}?scheme=${queryData.scheme}&indicator=${selectedIndicator}`
+      `/${queryData.state}/${queryData.sabha}/${queryData.cons}?scheme=${scheme}&indicator=${indicator}`
     );
-  }, [selectedIndicator]);
+  }, [indicator]);
 
   const yearList = React.useMemo(() => {
     return Object.keys(consData).map((item) => ({
@@ -48,13 +59,13 @@ const Snapshot = ({ queryData, schemeList, consData, stateAvg }: Props) => {
 
   const indicatorList = React.useMemo(() => {
     const indicatorArr = [];
-    indicatorData
+    !isLoading
       ? Object.values(indicatorData).forEach((elm) => {
           Object.keys(elm).forEach((item) => {
             indicatorArr.push({
               name: item,
               description: elm[item].description,
-              slug: item,
+              slug: generateSlug(item),
               unit: elm[item].unit,
               note: elm[item].note,
             });
@@ -63,17 +74,16 @@ const Snapshot = ({ queryData, schemeList, consData, stateAvg }: Props) => {
       : [];
     return indicatorArr;
   }, [indicatorData]);
+  console.log(consData, stateAvg);
 
   function getProgressValue(obj, slug) {
-    if (
-      obj[selectedYear][slug] &&
-      obj[selectedYear][slug][selectedIndicator]
-    ) {
-      if (obj == stateAvg) return obj[selectedYear][slug][selectedIndicator];
-      return Math.abs(obj[selectedYear][slug][selectedIndicator]); // TODO handle negative
+    if (obj[selectedYear][slug] && obj[selectedYear][slug][indicator]) {
+      if (obj == stateAvg) return obj[selectedYear][slug][indicator];
+      return Math.abs(obj[selectedYear][slug][indicator]); // TODO handle negative
     }
     return false;
   }
+  // console.log(indicator);
 
   return (
     <section>
@@ -81,15 +91,15 @@ const Snapshot = ({ queryData, schemeList, consData, stateAvg }: Props) => {
 
       <IndicatorMobile
         indicators={indicatorList}
-        newIndicator={(e) => setSelectedIndicator(e)}
-        selectedIndicator={selectedIndicator}
+        newIndicator={(e) => dispatch({ indicator: e })}
+        selectedIndicator={indicator || ''}
       />
       <SnapshotWrapper id="snapshotWrapper">
         <Indicator
           newIndicator={(e) => {
-            setSelectedIndicator(e);
+            dispatch({ indicator: e });
           }}
-          selectedIndicator={selectedIndicator}
+          selectedIndicator={indicator}
           data={indicatorList}
         />
         <SnapshotSchemes>
@@ -107,7 +117,7 @@ const Snapshot = ({ queryData, schemeList, consData, stateAvg }: Props) => {
               schemeList.map((item) => (
                 <SnapshotCard
                   key={item.scheme_slug}
-                  indicator={selectedIndicator}
+                  indicator={indicator}
                   data={{
                     ...item,
                     value:
@@ -133,9 +143,7 @@ const Snapshot = ({ queryData, schemeList, consData, stateAvg }: Props) => {
               currentViz={'#overview-wrapper'}
               meta={{
                 state: queryData.state,
-                indicator: selectedIndicator
-                  ? selectedIndicator
-                  : 'Opening Balance',
+                indicator: indicator ? indicator : 'Opening Balance',
                 sabha: queryData.sabha,
               }}
               source={'Lorem Ipsum is simply dummy text'}

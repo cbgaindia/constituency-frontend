@@ -14,6 +14,8 @@ import {
 } from '@opub-cdl/design-system';
 import { IconToggleOff } from 'components/icons/IconToggleOff';
 import { LoadingDiv } from 'components/pages/state/StateList/ConsMapView';
+import useEffectOnChange from 'utils/hooks';
+import { ConstituencyPage } from 'pages/[state]/[sabha]/[cons]';
 
 const ConstBar = dynamic(() => import('./ConstBar'), {
   ssr: false,
@@ -40,10 +42,15 @@ const ExplorerView = ({ meta, dispatch }) => {
   const [tableData, setTableData] = useState<any>({});
   const [showTable, setShowTable] = useState<any>(false);
 
-  const { state, scheme, indicator, schemeData } = meta;
+  const { state, scheme, schemeData } = meta;
   const { sabha } = meta || 'lok';
 
-  useLayoutEffect(() => {
+  const { metaReducer } = React.useContext(ConstituencyPage);
+  const indicator = metaReducer.obj.indicator ? metaReducer.obj.indicator : '';
+
+  const dispatchCons = metaReducer.dispatch;
+
+  useEffectOnChange(() => {
     handleNewIndicator(indicator);
   }, [indicator]);
 
@@ -99,23 +106,6 @@ const ExplorerView = ({ meta, dispatch }) => {
         `/${state}/${sabha}/${meta.cons}?scheme=${scheme}&indicator=${val}`
       );
 
-      // Router.push(
-      //   {
-      //     pathname: `/${state}/${sabha}/${meta.cons}`,
-      //     query: {
-      //       scheme,
-      //       indicator: val,
-      //     },
-      //   },
-      //   {
-      //     pathname: `/${state}/${sabha}/${meta.cons}`,
-      //     query: {
-      //       scheme,
-      //       indicator: val,
-      //     },
-      //   },
-      //   { scroll: false, shallow: true }
-      // );
       // filter based on selected indicator for state + sabha
       if (schemeData.data) {
         const indicatorID = Object.keys(schemeData.data).find(
@@ -123,14 +113,16 @@ const ExplorerView = ({ meta, dispatch }) => {
         );
         if (schemeData.data[indicatorID]) {
           const filtered = schemeData.data[indicatorID]['state_Obj'];
+          dispatchCons({
+            indicator: val,
+          });
           dispatch({
             unit: schemeData.data[indicatorID].unit,
-            indicator: val,
           });
           setFiltered(filtered);
         }
       } else {
-        dispatch({
+        dispatchCons({
           indicator: val,
         });
       }
@@ -197,7 +189,7 @@ const ExplorerView = ({ meta, dispatch }) => {
                 schemeData.data ? Object.values(schemeData.data) : []
               }
               newIndicator={(e) => handleNewIndicator(e)}
-              selectedIndicator={indicator}
+              selectedIndicator={indicator || ''}
             />
           )}
 

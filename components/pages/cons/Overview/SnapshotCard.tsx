@@ -1,7 +1,7 @@
 import { Button, ProgressBar } from '@opub-cdl/design-system';
 import { Notice } from 'components/icons';
 import Image from 'next/image';
-import { ToolbarContext } from 'pages/[state]/[sabha]/[cons]';
+import { ConstituencyPage } from 'pages/[state]/[sabha]/[cons]';
 import React from 'react';
 import styled from 'styled-components';
 import SchemesData from 'utils/schemesData';
@@ -13,7 +13,7 @@ const SnapshotCard = ({
   data: any;
   indicator: string;
 }) => {
-  const toolbarFunc = React.useContext(ToolbarContext);
+  const { toolbar } = React.useContext(ConstituencyPage);
   return (
     <SnapshotSchemeCard>
       <CardTitle>
@@ -64,7 +64,7 @@ const SnapshotCard = ({
             </div>
           </SnapshotSchemeBar>
           <Button
-            onClick={() => toolbarFunc(data.scheme_slug, indicator)}
+            onClick={() => toolbar(data.scheme_slug, indicator)}
             variant={'secondary-outline'}
           >
             Explore More
@@ -80,7 +80,7 @@ const SnapshotCard = ({
             </p>
           </NoSchemeData>
           <Button
-            onClick={() => toolbarFunc('list')}
+            onClick={() => toolbar('list')}
             variant={'secondary-outline'}
           >
             Explore Other Data

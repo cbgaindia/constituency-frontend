@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import useSWR from 'swr';
 import ExplorerView from './ExplorerView';
-import { schemeDataFetch } from 'utils/fetch';
+import { newSchemeDataFetch } from 'utils/fetch';
 import { SubHeading } from './SubHeading';
 import { capitalize, swrFetch } from 'utils/helper';
 
@@ -16,13 +16,18 @@ const SchemeSelected = ({ queryData, schemeList }) => {
   );
   const schemeObj = schemeRes?.result.results[0];
 
-  const fetcher = () =>
-    schemeDataFetch(queryData.scheme, queryData.sabha, schemeObj);
-  const { data } = useSWR(`${queryData.state}/${queryData.scheme}`, fetcher, {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-  });
+  const newFetcher = () =>
+    newSchemeDataFetch(queryData.scheme, queryData.sabha, schemeObj);
+  const { data } = useSWR(
+    `${queryData.state}/${queryData.scheme}/new`,
+    newFetcher,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
+  );
+  console.log(data);
 
   React.useEffect(() => {
     dispatch({

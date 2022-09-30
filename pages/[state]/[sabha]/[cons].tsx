@@ -36,12 +36,24 @@ type Props = {
   schemeData: any;
   data: any;
 };
-export const ToolbarContext = React.createContext(null);
+export const ConstituencyPage = React.createContext(null);
+
+const reducer = (state: any, action: any) => {
+  return { ...state, ...action };
+};
 
 const ConsPage: React.FC<Props> = ({ stateMetadata, stateScheme, data }) => {
-  const [view, setView] = useState('overview');
   const router = useRouter();
   const { state, sabha, scheme, cons, indicator } = router.query;
+  const initialProps = React.useMemo(
+    () => ({
+      indicator: indicator,
+      scheme: scheme || '',
+    }),
+    [indicator, scheme]
+  );
+  const [view, setView] = useState('overview');
+  const [metaReducer, dispatch] = React.useReducer(reducer, initialProps);
   const { constituency_name: cons_name } = data.consData;
 
   function handleToolbarSwitch(e: string, cardIndicator = null) {
@@ -93,14 +105,19 @@ const ConsPage: React.FC<Props> = ({ stateMetadata, stateScheme, data }) => {
         altName: 'Key Highights of Constituency',
         icon: <OverViewIcon size={40} />,
         content: (
-          <ToolbarContext.Provider value={handleToolbarSwitch}>
+          <ConstituencyPage.Provider
+            value={{
+              toolbar: handleToolbarSwitch,
+              meta: { metaReducer, dispatch },
+            }}
+          >
             <Overview
               stateMetadata={stateMetadata}
               queryData={{ ...router.query, cons_name }}
               schemeList={stateScheme}
               data={data}
             />
-          </ToolbarContext.Provider>
+          </ConstituencyPage.Provider>
         ),
       },
       {
@@ -109,14 +126,20 @@ const ConsPage: React.FC<Props> = ({ stateMetadata, stateScheme, data }) => {
         altName: 'Scheme Data of Constituency',
         icon: <ExplorerIcon size={40} />,
         content: (
-          <Explorer
-            queryData={{ ...router.query, cons_name }}
-            schemeList={stateScheme}
-          />
+          <ConstituencyPage.Provider
+            value={{
+              metaReducer: { obj: metaReducer, dispatch },
+            }}
+          >
+            <Explorer
+              queryData={{ ...router.query, cons_name }}
+              schemeList={stateScheme}
+            />
+          </ConstituencyPage.Provider>
         ),
       },
     ],
-    [stateMetadata]
+    [stateMetadata, metaReducer]
   );
 
   const seo = {
@@ -159,15 +182,6 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   const queryValue: any = query || {};
   if (!['vidhan', 'lok'].includes(queryValue.sabha)) return { notFound: true };
-
-  const fileLink =
-    process.env.NODE_ENV === 'production'
-      ? 'http://52.30.188.232:8003/'
-      : 'http://localhost:3000';
-
-  // const json = await fetch(`${fileLink}/assets/json/bihar_ac.json`).then(
-  //   (res) => res.json()
-  // );
 
   const [stateScheme, stateMetadata, stateData] = await Promise.all([
     stateSchemeFetch(queryValue.state.replaceAll('-', ' ')),

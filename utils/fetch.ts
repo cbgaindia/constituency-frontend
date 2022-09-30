@@ -9,6 +9,14 @@ export async function fetchQuery(query, value) {
   return queryRes.result.results;
 }
 
+export async function newFetchQuery(query, value) {
+  const queryRes = await fetch(
+    `${process.env.NEXT_PUBLIC_CKAN_URL}/package_search?fq=${query}:"${value}" AND organization:constituency-v3 AND private:false`
+  ).then((res) => res.json());
+
+  return queryRes.result.results;
+}
+
 // requires a schemeType to fetch the JSON file from
 export async function fetchJSON(schemeType, key = null) {
   // get JSON URL
@@ -159,10 +167,142 @@ export async function consListFetch(state = null) {
 
 export function generateSlug(slug) {
   if (slug) {
-    const temp = slug.toLowerCase().replace(/\W/g, '-'); // lower case and replace space & special chars witn '-'
-    return temp.replace(/-+/g, '-').replace(/-$/, ''); // remove multiple '-' and remove '-' from end of string
+    const str = slug.toLowerCase().replace(/\W/g, '-'); // lower case and replace space & special chars witn '-'
+    return str.replace(/-+/g, '-').replace(/-$/, ''); // remove multiple '-' and remove '-' from end of string
   }
   return null;
+}
+
+export async function newSchemeDataFetch(id, sabha = null, schemeObj = null) {
+  const obj: any = {
+    ac: {},
+    pc: {},
+  };
+  if (!id) return obj;
+
+  let slug: string;
+  let acUrl: string;
+  let pcUrl: string;
+
+  if (schemeObj) {
+    slug = schemeObj.name || '';
+  } else {
+    await newFetchQuery('slug', id).then((data) => {
+      data[0].resources.forEach((file) => {
+        if (file.name.includes('pc.xlsx')) pcUrl = file.url;
+        else if (file.name.includes('ac.xlsx')) acUrl = file.url;
+      });
+      slug = data[0].name || '';
+    });
+  }
+
+  const urlArr =
+    sabha == 'lok' ? [pcUrl] : sabha == 'vidhan' ? [acUrl] : [acUrl, pcUrl];
+
+  // 'for-of' instead of forEach to wait till it finishes before returning
+  for (const url of urlArr) {
+    await fetchSheets(url).then((res) => {
+      const dataParse = res[0];
+      const metaParse = res[1];
+      // if (url.includes('pc.xlsx')) obj.pc = res;
+      // else obj.ac = res;
+      // return;
+      let metaObj: any = {};
+
+      // Meta Data
+      metaParse.forEach((val) => {
+        if (val[0]) {
+          metaObj = {
+            ...metaObj,
+            [generateSlug(val[0])]: val[1],
+          };
+        }
+      });
+
+      // creating list of constituencies
+      const consList = {};
+      dataParse.map((item, index) => {
+        if (consList[item[0]]) {
+          if (item[3] == dataParse[index - 1][3]) return;
+          consList[item[0]].push({
+            constName: item[2],
+            constCode: item[3],
+          });
+        } else {
+          if (item[0] == 'state_ut_name') return;
+          else
+            consList[item[0]] = [
+              {
+                constName: item[2],
+                constCode: item[3],
+              },
+            ];
+        }
+      });
+
+      const tempObj: any = {};
+      tempObj.metadata = {
+        name: metaObj['scheme_name'] || '',
+        type: metaObj['scheme_type'] || '',
+        description: metaObj['scheme_description'] || '',
+        source: metaObj['data_source'] || '',
+        frequency: metaObj.frequency || '',
+        methodology: metaObj.methodology || '',
+        remarks: metaObj.frequency || '',
+        slug,
+        indicators: [],
+        consList: consList || [],
+      };
+
+      // Tabular Data
+      for (let i = 5; i < dataParse[0].length; i += 1) {
+        let fiscal_year = {};
+        const state_Obj = {};
+        for (let j = 1; j < dataParse.length; j += 1) {
+          if (!(dataParse[j][0] in state_Obj)) {
+            fiscal_year = {};
+          }
+          if (dataParse[j][4]) {
+            fiscal_year[dataParse[j][4].trim()] = {
+              ...fiscal_year[dataParse[j][4].trim()],
+              [dataParse[j][3]]: Number.isNaN(parseFloat(dataParse[j][i]))
+                ? '0'
+                : parseFloat(dataParse[j][i]).toFixed(2),
+            };
+          }
+          state_Obj[dataParse[j][0]] = { ...fiscal_year };
+        }
+        const indicatorSlug =
+          generateSlug(metaObj[`indicator_${i - 4}_common_name`]) ||
+          generateSlug(metaObj[`indicator_${i - 4}_name`]) ||
+          '';
+
+        tempObj.metadata.indicators.push(indicatorSlug);
+
+        tempObj.data = {
+          ...tempObj.data,
+          [indicatorSlug]: {
+            state_Obj,
+            name:
+              metaObj[`indicator_${i - 4}_common_name`] ||
+              metaObj[`indicator_${i - 4}_name`] ||
+              '',
+            description:
+              metaObj[`indicator_${i - 4}_common_description`] ||
+              metaObj[`indicator_${i - 4}_description`] ||
+              '',
+            note: metaObj[`indicator_${i - 4}_note`] || '',
+            slug: indicatorSlug,
+            unit: metaObj[`indicator_${i - 4}_unit`] || '',
+          },
+        };
+      }
+
+      if (url.includes('pc.xlsx')) obj.pc = tempObj;
+      else obj.ac = tempObj;
+    });
+  }
+  return obj;
 }
 
 export async function schemeDataFetch(id, sabha = null, schemeObj = null) {
@@ -267,7 +407,8 @@ export async function schemeDataFetch(id, sabha = null, schemeObj = null) {
           }
           state_Obj[dataParse[j][0]] = { ...fiscal_year };
         }
-        const indicatorSlug = metaObj[`indicator-${i - 4}-name`] || '';
+        const indicatorSlug =
+          generateSlug(metaObj[`indicator-${i - 4}-name`]) || '';
 
         tempObj.metadata.indicators.push(indicatorSlug);
 
