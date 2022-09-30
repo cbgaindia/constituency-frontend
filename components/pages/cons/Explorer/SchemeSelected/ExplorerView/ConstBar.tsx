@@ -116,7 +116,7 @@ const ConstBar = ({ meta, schemeData }) => {
         )}
       </ComboWrapper>
       <>
-        {!isPending ? (
+        {barData ? (
           <GroupBarChart
             yAxisLabel={`Value (in ${meta.unit})`}
             xAxisLabel="Constituency"
