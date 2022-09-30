@@ -44,7 +44,7 @@ const SnapshotCard = ({
                   value={data.value.state.avg}
                 />
                 <AverageValue>
-                  {data.value.state.avg.toFixed(2)} Cr.
+                  {data.value.state.avg?.toFixed(2)} Cr.
                 </AverageValue>
               </div>
             </div>
@@ -58,7 +58,7 @@ const SnapshotCard = ({
                   value={data.value.constituency}
                 />
                 <AverageValue>
-                  {data.value.constituency.toFixed(2)} Cr.
+                  {data.value.constituency?.toFixed(2)} Cr.
                 </AverageValue>
               </div>
             </div>

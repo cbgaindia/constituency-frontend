@@ -10,8 +10,14 @@ import {
 } from '@opub-cdl/design-system';
 import { IconMinimize } from 'components/icons';
 import { useRouter } from 'next/router';
+import { ConstituencyPage } from 'pages/[state]/[sabha]/[cons]';
 
-export const SubHeading = ({ meta, schemeList, queryData }) => {
+const SubHeading = ({ meta, schemeList, queryData }) => {
+  const { metaReducer } = React.useContext(ConstituencyPage);
+  const indicator = metaReducer.obj.indicator;
+
+  const dispatchCons = metaReducer.dispatch;
+
   const router = useRouter();
 
   const [open, setOpen] = React.useState(false);
@@ -27,7 +33,6 @@ export const SubHeading = ({ meta, schemeList, queryData }) => {
       return schemeArr;
     }
   }, [schemeList]);
-
   return (
     <Wrapper>
       <SchemeWrapper>
@@ -46,12 +51,16 @@ export const SubHeading = ({ meta, schemeList, queryData }) => {
           isSearchable={false}
           placeholder="Select a scheme"
           isLoading={!schemes}
-          onChange={(e: any) =>
-            router.replace({
-              pathname: `/${queryData.state}/${queryData.sabha}/${queryData.cons}`,
-              query: { scheme: e.value },
-            })
-          }
+          onChange={(e: any) => {
+            router
+              .replace({
+                pathname: `/${queryData.state}/${queryData.sabha}/${queryData.cons}`,
+                query: { scheme: e.value, indicator: indicator },
+              })
+              .then(() => {
+                dispatchCons({ scheme: e.value, indicator: indicator });
+              });
+          }}
           defaultValue={{
             value: queryData.scheme,
             label: meta.schemeName || 'Loading...',
@@ -79,6 +88,9 @@ export const SubHeading = ({ meta, schemeList, queryData }) => {
     </Wrapper>
   );
 };
+
+export default React.memo(SubHeading);
+
 const Wrapper = styled.div`
   margin-top: 32px;
   padding: 24px;

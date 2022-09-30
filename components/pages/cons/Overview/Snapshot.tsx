@@ -74,16 +74,13 @@ const Snapshot = ({ queryData, schemeList, consData, stateAvg }: Props) => {
       : [];
     return indicatorArr;
   }, [indicatorData]);
-  console.log(consData, stateAvg);
 
   function getProgressValue(obj, slug) {
-    if (obj[selectedYear][slug] && obj[selectedYear][slug][indicator]) {
-      if (obj == stateAvg) return obj[selectedYear][slug][indicator];
-      return Math.abs(obj[selectedYear][slug][indicator]); // TODO handle negative
+    if (obj[selectedYear][slug]) {
+      return obj[selectedYear][slug][indicator]; // TODO handle negative
     }
     return false;
   }
-  // console.log(indicator);
 
   return (
     <section>
@@ -120,20 +117,17 @@ const Snapshot = ({ queryData, schemeList, consData, stateAvg }: Props) => {
                   indicator={indicator}
                   data={{
                     ...item,
-                    value:
-                      getProgressValue(stateAvg, item.scheme_slug) &&
+                    value: Number.isFinite(
                       getProgressValue(consData, item.scheme_slug)
-                        ? {
-                            state: getProgressValue(
-                              stateAvg,
-                              item.scheme_slug
-                            ),
-                            constituency: getProgressValue(
-                              consData,
-                              item.scheme_slug
-                            ),
-                          }
-                        : null,
+                    )
+                      ? {
+                          state: getProgressValue(stateAvg, item.scheme_slug),
+                          constituency: getProgressValue(
+                            consData,
+                            item.scheme_slug
+                          ),
+                        }
+                      : null,
                   }}
                 />
               ))}

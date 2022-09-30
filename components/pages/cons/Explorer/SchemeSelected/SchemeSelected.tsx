@@ -3,31 +3,31 @@ import styled from 'styled-components';
 import useSWR from 'swr';
 import ExplorerView from './ExplorerView';
 import { newSchemeDataFetch } from 'utils/fetch';
-import { SubHeading } from './SubHeading';
+import SubHeading from './SubHeading';
 import { capitalize, swrFetch } from 'utils/helper';
+import { ConstituencyPage } from 'pages/[state]/[sabha]/[cons]';
 
 const reducer = (state: any, action: any) => {
   return { ...state, ...action };
 };
 
 const SchemeSelected = ({ queryData, schemeList }) => {
+  const { metaReducer } = React.useContext(ConstituencyPage);
+  const { indicator, scheme } = metaReducer.obj;
+  const dispatchCons = metaReducer.dispatch;
+
   const { data: schemeRes } = swrFetch(
-    `${process.env.NEXT_PUBLIC_CKAN_URL}/package_search?fq=slug:"${queryData.scheme}" AND organization:constituency-wise-scheme-data AND private:false`
+    `${process.env.NEXT_PUBLIC_CKAN_URL}/package_search?fq=slug:"${scheme}" AND organization:constituency-wise-scheme-data AND private:false`
   );
   const schemeObj = schemeRes?.result.results[0];
 
   const newFetcher = () =>
     newSchemeDataFetch(queryData.scheme, queryData.sabha, schemeObj);
-  const { data } = useSWR(
-    `${queryData.state}/${queryData.scheme}/new`,
-    newFetcher,
-    {
-      revalidateIfStale: false,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    }
-  );
-  console.log(data);
+  const { data } = useSWR(`${queryData.state}/${scheme}/new`, newFetcher, {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  });
 
   React.useEffect(() => {
     dispatch({
@@ -49,7 +49,11 @@ const SchemeSelected = ({ queryData, schemeList }) => {
           value: item,
           label: item,
         }));
-
+        dispatchCons({
+          indicator: Object.keys(schemeData.data).includes(indicator)
+            ? indicator
+            : Object.keys(schemeData.data)[0],
+        });
         dispatch({
           schemeData,
           year: years[0].value,
@@ -57,20 +61,15 @@ const SchemeSelected = ({ queryData, schemeList }) => {
         });
       }
     }
-  }, [data]);
+  }, [data, indicator]);
 
   const initalState = {
     state: queryData.state || '',
-    scheme: queryData.scheme || '',
     sabha: queryData.sabha || 'lok',
     cons: queryData.cons || '',
     cons_name: queryData.cons_name || '',
-    schemeName: queryData.scheme
-      ? schemeList.filter((e) => e.scheme_slug == queryData.scheme)[0]
-          .scheme_name
-      : 'Loading...',
+    schemeName: 'Loading...',
     schemeData: '',
-    indicator: queryData.indicator ? queryData.indicator : '',
     year: '',
     allYears: [],
     unit: '',
@@ -90,7 +89,10 @@ const SchemeSelected = ({ queryData, schemeList }) => {
           <div>Loading...</div>
         ) : (
           <>
-            <ExplorerView meta={reducerState} dispatch={dispatch} />
+            <ExplorerView
+              meta={{ ...reducerState, scheme, indicator }}
+              dispatch={dispatch}
+            />
           </>
         )}
       </ExplorerWrapper>

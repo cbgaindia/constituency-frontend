@@ -22,9 +22,9 @@ const ConstBar = ({ meta, schemeData }) => {
 
   React.useLayoutEffect(() => {
     if (meta.cons && meta.state && meta.indicator) {
-      !isPending && generateBarChart(selectedYears, selectedCons);
+      generateBarChart(selectedYears, selectedCons);
     }
-  }, [meta, selectedCons, selectedYears]);
+  }, [meta, selectedCons, selectedYears, schemeData]);
 
   function generateBarChart(years, constituencies) {
     const barChartHeader = ['Year'];
@@ -116,7 +116,7 @@ const ConstBar = ({ meta, schemeData }) => {
         )}
       </ComboWrapper>
       <>
-        {barData ? (
+        {!isPending ? (
           <GroupBarChart
             yAxisLabel={`Value (in ${meta.unit})`}
             xAxisLabel="Constituency"

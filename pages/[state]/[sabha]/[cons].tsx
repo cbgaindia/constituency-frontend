@@ -47,7 +47,7 @@ const ConsPage: React.FC<Props> = ({ stateMetadata, stateScheme, data }) => {
   const { state, sabha, scheme, cons, indicator } = router.query;
   const initialProps = React.useMemo(
     () => ({
-      indicator: indicator,
+      indicator: indicator || '',
       scheme: scheme || '',
     }),
     [indicator, scheme]

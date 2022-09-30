@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useLayoutEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import dynamic from 'next/dynamic';
 
@@ -14,7 +14,6 @@ import {
 } from '@opub-cdl/design-system';
 import { IconToggleOff } from 'components/icons/IconToggleOff';
 import { LoadingDiv } from 'components/pages/state/StateList/ConsMapView';
-import useEffectOnChange from 'utils/hooks';
 import { ConstituencyPage } from 'pages/[state]/[sabha]/[cons]';
 
 const ConstBar = dynamic(() => import('./ConstBar'), {
@@ -42,17 +41,16 @@ const ExplorerView = ({ meta, dispatch }) => {
   const [tableData, setTableData] = useState<any>({});
   const [showTable, setShowTable] = useState<any>(false);
 
-  const { state, scheme, schemeData } = meta;
+  const { state, scheme, schemeData, indicator } = meta;
   const { sabha } = meta || 'lok';
 
   const { metaReducer } = React.useContext(ConstituencyPage);
-  const indicator = metaReducer.obj.indicator ? metaReducer.obj.indicator : '';
 
   const dispatchCons = metaReducer.dispatch;
 
-  useEffectOnChange(() => {
+  useEffect(() => {
     handleNewIndicator(indicator);
-  }, [indicator]);
+  }, [indicator, schemeData, scheme]);
 
   // setting tabular data
   // TODO set new table format for both bar and map charts
@@ -97,27 +95,15 @@ const ExplorerView = ({ meta, dispatch }) => {
 
   function handleNewIndicator(val: any) {
     if (val) {
-      window.history.replaceState(
-        {
-          scheme,
-          indicator: val,
-        },
-        'bar',
-        `/${state}/${sabha}/${meta.cons}?scheme=${scheme}&indicator=${val}`
-      );
-
       // filter based on selected indicator for state + sabha
       if (schemeData.data) {
-        const indicatorID = Object.keys(schemeData.data).find(
-          (item) => schemeData.data[item].slug === val
-        );
-        if (schemeData.data[indicatorID]) {
-          const filtered = schemeData.data[indicatorID]['state_Obj'];
+        if (schemeData.data[val]) {
+          const filtered = schemeData.data[val]['state_Obj'];
           dispatchCons({
             indicator: val,
           });
           dispatch({
-            unit: schemeData.data[indicatorID].unit,
+            unit: schemeData.data[val].unit,
           });
           setFiltered(filtered);
         }
@@ -126,6 +112,14 @@ const ExplorerView = ({ meta, dispatch }) => {
           indicator: val,
         });
       }
+      window.history.replaceState(
+        {
+          scheme: scheme,
+          indicator: val,
+        },
+        '',
+        `/${state}/${sabha}/${meta.cons}?scheme=${scheme}&indicator=${val}`
+      );
     }
   }
 
@@ -162,7 +156,7 @@ const ExplorerView = ({ meta, dispatch }) => {
     },
     {
       id: 'mapView',
-      graph: filtered ? (
+      graph: Object.values(filtered).length ? (
         showTable ? (
           <Table
             header={
