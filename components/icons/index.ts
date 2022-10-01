@@ -31,3 +31,4 @@ export { GradientVidhanSabha } from './GradientVidhanSabha';
 export { IconMinimize } from './IconMinimize';
 export { IconToggleOff } from './IconToggleOff';
 export { IconToggleOn } from './IconToggleOn';
+export { Folder } from './Folder';

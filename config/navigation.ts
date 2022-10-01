@@ -37,9 +37,8 @@ export const navList = {
       name: 'About Us',
     },
     {
-      link: 'https://drive.google.com/drive/folders/1_Qm_yDHBlcSTvoYdV0bc9b79DRF-pzJs',
-      name: 'Methodology and Resources',
-      external: true,
+      link: '/resources',
+      name: 'Resources',
     },
   ],
 };
