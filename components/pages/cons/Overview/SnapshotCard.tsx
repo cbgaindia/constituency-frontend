@@ -38,13 +38,12 @@ const SnapshotCard = ({
               <AverageTitle>State Average</AverageTitle>
               <div>
                 <ProgressBar
-                  data-min={data.value.state.min}
-                  max={data.value.state.max}
+                  max={100}
                   data-fill="pink"
-                  value={data.value.state.avg}
+                  value={data.value.state.bar}
                 />
                 <AverageValue>
-                  {data.value.state.avg?.toFixed(2)} Cr.
+                  {data.value.state.value?.toFixed(2)} Cr.
                 </AverageValue>
               </div>
             </div>
@@ -53,12 +52,11 @@ const SnapshotCard = ({
               <div>
                 <ProgressBar
                   data-fill="teal"
-                  data-min={data.value.state.min}
-                  max={data.value.state.max}
-                  value={data.value.constituency}
+                  max={100}
+                  value={data.value.constituency.bar}
                 />
                 <AverageValue>
-                  {data.value.constituency?.toFixed(2)} Cr.
+                  {data.value.constituency.value?.toFixed(2)} Cr.
                 </AverageValue>
               </div>
             </div>

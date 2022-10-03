@@ -74,6 +74,33 @@ const Snapshot = ({ queryData, schemeList, consData, stateAvg }: Props) => {
       : [];
     return indicatorArr;
   }, [indicatorData]);
+  // console.log(stateAvg);
+
+  function getStateAvg(slug) {
+    if (stateAvg[selectedYear][slug]) {
+      const { min, max, avg } = stateAvg[selectedYear][slug][indicator];
+      return { bar: Math.abs(((avg - min) * 100) / (max - min)), value: avg };
+    }
+
+    return false;
+  }
+  function getConsAvg(slug) {
+    if (
+      consData[selectedYear][slug] &&
+      Number.isFinite(consData[selectedYear][slug][indicator])
+    ) {
+      // console.log(stateAvg);
+
+      const { max, min } = stateAvg[selectedYear][slug][indicator];
+      const consValue = consData[selectedYear][slug][indicator];
+      return {
+        bar: Math.abs(((consValue - min) * 100) / (max - min)),
+        value: consValue,
+      };
+    }
+
+    return false;
+  }
 
   function getProgressValue(obj, slug) {
     if (obj[selectedYear][slug]) {
@@ -111,21 +138,17 @@ const Snapshot = ({ queryData, schemeList, consData, stateAvg }: Props) => {
           </SnapshotSchemeTitle>
           <SnapshotSchemeList>
             {schemeList &&
+              indicator &&
               schemeList.map((item) => (
                 <SnapshotCard
                   key={item.scheme_slug}
                   indicator={indicator}
                   data={{
                     ...item,
-                    value: Number.isFinite(
-                      getProgressValue(consData, item.scheme_slug)
-                    )
+                    value: getConsAvg(item.scheme_slug)
                       ? {
-                          state: getProgressValue(stateAvg, item.scheme_slug),
-                          constituency: getProgressValue(
-                            consData,
-                            item.scheme_slug
-                          ),
+                          state: getStateAvg(item.scheme_slug),
+                          constituency: getConsAvg(item.scheme_slug),
                         }
                       : null,
                   }}
