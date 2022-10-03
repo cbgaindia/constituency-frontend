@@ -74,12 +74,14 @@ const Snapshot = ({ queryData, schemeList, consData, stateAvg }: Props) => {
       : [];
     return indicatorArr;
   }, [indicatorData]);
-  // console.log(stateAvg);
 
   function getStateAvg(slug) {
     if (stateAvg[selectedYear][slug]) {
       const { min, max, avg } = stateAvg[selectedYear][slug][indicator];
-      return { bar: Math.abs(((avg - min) * 100) / (max - min)), value: avg };
+      return {
+        bar: Math.abs(((avg - min) * 100) / (max - min)) || 0,
+        value: avg,
+      };
     }
 
     return false;
@@ -89,23 +91,14 @@ const Snapshot = ({ queryData, schemeList, consData, stateAvg }: Props) => {
       consData[selectedYear][slug] &&
       Number.isFinite(consData[selectedYear][slug][indicator])
     ) {
-      // console.log(stateAvg);
-
       const { max, min } = stateAvg[selectedYear][slug][indicator];
       const consValue = consData[selectedYear][slug][indicator];
       return {
-        bar: Math.abs(((consValue - min) * 100) / (max - min)),
+        bar: Math.abs(((consValue - min) * 100) / (max - min)) || 0,
         value: consValue,
       };
     }
 
-    return false;
-  }
-
-  function getProgressValue(obj, slug) {
-    if (obj[selectedYear][slug]) {
-      return obj[selectedYear][slug][indicator]; // TODO handle negative
-    }
     return false;
   }
 
