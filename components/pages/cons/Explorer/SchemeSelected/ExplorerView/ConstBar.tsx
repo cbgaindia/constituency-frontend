@@ -3,9 +3,9 @@ import { Combobox } from 'components/actions';
 import styled from 'styled-components';
 import { GroupBarChart } from 'components/viz';
 import { getParameterCaseInsensitive } from 'utils/helper';
+import { Table } from 'components/data';
 
-const ConstBar = ({ meta, schemeData }) => {
-  const [isPending, startTransition] = React.useTransition();
+const ConstBar = ({ meta, schemeData, showTable }) => {
   const [barData, setBarData] = React.useState([]);
   const [selectedCons, setSelectedCons] = React.useState([
     { state: meta.state, code: meta.cons, name: meta.cons_name },
@@ -14,35 +14,45 @@ const ConstBar = ({ meta, schemeData }) => {
     { value: meta.year, label: meta.year },
   ]);
 
+  const [tableData, setTableData] = React.useState<any>();
+
   React.useEffect(() => {
-    startTransition(() => {
-      setSelectedYears([{ value: meta.year, label: meta.year }]);
-    });
+    setSelectedYears([{ value: meta.year, label: meta.year }]);
   }, [meta.year]);
 
   React.useLayoutEffect(() => {
     if (meta.cons && meta.state && meta.indicator) {
       generateBarChart(selectedYears, selectedCons);
     }
-  }, [meta, selectedCons, selectedYears, schemeData]);
+  }, [meta.indicator, meta.cons, selectedCons, selectedYears, schemeData]);
 
   function generateBarChart(years, constituencies) {
     const barChartHeader = ['Year'];
+
+    const tableHeader = [{ Header: 'Constituency', accessor: 'constHeader' }];
 
     //  years object to store the values in arrays
     const yearsObj = {};
     years.forEach((elm) => {
       yearsObj[elm.value] = [elm.value];
+      tableHeader.push({
+        Header: `${meta.indicator.replaceAll('-', ' ')} ${elm.value}`,
+        accessor: `${meta.indicator}-${elm.value}`,
+      });
     });
+
+    const tableRows = [];
 
     constituencies.forEach((elm) => {
       if (Object.values(schemeData).length) {
         const { state, code, name } = elm;
         barChartHeader.push(String(name));
-
+        const tableRowsObj = {
+          [tableHeader[0].accessor]: String(name),
+        };
         //  for each year, fill the constituency value
         Object.keys(yearsObj).length &&
-          Object.keys(yearsObj).forEach((yearElm) => {
+          Object.keys(yearsObj).forEach((yearElm, index) => {
             const yearFiltered = getParameterCaseInsensitive(
               schemeData,
               state
@@ -50,25 +60,28 @@ const ConstBar = ({ meta, schemeData }) => {
             if (yearFiltered) {
               const constValue = yearFiltered[code];
               yearsObj[yearElm].push(constValue);
+              tableRowsObj[tableHeader[index + 1].accessor] = constValue;
             }
           });
+
+        tableRows.push(tableRowsObj);
       }
     });
 
     const barChartArr = [barChartHeader, ...Object.values(yearsObj)];
-    startTransition(() => {
-      setBarData(barChartArr);
+    setBarData(barChartArr);
+    setTableData({
+      header: tableHeader,
+      rows: tableRows,
     });
   }
   function handleConstChange(e) {
-    startTransition(() => {
-      const arr = e.map((obj) => ({
-        state: obj.value.state,
-        code: obj.value.code,
-        name: obj.label,
-      }));
-      setSelectedCons(arr);
-    });
+    const arr = e.map((obj) => ({
+      state: obj.value.state,
+      code: obj.value.code,
+      name: obj.label,
+    }));
+    setSelectedCons(arr);
   }
 
   // generate grouped constituency list based on state
@@ -85,7 +98,16 @@ const ConstBar = ({ meta, schemeData }) => {
     }));
   }, [meta.schemeData]);
 
-  return (
+  return showTable ? (
+    tableData ? (
+      <Table
+        header={tableData.header ? tableData.header : ['table not available']}
+        rows={tableData.rows ? tableData.rows : []}
+      />
+    ) : (
+      <p>Loading Table...</p>
+    )
+  ) : (
     <Wrapper>
       <ComboWrapper>
         {meta.cons && (

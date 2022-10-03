@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { MapViz } from 'components/viz';
 import styled from 'styled-components';
-import { getParameterCaseInsensitive, swrFetch } from 'utils/helper';
+import {
+  capitalize,
+  getParameterCaseInsensitive,
+  swrFetch,
+} from 'utils/helper';
 import { Menu } from 'components/actions';
 import useEffectOnChange from 'utils/hooks';
+import { Table } from 'components/data';
 
-const StateMap = ({ meta, schemeData }) => {
+const StateMap = ({ meta, schemeData, showTable, consList }) => {
   const [mapValues, setMapvalues] = useState([]);
   const [mapIndicator, setMapIndicator] = useState(undefined);
+  const { state, indicator } = meta;
+  const [tableData, setTableData] = useState<any>();
+
   const [year, setYear] = useState(meta.year);
   const [filteredData, setFilteredData] = useState(
     getParameterCaseInsensitive(schemeData, meta.state)[year]
@@ -97,6 +105,47 @@ const StateMap = ({ meta, schemeData }) => {
     }
   }, [data, filteredData, meta.sabha]);
 
+  // setting tabular data
+  useEffect(() => {
+    if (meta.allYears && schemeData) {
+      const tableHeader = [
+        { Header: 'Constituency', accessor: 'constHeader' },
+      ];
+
+      // generate headers for all years (state view)
+      meta.allYears.forEach((element) =>
+        tableHeader.push({
+          Header: `${indicator.replaceAll('-', ' ')} ${element.label}`,
+          accessor: `${indicator}-${element.label}`,
+        })
+      );
+
+      const rowData = [];
+      if (schemeData[state] && schemeData[state][meta.year]) {
+        Object.values(schemeData[state][meta.year]).forEach((item, index) => {
+          const tempObj = {
+            [tableHeader[0].accessor]:
+              consList[capitalize(state)][index]?.constName,
+          };
+
+          Object.keys(schemeData[state]).forEach((item1, index1) => {
+            tempObj[tableHeader[index1 + 1].accessor] =
+              schemeData[state][item1][index + 1];
+          });
+
+          rowData.push(tempObj);
+        });
+      }
+
+      const tableData = {
+        header: tableHeader,
+        rows: rowData,
+      };
+
+      setTableData(tableData);
+    }
+  }, [schemeData]);
+
   // const newMapItem = useCallback((e) => {
   //   if (e) {
   //     // overriding map highlight on constituency selection
@@ -112,7 +161,16 @@ const StateMap = ({ meta, schemeData }) => {
   //   }
   // }, []);
 
-  return (
+  return showTable ? (
+    tableData ? (
+      <Table
+        header={tableData.header ? tableData.header : ['table not available']}
+        rows={tableData.rows ? tableData.rows : []}
+      />
+    ) : (
+      <p>Loading Table...</p>
+    )
+  ) : (
     <Wrapper>
       {isLoading ? (
         <p>Loading...</p>

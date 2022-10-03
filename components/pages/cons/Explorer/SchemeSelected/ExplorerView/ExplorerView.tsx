@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import dynamic from 'next/dynamic';
 
 import { Indicator, IndicatorMobile } from 'components/data/Indicator';
-import { capitalize } from 'utils/helper';
 import { Globe, IconGeneralTrends, IconToggleOn } from 'components/icons';
 import { SourceWrapper } from 'components/pages/cons/Source';
 import {
@@ -38,7 +37,6 @@ const Source = dynamic(() => import('components/pages/cons/Source'), {
 const ExplorerView = ({ meta, dispatch }) => {
   const [filtered, setFiltered] = useState({});
   const [currentTab, setCurrentTab] = useState('consView');
-  const [tableData, setTableData] = useState<any>({});
   const [showTable, setShowTable] = useState<any>(false);
 
   const { state, scheme, schemeData, indicator } = meta;
@@ -51,48 +49,6 @@ const ExplorerView = ({ meta, dispatch }) => {
   useEffect(() => {
     handleNewIndicator(indicator);
   }, [indicator, schemeData, scheme]);
-
-  // setting tabular data
-  // TODO set new table format for both bar and map charts
-  useEffect(() => {
-    if (meta.allYears && filtered) {
-      const tableHeader = [
-        { Header: 'Constituency', accessor: 'constHeader' },
-      ];
-
-      meta.allYears.forEach((element) =>
-        tableHeader.push({
-          Header: `${indicator.replaceAll('-', ' ')} ${element.label}`,
-          accessor: `${indicator}-${element.label}`,
-        })
-      );
-
-      const rowData = [];
-      if (filtered[state] && filtered[state][meta.year]) {
-        Object.values(filtered[state][meta.year]).forEach((item, index) => {
-          const tempObj = {
-            [tableHeader[0].accessor]:
-              schemeData.metadata.consList[capitalize(state)][index]
-                ?.constName,
-          };
-
-          Object.keys(filtered[state]).forEach((item1, index1) => {
-            tempObj[tableHeader[index1 + 1].accessor] =
-              filtered[state][item1][index + 1];
-          });
-
-          rowData.push(tempObj);
-        });
-      }
-
-      const tableData = {
-        header: tableHeader,
-        rows: rowData,
-      };
-
-      setTableData(tableData);
-    }
-  }, [filtered]);
 
   function handleNewIndicator(val: any) {
     if (val) {
@@ -141,16 +97,7 @@ const ExplorerView = ({ meta, dispatch }) => {
     {
       id: 'consView',
       graph: filtered ? (
-        showTable ? (
-          <Table
-            header={
-              tableData.header ? tableData.header : ['table not available']
-            }
-            rows={tableData.rows ? tableData.rows : []}
-          />
-        ) : (
-          <ConstBar meta={meta} schemeData={filtered} />
-        )
+        <ConstBar meta={meta} schemeData={filtered} showTable={showTable} />
       ) : (
         <p>No data</p>
       ),
@@ -158,16 +105,12 @@ const ExplorerView = ({ meta, dispatch }) => {
     {
       id: 'mapView',
       graph: Object.values(filtered).length ? (
-        showTable ? (
-          <Table
-            header={
-              tableData.header ? tableData.header : ['table not available']
-            }
-            rows={tableData.rows ? tableData.rows : []}
-          />
-        ) : (
-          <StateMap meta={meta} schemeData={filtered} />
-        )
+        <StateMap
+          meta={meta}
+          schemeData={filtered}
+          showTable={showTable}
+          consList={schemeData.metadata.consList}
+        />
       ) : (
         <p>No data</p>
       ),
@@ -244,7 +187,7 @@ const ExplorerView = ({ meta, dispatch }) => {
               {scheme && (
                 <Source
                   currentViz={showTable ? '#tableView' : '#vizWrapperDownload'}
-                  tableData={tableData}
+                  // tableData={tableData}
                   meta={{
                     scheme,
                     state,

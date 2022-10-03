@@ -247,6 +247,7 @@ const THead = styled.thead`
     text-transform: capitalize;
     align-items: center;
     gap: 16px;
+    height: 55px;
 
     button {
       display: inline-block;
