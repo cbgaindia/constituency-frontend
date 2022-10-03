@@ -205,5 +205,8 @@ export function fullScreenMode(id: string) {
 }
 
 export function capitalize(str) {
-  return str.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
+  return str
+    .toLowerCase()
+    .replaceAll('-', ' ')
+    .replace(/\b\w/g, (c) => c.toUpperCase());
 }
