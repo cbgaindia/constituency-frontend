@@ -49,6 +49,7 @@ const ConsPage: React.FC<Props> = ({ stateMetadata, stateScheme, data }) => {
     () => ({
       indicator: indicator || '',
       scheme: scheme || '',
+      year: '',
     }),
     [indicator, scheme]
   );

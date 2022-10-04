@@ -126,7 +126,10 @@ const Snapshot = ({ queryData, schemeList, consData, stateAvg }: Props) => {
               value={selectedYear}
               options={yearList}
               heading="Financial Year:"
-              handleChange={(e) => setSelectedYear(e)}
+              handleChange={(e) => {
+                setSelectedYear(e);
+                dispatch({ year: e });
+              }}
             />
           </SnapshotSchemeTitle>
           <SnapshotSchemeList>
@@ -156,7 +159,9 @@ const Snapshot = ({ queryData, schemeList, consData, stateAvg }: Props) => {
                 indicator: indicator ? indicator : 'Opening Balance',
                 sabha: queryData.sabha,
               }}
-              source={'Lorem Ipsum is simply dummy text'}
+              source={
+                'Multiple sources - MIS, RTI queries, Parliament questions etc. Visit scheme page for specific sources.'
+              }
             />
           </SnapshotFooter>
         </SnapshotSchemes>

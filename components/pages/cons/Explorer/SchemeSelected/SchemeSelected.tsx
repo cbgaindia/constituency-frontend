@@ -13,7 +13,7 @@ const reducer = (state: any, action: any) => {
 
 const SchemeSelected = ({ queryData, schemeList }) => {
   const { metaReducer } = React.useContext(ConstituencyPage);
-  const { indicator } = metaReducer.obj;
+  const { indicator, year } = metaReducer.obj;
   const dispatchCons = metaReducer.dispatch;
 
   const { data: schemeRes } = swrFetch(
@@ -57,7 +57,7 @@ const SchemeSelected = ({ queryData, schemeList }) => {
         });
         dispatch({
           schemeData,
-          year: years[0].value,
+          year: year || years[0].value,
           allYears: years,
         });
       }
@@ -71,7 +71,7 @@ const SchemeSelected = ({ queryData, schemeList }) => {
     cons_name: queryData.cons_name || '',
     schemeName: 'Loading...',
     schemeData: '',
-    year: '',
+    year: year || '',
     allYears: [],
     unit: '',
     vizType: 'map',
