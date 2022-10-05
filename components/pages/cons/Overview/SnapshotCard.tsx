@@ -1,5 +1,6 @@
 import { Button, ProgressBar } from '@opub-cdl/design-system';
 import { Notice } from 'components/icons';
+import { SplitBar } from 'components/viz/SplitBar';
 import Image from 'next/image';
 import { ConstituencyPage } from 'pages/[state]/[sabha]/[cons]';
 import React from 'react';
@@ -14,6 +15,7 @@ const SnapshotCard = ({
   indicator: string;
 }) => {
   const { toolbar } = React.useContext(ConstituencyPage);
+
   return (
     <SnapshotSchemeCard>
       <CardTitle>
@@ -37,11 +39,8 @@ const SnapshotCard = ({
             <div>
               <AverageTitle>State Average</AverageTitle>
               <div>
-                <ProgressBar
-                  max={100}
-                  data-fill="pink"
-                  value={data.value.state.bar}
-                />
+                <SplitBar val={data.value.state.bar} />
+
                 <AverageValue>
                   {data.value.state.value?.toFixed(2)} Cr.
                 </AverageValue>
@@ -50,11 +49,8 @@ const SnapshotCard = ({
             <div>
               <AverageTitle>Constituency</AverageTitle>
               <div>
-                <ProgressBar
-                  data-fill="teal"
-                  max={100}
-                  value={data.value.constituency.bar}
-                />
+                <SplitBar val={data.value.constituency.bar} />
+
                 <AverageValue>
                   {data.value.constituency.value?.toFixed(2)} Cr.
                 </AverageValue>
@@ -214,4 +210,5 @@ const AverageValue = styled.span`
   line-height: 1.7;
   padding-inline: 8px;
   font-weight: 600;
+  white-space: nowrap;
 `;
