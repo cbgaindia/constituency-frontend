@@ -211,4 +211,6 @@ const AverageValue = styled.span`
   padding-inline: 8px;
   font-weight: 600;
   white-space: nowrap;
+  min-width: 77px;
+  text-align: end;
 `;
