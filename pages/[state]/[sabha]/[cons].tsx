@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import styled from 'styled-components';
 
 import {
+  consDescFetch,
   stateDataFetch,
   stateMetadataFetch,
   stateSchemeFetch,
@@ -35,6 +36,7 @@ type Props = {
   stateMetadata: any;
   schemeData: any;
   data: any;
+  remarks: any;
 };
 export const ConstituencyPage = React.createContext(null);
 
@@ -42,7 +44,12 @@ const reducer = (state: any, action: any) => {
   return { ...state, ...action };
 };
 
-const ConsPage: React.FC<Props> = ({ stateMetadata, stateScheme, data }) => {
+const ConsPage: React.FC<Props> = ({
+  stateMetadata,
+  stateScheme,
+  data,
+  remarks,
+}) => {
   const router = useRouter();
   const { state, sabha, scheme, cons, indicator } = router.query;
   const initialProps = React.useMemo(
@@ -117,6 +124,7 @@ const ConsPage: React.FC<Props> = ({ stateMetadata, stateScheme, data }) => {
               queryData={{ ...router.query, cons_name }}
               schemeList={stateScheme}
               data={data}
+              remarks={remarks}
             />
           </ConstituencyPage.Provider>
         ),
@@ -184,10 +192,11 @@ export const getServerSideProps: GetServerSideProps = async ({
   const queryValue: any = query || {};
   if (!['vidhan', 'lok'].includes(queryValue.sabha)) return { notFound: true };
 
-  const [stateScheme, stateMetadata, stateData] = await Promise.all([
+  const [stateScheme, stateMetadata, stateData, remarks] = await Promise.all([
     stateSchemeFetch(queryValue.state.replaceAll('-', ' ')),
     stateMetadataFetch(queryValue.state.replaceAll('-', ' ')),
     stateDataFetch(queryValue.state, queryValue.sabha),
+    consDescFetch(queryValue.sabha, queryValue.state, queryValue.cons),
   ]);
 
   if (!(stateMetadata && stateScheme && queryValue.cons))
@@ -201,6 +210,7 @@ export const getServerSideProps: GetServerSideProps = async ({
         consData: stateData['constituency_data'][queryValue.cons],
         stateAvg: stateData['state_avg'],
       },
+      remarks,
     },
   };
 };

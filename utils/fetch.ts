@@ -432,35 +432,17 @@ export async function schemeDataFetch(id, sabha = null, schemeObj = null) {
   return obj;
 }
 
-export async function consDescFetch(sabha = null, state = null, code = null) {
-  let acUrl: string;
-  let pcUrl: string;
+export async function consDescFetch(sabha = null, state = null, code) {
   let obj = {};
+  let key = sabha == 'vidhan' ? 'ac_' : 'pc_';
 
-  await fetchQuery('slug', 'constRemarks').then((data) => {
-    data[0].resources.forEach((file) => {
-      if (file.name.includes('pc_')) pcUrl = file.url;
-      else if (file.name.includes('ac_')) acUrl = file.url;
-    });
+  await fetchQuery('slug', 'constRemarks').then(async (data) => {
+    const jsonRes = data[0].resources.filter((e) => e.format == 'JSON');
+
+    const JsonUrl = jsonRes.filter((e) => e.name.includes(key))[0].url;
+    obj = await fetch(JsonUrl).then((res) => res.json());
   });
-
-  const urlArr =
-    sabha == 'lok' ? [pcUrl] : sabha == 'vidhan' ? [acUrl] : [acUrl, pcUrl];
-
-  for (const url of urlArr) {
-    await fetchSheets(url, false).then((res: any) => {
-      res[0].forEach((item: any) => {
-        if (!obj[item.state.toLowerCase()]) {
-          obj[item.state.toLowerCase()] = {
-            [item.cons_code]: item.remarks,
-          };
-        } else {
-          obj[item.state.toLowerCase()][item.cons_code] = item.remarks;
-        }
-      });
-    });
-  }
-  return obj;
+  return obj[state][code];
 }
 
 export async function fetchIndicators() {
