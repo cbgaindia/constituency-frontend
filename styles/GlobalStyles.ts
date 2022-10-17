@@ -1,9 +1,7 @@
 import styled, { css, createGlobalStyle } from 'styled-components';
 import cssReset from './Reset';
 import cssNormalise from './Normalise';
-import { DEFAULT_THEME } from 'config/theme';
-
-const theme = DEFAULT_THEME;
+import { themes } from './themes';
 
 const gradient = css`
   @supports (background-clip: text) or (-webkit-background-clip: text) {
@@ -23,110 +21,9 @@ const gradient = css`
 export const GlobalStyles = createGlobalStyle`
 ${cssReset}
 ${cssNormalise}
+${themes}
 
 html {
-  --color-primary: ${theme.color_amazon_300};
-  --color-secondary : ${theme.color_maple_300};
-  --color-tertiary : ${theme.color_olive_100};
-
-  --colors-secondary : ${theme.color_maple_300} !important;
-
-  --color-background : ${theme.background};
-  --color-background-dark : ${theme.background_dark};
-  --background-dark-hover : ${theme.color_amazon_600};
-  --color-background-darker : ${theme.background_darker};
-  --color-background-light : ${theme.background_light};
-  --color-background-lighter : ${theme.background_lighter};
-
-  --color-white : ${theme.color_white};
-  --color-violet : ${theme.color_violet};
-  --color-honey : ${theme.color_honey};
-
-  --color-amazon-00 : ${theme.color_amazon_00};
-  --color-amazon-100 : ${theme.color_amazon_100};
-  --color-amazon-200 : ${theme.color_amazon_200};
-  --color-amazon-300 : ${theme.color_amazon_300};
-  --color-amazon-400 : ${theme.color_amazon_400};
-  --color-amazon-500 : ${theme.color_amazon_500};
-  --color-amazon-600 : ${theme.color_amazon_600};
-
-  --color-maple-100 : ${theme.color_maple_100};
-  --color-maple-200 : ${theme.color_maple_200};
-  --color-maple-300 : ${theme.color_maple_300};
-  --color-maple-400 : ${theme.color_maple_400};
-  --color-maple-500 : ${theme.color_maple_500};
-  --color-maple-600 : ${theme.color_maple_600};
-
-  --color-teal-100 : ${theme.color_teal_100};
-  --color-teal-200 : ${theme.color_teal_200};
-  --color-teal-300 : ${theme.color_teal_300};
-  --color-teal-400 : ${theme.color_teal_400};
-  --color-teal-500 : ${theme.color_teal_500};
-  --color-teal-600 : ${theme.color_teal_600};
-
-  --color-flamingo-100 : ${theme.color_flamingo_100};
-  --color-flamingo-200 : ${theme.color_flamingo_200};
-  --color-flamingo-300 : ${theme.color_flamingo_300};
-  --color-flamingo-400 : ${theme.color_flamingo_400};
-  --color-flamingo-500 : ${theme.color_flamingo_500};
-  --color-flamingo-600 : ${theme.color_flamingo_600};
-
-  --color-carrot : ${theme.color_carrot};
-  --color-carrot-2 : ${theme.color_carrot_2};
-  --color-carrot-3 : ${theme.color_carrot_3};
-  --color-violet-3 : ${theme.color_violet_3};
-  --color-sapphire-3 : ${theme.color_sapphire_3};
-  --color-sapphire-5 : ${theme.color_sapphire_5};
-
-  --colors-slateA3: ${theme.grey_500};
-
-  --color-success : ${theme.color_success};
-  --color-error : ${theme.color_error};
-  --color-warning : ${theme.color_warning};
-  --color-notice : ${theme.color_notice};
-
-  --color-grey-100 : ${theme.grey_100};
-  --color-grey-200 : ${theme.grey_200};
-  --color-grey-300 : ${theme.grey_300};
-  --color-grey-400 : ${theme.grey_400};
-  --color-grey-500 : ${theme.grey_500};
-  --color-grey-600 : ${theme.grey_600};
-
-  --text-light-high : ${theme.text_light_high};
-  --text-light-medium : ${theme.text_light_medium};
-  --text-light-light : ${theme.text_light_light};
-  --text-light-disabled : ${theme.text_light_disabled};
-
-  --text-dark-high : ${theme.text_dark_high};
-  --text-dark-medium : ${theme.text_dark_medium};
-  --text-dark-light : ${theme.text_dark_light};
-  --text-dark-disabled : ${theme.text_dark_disabled};
-
-  --gradient-basic : ${theme.gradient_basic};
-  --gradient-hotPink : ${theme.gradient_hotPink};
-  --gradient-sapphire : ${theme.gradient_sapphire};
-  --gradient-maple : linear-gradient(162.85deg, #E9B840 0%, #AA862E 99.48%);
-  --gradient-amazon: linear-gradient(158.61deg, #28A062 7.07%, #165735 99.52%);
-
-  --border-1 : 1px solid var(--color-grey-500);
-  --border-2 : 1px solid var(--color-grey-600);
-  --box-shadow-1 : 0px 4px 12px rgba(0, 0, 0, 0.08);
-  --box-shadow-hover : 2px 8px 12px rgba(0, 0, 0, 0.2);
-  --box-shadow-inset: inset 0px 0px 4px rgba(0, 0, 0, 0.08);
-  --separator-5: 1px solid ${theme.grey_500};
-  --separator-5-2: 2px solid ${theme.grey_500};
-  --separator-6: 1px solid ${theme.grey_500};
-
-  --font-weight-bold: 600;
-  --font-weight-medium: 500;
-  --font-weight-light: 400;
-
-  --nav-bg: var(--color-background-darker);
-  --nav-bg-hover: var(--background-dark-hover);
-  --nav-submenu: var(--color-amazon-400);
-  --nav-submenu-hover: var(--color-amazon-600);
-  --nav-mobile: var(--color-amazon-400);
-
   box-sizing: border-box;
 
   &.ReactModal__Html--open {

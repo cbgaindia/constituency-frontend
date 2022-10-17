@@ -1,5 +1,6 @@
 import Document, { Head, Main, NextScript, Html } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
+import { defaultTheme } from 'styles/themes';
 
 export default class MyDocument extends Document {
   // server side stylesheet generation for styled-components
@@ -31,7 +32,7 @@ export default class MyDocument extends Document {
 
   render() {
     return (
-      <Html lang="en">
+      <Html lang="en" data-theme={defaultTheme}>
         <Head>
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
