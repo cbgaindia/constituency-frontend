@@ -2,7 +2,6 @@ import styled, { css, createGlobalStyle } from 'styled-components';
 import cssReset from './Reset';
 import cssNormalise from './Normalise';
 import { DEFAULT_THEME } from 'config/theme';
-import { themes } from './themes';
 
 const theme = DEFAULT_THEME;
 
@@ -24,7 +23,6 @@ const gradient = css`
 export const GlobalStyles = createGlobalStyle`
 ${cssReset}
 ${cssNormalise}
-${themes}
 
 html {
   --color-primary: ${theme.color_amazon_300};
@@ -33,9 +31,45 @@ html {
 
   --colors-secondary : ${theme.color_maple_300} !important;
 
+  --color-background : ${theme.background};
+  --color-background-dark : ${theme.background_dark};
+  --background-dark-hover : ${theme.color_amazon_600};
+  --color-background-darker : ${theme.background_darker};
+  --color-background-light : ${theme.background_light};
+  --color-background-lighter : ${theme.background_lighter};
+
   --color-white : ${theme.color_white};
   --color-violet : ${theme.color_violet};
   --color-honey : ${theme.color_honey};
+
+  --color-amazon-00 : ${theme.color_amazon_00};
+  --color-amazon-100 : ${theme.color_amazon_100};
+  --color-amazon-200 : ${theme.color_amazon_200};
+  --color-amazon-300 : ${theme.color_amazon_300};
+  --color-amazon-400 : ${theme.color_amazon_400};
+  --color-amazon-500 : ${theme.color_amazon_500};
+  --color-amazon-600 : ${theme.color_amazon_600};
+
+  --color-maple-100 : ${theme.color_maple_100};
+  --color-maple-200 : ${theme.color_maple_200};
+  --color-maple-300 : ${theme.color_maple_300};
+  --color-maple-400 : ${theme.color_maple_400};
+  --color-maple-500 : ${theme.color_maple_500};
+  --color-maple-600 : ${theme.color_maple_600};
+
+  --color-teal-100 : ${theme.color_teal_100};
+  --color-teal-200 : ${theme.color_teal_200};
+  --color-teal-300 : ${theme.color_teal_300};
+  --color-teal-400 : ${theme.color_teal_400};
+  --color-teal-500 : ${theme.color_teal_500};
+  --color-teal-600 : ${theme.color_teal_600};
+
+  --color-flamingo-100 : ${theme.color_flamingo_100};
+  --color-flamingo-200 : ${theme.color_flamingo_200};
+  --color-flamingo-300 : ${theme.color_flamingo_300};
+  --color-flamingo-400 : ${theme.color_flamingo_400};
+  --color-flamingo-500 : ${theme.color_flamingo_500};
+  --color-flamingo-600 : ${theme.color_flamingo_600};
 
   --color-carrot : ${theme.color_carrot};
   --color-carrot-2 : ${theme.color_carrot_2};
@@ -51,6 +85,12 @@ html {
   --color-warning : ${theme.color_warning};
   --color-notice : ${theme.color_notice};
 
+  --color-grey-100 : ${theme.grey_100};
+  --color-grey-200 : ${theme.grey_200};
+  --color-grey-300 : ${theme.grey_300};
+  --color-grey-400 : ${theme.grey_400};
+  --color-grey-500 : ${theme.grey_500};
+  --color-grey-600 : ${theme.grey_600};
 
   --text-light-high : ${theme.text_light_high};
   --text-light-medium : ${theme.text_light_medium};
