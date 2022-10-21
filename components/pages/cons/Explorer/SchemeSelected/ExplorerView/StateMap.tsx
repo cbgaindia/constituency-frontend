@@ -9,12 +9,16 @@ import {
 import { Menu } from 'components/actions';
 import useEffectOnChange from 'utils/hooks';
 import { Table } from 'components/data';
+import { ConstituencyPage } from 'pages/[state]/[sabha]/[cons]';
 
 const StateMap = ({ meta, schemeData, showTable, consList }) => {
   const [mapValues, setMapvalues] = useState([]);
   const [mapIndicator, setMapIndicator] = useState(undefined);
   const { state, indicator } = meta;
   const [tableData, setTableData] = useState<any>();
+
+  const { metaReducer } = React.useContext(ConstituencyPage);
+  const { consData } = metaReducer.obj;
 
   const [year, setYear] = useState(meta.year);
   const [filteredData, setFilteredData] = useState(
@@ -33,44 +37,43 @@ const StateMap = ({ meta, schemeData, showTable, consList }) => {
         return a - b;
       });
       const uniq = [...new Set(stateData)];
-      const binLength = Math.floor(uniq.length / 6);
+      const binLength = Math.floor(uniq.length / 5);
       const vizIndicators = binLength
         ? [
             {
+              max: -999999999,
+              label: `Data not avaialble`,
+              color: '#EBF0EE',
+            },
+            {
               min: uniq[0],
-              max: uniq[0 + binLength],
-              label: `${uniq[0]} to ${uniq[0 + binLength]}`,
-              color: '#173B3B',
+              max: uniq[binLength],
+              label: `${uniq[0]} to ${uniq[binLength + 1]}`,
+              color: '#41A8A8',
             },
             {
               min: uniq[binLength + 1],
               max: uniq[binLength * 2],
               label: `${uniq[binLength + 1]} to ${uniq[binLength * 2]}`,
-              color: '#1F5151',
+              color: ' #368B8B',
             },
             {
               min: uniq[2 * binLength + 1],
               max: uniq[binLength * 3],
-              label: `${uniq[2 * binLength + 1]} to ${uniq[binLength * 3]}`,
+              label: `${uniq[binLength * 2]} to ${uniq[binLength * 3]}`,
               color: '#286767',
             },
             {
               min: uniq[3 * binLength + 1],
               max: uniq[binLength * 4],
-              label: `${uniq[3 * binLength + 1]} to ${uniq[binLength * 4]}`,
-              color: '#368B8B',
+              label: `${uniq[binLength * 3]} to ${uniq[binLength * 4]}`,
+              color: '#1F5151',
             },
             {
               min: uniq[4 * binLength + 1],
-              max: uniq[binLength * 5],
-              label: `${uniq[4 * binLength + 1]} to ${uniq[binLength * 5]}`,
-              color: '#41A8A8',
-            },
-            {
-              min: uniq[5 * binLength + 1],
               max: uniq[uniq.length - 1],
-              label: `${uniq[5 * binLength + 1]} to ${uniq[binLength * 6]}`,
-              color: '#4ABEBE',
+              label: `${uniq[binLength * 4]} to ${uniq[uniq.length - 1]}`,
+              color: ' #173B3B',
             },
           ]
         : [
@@ -96,11 +99,8 @@ const StateMap = ({ meta, schemeData, showTable, consList }) => {
       const tempData = Object.keys(filteredData).map((item: any) => ({
         name: item,
         value: filteredData[item] || 0,
-        mapName: data?.features.filter((obj) => {
-          return obj?.properties['GEO_NO'] === item;
-        })[0]?.properties['GEO_NAME'],
+        mapName: consData[item].constituency_name,
       }));
-
       setMapvalues(tempData);
     }
   }, [data, filteredData, meta.sabha]);

@@ -51,18 +51,21 @@ const ConsPage: React.FC<Props> = ({
   remarks,
 }) => {
   const router = useRouter();
-  const { state, sabha, scheme, cons, indicator } = router.query;
+
+  const { state, sabha, scheme, cons, indicator }: any = router.query;
+
   const initialProps = React.useMemo(
     () => ({
       indicator: indicator || '',
       scheme: scheme || '',
       year: '',
+      consData: data['consData'],
     }),
     [indicator, scheme]
   );
   const [view, setView] = useState('overview');
   const [metaReducer, dispatch] = React.useReducer(reducer, initialProps);
-  const { constituency_name: cons_name } = data.consData;
+  const { constituency_name: cons_name } = data['consData'][cons];
 
   function handleToolbarSwitch(e: string, cardIndicator = null) {
     if (cardIndicator) {
@@ -207,7 +210,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       stateMetadata: stateMetadata,
       stateScheme,
       data: {
-        consData: stateData['constituency_data'][queryValue.cons],
+        consData: stateData['constituency_data'],
         stateAvg: stateData['state_avg'],
       },
       remarks,

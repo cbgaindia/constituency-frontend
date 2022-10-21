@@ -106,7 +106,7 @@ const ExplorerView = ({ meta, dispatch }) => {
       id: 'mapView',
       graph: Object.values(filtered).length ? (
         <StateMap
-          meta={meta}
+          meta={{ ...meta, scheme }}
           schemeData={filtered}
           showTable={showTable}
           consList={schemeData.metadata.consList}

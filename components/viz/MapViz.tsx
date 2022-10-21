@@ -41,7 +41,7 @@ const MapViz = ({
               return onlyLabel
                 ? params.data.mapName
                 : `${params.data.mapName}: ${params.data.value}`;
-            else return 'No data';
+            else return 'Data not available';
           },
         },
         toolbox: {

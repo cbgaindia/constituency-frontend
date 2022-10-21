@@ -91,7 +91,11 @@ const SchemeSelected = ({ queryData, schemeList }) => {
         ) : (
           <>
             <ExplorerView
-              meta={{ ...reducerState, scheme: queryData.scheme, indicator }}
+              meta={{
+                ...reducerState,
+                scheme: queryData.scheme,
+                indicator,
+              }}
               dispatch={dispatch}
             />
           </>
