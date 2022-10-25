@@ -53,6 +53,9 @@ const Wrapper = styled.div`
     gap: 14px;
     flex-wrap: wrap;
 
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+
     li {
       text-align: center;
       background-color: var(--color-background-lighter);

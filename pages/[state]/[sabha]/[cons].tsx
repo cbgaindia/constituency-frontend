@@ -5,8 +5,8 @@ import styled from 'styled-components';
 
 import {
   consDescFetch,
+  consIndicatorFetch,
   stateDataFetch,
-  stateMetadataFetch,
   stateSchemeFetch,
 } from 'utils/fetch';
 
@@ -33,7 +33,7 @@ const Seo = dynamic(() => import('components/common/Seo/Seo'), {
 
 type Props = {
   stateScheme: any;
-  stateMetadata: any;
+  consHighlights: any;
   schemeData: any;
   data: any;
   remarks: any;
@@ -45,7 +45,7 @@ const reducer = (state: any, action: any) => {
 };
 
 const ConsPage: React.FC<Props> = ({
-  stateMetadata,
+  consHighlights,
   stateScheme,
   data,
   remarks,
@@ -123,7 +123,7 @@ const ConsPage: React.FC<Props> = ({
             }}
           >
             <Overview
-              stateMetadata={stateMetadata}
+              consHighlights={consHighlights}
               queryData={{ ...router.query, cons_name }}
               schemeList={stateScheme}
               data={data}
@@ -151,7 +151,7 @@ const ConsPage: React.FC<Props> = ({
         ),
       },
     ],
-    [stateMetadata, metaReducer]
+    [consHighlights, metaReducer]
   );
 
   const seo = {
@@ -195,19 +195,23 @@ export const getServerSideProps: GetServerSideProps = async ({
   const queryValue: any = query || {};
   if (!['vidhan', 'lok'].includes(queryValue.sabha)) return { notFound: true };
 
-  const [stateScheme, stateMetadata, stateData, remarks] = await Promise.all([
+  const [stateScheme, consHighlights, stateData, remarks] = await Promise.all([
     stateSchemeFetch(queryValue.state.replaceAll('-', ' ')),
-    stateMetadataFetch(queryValue.state.replaceAll('-', ' ')),
+    consIndicatorFetch(
+      queryValue.state.replaceAll('-', ' '),
+      queryValue.cons,
+      queryValue.sabha
+    ),
     stateDataFetch(queryValue.state, queryValue.sabha),
     consDescFetch(queryValue.sabha, queryValue.state, queryValue.cons),
   ]);
 
-  if (!(stateMetadata && stateScheme && queryValue.cons))
+  if (!(consHighlights && stateScheme && queryValue.cons))
     return { notFound: true };
 
   return {
     props: {
-      stateMetadata: stateMetadata,
+      consHighlights: consHighlights,
       stateScheme,
       data: {
         consData: stateData['constituency_data'],

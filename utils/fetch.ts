@@ -108,6 +108,22 @@ export async function stateMetadataFetch(state = null) {
   return sheet[0];
 }
 
+export async function consIndicatorFetch(state, cons, sabha) {
+  // fetch CKAN JSON
+  const data = await fetchQuery('schemeType', 'Cons Indicators');
+
+  // fetch and generate XLSX Sheet - false: don't do array of array return
+  const sheet = await fetchSheets(data[0].resources[0].url, false);
+
+  const consObj = sheet[0].filter(
+    (e) =>
+      e.constituency_type === 'vidhan' &&
+      e.state_name === state &&
+      e.constituency_code === cons
+  );
+  return consObj[0];
+}
+
 export async function stateDataFetch(state, sabha) {
   const res: any = await fetch(
     `https://ckan.civicdatalab.in/api/3/action/package_search?fq=slug:"${state}" AND organization:state-wise-scheme-data AND private:false`

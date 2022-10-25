@@ -3,18 +3,28 @@ import styled from 'styled-components';
 import { Summary } from 'components/pages/shared';
 import Snapshot from './Snapshot';
 
-const Overview = ({ stateMetadata, queryData, schemeList, data, remarks }) => {
+const Overview = ({
+  consHighlights,
+  queryData,
+  schemeList,
+  data,
+  remarks,
+}) => {
   const summaryCards = React.useMemo(() => {
-    return Object.keys(stateMetadata).reduce(function (result, key) {
-      if (key != 'State' && key != 'Description') {
+    return Object.keys(consHighlights).reduce(function (result, key) {
+      if (
+        key != 'state_name' &&
+        key != 'constituency_type' &&
+        key != 'constituency_code'
+      ) {
         result.push({
           text: key,
-          value: stateMetadata[key],
+          value: consHighlights[key],
         });
       }
       return result;
     }, []);
-  }, [stateMetadata]); // TODO it's using state data
+  }, [consHighlights]);
 
   return (
     <Wrapper id="overview-wrapper">
@@ -24,7 +34,7 @@ const Overview = ({ stateMetadata, queryData, schemeList, data, remarks }) => {
         </div>
         <p>{remarks}</p>
       </Main>
-      <Summary title="Demographic Highlights" cards={summaryCards.slice(4)} />
+      <Summary title="Demographic Highlights" cards={summaryCards} />
       <Snapshot
         queryData={queryData}
         schemeList={schemeList}
