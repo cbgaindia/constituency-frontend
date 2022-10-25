@@ -197,11 +197,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   const [stateScheme, consHighlights, stateData, remarks] = await Promise.all([
     stateSchemeFetch(queryValue.state.replaceAll('-', ' ')),
-    consIndicatorFetch(
-      queryValue.state.replaceAll('-', ' '),
-      queryValue.cons,
-      queryValue.sabha
-    ),
+    consIndicatorFetch(queryValue.state, queryValue.cons, queryValue.sabha),
     stateDataFetch(queryValue.state, queryValue.sabha),
     consDescFetch(queryValue.sabha, queryValue.state, queryValue.cons),
   ]);

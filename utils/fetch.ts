@@ -117,7 +117,7 @@ export async function consIndicatorFetch(state, cons, sabha) {
 
   const consObj = sheet[0].filter(
     (e) =>
-      e.constituency_type === 'vidhan' &&
+      e.constituency_type === sabha &&
       e.state_name === state &&
       e.constituency_code === cons
   );
