@@ -49,19 +49,19 @@ const StateMap = ({ meta, schemeData, showTable, consList }) => {
               min: uniq[0],
               max: uniq[binLength],
               label: `${uniq[0]} to ${uniq[binLength + 1]}`,
-              color: '#E5AF24',
+              color: '#4ABEBE',
             },
             {
               min: uniq[binLength + 1],
               max: uniq[binLength * 2],
               label: `${uniq[binLength + 1]} to ${uniq[binLength * 2]}`,
-              color: '#EEC96D',
+              color: '#368B8B',
             },
             {
               min: uniq[2 * binLength + 1],
               max: uniq[binLength * 3],
               label: `${uniq[binLength * 2]} to ${uniq[binLength * 3]}`,
-              color: '#41A8A8',
+              color: '#286767',
             },
             // {
             //   min: uniq[3 * binLength + 1],
@@ -73,7 +73,7 @@ const StateMap = ({ meta, schemeData, showTable, consList }) => {
               min: uniq[3 * binLength + 1],
               max: uniq[uniq.length - 1],
               label: `${uniq[binLength * 3]} to ${uniq[uniq.length - 1]}`,
-              color: '#1F5151',
+              color: '#173B3B',
             },
             // {
             //   min: uniq[4 * binLength + 1],
