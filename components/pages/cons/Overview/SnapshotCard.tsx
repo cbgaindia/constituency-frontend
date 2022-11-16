@@ -21,7 +21,7 @@ const SnapshotCard = ({
       <CardTitle>
         <figure>
           <Image
-            src={SchemesData[data.scheme_slug].logo}
+            src={SchemesData[data.scheme_slug]?.logo}
             width={72}
             height={72}
             layout="fixed"
