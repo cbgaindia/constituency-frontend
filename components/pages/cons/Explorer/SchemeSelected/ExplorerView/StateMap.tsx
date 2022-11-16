@@ -37,7 +37,7 @@ const StateMap = ({ meta, schemeData, showTable, consList }) => {
         return a - b;
       });
       const uniq = [...new Set(stateData)];
-      const binLength = Math.floor(uniq.length / 5);
+      const binLength = Math.floor(uniq.length / 4);
       const vizIndicators = binLength
         ? [
             {
@@ -48,33 +48,39 @@ const StateMap = ({ meta, schemeData, showTable, consList }) => {
             {
               min: uniq[0],
               max: uniq[binLength],
-              label: `${uniq[0]} to ${uniq[binLength + 1]}`,
-              color: '#41A8A8',
+              label: `${uniq[0]} to ${uniq[binLength]}`,
+              color: '#4ABEBE',
             },
             {
               min: uniq[binLength + 1],
               max: uniq[binLength * 2],
               label: `${uniq[binLength + 1]} to ${uniq[binLength * 2]}`,
-              color: ' #368B8B',
+              color: '#368B8B',
             },
             {
               min: uniq[2 * binLength + 1],
               max: uniq[binLength * 3],
-              label: `${uniq[binLength * 2]} to ${uniq[binLength * 3]}`,
+              label: `${uniq[binLength * 2 + 1]} to ${uniq[binLength * 3]}`,
               color: '#286767',
             },
+            // {
+            //   min: uniq[3 * binLength + 1],
+            //   max: uniq[binLength * 4],
+            //   label: `${uniq[binLength * 3]} to ${uniq[binLength * 4]}`,
+            //   color: '#1F5151',
+            // },
             {
               min: uniq[3 * binLength + 1],
-              max: uniq[binLength * 4],
-              label: `${uniq[binLength * 3]} to ${uniq[binLength * 4]}`,
-              color: '#1F5151',
-            },
-            {
-              min: uniq[4 * binLength + 1],
               max: uniq[uniq.length - 1],
-              label: `${uniq[binLength * 4]} to ${uniq[uniq.length - 1]}`,
-              color: ' #173B3B',
+              label: `${uniq[binLength * 3 +1]} to ${uniq[uniq.length - 1]}`,
+              color: '#173B3B',
             },
+            // {
+            //   min: uniq[4 * binLength + 1],
+            //   max: uniq[uniq.length - 1],
+            //   label: `${uniq[binLength * 4]} to ${uniq[uniq.length - 1]}`,
+            //   color: ' #173B3B',
+            // },
           ]
         : [
             {
