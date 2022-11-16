@@ -100,6 +100,24 @@ export const resourcePages = {
         type: 'link',
         icon: 'xlsx',
       },
+      {
+        title: 'SmSA',
+        slug: 'smsa-v3',
+        type: 'link',
+        icon: 'xlsx',
+      },
+      {
+        title: 'PMFBY Rabi',
+        slug: 'pmfby-rabi-v3',
+        type: 'link',
+        icon: 'xlsx',
+      },
+      {
+        title: 'PMFBY Kharif',
+        slug: 'pmfby-kharif-v3',
+        type: 'link',
+        icon: 'xlsx',
+      },
     ],
   },
 };

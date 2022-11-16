@@ -21,6 +21,7 @@ import scs from 'public/assets/schemesLogos/scs.jpg';
 import sts from 'public/assets/schemesLogos/sts.jpg';
 import pmkisan from 'public/assets/schemesLogos/pmkisan.jpg';
 import pmmvy from 'public/assets/schemesLogos/pmmvy.jpg';
+import pmfby from 'public/assets/schemesLogos/pmfby.png';
 
 const SchemesData = {
   jjm: {
@@ -95,6 +96,12 @@ const SchemesData = {
   pmmvy: {
     logo: pmmvy,
   },
+  pmfby_rabi: {
+    logo: pmfby,
+  },
+  pmfby_kharif: {
+    logo: pmfby,
+  }
 };
 
 export default SchemesData;
