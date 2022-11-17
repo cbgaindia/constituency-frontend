@@ -35,7 +35,7 @@ const ConsSelector: React.FC<{
       return Object.values(consData[selectedState]).map((item: any) => ({
         value: item.constituency_code,
         label: item.constituency,
-      })).sort((a, b) => Number(a.label > b.label));
+      })).sort((a, b) => a.label.localeCompare(b.label));
   }, [selectedState]);
 
   return (
