@@ -83,9 +83,6 @@ const MapViz = ({
                 return table;
               },
             },
-            saveAsImage: {
-              title: 'Save as SVG',
-            },
           },
         },
         visualMap: vizIndicators.length
