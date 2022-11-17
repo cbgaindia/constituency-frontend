@@ -30,12 +30,24 @@ export const Dashboards = {
       value: 'https://hp.openbudgetsindia.org/',
     },
     {
+      title: 'Assam Budget Explorer 2022-23',
+      value: 'https://assam.openbudgetsindia.org/',
+    },
+    {
+      title: 'Assam Budget Explorer 2021-22',
+      value: 'https://assam2021.openbudgetsindia.org/',
+    },
+    {
       title: 'Assam Budget Explorer 2020-21',
       value: 'https://assam2020.openbudgetsindia.org/en/',
     },
     {
       title: 'Assam Budget Explorer 2019-20',
       value: 'https://assam2019.openbudgetsindia.org/en/',
+    },
+    {
+      title: 'Odisha Budget Explorer 2022-23',
+      value: 'https://odisha.openbudgetsindia.org/en/',
     },
     {
       title: 'Balasore District Treasury',
@@ -90,6 +102,14 @@ export const OBI_Platform = {
     {
       title: 'About OBI Platform',
       value: 'https://openbudgetsindia.org/about',
+    },
+    {
+      title: 'Budget Forum',
+      value: 'https://forum.openbudgetsindia.org/',
+    },
+    {
+      title: 'Budget Basics',
+      value: 'https://budgetbasics.openbudgetsindia.org/',
     },
     {
       title: 'Video: OBI Platform',
