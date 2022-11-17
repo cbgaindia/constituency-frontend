@@ -99,6 +99,10 @@ const StateMap = ({ meta, schemeData, showTable, consList }) => {
     setFilteredData(getParameterCaseInsensitive(schemeData, meta.state)[year]);
   }, [year, schemeData]);
 
+  useEffect(() => {
+    setYear(meta.year)
+  },[meta.year])
+
   // changing map chart values on sabha change
   useEffect(() => {
     if (data && filteredData) {
