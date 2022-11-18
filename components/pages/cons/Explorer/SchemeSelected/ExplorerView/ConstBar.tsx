@@ -129,7 +129,7 @@ const ConstBar = ({ meta, schemeData, showTable }) => {
           <Combobox
             options={meta.allYears}
             onChange={(e: any) => setSelectedYears(e)}
-            defaultValue={{ value: meta.year, label: meta.year }}
+            defaultValue={selectedYears}
             isMulti
             isSearchable={false}
             id="year-selector"
