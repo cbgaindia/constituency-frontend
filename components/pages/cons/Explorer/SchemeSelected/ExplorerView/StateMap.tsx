@@ -11,7 +11,7 @@ import useEffectOnChange from 'utils/hooks';
 import { Table } from 'components/data';
 import { ConstituencyPage } from 'pages/[state]/[sabha]/[cons]';
 
-const StateMap = ({ meta, schemeData, showTable, consList }) => {
+const StateMap = ({ meta, schemeData, showTable, consList, currentYear }) => {
   const [mapValues, setMapvalues] = useState([]);
   const [mapIndicator, setMapIndicator] = useState(undefined);
   const { state, indicator } = meta;
@@ -98,6 +98,12 @@ const StateMap = ({ meta, schemeData, showTable, consList }) => {
   useEffectOnChange(() => {
     setFilteredData(getParameterCaseInsensitive(schemeData, meta.state)[year]);
   }, [year, schemeData]);
+
+  currentYear(year)
+  
+  useEffect(() => {
+    setYear(meta.year)
+  },[meta.year])
 
   // changing map chart values on sabha change
   useEffect(() => {
