@@ -42,25 +42,25 @@ const StateMap = ({ meta, schemeData, showTable, consList }) => {
         ? [
             {
               max: -999999999,
-              label: `Data not avaialble`,
+              label: `Data not available`,
               color: '#EBF0EE',
             },
             {
               min: uniq[0],
               max: uniq[binLength],
-              label: `${uniq[0]} to ${uniq[binLength]}`,
+              label: uniq[0] == uniq[binLength] ? uniq[0] : `${uniq[0]} to ${uniq[binLength]}`,
               color: '#4ABEBE',
             },
             {
               min: uniq[binLength + 1],
               max: uniq[binLength * 2],
-              label: `${uniq[binLength + 1]} to ${uniq[binLength * 2]}`,
+              label: uniq[binLength + 1] == uniq[binLength * 2] ? uniq[binLength + 1] : `${uniq[binLength + 1]} to ${uniq[binLength * 2]}`,
               color: '#368B8B',
             },
             {
               min: uniq[2 * binLength + 1],
               max: uniq[binLength * 3],
-              label: `${uniq[binLength * 2 + 1]} to ${uniq[binLength * 3]}`,
+              label: uniq[binLength * 2 + 1] == uniq[binLength * 3] ? uniq[binLength * 2 + 1] : `${uniq[binLength * 2 + 1]} to ${uniq[binLength * 3]}`,
               color: '#286767',
             },
             // {
@@ -72,7 +72,7 @@ const StateMap = ({ meta, schemeData, showTable, consList }) => {
             {
               min: uniq[3 * binLength + 1],
               max: uniq[uniq.length - 1],
-              label: `${uniq[binLength * 3 +1]} to ${uniq[uniq.length - 1]}`,
+              label: uniq[binLength * 3 +1] == uniq[uniq.length - 1] ? uniq[binLength * 3 +1] : `${uniq[binLength * 3 +1]} to ${uniq[uniq.length - 1]}`,
               color: '#173B3B',
             },
             // {
