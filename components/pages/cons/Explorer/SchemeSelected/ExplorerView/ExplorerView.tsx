@@ -46,6 +46,12 @@ const ExplorerView = ({ meta, dispatch }) => {
 
   const dispatchCons = metaReducer.dispatch;
 
+  const [yearValue,setYearValue] = useState(meta.year)
+
+  function currentYear (year) {
+    setYearValue(year)
+  }
+
   useEffect(() => {
     handleNewIndicator(indicator);
   }, [indicator, schemeData, scheme]);
@@ -120,6 +126,7 @@ const ExplorerView = ({ meta, dispatch }) => {
           schemeData={filtered}
           showTable={showTable}
           consList={schemeData.metadata.consList}
+          currentYear={currentYear}
         />
       ) : (
         <p>No data</p>
@@ -183,7 +190,7 @@ const ExplorerView = ({ meta, dispatch }) => {
                       } . ${meta.indicator?.replace(
                         '-',
                         ' '
-                      )} ${`(${meta.year})`} . ${meta.state}`}
+                      )} ${`(${yearValue})`} . ${meta.state}`}
                     </Title>
 
                     {vizItems.map((item, index) => (
