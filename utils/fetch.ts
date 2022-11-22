@@ -3,7 +3,7 @@ import { getParameterCaseInsensitive } from './helper';
 
 export async function fetchQuery(query, value) {
   const queryRes = await fetch(
-    `${process.env.NEXT_PUBLIC_CKAN_URL}/package_search?fq=${query}:"${value}" AND organization:constituency-wise-scheme-data AND private:false`
+    `${process.env.NEXT_PUBLIC_CKAN_URL}/package_search?fq=${query}:"${value}" AND organization:constituency-wise-scheme-data AND private:false&rows=100`
   ).then((res) => res.json());
 
   return queryRes.result.results;
@@ -11,7 +11,7 @@ export async function fetchQuery(query, value) {
 
 export async function newFetchQuery(query, value) {
   const queryRes = await fetch(
-    `${process.env.NEXT_PUBLIC_CKAN_URL}/package_search?fq=${query}:"${value}" AND organization:constituency-v3 AND private:false`
+    `${process.env.NEXT_PUBLIC_CKAN_URL}/package_search?fq=${query}:"${value}" AND organization:constituency-v3 AND private:false&rows=100`
   ).then((res) => res.json());
 
   return queryRes.result.results;
@@ -126,7 +126,7 @@ export async function consIndicatorFetch(state, cons, sabha) {
 
 export async function stateDataFetch(state, sabha) {
   const res: any = await fetch(
-    `https://ckan.civicdatalab.in/api/3/action/package_search?fq=slug:"${state}" AND organization:state-wise-scheme-data AND private:false`
+    `https://ckan.civicdatalab.in/api/3/action/package_search?fq=slug:"${state}" AND organization:state-wise-scheme-data AND private:false&rows=100`
   )
     .then((res) => res.json())
     .then((res) => res.result.results[0])
