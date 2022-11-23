@@ -3,9 +3,9 @@ export function barLineTransformer(data, indicator) {
   let fiscalData = [];
   let valueData = [];
   let labelData = {
-    "Budget Estimates": "Value (In Crores)",
-    "Revised Estimates": "Value (In Crores)",
-    "Actual Expenditure": "Value (In Crores)",
+    "Budget Estimates": "Value (In Crore)",
+    "Revised Estimates": "Value (In Crore)",
+    "Actual Expenditure": "Value (In Crore)",
     "Actual Expenditure as a % of Total Actual Expenditure":
       "Value (in Percent)",
     "Actual Expenditure as a % of Ministry": "Value (in Percent)",
