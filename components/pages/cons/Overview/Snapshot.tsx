@@ -27,7 +27,7 @@ const Snapshot = ({ queryData, schemeList, consData, stateAvg }: Props) => {
   const [indicator, setIndicator] = React.useState(
     meta.metaReducer.indicator
       ? meta.metaReducer.indicator
-      : 'budget-allocation'
+      : meta.metaReducer.indicator = 'budget-allocation'
   );
   const { scheme } = meta.metaReducer;
   const { dispatch } = meta;
