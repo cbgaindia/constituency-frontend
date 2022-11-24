@@ -18,14 +18,16 @@ type Props = {
 
 const Snapshot = ({ queryData, schemeList, consData, stateAvg }: Props) => {
   const [selectedYear, setSelectedYear] = React.useState(
-    Object.keys(consData)[0]
+    Object.keys(consData).includes("2020-21") 
+      ? "2020-21" 
+      : Object.keys(consData)[0]
   );
 
   const { meta } = React.useContext(ConstituencyPage);
   const [indicator, setIndicator] = React.useState(
     meta.metaReducer.indicator
       ? meta.metaReducer.indicator
-      : 'budget-allocation'
+      : meta.metaReducer.indicator = 'budget-allocation'
   );
   const { scheme } = meta.metaReducer;
   const { dispatch } = meta;
