@@ -37,7 +37,20 @@ const StateMap = ({ meta, schemeData, showTable, consList, currentYear }) => {
         return a - b;
       });
       const uniq = [...new Set(stateData)];
-      const binLength = Math.floor(uniq.length / 4);
+      const length = uniq.length;
+      const a = uniq[0];
+      const e = uniq[length - 1];
+
+      const diff = e-a;
+
+      let div = diff/4;
+      let b = a + div;
+      b = Number(b.toString().match(/^\d+(?:\.\d{0,2})?/))
+      let c = b + div;
+      c = Number(c.toString().match(/^\d+(?:\.\d{0,2})?/))
+      let d = c + div;
+      d = Number(d.toString().match(/^\d+(?:\.\d{0,2})?/))
+      let binLength = Math.floor(uniq.length / 4);
       const vizIndicators = binLength
         ? [
             {
@@ -46,21 +59,21 @@ const StateMap = ({ meta, schemeData, showTable, consList, currentYear }) => {
               color: '#EBF0EE',
             },
             {
-              min: uniq[0],
-              max: uniq[binLength],
-              label: uniq[0] == uniq[binLength] ? uniq[0] : `${uniq[0]} to ${uniq[binLength]}`,
+              min: a,
+              max: b,
+              label: `${a} to ${b}`,
               color: '#4ABEBE',
             },
             {
-              min: uniq[binLength + 1],
-              max: uniq[binLength * 2],
-              label: uniq[binLength + 1] == uniq[binLength * 2] ? uniq[binLength + 1] : `${uniq[binLength + 1]} to ${uniq[binLength * 2]}`,
+              min: b,
+              max: c,
+              label: `${b} to ${c}`,
               color: '#368B8B',
             },
             {
-              min: uniq[2 * binLength + 1],
-              max: uniq[binLength * 3],
-              label: uniq[binLength * 2 + 1] == uniq[binLength * 3] ? uniq[binLength * 2 + 1] : `${uniq[binLength * 2 + 1]} to ${uniq[binLength * 3]}`,
+              min: c,
+              max: d,
+              label: `${c} to ${d}`,
               color: '#286767',
             },
             // {
@@ -70,9 +83,9 @@ const StateMap = ({ meta, schemeData, showTable, consList, currentYear }) => {
             //   color: '#1F5151',
             // },
             {
-              min: uniq[3 * binLength + 1],
-              max: uniq[uniq.length - 1],
-              label: uniq[binLength * 3 +1] == uniq[uniq.length - 1] ? uniq[binLength * 3 +1] : `${uniq[binLength * 3 +1]} to ${uniq[uniq.length - 1]}`,
+              min: d,
+              max: e,
+              label: `${d} to ${e}`,
               color: '#173B3B',
             },
             // {
