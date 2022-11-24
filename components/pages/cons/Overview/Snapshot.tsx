@@ -63,13 +63,14 @@ const Snapshot = ({ queryData, schemeList, consData, stateAvg }: Props) => {
     const indicatorArr = [];
     !isLoading
       ? Object.values(indicatorData).forEach((elm) => {
-          Object.keys(elm).forEach((item) => {
+          Object.keys(elm).forEach((item) => {      
             indicatorArr.push({
               name: item,
               description: elm[item].description,
               slug: generateSlug(item),
               unit: elm[item].unit,
               note: elm[item].note,
+              type: elm[item].type,
             });
           });
         })
@@ -122,6 +123,7 @@ const Snapshot = ({ queryData, schemeList, consData, stateAvg }: Props) => {
           }}
           selectedIndicator={indicator}
           data={indicatorList}
+          primary={true}
         />
         <SnapshotSchemes>
           <SnapshotSchemeTitle>
