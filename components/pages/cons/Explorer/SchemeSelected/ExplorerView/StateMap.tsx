@@ -29,6 +29,10 @@ const StateMap = ({ meta, schemeData, showTable, consList, currentYear }) => {
     `/assets/maps/${meta.sabha}/${meta.state}.json`
   );
 
+  const twoDecimals = (num) => {
+    return (Number)(num.toString().match(/^-?\d+(?:\.\d{0,2})?/));
+   }
+
   // preparing indicator data for echarts component
   useEffect(() => {
     if (filteredData) {
@@ -44,12 +48,10 @@ const StateMap = ({ meta, schemeData, showTable, consList, currentYear }) => {
       const diff = e-a;
 
       let div = diff/4;
-      let b = a + div;
-      b = Number(b.toString().match(/^\d+(?:\.\d{0,2})?/))
-      let c = b + div;
-      c = Number(c.toString().match(/^\d+(?:\.\d{0,2})?/))
-      let d = c + div;
-      d = Number(d.toString().match(/^\d+(?:\.\d{0,2})?/))
+      let b = twoDecimals(a + div)
+      let c = twoDecimals(b + div);
+      let d = twoDecimals(c + div);
+      
       let binLength = Math.floor(uniq.length / 4);
       const vizIndicators = binLength
         ? [
