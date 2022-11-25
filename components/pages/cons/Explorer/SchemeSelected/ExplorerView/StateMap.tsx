@@ -29,6 +29,14 @@ const StateMap = ({ meta, schemeData, showTable, consList, currentYear }) => {
     `/assets/maps/${meta.sabha}/${meta.state}.json`
   );
 
+  function titleCase(str) {
+    str = str.toLowerCase().split(' ');
+    for (var i = 0; i < str.length; i++) {
+      str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1); 
+    }
+    return str.join(' ');
+  }
+
   // preparing indicator data for echarts component
   useEffect(() => {
     if (filteredData) {
@@ -124,7 +132,7 @@ const StateMap = ({ meta, schemeData, showTable, consList, currentYear }) => {
       const tempData = Object.keys(filteredData).map((item: any) => ({
         name: item,
         value: filteredData[item] || 0,
-        mapName: consData[item].constituency_name,
+        mapName: titleCase(consData[item].constituency_name),
       }));
       setMapvalues(tempData);
     }
