@@ -5,7 +5,7 @@ import { GroupBarChart } from 'components/viz';
 import { getParameterCaseInsensitive } from 'utils/helper';
 import { Table } from 'components/data';
 
-const ConstBar = ({ meta, schemeData, showTable }) => {
+const ConstBar = ({ meta, schemeData, showTable, schemeName }) => {
   const [barData, setBarData] = React.useState([]);
   const [selectedCons, setSelectedCons] = React.useState([
     { state: meta.state, code: meta.cons, name: meta.cons_name },
@@ -13,7 +13,7 @@ const ConstBar = ({ meta, schemeData, showTable }) => {
   const [selectedYears, setSelectedYears] = React.useState<any>([
     { value: meta.year, label: meta.year },
   ]);
-
+  
   const [tableData, setTableData] = React.useState<any>();
 
   React.useEffect(() => {
@@ -98,6 +98,8 @@ const ConstBar = ({ meta, schemeData, showTable }) => {
     }));
   }, [meta.schemeData]);
 
+  const res = selectedYears.map(year => year.value)
+
   return showTable ? (
     tableData ? (
       <Table
@@ -109,6 +111,13 @@ const ConstBar = ({ meta, schemeData, showTable }) => {
     )
   ) : (
     <Wrapper>
+      <Title>
+        {`${schemeName
+          } . ${meta.indicator?.replace(
+            '-',
+            ' '
+          )} ${`${JSON.stringify(res,null," ")}`} . ${meta.state}`}
+      </Title>
       <ComboWrapper>
         {meta.cons && (
           <Combobox
@@ -183,5 +192,23 @@ const ComboWrapper = styled.div`
 
   #year-selector {
     flex-grow: 1;
+  }
+`;
+
+const Title = styled.div`
+  border-radius: 2px;
+  background-color: var(--color-background-light);
+  margin-bottom: 8px;
+  border-bottom : 12px solid white;
+
+  font-weight: 600;
+  font-size: 0.75rem;
+  line-height: 1.7;
+  padding: 8px 16px;
+  text-transform: capitalize;
+
+  @media (max-width: 480px) {
+    margin-inline: 4px;
+    padding: 6px 12px;
   }
 `;

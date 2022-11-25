@@ -11,7 +11,7 @@ import useEffectOnChange from 'utils/hooks';
 import { Table } from 'components/data';
 import { ConstituencyPage } from 'pages/[state]/[sabha]/[cons]';
 
-const StateMap = ({ meta, schemeData, showTable, consList, currentYear }) => {
+const StateMap = ({ meta, schemeData, showTable, consList, schemeName }) => {
   const [mapValues, setMapvalues] = useState([]);
   const [mapIndicator, setMapIndicator] = useState(undefined);
   const { state, indicator } = meta;
@@ -39,7 +39,7 @@ const StateMap = ({ meta, schemeData, showTable, consList, currentYear }) => {
 
 const twoDecimals = (num) => {
     return (Number)(num.toString().match(/^-?\d+(?:\.\d{0,2})?/));
-   }
+  }
 
   // preparing indicator data for echarts component
   useEffect(() => {
@@ -53,66 +53,66 @@ const twoDecimals = (num) => {
       const a = uniq[0];
       const e = uniq[length - 1];
 
-      const diff = e-a;
+      const diff = e - a;
 
-      let div = diff/4;
+      let div = diff / 4;
       let b = twoDecimals(a + div)
       let c = twoDecimals(b + div);
       let d = twoDecimals(c + div);
-      
+
       let binLength = Math.floor(uniq.length / 4);
       const vizIndicators = binLength
         ? [
-            {
-              max: -999999999,
-              label: `Data not available`,
-              color: '#EBF0EE',
-            },
-            {
-              min: a,
-              max: b,
-              label: `${a} to ${b}`,
-              color: '#4ABEBE',
-            },
-            {
-              min: b,
-              max: c,
-              label: `${b} to ${c}`,
-              color: '#368B8B',
-            },
-            {
-              min: c,
-              max: d,
-              label: `${c} to ${d}`,
-              color: '#286767',
-            },
-            // {
-            //   min: uniq[3 * binLength + 1],
-            //   max: uniq[binLength * 4],
-            //   label: `${uniq[binLength * 3]} to ${uniq[binLength * 4]}`,
-            //   color: '#1F5151',
-            // },
-            {
-              min: d,
-              max: e,
-              label: `${d} to ${e}`,
-              color: '#173B3B',
-            },
-            // {
-            //   min: uniq[4 * binLength + 1],
-            //   max: uniq[uniq.length - 1],
-            //   label: `${uniq[binLength * 4]} to ${uniq[uniq.length - 1]}`,
-            //   color: ' #173B3B',
-            // },
-          ]
+          {
+            max: -999999999,
+            label: `Data not available`,
+            color: '#EBF0EE',
+          },
+          {
+            min: a,
+            max: b,
+            label: `${a} to ${b}`,
+            color: '#4ABEBE',
+          },
+          {
+            min: b,
+            max: c,
+            label: `${b} to ${c}`,
+            color: '#368B8B',
+          },
+          {
+            min: c,
+            max: d,
+            label: `${c} to ${d}`,
+            color: '#286767',
+          },
+          // {
+          //   min: uniq[3 * binLength + 1],
+          //   max: uniq[binLength * 4],
+          //   label: `${uniq[binLength * 3]} to ${uniq[binLength * 4]}`,
+          //   color: '#1F5151',
+          // },
+          {
+            min: d,
+            max: e,
+            label: `${d} to ${e}`,
+            color: '#173B3B',
+          },
+          // {
+          //   min: uniq[4 * binLength + 1],
+          //   max: uniq[uniq.length - 1],
+          //   label: `${uniq[binLength * 4]} to ${uniq[uniq.length - 1]}`,
+          //   color: ' #173B3B',
+          // },
+        ]
         : [
-            {
-              min: 0,
-              max: 0,
-              label: `data not found`,
-              color: '#494D44',
-            },
-          ];
+          {
+            min: 0,
+            max: 0,
+            label: `data not found`,
+            color: '#494D44',
+          },
+        ];
       setMapIndicator(vizIndicators);
     }
   }, [filteredData, data]);
@@ -122,11 +122,9 @@ const twoDecimals = (num) => {
     setFilteredData(getParameterCaseInsensitive(schemeData, meta.state)[year]);
   }, [year, schemeData]);
 
-  currentYear(year)
-  
   useEffect(() => {
     setYear(meta.year)
-  },[meta.year])
+  }, [meta.year])
 
   // changing map chart values on sabha change
   useEffect(() => {
@@ -206,12 +204,21 @@ const twoDecimals = (num) => {
       <p>Loading Table...</p>
     )
   ) : (
+    <>
+     <Title>
+              {`${schemeName
+                } . ${meta.indicator?.replace(
+                  '-',
+                  ' '
+                )} ${`[${year}]`} . ${meta.state}`}
+            </Title>
+    
     <Wrapper>
       {isLoading ? (
         <p>Loading...</p>
       ) : (
         mapIndicator && (
-          <>
+          <>      
             {meta.allYears && (
               <YearSelector>
                 <Menu
@@ -228,12 +235,13 @@ const twoDecimals = (num) => {
               meta={meta}
               data={mapValues}
               vizIndicators={mapIndicator}
-              // newMapItem={newMapItem}
+            // newMapItem={newMapItem}
             />
           </>
         )
       )}
     </Wrapper>
+    </>
   );
 };
 
@@ -247,7 +255,24 @@ const Wrapper = styled.div`
 
 const YearSelector = styled.div`
   position: absolute;
-  top: 16px;
+  top: 20px;
   right: 16px;
   z-index: 10;
+`;
+
+const Title = styled.div`
+  border-radius: 2px;
+  background-color: var(--color-background-light);
+  border-bottom : 7px solid white;
+
+  font-weight: 600;
+  font-size: 0.75rem;
+  line-height: 1.7;
+  padding: 8px 16px;
+  text-transform: capitalize;
+
+  @media (max-width: 480px) {
+    margin-inline: 4px;
+    padding: 6px 12px;
+  }
 `;
