@@ -5,10 +5,18 @@ import { swrFetch } from 'utils/helper';
 import styled from 'styled-components';
 import { Info } from 'components/icons';
 
+function titleCase(str) {
+  str = str.toLowerCase().split(' ');
+  for (var i = 0; i < str.length; i++) {
+    str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1); 
+  }
+  return str.join(' ');
+}
+
 function generateMapData(obj) {
   const mapObj = [...obj].map((item) => {
     return {
-      mapName: item.constituency,
+      mapName: titleCase(item.constituency),
       value: '1',
       name: item.constituency_code,
     };
