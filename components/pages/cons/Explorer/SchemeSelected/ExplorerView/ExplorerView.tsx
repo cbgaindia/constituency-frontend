@@ -149,7 +149,7 @@ const ExplorerView = ({ meta, dispatch }) => {
               data={schemeData.data ? Object.values(schemeData.data) : []}
             />
 
-            <VizWrapper id="mapViewContainer">
+            <VizWrapper id="mapViewContainer" currentTab = {currentTab}>
               <div>
                 <Tabs
                   defaultValue={currentTab}
@@ -212,6 +212,10 @@ const ExplorerView = ({ meta, dispatch }) => {
 
 export default React.memo(ExplorerView);
 
+interface VizProps {
+  readonly currentTab ? : string;
+}
+
 export const Wrapper = styled.section`
   display: grid;
   gap: 2rem;
@@ -228,21 +232,28 @@ export const Wrapper = styled.section`
   }
 `;
 
-export const VizWrapper = styled.div`
+export const VizWrapper = styled.div<VizProps>`
   background-color: #fff;
   border: 1px solid #f7fdf9;
   border-radius: 6px;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.14);
 
   ${SourceWrapper} {
-    margin-top: 50px;
+    margin-top:${props => props.currentTab == 'consView' ? '15px' : '125px' };
     margin-inline: 24px;
     padding: 16px 0 24px;
     border-top: var(--border-2);
 
-    @media (max-width: 480px) {
+    @media (max-width: 1280px) {
       margin-inline: 4px;
       padding: 12px;
+      margin-top:${props => props.currentTab == 'consView' ? null : '150px' };
+    }
+
+    @media (max-width: 550px) {
+      margin-inline: 4px;
+      padding: 12px;
+      margin-top:${props => props.currentTab == 'consView' ? null : '170px' };
     }
   }
 `;
@@ -272,7 +283,7 @@ export const VizHeader = styled(TabsList)`
       align-items: flex-start;
     }
   }
-`;
+`; 
 
 export const VizTabs = styled(TabsTrigger)`
   white-space: nowrap;
@@ -338,7 +349,7 @@ export const TableTab = styled.button`
 
 export const VizGraph = styled(TabsContent)`
   margin: 0 24px 0;
-  height: 640px;
+  height: 695px;
   position: relative;
 
   @media (max-width: 480px) {

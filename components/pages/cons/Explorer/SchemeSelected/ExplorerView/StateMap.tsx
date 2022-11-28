@@ -32,12 +32,12 @@ const StateMap = ({ meta, schemeData, showTable, consList, schemeName }) => {
   function titleCase(str) {
     str = str.toLowerCase().split(' ');
     for (var i = 0; i < str.length; i++) {
-      str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1); 
+      str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
     }
     return str.join(' ');
   }
 
-const twoDecimals = (num) => {
+  const twoDecimals = (num) => {
     return (Number)(num.toString().match(/^-?\d+(?:\.\d{0,2})?/));
   }
 
@@ -71,7 +71,7 @@ const twoDecimals = (num) => {
           {
             min: a,
             max: b,
-            label: `${a} to ${b}`,
+            label: `upto to ${b}`,
             color: '#4ABEBE',
           },
           {
@@ -95,7 +95,7 @@ const twoDecimals = (num) => {
           {
             min: d,
             max: e,
-            label: `${d} to ${e}`,
+            label: `${d} and above`,
             color: '#173B3B',
           },
           // {
@@ -205,42 +205,46 @@ const twoDecimals = (num) => {
     )
   ) : (
     <>
-     <Title>
-              {`${schemeName
-                } . ${meta.indicator?.replace(
-                  '-',
-                  ' '
-                )} ${`[${year}]`} . ${meta.state}`}
-            </Title>
-    
-    <Wrapper>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        mapIndicator && (
-          <>      
-            {meta.allYears && (
-              <YearSelector>
-                <Menu
-                  value={year}
-                  showLabel={false}
-                  options={meta.allYears}
-                  heading="Financial Year:"
-                  handleChange={(e) => setYear(e)}
-                />
-              </YearSelector>
-            )}
-            <MapViz
-              mapFile={data}
-              meta={meta}
-              data={mapValues}
-              vizIndicators={mapIndicator}
-            // newMapItem={newMapItem}
-            />
-          </>
-        )
-      )}
-    </Wrapper>
+      <Title>
+        {`${schemeName
+          } . ${meta.indicator?.replace(
+            '-',
+            ' '
+          )} ${`[${year}]`} . ${meta.state}`}
+      </Title>
+
+      <Wrapper>
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          mapIndicator && (
+            <>
+              {meta.allYears && (
+                <YearSelector>
+                  <Menu
+                    value={year}
+                    showLabel={false}
+                    options={meta.allYears}
+                    heading="Financial Year:"
+                    handleChange={(e) => setYear(e)}
+                  />
+                </YearSelector>
+              )}
+              <MapViz
+                mapFile={data}
+                meta={meta}
+                data={mapValues}
+                vizIndicators={mapIndicator}
+              // newMapItem={newMapItem}
+              />
+            </>
+          )
+        )}
+        <LegendDescription>
+          Values against each of the indicators plotted here are based on the actuals for the respective constituencies.
+          Legend values in the lower bounds are included for visualising data.
+        </LegendDescription>
+      </Wrapper>
     </>
   );
 };
@@ -275,4 +279,8 @@ const Title = styled.div`
     margin-inline: 4px;
     padding: 6px 12px;
   }
+`;
+
+const LegendDescription = styled.p`
+  margin-top:16px;
 `;
