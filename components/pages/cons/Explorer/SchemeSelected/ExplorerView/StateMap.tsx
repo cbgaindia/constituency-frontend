@@ -71,7 +71,7 @@ const twoDecimals = (num) => {
           {
             min: a,
             max: b,
-            label: `${a} to ${b}`,
+            label: `upto to ${b}`,
             color: '#4ABEBE',
           },
           {
@@ -95,7 +95,7 @@ const twoDecimals = (num) => {
           {
             min: d,
             max: e,
-            label: `${d} to ${e}`,
+            label: `${d} and above`,
             color: '#173B3B',
           },
           // {
