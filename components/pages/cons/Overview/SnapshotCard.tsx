@@ -42,6 +42,7 @@ const SnapshotCard = ({
                 <SplitBar val={data.value.state.bar} />
 
                 <AverageValue>
+                  { data.value.state.value?.toFixed(2) < 0 ? '-' : ''}
                   { data.value.state.value?.toFixed(2) < 0 ? data.value.state.value?.toFixed(2) * -1 : data.value.state.value?.toFixed(2) } Cr.
                 </AverageValue>
               </div>
@@ -52,6 +53,7 @@ const SnapshotCard = ({
                 <SplitBar val={data.value.constituency.bar} />
 
                 <AverageValue>
+                  { data.value.state.value?.toFixed(2) < 0 ? '-' : ''}
                   {data.value.constituency.value?.toFixed(2) < 0 ? data.value.constituency.value?.toFixed(2) *-1 : data.value.constituency.value?.toFixed(2)} Cr.
                 </AverageValue>
               </div>
