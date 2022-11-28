@@ -11,7 +11,6 @@ const SplitBar = ({ val }) => {
     }
     else{
       const barVal = val > 100 ? 100 : val;
-      console.log(barVal)
       
      // chart.current?.style.setProperty('transform', `translateX(100%)`);
       {

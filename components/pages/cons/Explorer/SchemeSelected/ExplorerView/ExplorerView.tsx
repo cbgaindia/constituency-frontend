@@ -338,7 +338,7 @@ export const TableTab = styled.button`
 
 export const VizGraph = styled(TabsContent)`
   margin: 0 24px 0;
-  height: 640px;
+  height: 695px;
   position: relative;
 
   @media (max-width: 480px) {
