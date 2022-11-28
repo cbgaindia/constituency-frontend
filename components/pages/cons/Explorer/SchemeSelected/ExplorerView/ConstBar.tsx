@@ -98,7 +98,8 @@ const ConstBar = ({ meta, schemeData, showTable, schemeName }) => {
     }));
   }, [meta.schemeData]);
 
-  const res = selectedYears.map(year => year.value)
+  const yearList = selectedYears.map(year => year.value)
+  const consList = selectedCons.map(cons => cons.state)
 
   return showTable ? (
     tableData ? (
@@ -116,7 +117,7 @@ const ConstBar = ({ meta, schemeData, showTable, schemeName }) => {
           } . ${meta.indicator?.replace(
             '-',
             ' '
-          )} ${`${JSON.stringify(res,null," ")}`} . ${meta.state}`}
+          )} ${`${JSON.stringify(yearList,null," ")}`} . ${`${JSON.stringify(consList,null," ")}`}`}
       </Title>
       <ComboWrapper>
         {meta.cons && (
