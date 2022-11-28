@@ -10,6 +10,7 @@ import { Menu } from 'components/actions';
 import useEffectOnChange from 'utils/hooks';
 import { Table } from 'components/data';
 import { ConstituencyPage } from 'pages/[state]/[sabha]/[cons]';
+import { yearOptions } from 'utils/fetch'
 
 const StateMap = ({ meta, schemeData, showTable, consList, schemeName }) => {
   const [mapValues, setMapvalues] = useState([]);
@@ -224,7 +225,7 @@ const StateMap = ({ meta, schemeData, showTable, consList, schemeName }) => {
                   <Menu
                     value={year}
                     showLabel={false}
-                    options={meta.allYears}
+                    options={yearOptions(meta.allYears)}
                     heading="Financial Year:"
                     handleChange={(e) => setYear(e)}
                   />
