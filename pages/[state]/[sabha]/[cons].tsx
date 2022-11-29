@@ -67,9 +67,9 @@ const ConsPage: React.FC<Props> = ({
   const [metaReducer, dispatch] = React.useReducer(reducer, initialProps);
   const { constituency_name: cons_name } = data['consData'][cons];
 
-  function handleToolbarSwitch(e: string, cardIndicator = null) {
+  async function handleToolbarSwitch(e: string, cardIndicator = null) {
     if (cardIndicator) {
-      router.replace({
+      await router.replace({
         pathname: `/${state}/${sabha}/${cons}`,
         query: {
           scheme: showScheme(e),
@@ -97,7 +97,7 @@ const ConsPage: React.FC<Props> = ({
     const tabState = isTabbed(e) ? e : 'explorer';
     setView(tabState);
 
-    router.replace({
+    await router.replace({
       pathname: `/${state}/${sabha}/${cons}`,
       query: {
         scheme: showScheme(e),
