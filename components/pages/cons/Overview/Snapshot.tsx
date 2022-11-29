@@ -8,6 +8,8 @@ import { swrFetch } from 'utils/helper';
 import useEffectOnChange from 'utils/hooks';
 import Source from '../Source';
 import SnapshotCard from './SnapshotCard';
+import { yearOptions } from 'utils/fetch';
+import { DEFAULT_YEAR } from 'config/year';
 
 type Props = {
   queryData: any;
@@ -18,8 +20,8 @@ type Props = {
 
 const Snapshot = ({ queryData, schemeList, consData, stateAvg }: Props) => {
   const [selectedYear, setSelectedYear] = React.useState(
-    Object.keys(consData).includes("2020-21") 
-      ? "2020-21" 
+    Object.keys(consData).includes(DEFAULT_YEAR) 
+      ? DEFAULT_YEAR 
       : Object.keys(consData)[0]
   );
 
@@ -126,7 +128,7 @@ const Snapshot = ({ queryData, schemeList, consData, stateAvg }: Props) => {
             <h4>All Schemes</h4>
             <Menu
               value={selectedYear}
-              options={yearList}
+              options={yearOptions(yearList)}
               heading="Financial Year:"
               handleChange={(e) => {
                 setSelectedYear(e);
