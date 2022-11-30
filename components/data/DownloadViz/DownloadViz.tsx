@@ -71,9 +71,10 @@ type Props = {
   viz: string;
   meta: any;
   tableData?: any;
+  source?: string
 };
 
-const DownloadViz = ({ viz, meta, tableData = {} }: Props) => {
+const DownloadViz = ({ viz, meta, tableData = {}, source }: Props) => {
   let watermarkSSR;
   useEffect(() => {
     import('watermarkjs').then((x) => (watermarkSSR = x.default));
@@ -83,6 +84,8 @@ const DownloadViz = ({ viz, meta, tableData = {} }: Props) => {
 
     watermarkSSR([myChart, '/assets/images/obi.png'])
       .image(watermarkSSR.image.lowerRight(0.5))
+      .render()
+      .image(watermarkSSR.text.lowerLeft(`${"        "} Data Source ${source}`, '18px Josefin Slab', '#000', 0.5))
       .then((img) => saveAs(img.src, `${fileName(meta)}.jpeg`.toLowerCase()));
   }
 

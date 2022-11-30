@@ -31,6 +31,7 @@ const Source: React.FC<{
               tableData={tableData ? tableData : {}}
               viz={currentViz}
               meta={meta}
+              source={source}
             />
           )}
         </SourceButtons>
