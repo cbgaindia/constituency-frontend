@@ -1,1 +1,1 @@
-export const DEFAULT_YEAR = '2020-21'
+export const DEFAULT_YEAR = '2019-20'
