@@ -479,19 +479,27 @@ export function yearOptions(years) {
 
   const flag = arr.includes(default_year);
 
-  let reverseArr = arr.reverse();
-  let new1 = []
-  let new2 = []
-  for (var i in reverseArr) {
-    if (reverseArr[i] > default_year)
-      new1.push(reverseArr[i])
-    else {
-      if (reverseArr[i] == default_year) continue;
-      new2.push(reverseArr[i])
-    }
+  let new1 = [];
+
+  for (var i in arr) {
+    if (arr[i] == default_year)
+     continue;
+    new1.push(arr[i])
   }
+
+  // let reverseArr = arr.reverse();
+  // let new1 = []
+  // let new2 = []
+  // for (var i in reverseArr) {
+  //   if (reverseArr[i] > default_year)
+  //     new1.push(reverseArr[i])
+  //   else {
+  //     if (reverseArr[i] == default_year) continue;
+  //     new2.push(reverseArr[i])
+  //   }
+  // }
   let res = [];
-  flag == true ? res = [default_year, ...new2, ...new1] : res = [ ...new2, ...new1];
+  flag == true ? res = [default_year, ...new1] : res = [...new1];
   let opt = [];
   for (var i in res) {
     opt.push({ value: res[i], label: res[i] })
