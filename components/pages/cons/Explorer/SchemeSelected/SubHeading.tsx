@@ -11,6 +11,7 @@ import {
 import { IconMinimize } from 'components/icons';
 import { useRouter } from 'next/router';
 import { ConstituencyPage } from 'pages/[state]/[sabha]/[cons]';
+import SchemesData from 'utils/schemesData';
 
 const SubHeading = ({ meta, schemeList, queryData }) => {
   const { metaReducer } = React.useContext(ConstituencyPage);
@@ -33,11 +34,13 @@ const SubHeading = ({ meta, schemeList, queryData }) => {
       return schemeArr;
     }
   }, [schemeList]);
+  console.log(schemeList);
+
   return (
     <Wrapper>
       <SchemeWrapper>
         <Image
-          src={'/assets/schemes/nhm.png'}
+          src={SchemesData[queryData.scheme].logo}
           width={48}
           height={48}
           layout="fixed"
