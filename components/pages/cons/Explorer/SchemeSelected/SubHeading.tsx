@@ -34,7 +34,6 @@ const SubHeading = ({ meta, schemeList, queryData }) => {
       return schemeArr;
     }
   }, [schemeList]);
-  console.log(schemeList);
 
   return (
     <Wrapper>

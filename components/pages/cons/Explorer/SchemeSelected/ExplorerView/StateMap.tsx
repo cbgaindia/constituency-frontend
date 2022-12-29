@@ -10,7 +10,7 @@ import { Menu } from 'components/actions';
 import useEffectOnChange from 'utils/hooks';
 import { Table } from 'components/data';
 import { ConstituencyPage } from 'pages/[state]/[sabha]/[cons]';
-import { yearOptions } from 'utils/fetch'
+import { yearOptions } from 'utils/fetch';
 
 const StateMap = ({ meta, schemeData, showTable, consList, schemeName }) => {
   const [mapValues, setMapvalues] = useState([]);
@@ -39,8 +39,8 @@ const StateMap = ({ meta, schemeData, showTable, consList, schemeName }) => {
   }
 
   const twoDecimals = (num) => {
-    return (Number)(num.toString().match(/^-?\d+(?:\.\d{0,2})?/));
-  }
+    return Number(num.toString().match(/^-?\d+(?:\.\d{0,2})?/));
+  };
 
   // preparing indicator data for echarts component
   useEffect(() => {
@@ -57,63 +57,63 @@ const StateMap = ({ meta, schemeData, showTable, consList, schemeName }) => {
       const diff = e - a;
 
       let div = diff / 4;
-      let b = twoDecimals(a + div)
+      let b = twoDecimals(a + div);
       let c = twoDecimals(b + div);
       let d = twoDecimals(c + div);
 
       let binLength = Math.floor(uniq.length / 4);
       const vizIndicators = binLength
         ? [
-          {
-            max: -999999999,
-            label: `Data not available`,
-            color: '#EBF0EE',
-          },
-          {
-            min: a,
-            max: b,
-            label: `upto to ${b}`,
-            color: '#4ABEBE',
-          },
-          {
-            min: b,
-            max: c,
-            label: `${b} to ${c}`,
-            color: '#368B8B',
-          },
-          {
-            min: c,
-            max: d,
-            label: `${c} to ${d}`,
-            color: '#286767',
-          },
-          // {
-          //   min: uniq[3 * binLength + 1],
-          //   max: uniq[binLength * 4],
-          //   label: `${uniq[binLength * 3]} to ${uniq[binLength * 4]}`,
-          //   color: '#1F5151',
-          // },
-          {
-            min: d,
-            max: e,
-            label: `${d} and above`,
-            color: '#173B3B',
-          },
-          // {
-          //   min: uniq[4 * binLength + 1],
-          //   max: uniq[uniq.length - 1],
-          //   label: `${uniq[binLength * 4]} to ${uniq[uniq.length - 1]}`,
-          //   color: ' #173B3B',
-          // },
-        ]
+            {
+              max: -999999999,
+              label: `Data not available`,
+              color: '#EBF0EE',
+            },
+            {
+              min: a,
+              max: b,
+              label: `upto to ${b}`,
+              color: '#4ABEBE',
+            },
+            {
+              min: b,
+              max: c,
+              label: `${b} to ${c}`,
+              color: '#368B8B',
+            },
+            {
+              min: c,
+              max: d,
+              label: `${c} to ${d}`,
+              color: '#286767',
+            },
+            // {
+            //   min: uniq[3 * binLength + 1],
+            //   max: uniq[binLength * 4],
+            //   label: `${uniq[binLength * 3]} to ${uniq[binLength * 4]}`,
+            //   color: '#1F5151',
+            // },
+            {
+              min: d,
+              max: e,
+              label: `${d} and above`,
+              color: '#173B3B',
+            },
+            // {
+            //   min: uniq[4 * binLength + 1],
+            //   max: uniq[uniq.length - 1],
+            //   label: `${uniq[binLength * 4]} to ${uniq[uniq.length - 1]}`,
+            //   color: ' #173B3B',
+            // },
+          ]
         : [
-          {
-            min: 0,
-            max: 0,
-            label: `data not found`,
-            color: '#494D44',
-          },
-        ];
+            {
+              min: 0,
+              max: 0,
+              label: `data not found`,
+              color: '#494D44',
+            },
+          ];
       setMapIndicator(vizIndicators);
     }
   }, [filteredData, data]);
@@ -124,8 +124,8 @@ const StateMap = ({ meta, schemeData, showTable, consList, schemeName }) => {
   }, [year, schemeData]);
 
   useEffect(() => {
-    setYear(meta.year)
-  }, [meta.year])
+    setYear(meta.year);
+  }, [meta.year]);
 
   // changing map chart values on sabha change
   useEffect(() => {
@@ -133,7 +133,7 @@ const StateMap = ({ meta, schemeData, showTable, consList, schemeName }) => {
       const tempData = Object.keys(filteredData).map((item: any) => ({
         name: item,
         value: filteredData[item] || 0,
-        mapName: titleCase(consData[item].constituency_name),
+        mapName: titleCase(consData[item]?.constituency_name),
       }));
       setMapvalues(tempData);
     }
@@ -207,11 +207,10 @@ const StateMap = ({ meta, schemeData, showTable, consList, schemeName }) => {
   ) : (
     <>
       <Title>
-        {`${schemeName
-          } . ${meta.indicator?.replace(
-            '-',
-            ' '
-          )} ${`[${year}]`} . ${meta.state}`}
+        {`${schemeName} . ${meta.indicator?.replace(
+          '-',
+          ' '
+        )} ${`[${year}]`} . ${meta.state}`}
       </Title>
 
       <Wrapper>
@@ -236,14 +235,15 @@ const StateMap = ({ meta, schemeData, showTable, consList, schemeName }) => {
                 meta={meta}
                 data={mapValues}
                 vizIndicators={mapIndicator}
-              // newMapItem={newMapItem}
+                // newMapItem={newMapItem}
               />
             </>
           )
         )}
         <LegendDescription>
-          Values against each of the indicators plotted here are based on the actuals for the respective constituencies.
-          Legend values in the lower bounds are included for visualising data.
+          Values against each of the indicators plotted here are based on the
+          actuals for the respective constituencies. Legend values in the lower
+          bounds are included for visualising data.
         </LegendDescription>
       </Wrapper>
     </>
@@ -268,7 +268,7 @@ const YearSelector = styled.div`
 const Title = styled.div`
   border-radius: 2px;
   background-color: var(--color-background-light);
-  border-bottom : 7px solid white;
+  border-bottom: 7px solid white;
 
   font-weight: 600;
   font-size: 0.75rem;
@@ -283,5 +283,5 @@ const Title = styled.div`
 `;
 
 const LegendDescription = styled.p`
-  margin-top:16px;
+  margin-top: 16px;
 `;
