@@ -96,7 +96,7 @@ const SchemesData = {
     logo: nsap,
   },
   sbmg: {
-    logo: sbmg,
+    logo: sbmu,
   },
   pmmvy: {
     logo: pmmvy,
