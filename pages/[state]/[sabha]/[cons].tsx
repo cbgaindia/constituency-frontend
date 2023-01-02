@@ -19,6 +19,7 @@ import { Toolbar } from 'components/layouts/Toolbar';
 import { capitalize } from 'utils/helper';
 import { Overview } from 'components/pages/cons';
 import { useRouter } from 'next/router';
+import { SORTED_SCHEMES } from 'config/year';
 
 const Explorer = dynamic(
   () => import('components/pages/cons/Explorer/Explorer'),
@@ -37,6 +38,8 @@ type Props = {
   schemeData: any;
   data: any;
   remarks: any;
+  orderedList;
+  any;
 };
 export const ConstituencyPage = React.createContext(null);
 
@@ -51,7 +54,6 @@ const ConsPage: React.FC<Props> = ({
   remarks,
 }) => {
   const router = useRouter();
-
   const { state, sabha, scheme, cons, indicator }: any = router.query;
 
   const initialProps = React.useMemo(
@@ -204,11 +206,14 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   if (!(consHighlights && stateScheme && queryValue.cons))
     return { notFound: true };
-
+  const list = SORTED_SCHEMES;
+  const orderedList = list.filter((e) =>
+    stateScheme.find((elm) => elm.scheme_slug === e.scheme_slug)
+  );
   return {
     props: {
       consHighlights: consHighlights,
-      stateScheme,
+      stateScheme: orderedList,
       data: {
         consData: stateData['constituency_data'],
         stateAvg: stateData['state_avg'],

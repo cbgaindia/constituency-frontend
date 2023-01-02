@@ -53,7 +53,7 @@ export const resourcePages = {
         icon: 'xlsx',
       },
       {
-        title: 'MGNREGA',
+        title: 'MGNREGS',
         slug: 'mgnrega-v3',
         type: 'link',
         icon: 'xlsx',
@@ -89,7 +89,7 @@ export const resourcePages = {
         icon: 'xlsx',
       },
       {
-        title: 'PMMVT',
+        title: 'PMMVY',
         slug: 'pradhan-mantri-matru-vandana-yojana-scheme-pmmvy-v3',
         type: 'link',
         icon: 'xlsx',

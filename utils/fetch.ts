@@ -1,6 +1,6 @@
 import { read, utils as xlsxUtil } from 'xlsx';
 import { getParameterCaseInsensitive } from './helper';
-import { DEFAULT_YEAR } from 'config/year';
+import { DEFAULT_YEAR, SORTED_SCHEMES } from 'config/year';
 
 export async function fetchQuery(query, value) {
   const queryRes = await fetch(
@@ -471,10 +471,10 @@ export async function fetchIndicators() {
 }
 
 export function yearOptions(years) {
-  const default_year = DEFAULT_YEAR
-  let arr = []
+  const default_year = DEFAULT_YEAR;
+  let arr = [];
   for (var data in years) {
-    arr.push(years[data].value)
+    arr.push(years[data].value);
   }
 
   const flag = arr.includes(default_year);
@@ -482,9 +482,8 @@ export function yearOptions(years) {
   let new1 = [];
 
   for (var i in arr) {
-    if (arr[i] == default_year)
-     continue;
-    new1.push(arr[i])
+    if (arr[i] == default_year) continue;
+    new1.push(arr[i]);
   }
 
   // let reverseArr = arr.reverse();
@@ -499,10 +498,10 @@ export function yearOptions(years) {
   //   }
   // }
   let res = [];
-  flag == true ? res = [default_year, ...new1] : res = [...new1];
+  flag == true ? (res = [default_year, ...new1]) : (res = [...new1]);
   let opt = [];
   for (var i in res) {
-    opt.push({ value: res[i], label: res[i] })
+    opt.push({ value: res[i], label: res[i] });
   }
   return opt;
 }
