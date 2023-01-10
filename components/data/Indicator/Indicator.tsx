@@ -18,7 +18,7 @@ const Indicator = ({
   data,
   titleAs = 'h4',
   returnName = false,
-  primary 
+  primary,
 }: Props) => {
   const indicatorRef = useRef(null);
   useEffect(() => {
@@ -37,8 +37,8 @@ const Indicator = ({
     newIndicator(elm.id || elm.value);
   }
 
-  const commonIndi = data.filter(item => item.type=="common")
-  const uniqueIndi = data.filter(item => item.type=="unique")
+  const commonIndi = data.filter((item) => item.type == 'common');
+  const uniqueIndi = data.filter((item) => item.type == 'unique');
 
   if (primary) {
     return (
@@ -75,9 +75,9 @@ const Indicator = ({
                   />
                 )
             )}
-            <HorizontalLine />
-            <Heading> Unique Indicators </Heading>
-            {uniqueIndi &&
+          <HorizontalLine />
+          <Heading> Unique Indicators </Heading>
+          {uniqueIndi &&
             uniqueIndi.map(
               (item: any) =>
                 item && (
@@ -105,10 +105,8 @@ const Indicator = ({
             )}
         </fieldset>
       </IndicatorWrapper>
-    )
-  }
-
-  else {
+    );
+  } else {
     return (
       <IndicatorWrapper className="indicator">
         <IndicatorTitle as={titleAs}>Indicators</IndicatorTitle>
@@ -176,6 +174,21 @@ export const IndicatorWrapper = styled.div`
     ::-webkit-scrollbar {
       width: 5px;
     }
+
+    ::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.4);
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.4);
+      border-radius: 8px;
+      -webkit-border-radius: 8px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+      background: rgba(100, 100, 100, 0.8);
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+    }
   }
 
   ${RadioItem} {
@@ -217,11 +230,11 @@ const IndicatorTitle = styled.h4`
 `;
 
 const HorizontalLine = styled.hr`
-  width:90%;
+  width: 90%;
   border-top: 1px solid grey;
 `;
 
 const Heading = styled.h5`
-  font-weight:550;
-  margin-top:10px;
+  font-weight: 550;
+  margin-top: 10px;
 `;
