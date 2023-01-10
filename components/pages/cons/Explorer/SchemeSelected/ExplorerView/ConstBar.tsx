@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { GroupBarChart } from 'components/viz';
 import { getParameterCaseInsensitive } from 'utils/helper';
 import { Table } from 'components/data';
+import { generateSlug } from 'utils/fetch';
 
 const ConstBar = ({ meta, schemeData, showTable, schemeName }) => {
   const [barData, setBarData] = React.useState([]);
@@ -13,7 +14,7 @@ const ConstBar = ({ meta, schemeData, showTable, schemeName }) => {
   const [selectedYears, setSelectedYears] = React.useState<any>([
     { value: meta.year, label: meta.year },
   ]);
-  
+
   const [tableData, setTableData] = React.useState<any>();
 
   React.useEffect(() => {
@@ -50,6 +51,7 @@ const ConstBar = ({ meta, schemeData, showTable, schemeName }) => {
         const tableRowsObj = {
           [tableHeader[0].accessor]: String(name),
         };
+
         //  for each year, fill the constituency value
         Object.keys(yearsObj).length &&
           Object.keys(yearsObj).forEach((yearElm, index) => {
@@ -89,17 +91,22 @@ const ConstBar = ({ meta, schemeData, showTable, schemeName }) => {
     const consList = meta.schemeData.metadata
       ? meta.schemeData.metadata.consList
       : {};
+    console.log(consList, 'consList');
+
     return Object.keys(consList).map((state) => ({
       label: state,
       options: consList[state].map((item) => ({
-        value: { state: state.toLowerCase(), code: item.constCode },
+        value: {
+          state: generateSlug(state),
+          code: item.constCode,
+        },
         label: item.constName,
       })),
     }));
   }, [meta.schemeData]);
 
-  const yearList = selectedYears.map(year => year.value)
-  const consList = selectedCons.map(cons => cons.state)
+  const yearList = selectedYears.map((year) => year.value);
+  const consList = selectedCons.map((cons) => cons.state);
 
   return showTable ? (
     tableData ? (
@@ -113,11 +120,14 @@ const ConstBar = ({ meta, schemeData, showTable, schemeName }) => {
   ) : (
     <Wrapper>
       <Title>
-        {`${schemeName
-          } . ${meta.indicator?.replace(
-            '-',
-            ' '
-          )} ${`${JSON.stringify(yearList,null," ")}`} . ${`${JSON.stringify(consList,null," ")}`}`}
+        {`${schemeName} . ${meta.indicator?.replace(
+          '-',
+          ' '
+        )} ${`${JSON.stringify(yearList, null, ' ')}`} . ${`${JSON.stringify(
+          consList,
+          null,
+          ' '
+        )}`}`}
       </Title>
       <ComboWrapper>
         {meta.cons && (
@@ -200,7 +210,7 @@ const Title = styled.div`
   border-radius: 2px;
   background-color: var(--color-background-light);
   margin-bottom: 8px;
-  border-bottom : 12px solid white;
+  border-bottom: 12px solid white;
 
   font-weight: 600;
   font-size: 0.75rem;
