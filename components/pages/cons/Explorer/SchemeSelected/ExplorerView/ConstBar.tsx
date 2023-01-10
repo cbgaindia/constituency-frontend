@@ -91,7 +91,6 @@ const ConstBar = ({ meta, schemeData, showTable, schemeName }) => {
     const consList = meta.schemeData.metadata
       ? meta.schemeData.metadata.consList
       : {};
-    console.log(consList, 'consList');
 
     return Object.keys(consList).map((state) => ({
       label: state,
