@@ -220,6 +220,11 @@ export async function newSchemeDataFetch(id, sabha = null, schemeObj = null) {
         }
       });
 
+      for(const key in consList){
+        const unique = [...new Map(consList[key].map((item) => [item["constCode"], item])).values()];
+        consList[key] = unique;
+      }
+      
       const tempObj: any = {};
       tempObj.metadata = {
         name: metaObj['scheme_name'] || '',
