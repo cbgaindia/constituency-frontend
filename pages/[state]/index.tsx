@@ -38,7 +38,6 @@ const State: React.FC<Props> = ({ pathName, constList, stateData }) => {
     )} - Constituency Dashboard`,
     description: `Explore scheme-wise fiscal information at the level of Lok Sabha and Vidhan Sabha constituencies in the state of ${state}`,
   };
-
   return (
     <>
       <Seo seo={seo} />
