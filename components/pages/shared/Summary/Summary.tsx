@@ -24,7 +24,7 @@ const Summary = ({ title, cards, titleAs = 'h3' }: Props) => {
         {cards.map((item: any, index) => (
           <li key={`summary-${index}`}>
             <div></div>
-            <strong>{item.value.toFixed(2).replace(/[.,]00$/, '')}</strong>
+            <strong>{item.value}</strong>
             <span>{item.text}</span>
           </li>
         ))}
