@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { twoDecimals } from 'utils/helper';
 
 type Props = {
   title?: React.ReactNode;
@@ -24,7 +25,7 @@ const Summary = ({ title, cards, titleAs = 'h3' }: Props) => {
         {cards.map((item: any, index) => (
           <li key={`summary-${index}`}>
             <div></div>
-            <strong>{item.value}</strong>
+            <strong>{twoDecimals(item.value)}</strong>
             <span>{item.text}</span>
           </li>
         ))}

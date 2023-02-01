@@ -210,3 +210,7 @@ export function capitalize(str) {
     .replaceAll('-', ' ')
     .replace(/\b\w/g, (c) => c.toUpperCase());
 }
+
+export const twoDecimals = (num) => {
+  return Number(num.toString().match(/^-?\d+(?:\.\d{0,2})?/));
+};
