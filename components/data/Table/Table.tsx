@@ -190,7 +190,8 @@ export default Table;
 
 const Wrapper = styled.div`
   height: 100%;
-
+  overflow-x: auto;
+  
   ${PaginationComp} {
     position: sticky;
     bottom: 0;
@@ -223,8 +224,9 @@ export const TableWrapper = styled.table`
   line-height: 1.38;
   width: 100%;
   min-height: 494px;
-  overflow-y: auto;
-  overflow-x: auto;
+  display: block;
+  overflow: auto;
+
   th,
   td {
     padding: 8px 12px;
