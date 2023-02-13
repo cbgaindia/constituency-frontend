@@ -48,20 +48,24 @@ export function export_table_to_csv(tableData, filename: any) {
   download_csv(csv.join('\n'), filename);
 }
 
-function createDummyCanvas(srcCanvas) {
+function createDummyCanvas(srcCanvas,source) {
   //create a dummy CANVAS
   const destinationCanvas = document.createElement('canvas');
   destinationCanvas.width = srcCanvas.width;
-  destinationCanvas.height = srcCanvas.height;
+  destinationCanvas.height = srcCanvas.height + 60;
 
   const destCtx = destinationCanvas.getContext('2d');
 
   //create a rectangle with the desired color
   destCtx.fillStyle = '#FFFFFF';
-  destCtx.fillRect(0, 0, srcCanvas.width, srcCanvas.height);
+  destCtx.fillRect(0, 0, srcCanvas.width, srcCanvas.height+60);
 
   //draw the original canvas onto the destination canvas
   destCtx.drawImage(srcCanvas, 0, 0);
+
+  destCtx.font = "20px Josefin Slab";
+  destCtx.fillStyle = "#000";
+  destCtx.fillText(`${" "}Data Source ${source}`, 10, srcCanvas.height + 30);
 
   //finally use the destinationCanvas.toDataURL() method to get the desired output;
   return destinationCanvas.toDataURL('image/jpeg', 2);
@@ -80,12 +84,10 @@ const DownloadViz = ({ viz, meta, tableData = {}, source }: Props) => {
     import('watermarkjs').then((x) => (watermarkSSR = x.default));
   }, [viz, meta]);
   function svg2img(canvasElm) {
-    const myChart = createDummyCanvas(canvasElm);
+    const myChart = createDummyCanvas(canvasElm,source);
 
     watermarkSSR([myChart, '/assets/images/obi.png'])
       .image(watermarkSSR.image.lowerRight(0.5))
-      .render()
-      .image(watermarkSSR.text.lowerLeft(`${"        "} Data Source ${source}`, '18px Josefin Slab', '#000', 0.5))
       .then((img) => saveAs(img.src, `${fileName(meta)}.jpeg`.toLowerCase()));
   }
 
