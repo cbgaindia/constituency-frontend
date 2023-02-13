@@ -44,7 +44,7 @@ const SchemeSelected = ({ queryData, schemeList }) => {
     if (data) {
       const schemeData = queryData.sabha == 'vidhan' ? data.ac : data.pc;
 
-      if (schemeData.data) {
+      if (schemeData && schemeData.data && Object.values(schemeData.data)[0]['state_Obj'][queryData.state]) {
         const years = Object.keys(
           Object.values(schemeData.data)[0]['state_Obj'][queryData.state]
         ).map((item) => ({
@@ -65,6 +65,10 @@ const SchemeSelected = ({ queryData, schemeList }) => {
           schemeData,
           year: year || filterYear ? DEFAULT_YEAR : years[length-1].value,
           allYears: years,
+        });
+      } else {
+        dispatch({
+          schemeData: schemeData == '' ? '' :  null,
         });
       }
     }
@@ -92,9 +96,9 @@ const SchemeSelected = ({ queryData, schemeList }) => {
         queryData={queryData}
       />
       <ExplorerWrapper>
-        {!reducerState.schemeData ? (
-          <div>Loading...</div>
-        ) : (
+        {!reducerState.schemeData ? 
+          reducerState.schemeData =='' ? <div>Loading..</div> : <div>No data found for the selected scheme. Please select another scheme...</div>
+        : (
           <>
             <ExplorerView
               meta={{
