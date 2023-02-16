@@ -5,21 +5,30 @@ import {
   capitalize,
   getParameterCaseInsensitive,
   swrFetch,
-  twoDecimals
+  twoDecimals,
 } from 'utils/helper';
 import { Menu } from 'components/actions';
 import useEffectOnChange from 'utils/hooks';
 import { Table } from 'components/data';
 import { ConstituencyPage } from 'pages/[state]/[sabha]/[cons]';
 import { yearOptions } from 'utils/fetch';
+import { IconGeneralAdd } from 'components/icons/IconlAdd';
+import { IconMinimize } from 'components/icons';
 
-const StateMap = ({ meta, schemeData, showTable, consList, schemeName, onTableDataChange }) => {
+const StateMap = ({
+  meta,
+  schemeData,
+  showTable,
+  consList,
+  schemeName,
+  onTableDataChange,
+}) => {
   const [mapValues, setMapvalues] = useState([]);
   const [mapIndicator, setMapIndicator] = useState(undefined);
   const { state, indicator } = meta;
   const [tableData, setTableData] = useState<any>();
 
-  const [val, setVal] = React.useState(1)
+  const [val, setVal] = React.useState(1);
 
   const { metaReducer } = React.useContext(ConstituencyPage);
   const { consData } = metaReducer.obj;
@@ -63,56 +72,56 @@ const StateMap = ({ meta, schemeData, showTable, consList, schemeName, onTableDa
       let binLength = Math.floor(uniq.length / 4);
       const vizIndicators = binLength
         ? [
-          {
-            max: -999999999,
-            label: `Data not available`,
-            color: '#EBF0EE',
-          },
-          {
-            min: a,
-            max: b,
-            label: `upto to ${b}`,
-            color: '#4ABEBE',
-          },
-          {
-            min: b,
-            max: c,
-            label: `${b} to ${c}`,
-            color: '#368B8B',
-          },
-          {
-            min: c,
-            max: d,
-            label: `${c} to ${d}`,
-            color: '#286767',
-          },
-          // {
-          //   min: uniq[3 * binLength + 1],
-          //   max: uniq[binLength * 4],
-          //   label: `${uniq[binLength * 3]} to ${uniq[binLength * 4]}`,
-          //   color: '#1F5151',
-          // },
-          {
-            min: d,
-            max: e,
-            label: `${d} and above`,
-            color: '#173B3B',
-          },
-          // {
-          //   min: uniq[4 * binLength + 1],
-          //   max: uniq[uniq.length - 1],
-          //   label: `${uniq[binLength * 4]} to ${uniq[uniq.length - 1]}`,
-          //   color: ' #173B3B',
-          // },
-        ]
+            {
+              max: -999999999,
+              label: `Data not available`,
+              color: '#EBF0EE',
+            },
+            {
+              min: a,
+              max: b,
+              label: `upto to ${b}`,
+              color: '#4ABEBE',
+            },
+            {
+              min: b,
+              max: c,
+              label: `${b} to ${c}`,
+              color: '#368B8B',
+            },
+            {
+              min: c,
+              max: d,
+              label: `${c} to ${d}`,
+              color: '#286767',
+            },
+            // {
+            //   min: uniq[3 * binLength + 1],
+            //   max: uniq[binLength * 4],
+            //   label: `${uniq[binLength * 3]} to ${uniq[binLength * 4]}`,
+            //   color: '#1F5151',
+            // },
+            {
+              min: d,
+              max: e,
+              label: `${d} and above`,
+              color: '#173B3B',
+            },
+            // {
+            //   min: uniq[4 * binLength + 1],
+            //   max: uniq[uniq.length - 1],
+            //   label: `${uniq[binLength * 4]} to ${uniq[uniq.length - 1]}`,
+            //   color: ' #173B3B',
+            // },
+          ]
         : [
-          {
-            min: 0,
-            max: 0,
-            label: `data not found`,
-            color: '#494D44',
-          },
-        ];
+            {
+              min: 0,
+              max: 0,
+              label: `data not found`,
+              color: '#494D44',
+            },
+          ];
       setMapIndicator(vizIndicators);
     }
   }, [filteredData, data]);
@@ -176,7 +185,7 @@ const StateMap = ({ meta, schemeData, showTable, consList, schemeName, onTableDa
       };
 
       setTableData(tableData);
-      updateTableData(tableData)
+      updateTableData(tableData);
     }
   }, [schemeData]);
 
@@ -237,8 +246,24 @@ const StateMap = ({ meta, schemeData, showTable, consList, schemeName, onTableDa
               )}
 
               <ZoomButtons>
-                <button onClick={() => { setVal(Math.min(val + 0.1, 3)) }}>+</button>
-                <button onClick={() => { setVal(Math.max(val - 0.1, 1)) }}>-</button>
+                <button
+                  aria-label="Increase Zoom"
+                  title="Increase Zoom"
+                  onClick={() => {
+                    setVal(Math.min(val + 0.1, 3));
+                  }}
+                >
+                  <IconGeneralAdd fill="var(--color-grey-300)" />
+                </button>
+                <button
+                  aria-label="Decrease Zoom"
+                  title="Increase Zoom"
+                  onClick={() => {
+                    setVal(Math.max(val - 0.1, 1));
+                  }}
+                >
+                  <IconMinimize fill="var(--color-grey-300)" />
+                </button>
               </ZoomButtons>
 
               <MapViz
@@ -247,7 +272,7 @@ const StateMap = ({ meta, schemeData, showTable, consList, schemeName, onTableDa
                 data={mapValues}
                 vizIndicators={mapIndicator}
                 val={val}
-              // newMapItem={newMapItem}
+                // newMapItem={newMapItem}
               />
             </>
           )
@@ -298,28 +323,36 @@ const LegendDescription = styled.p`
   margin-top: 16px;
 `;
 
-const ZoomButtons = styled.div`
+export const ZoomButtons = styled.div`
   position: absolute;
   left: 16px;
-
   top: 16px;
   isolation: isolate;
   z-index: 10;
 
-  @media (max-width: 480px) {
-    margin: 0 auto;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  border-radius: 2px;
+  border: 1px solid var(--color-grey-600);
+  filter: drop-shadow(var(--box-shadow-1));
+
   button {
-      padding: 4px;
-      margin-bottom:6px;
-      width: 100%;
-      text-align: center;
-      font-size:20px;
-      height: 100%;
-      transition: background-color 150ms ease;
-      border: 2px solid white;
-      &:hover {
-        background-color: var(--color-grey-600);
-      }
+    padding: 4px;
+    background-color: var(--color-white);
+    color: var(--color-grey-300);
+    transition: background-color 150ms ease;
+    line-height: 0;
+
+    &:hover {
+      background-color: var(--color-grey-600);
+    }
+
+    &:first-of-type {
+      border-radius: 2px 2px 0 0;
+    }
+    &:last-of-type {
+      border-radius: 0px 0px 2px 2px;
+    }
   }
-`
+`;

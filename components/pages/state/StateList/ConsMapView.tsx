@@ -3,7 +3,9 @@ import { useRouter } from 'next/router';
 import { MapViz } from 'components/viz';
 import { swrFetch } from 'utils/helper';
 import styled from 'styled-components';
-import { Info } from 'components/icons';
+import { IconMinimize, Info } from 'components/icons';
+import { IconGeneralAdd } from 'components/icons/IconlAdd';
+import { ZoomButtons } from 'components/pages/cons/Explorer/SchemeSelected/ExplorerView/StateMap';
 
 function titleCase(str) {
   str = str.toLowerCase().split(' ');
@@ -26,7 +28,7 @@ function generateMapData(obj) {
 }
 
 const ConsMapView = ({ meta, consData }) => {
-  const [val, setVal] = React.useState(1)
+  const [val, setVal] = React.useState(1);
   const router = useRouter();
   const { data, isLoading } = swrFetch(
     `/assets/maps/${meta.sabha}/${meta.state}.json`
@@ -37,9 +39,25 @@ const ConsMapView = ({ meta, consData }) => {
   ) : (
     <>
       <Wrapper>
-        <ZoomButtons>
-          <button onClick={() => { setVal(Math.min(val + 0.1, 3)) }}>+</button>
-          <button onClick={() => { setVal(Math.max(val - 0.1, 1)) }}>-</button>
+        <ZoomButtons style={{ top: '40px', left: '40px' }}>
+          <button
+            aria-label="Increase Zoom"
+            title="Increase Zoom"
+            onClick={() => {
+              setVal(Math.min(val + 0.1, 3));
+            }}
+          >
+            <IconGeneralAdd fill="var(--color-grey-300)" />
+          </button>
+          <button
+            aria-label="Decrease Zoom"
+            title="Increase Zoom"
+            onClick={() => {
+              setVal(Math.max(val - 0.1, 1));
+            }}
+          >
+            <IconMinimize fill="var(--color-grey-300)" />
+          </button>
         </ZoomButtons>
         <MapViz
           mapFile={data}
@@ -89,28 +107,3 @@ const MapNote = styled.aside`
   align-items: center;
   gap: 8px;
 `;
-
-const ZoomButtons = styled.div`
-  position: absolute;
-  left: 38px;
-  top: 40px;     
-  isolation: isolate;
-  z-index: 10;
-
-  @media (max-width: 480px) {
-    margin: 0 auto;
-  }
-  button {
-      padding: 4px;
-      margin-bottom:6px;
-      width: 100%;
-      text-align: center;
-      font-size:20px;
-      height: 100%;
-      transition: background-color 150ms ease;
-      border: 2px solid white;
-      &:hover {
-        background-color: var(--color-grey-600);
-      }
-  }
-`
