@@ -27,7 +27,7 @@ const Header = ({ queryData }) => {
         <ConsDetails>
           <SabhaName>{`${
             queryData.sabha === 'lok' ? 'Lok' : 'Vidhan'
-          } Sabha contituency`}</SabhaName>
+          } Sabha constituency`}</SabhaName>
           <div>
             <h1 className="gradient-maple">{queryData.cons_name}</h1>
             <StateName>

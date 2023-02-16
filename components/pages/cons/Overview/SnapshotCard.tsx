@@ -15,7 +15,7 @@ const SnapshotCard = ({
   indicator: string;
 }) => {
   const { toolbar } = React.useContext(ConstituencyPage);
-  
+
   return (
     <SnapshotSchemeCard>
       <CardTitle>
@@ -37,22 +37,20 @@ const SnapshotCard = ({
         <>
           <SnapshotSchemeBar>
             <div>
-              <AverageTitle>State Average</AverageTitle>
+              <AverageTitle>Constituency</AverageTitle>
               <div>
-                <SplitBar val={data.value.state.bar} />
-
+                <SplitBar val={data.value.constituency.bar} />
                 <AverageValue>
-                  {data.value.state.value?.toFixed(2)} Cr.
+                  {data.value.constituency.value?.toFixed(2)} Cr.
                 </AverageValue>
               </div>
             </div>
             <div>
-              <AverageTitle>Constituency</AverageTitle>
+              <AverageTitle>State Average</AverageTitle>
               <div>
-                <SplitBar val={data.value.constituency.bar} />
-
+                <SplitBar val={data.value.state.bar} />
                 <AverageValue>
-                  {data.value.constituency.value?.toFixed(2)} Cr.
+                  {data.value.state.value?.toFixed(2)} Cr.
                 </AverageValue>
               </div>
             </div>
