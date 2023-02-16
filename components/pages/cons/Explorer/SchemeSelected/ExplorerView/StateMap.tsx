@@ -19,6 +19,8 @@ const StateMap = ({ meta, schemeData, showTable, consList, schemeName, onTableDa
   const { state, indicator } = meta;
   const [tableData, setTableData] = useState<any>();
 
+  const [val, setVal] = React.useState(1)
+
   const { metaReducer } = React.useContext(ConstituencyPage);
   const { consData } = metaReducer.obj;
 
@@ -61,56 +63,56 @@ const StateMap = ({ meta, schemeData, showTable, consList, schemeName, onTableDa
       let binLength = Math.floor(uniq.length / 4);
       const vizIndicators = binLength
         ? [
-            {
-              max: -999999999,
-              label: `Data not available`,
-              color: '#EBF0EE',
-            },
-            {
-              min: a,
-              max: b,
-              label: `upto to ${b}`,
-              color: '#4ABEBE',
-            },
-            {
-              min: b,
-              max: c,
-              label: `${b} to ${c}`,
-              color: '#368B8B',
-            },
-            {
-              min: c,
-              max: d,
-              label: `${c} to ${d}`,
-              color: '#286767',
-            },
-            // {
-            //   min: uniq[3 * binLength + 1],
-            //   max: uniq[binLength * 4],
-            //   label: `${uniq[binLength * 3]} to ${uniq[binLength * 4]}`,
-            //   color: '#1F5151',
-            // },
-            {
-              min: d,
-              max: e,
-              label: `${d} and above`,
-              color: '#173B3B',
-            },
-            // {
-            //   min: uniq[4 * binLength + 1],
-            //   max: uniq[uniq.length - 1],
-            //   label: `${uniq[binLength * 4]} to ${uniq[uniq.length - 1]}`,
-            //   color: ' #173B3B',
-            // },
-          ]
+          {
+            max: -999999999,
+            label: `Data not available`,
+            color: '#EBF0EE',
+          },
+          {
+            min: a,
+            max: b,
+            label: `upto to ${b}`,
+            color: '#4ABEBE',
+          },
+          {
+            min: b,
+            max: c,
+            label: `${b} to ${c}`,
+            color: '#368B8B',
+          },
+          {
+            min: c,
+            max: d,
+            label: `${c} to ${d}`,
+            color: '#286767',
+          },
+          // {
+          //   min: uniq[3 * binLength + 1],
+          //   max: uniq[binLength * 4],
+          //   label: `${uniq[binLength * 3]} to ${uniq[binLength * 4]}`,
+          //   color: '#1F5151',
+          // },
+          {
+            min: d,
+            max: e,
+            label: `${d} and above`,
+            color: '#173B3B',
+          },
+          // {
+          //   min: uniq[4 * binLength + 1],
+          //   max: uniq[uniq.length - 1],
+          //   label: `${uniq[binLength * 4]} to ${uniq[uniq.length - 1]}`,
+          //   color: ' #173B3B',
+          // },
+        ]
         : [
-            {
-              min: 0,
-              max: 0,
-              label: `data not found`,
-              color: '#494D44',
-            },
-          ];
+          {
+            min: 0,
+            max: 0,
+            label: `data not found`,
+            color: '#494D44',
+          },
+        ];
       setMapIndicator(vizIndicators);
     }
   }, [filteredData, data]);
@@ -233,12 +235,19 @@ const StateMap = ({ meta, schemeData, showTable, consList, schemeName, onTableDa
                   />
                 </YearSelector>
               )}
+
+              <ZoomButtons>
+                <button onClick={() => { setVal(Math.min(val + 0.1, 3)) }}>+</button>
+                <button onClick={() => { setVal(Math.max(val - 0.1, 1)) }}>-</button>
+              </ZoomButtons>
+
               <MapViz
                 mapFile={data}
                 meta={meta}
                 data={mapValues}
                 vizIndicators={mapIndicator}
-                // newMapItem={newMapItem}
+                val={val}
+              // newMapItem={newMapItem}
               />
             </>
           )
@@ -288,3 +297,29 @@ const Title = styled.div`
 const LegendDescription = styled.p`
   margin-top: 16px;
 `;
+
+const ZoomButtons = styled.div`
+  position: absolute;
+  left: 16px;
+
+  top: 16px;
+  isolation: isolate;
+  z-index: 10;
+
+  @media (max-width: 480px) {
+    margin: 0 auto;
+  }
+  button {
+      padding: 4px;
+      margin-bottom:6px;
+      width: 100%;
+      text-align: center;
+      font-size:20px;
+      height: 100%;
+      transition: background-color 150ms ease;
+      border: 2px solid white;
+      &:hover {
+        background-color: var(--color-grey-600);
+      }
+  }
+`

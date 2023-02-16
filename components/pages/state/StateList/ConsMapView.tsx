@@ -8,7 +8,7 @@ import { Info } from 'components/icons';
 function titleCase(str) {
   str = str.toLowerCase().split(' ');
   for (var i = 0; i < str.length; i++) {
-    str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1); 
+    str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
   }
   return str.join(' ');
 }
@@ -26,6 +26,7 @@ function generateMapData(obj) {
 }
 
 const ConsMapView = ({ meta, consData }) => {
+  const [val, setVal] = React.useState(1)
   const router = useRouter();
   const { data, isLoading } = swrFetch(
     `/assets/maps/${meta.sabha}/${meta.state}.json`
@@ -36,6 +37,10 @@ const ConsMapView = ({ meta, consData }) => {
   ) : (
     <>
       <Wrapper>
+        <ZoomButtons>
+          <button onClick={() => { setVal(Math.min(val + 0.1, 3)) }}>+</button>
+          <button onClick={() => { setVal(Math.max(val - 0.1, 1)) }}>-</button>
+        </ZoomButtons>
         <MapViz
           mapFile={data}
           meta={meta}
@@ -45,6 +50,7 @@ const ConsMapView = ({ meta, consData }) => {
           newMapItem={(e) => {
             e ? router.push(`${meta.state}/${meta.sabha}/${e.name}`) : null;
           }}
+          val={val}
         />
       </Wrapper>
 
@@ -83,3 +89,28 @@ const MapNote = styled.aside`
   align-items: center;
   gap: 8px;
 `;
+
+const ZoomButtons = styled.div`
+  position: absolute;
+  left: 38px;
+  top: 40px;     
+  isolation: isolate;
+  z-index: 10;
+
+  @media (max-width: 480px) {
+    margin: 0 auto;
+  }
+  button {
+      padding: 4px;
+      margin-bottom:6px;
+      width: 100%;
+      text-align: center;
+      font-size:20px;
+      height: 100%;
+      transition: background-color 150ms ease;
+      border: 2px solid white;
+      &:hover {
+        background-color: var(--color-grey-600);
+      }
+  }
+`
