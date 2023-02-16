@@ -17,6 +17,7 @@ const MapViz = ({
   data,
   vizIndicators,
   onlyLabel = false,
+  val
 }) => {
   const [mapOptions, setMapOptions] = useState({});
   const memoMap = React.useMemo(() => {
@@ -49,9 +50,6 @@ const MapViz = ({
           bottom: 16,
           right: 16,
           feature: {
-            // dataZoom: {
-            //   yAxisIndex: false,
-            // },
             brush: {
               type: ['lineX', 'clear'],
             },
@@ -82,7 +80,7 @@ const MapViz = ({
                 table += '</tbody></table>';
                 return table;
               },
-            },
+            }, 
           },
         },
         visualMap: vizIndicators.length
@@ -106,7 +104,7 @@ const MapViz = ({
             roam: true,
             map: meta.sabha,
             nameProperty: 'GEO_NO',
-            zoom: 1.2,
+            zoom: 3,
             itemStyle: {
               borderColor: '#ffffff',
               borderWidth: 0.8,
@@ -131,7 +129,7 @@ const MapViz = ({
             },
             scaleLimit: {
               min: 1,
-              max: 1,
+              max: val,
             },
             data: data,
           },
@@ -139,7 +137,7 @@ const MapViz = ({
       };
       setMapOptions(options);
     }
-  }, [meta.selectedIndicator, data, memoMap]);
+  }, [meta.selectedIndicator, data, memoMap, val]);
 
   function handleClick(e) {
     newMapItem(e.data);
@@ -154,7 +152,7 @@ const MapViz = ({
     MapChart,
     SVGRenderer,
     ToolboxComponent,
-  ]);
+      ]);
 
   return (
     Object.keys(mapOptions).length > 0 && (
