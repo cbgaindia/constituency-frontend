@@ -15,6 +15,8 @@ const ConstBar = ({ meta, schemeData, showTable, schemeName, onTableDataChange }
     { value: meta.year, label: meta.year },
   ]);
 
+  selectedYears.sort((a, b) => a.value.localeCompare(b.value));
+  
   const [tableData, setTableData] = React.useState<any>();
 
   React.useEffect(() => {
