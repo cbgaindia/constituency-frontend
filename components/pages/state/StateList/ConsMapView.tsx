@@ -39,7 +39,7 @@ const ConsMapView = ({ meta, consData }) => {
   ) : (
     <>
       <Wrapper>
-        <ZoomButtons style={{ top: '40px', left: '40px' }}>
+        <ZoomButtons>
           <button
             aria-label="Increase Zoom"
             title="Increase Zoom"
@@ -84,6 +84,7 @@ export default ConsMapView;
 
 const Wrapper = styled.div`
   height: 100%;
+  position: relative;
 `;
 
 export const LoadingDiv = styled.div`
