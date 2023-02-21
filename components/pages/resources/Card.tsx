@@ -57,7 +57,7 @@ const Card = ({ data }) => {
             <Image
               width={110}
               height={110}
-              src={SchemesData[image_slug[data.slug]].logo}
+              src={data.slug.includes('v3') ? SchemesData[image_slug[data.slug]]?.logo :icons[data.icon]}
               alt={`file format ${data.icon}`}
             />
           )}
