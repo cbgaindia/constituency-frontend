@@ -102,7 +102,7 @@ export const resourcePages = {
       },
       {
         title: 'SBMU',
-        slug: 'swachh-bharat-mission-urban-v3',
+        slug: 'swachh-bharat-mission-urban-sbmu-v3',
         type: 'link',
         icon: 'xlsx',
       },
