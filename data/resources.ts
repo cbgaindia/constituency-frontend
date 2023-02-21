@@ -101,6 +101,12 @@ export const resourcePages = {
         icon: 'xlsx',
       },
       {
+        title: 'SBMU',
+        slug: 'swachh-bharat-mission-urban-v3',
+        type: 'link',
+        icon: 'xlsx',
+      },
+      {
         title: 'SmSA',
         slug: 'smsa-v3',
         type: 'link',
