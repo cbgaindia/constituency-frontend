@@ -212,5 +212,15 @@ export function capitalize(str) {
 }
 
 export const twoDecimals = (num) => {
-  return Number(num.toString().match(/^-?\d+(?:\.\d{0,2})?/));
+  if (typeof num !== 'number' && typeof num !== 'string') {
+    throw new Error('Input must be a number or a string');
+  }
+  const numString = typeof num === 'number' ? num.toString() : num;
+  const decimalIndex = numString.indexOf('.');
+  if (decimalIndex === -1) {
+    return numString;
+  } else {
+    const truncatedDecimal = numString.slice(decimalIndex + 1, decimalIndex + 3);
+    return Number(numString.slice(0, decimalIndex + 3) + truncatedDecimal).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2});
+  }
 };
