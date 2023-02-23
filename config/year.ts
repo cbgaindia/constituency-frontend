@@ -6,11 +6,11 @@ export const SORTED_SCHEMES = [
         scheme_slug: 'mgnrega',
     },
     {
-        scheme_name: 'Pradhan Mantri Awaas Yojana - Grameen (PMAY)',
+        scheme_name: 'Pradhan Mantri Awaas Yojana - Gramin (PMAY)',
         scheme_slug: 'pmay',
     },
     {
-        scheme_name: 'Swachh Bharat Mission-Gramin (SBMG)',
+        scheme_name: 'Swachh Bharat Mission - Gramin (SBMG)',
         scheme_slug: 'sbmg',
     },
     {
@@ -18,7 +18,7 @@ export const SORTED_SCHEMES = [
         scheme_slug: 'pmmvy',
     },
     {
-        scheme_name: 'Mid-Day Meal Programme (MDM)',
+        scheme_name: 'Mid-Day Meal (MDM)',
         scheme_slug: 'mdm',
     },
     {
