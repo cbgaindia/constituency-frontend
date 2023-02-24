@@ -5,6 +5,7 @@ import {
   capitalize,
   getParameterCaseInsensitive,
   swrFetch,
+  titleCase
 } from 'utils/helper';
 import { Menu } from 'components/actions';
 import useEffectOnChange from 'utils/hooks';
@@ -40,14 +41,6 @@ const StateMap = ({
   const { data, isLoading } = swrFetch(
     `/assets/maps/${meta.sabha}/${meta.state}.json`
   );
-
-  function titleCase(str) {
-    str = str.toLowerCase().split(' ');
-    for (var i = 0; i < str.length; i++) {
-      str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
-    }
-    return str.join(' ');
-  }
 
   const twoDecimals = (num) => {
     return Number(num.toString().match(/^-?\d+(?:\.\d{0,2})?/));

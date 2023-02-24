@@ -1,19 +1,12 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import { MapViz } from 'components/viz';
-import { swrFetch } from 'utils/helper';
+import { swrFetch, titleCase } from 'utils/helper';
 import styled from 'styled-components';
 import { IconMinimize, Info } from 'components/icons';
 import { IconGeneralAdd } from 'components/icons/IconlAdd';
 import { ZoomButtons } from 'components/pages/cons/Explorer/SchemeSelected/ExplorerView/StateMap';
 
-function titleCase(str) {
-  str = str.toLowerCase().split(' ');
-  for (var i = 0; i < str.length; i++) {
-    str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
-  }
-  return str.join(' ');
-}
 
 function generateMapData(obj) {
   const mapObj = [...obj].map((item) => {

@@ -224,3 +224,17 @@ export const twoDecimals = (num) => {
     return Number(numString.slice(0, decimalIndex + 3) + truncatedDecimal).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2});
   }
 };
+
+export function titleCase(str) {
+  str = str.toLowerCase().split(' ');
+  for (var i = 0; i < str.length; i++) {
+    if (str[i].includes('(sc)')) {
+      str[i] = str[i].replace('(sc)', '(SC)');
+    } else if (str[i].includes('(st)')) {
+      str[i] = str[i].replace('(st)', '(ST)');
+    } else {
+      str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
+    }
+  }
+  return str.join(' ');
+}
