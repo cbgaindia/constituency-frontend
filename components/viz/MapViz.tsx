@@ -17,7 +17,7 @@ const MapViz = ({
   data,
   vizIndicators,
   onlyLabel = false,
-  val
+  val,
 }) => {
   const [mapOptions, setMapOptions] = useState({});
   const memoMap = React.useMemo(() => {
@@ -46,7 +46,7 @@ const MapViz = ({
           },
         },
         toolbox: {
-          show: true,
+          show: false,
           bottom: 16,
           right: 16,
           feature: {
@@ -80,7 +80,7 @@ const MapViz = ({
                 table += '</tbody></table>';
                 return table;
               },
-            }, 
+            },
           },
         },
         visualMap: vizIndicators.length
@@ -152,7 +152,7 @@ const MapViz = ({
     MapChart,
     SVGRenderer,
     ToolboxComponent,
-      ]);
+  ]);
 
   return (
     Object.keys(mapOptions).length > 0 && (
