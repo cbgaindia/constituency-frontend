@@ -16,7 +16,6 @@ const Header = ({ data }) => {
       return result;
     }, []);
   }, [data]);
-  console.log(summaryCards);
 
   return (
     <HeaderWrapper>

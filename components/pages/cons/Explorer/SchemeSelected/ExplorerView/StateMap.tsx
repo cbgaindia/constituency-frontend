@@ -5,7 +5,7 @@ import {
   capitalize,
   getParameterCaseInsensitive,
   swrFetch,
-  titleCase
+  titleCase,
 } from 'utils/helper';
 import { Menu } from 'components/actions';
 import useEffectOnChange from 'utils/hooks';
@@ -44,7 +44,7 @@ const StateMap = ({
 
   const twoDecimals = (num) => {
     return Number(num.toString().match(/^-?\d+(?:\.\d{0,2})?/));
-  }
+  };
 
   // preparing indicator data for echarts component
   useEffect(() => {
@@ -59,7 +59,7 @@ const StateMap = ({
       if (length > 4) {
         const a = uniq[0];
         const e = uniq[length - 1];
-        
+
         const diff = e - a;
 
         let div = diff / 4;
@@ -69,45 +69,45 @@ const StateMap = ({
 
         let binLength = Math.floor(uniq.length / 4);
         const vizIndicators = binLength
-        ? [
-            {
-              max: -999999999,
-              label: `Data not available`,
-              color: '#EBF0EE',
-            },
-            {
-              min: a,
-              max: b,
-              label: `upto to ${b}`,
-              color: '#4ABEBE',
-            },
-            {
-              min: b,
-              max: c,
-              label: `${b} to ${c}`,
-              color: '#368B8B',
-            },
-            {
-              min: c,
-              max: d,
-              label: `${c} to ${d}`,
-              color: '#286767',
-            },
-            {
-              min: d,
-              max: e,
-              label: `${d} and above`,
-              color: '#173B3B',
-            },
-          ]
-        : [
-            {
-              min: 0,
-              max: 0,
-              label: `data not found`,
-              color: '#494D44',
-            },
-          ];
+          ? [
+              {
+                max: -999999999,
+                label: `Data not available`,
+                color: '#EBF0EE',
+              },
+              {
+                min: a,
+                max: b,
+                label: `upto to ${b}`,
+                color: '#4ABEBE',
+              },
+              {
+                min: b,
+                max: c,
+                label: `${b} to ${c}`,
+                color: '#368B8B',
+              },
+              {
+                min: c,
+                max: d,
+                label: `${c} to ${d}`,
+                color: '#286767',
+              },
+              {
+                min: d,
+                max: e,
+                label: `${d} and above`,
+                color: '#173B3B',
+              },
+            ]
+          : [
+              {
+                min: 0,
+                max: 0,
+                label: `data not found`,
+                color: '#494D44',
+              },
+            ];
         setMapIndicator(vizIndicators);
       } else {
         const vizIndicators = [];
@@ -116,16 +116,21 @@ const StateMap = ({
             min: uniq[i],
             max: uniq[i],
             label: `${uniq[i]}`,
-            color: i === 0 ? '#4ABEBE' : i === 1 ? '#368B8B' : i === 2 ? '#286767' : '#173B3B'
+            color:
+              i === 0
+                ? '#4ABEBE'
+                : i === 1
+                ? '#368B8B'
+                : i === 2
+                ? '#286767'
+                : '#173B3B',
           });
         }
-        vizIndicators.push(
-          {
-            max: -999999999,
-            label: `Data not available`,
-            color: '#EBF0EE',
-          },
-        )
+        vizIndicators.push({
+          max: -999999999,
+          label: `Data not available`,
+          color: '#EBF0EE',
+        });
         setMapIndicator(vizIndicators);
       }
     }
@@ -277,7 +282,7 @@ const StateMap = ({
                 data={mapValues}
                 vizIndicators={mapIndicator}
                 val={val}
-              // newMapItem={newMapItem}
+                // newMapItem={newMapItem}
               />
             </>
           )

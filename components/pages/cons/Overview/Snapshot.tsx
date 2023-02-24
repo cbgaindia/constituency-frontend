@@ -20,13 +20,14 @@ type Props = {
 
 const Snapshot = ({ queryData, schemeList, consData, stateAvg }: Props) => {
   const [selectedYear, setSelectedYear] = React.useState(
-    Object.keys(consData).includes(DEFAULT_YEAR) 
-      ? DEFAULT_YEAR 
+    Object.keys(consData).includes(DEFAULT_YEAR)
+      ? DEFAULT_YEAR
       : Object.keys(consData)[0]
   );
 
   const { meta } = React.useContext(ConstituencyPage);
-  const [indicator, setIndicator] = React.useState( meta.metaReducer.indicator );
+  const [indicator, setIndicator] = React.useState(meta.metaReducer.indicator);
+  const [indicatorUnit, setIndicatorUnit] = React.useState('Cr.');
   const { scheme } = meta.metaReducer;
   const { dispatch } = meta;
 
@@ -37,6 +38,11 @@ const Snapshot = ({ queryData, schemeList, consData, stateAvg }: Props) => {
 
   useEffectOnChange(() => {
     setIndicator(meta.metaReducer.indicator);
+
+    const currentIndicator = indicatorList.find(
+      (e) => e.slug === meta.metaReducer.indicator
+    );
+    setIndicatorUnit(currentIndicator?.unit);
   }, [meta.metaReducer]);
 
   useEffectOnChange(() => {
@@ -61,7 +67,11 @@ const Snapshot = ({ queryData, schemeList, consData, stateAvg }: Props) => {
     const indicatorArr = [];
     !isLoading
       ? Object.values(indicatorData).forEach((elm) => {
-          Object.keys(elm).forEach((item) => {      
+          Object.keys(elm).forEach((item) => {
+            if (item?.replaceAll(' ', '-').toLowerCase() === indicator) {
+              setIndicatorUnit(elm[item].unit);
+            }
+
             indicatorArr.push({
               name: item,
               description: elm[item].description,
@@ -143,6 +153,7 @@ const Snapshot = ({ queryData, schemeList, consData, stateAvg }: Props) => {
                 <SnapshotCard
                   key={item.scheme_slug}
                   indicator={indicator}
+                  indicatorUnit={indicatorUnit}
                   data={{
                     ...item,
                     value: getConsAvg(item.scheme_slug)

@@ -7,15 +7,21 @@ import React from 'react';
 import styled from 'styled-components';
 import SchemesData from 'utils/schemesData';
 
+const formatUnit = {
+  crore: 'Cr.',
+  'per cent': '%',
+};
+
 const SnapshotCard = ({
   data,
   indicator,
+  indicatorUnit,
 }: {
   data: any;
   indicator: string;
+  indicatorUnit: string;
 }) => {
   const { toolbar } = React.useContext(ConstituencyPage);
-
   return (
     <SnapshotSchemeCard>
       <CardTitle>
@@ -41,7 +47,8 @@ const SnapshotCard = ({
               <div>
                 <SplitBar val={data.value.constituency.bar} />
                 <AverageValue>
-                  {data.value.constituency.value?.toFixed(2)} Cr.
+                  {data.value.constituency.value?.toFixed(2)}{' '}
+                  {formatUnit[indicatorUnit]}
                 </AverageValue>
               </div>
             </div>
@@ -50,7 +57,8 @@ const SnapshotCard = ({
               <div>
                 <SplitBar val={data.value.state.bar} />
                 <AverageValue>
-                  {data.value.state.value?.toFixed(2)} Cr.
+                  {data.value.state.value?.toFixed(2)}{' '}
+                  {formatUnit[indicatorUnit]}
                 </AverageValue>
               </div>
             </div>
