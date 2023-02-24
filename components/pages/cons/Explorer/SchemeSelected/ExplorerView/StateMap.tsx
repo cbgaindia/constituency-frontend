@@ -5,7 +5,6 @@ import {
   capitalize,
   getParameterCaseInsensitive,
   swrFetch,
-  twoDecimals,
 } from 'utils/helper';
 import { Menu } from 'components/actions';
 import useEffectOnChange from 'utils/hooks';
@@ -48,6 +47,10 @@ const StateMap = ({
       str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
     }
     return str.join(' ');
+  }
+
+  const twoDecimals = (num) => {
+    return Number(num.toString().match(/^-?\d+(?:\.\d{0,2})?/));
   }
 
   // preparing indicator data for echarts component
