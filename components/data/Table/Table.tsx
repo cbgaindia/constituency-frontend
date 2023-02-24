@@ -163,9 +163,11 @@ const ReactTable = ({ columns, data }) => {
             return (
               <tr key={`table-tr1-${i}`} {...row.getRowProps()}>
                 {row.cells.map((cell, j) => {
+                  const isNA = !cell.render('Cell').props.value;
+
                   return (
                     <td key={`table-td-${j}`} {...cell.getCellProps()}>
-                      {cell.render('Cell')}
+                      {isNA ? 'NA' : cell.render('Cell')}
                     </td>
                   );
                 })}
@@ -191,7 +193,7 @@ export default Table;
 const Wrapper = styled.div`
   height: 100%;
   overflow-x: auto;
-  
+
   ${PaginationComp} {
     position: sticky;
     bottom: 0;
