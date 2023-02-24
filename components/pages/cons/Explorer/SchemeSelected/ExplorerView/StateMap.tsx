@@ -55,18 +55,20 @@ const StateMap = ({
       });
       const uniq = [...new Set(stateData)];
       const length = uniq.length;
-      const a = uniq[0];
-      const e = uniq[length - 1];
 
-      const diff = e - a;
+      if (length > 4) {
+        const a = uniq[0];
+        const e = uniq[length - 1];
+        
+        const diff = e - a;
 
-      let div = diff / 4;
-      let b = twoDecimals(a + div);
-      let c = twoDecimals(b + div);
-      let d = twoDecimals(c + div);
+        let div = diff / 4;
+        let b = twoDecimals(a + div);
+        let c = twoDecimals(b + div);
+        let d = twoDecimals(c + div);
 
-      let binLength = Math.floor(uniq.length / 4);
-      const vizIndicators = binLength
+        let binLength = Math.floor(uniq.length / 4);
+        const vizIndicators = binLength
         ? [
             {
               max: -999999999,
@@ -91,24 +93,12 @@ const StateMap = ({
               label: `${c} to ${d}`,
               color: '#286767',
             },
-            // {
-            //   min: uniq[3 * binLength + 1],
-            //   max: uniq[binLength * 4],
-            //   label: `${uniq[binLength * 3]} to ${uniq[binLength * 4]}`,
-            //   color: '#1F5151',
-            // },
             {
               min: d,
               max: e,
               label: `${d} and above`,
               color: '#173B3B',
             },
-            // {
-            //   min: uniq[4 * binLength + 1],
-            //   max: uniq[uniq.length - 1],
-            //   label: `${uniq[binLength * 4]} to ${uniq[uniq.length - 1]}`,
-            //   color: ' #173B3B',
-            // },
           ]
         : [
             {
@@ -118,7 +108,26 @@ const StateMap = ({
               color: '#494D44',
             },
           ];
-      setMapIndicator(vizIndicators);
+        setMapIndicator(vizIndicators);
+      } else {
+        const vizIndicators = [];
+        for (let i = 0; i < uniq.length; i++) {
+          vizIndicators.push({
+            min: uniq[i],
+            max: uniq[i],
+            label: `${uniq[i]}`,
+            color: i === 0 ? '#4ABEBE' : i === 1 ? '#368B8B' : i === 2 ? '#286767' : '#173B3B'
+          });
+        }
+        vizIndicators.push(
+          {
+            max: -999999999,
+            label: `Data not available`,
+            color: '#EBF0EE',
+          },
+        )
+        setMapIndicator(vizIndicators);
+      }
     }
   }, [filteredData, data]);
 
@@ -268,7 +277,7 @@ const StateMap = ({
                 data={mapValues}
                 vizIndicators={mapIndicator}
                 val={val}
-                // newMapItem={newMapItem}
+              // newMapItem={newMapItem}
               />
             </>
           )
