@@ -6,7 +6,13 @@ import { getParameterCaseInsensitive } from 'utils/helper';
 import { Table } from 'components/data';
 import { generateSlug } from 'utils/fetch';
 
-const ConstBar = ({ meta, schemeData, showTable, schemeName, onTableDataChange }) => {
+const ConstBar = ({
+  meta,
+  schemeData,
+  showTable,
+  schemeName,
+  onTableDataChange,
+}) => {
   const [barData, setBarData] = React.useState([]);
   const [selectedCons, setSelectedCons] = React.useState([
     { state: meta.state, code: meta.cons, name: meta.cons_name },
@@ -16,7 +22,7 @@ const ConstBar = ({ meta, schemeData, showTable, schemeName, onTableDataChange }
   ]);
 
   selectedYears.sort((a, b) => a.value.localeCompare(b.value));
-  
+
   const [tableData, setTableData] = React.useState<any>();
 
   React.useEffect(() => {
@@ -81,7 +87,7 @@ const ConstBar = ({ meta, schemeData, showTable, schemeName, onTableDataChange }
     updateTableData({
       header: tableHeader,
       rows: tableRows,
-    })
+    });
   }
   function handleConstChange(e) {
     const arr = e.map((obj) => ({
@@ -104,6 +110,7 @@ const ConstBar = ({ meta, schemeData, showTable, schemeName, onTableDataChange }
         value: {
           state: generateSlug(state),
           code: item.constCode,
+          value: item.constCode + item.constName, // https://github.com/JedWatson/react-select/issues/5565#issuecomment-1443772576
         },
         label: item.constName,
       })),
@@ -146,9 +153,14 @@ const ConstBar = ({ meta, schemeData, showTable, schemeName, onTableDataChange }
             disableOptions={selectedCons.length >= 4}
             onChange={(e) => handleConstChange(e)}
             defaultValue={{
-              value: { code: meta.cons, state: meta.state },
+              value: {
+                code: meta.cons,
+                state: meta.state,
+                value: meta.cons + meta.cons_name,
+              },
               label: meta.cons_name,
             }}
+            getOptionValue={(option: any) => option.value.value}
             isMulti
             isGrouped
             id="cons-selector"
