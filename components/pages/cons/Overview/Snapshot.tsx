@@ -175,7 +175,7 @@ const Snapshot = ({ queryData, schemeList, consData, stateAvg }: Props) => {
                 sabha: queryData.sabha,
               }}
               source={
-                'Multiple sources - MIS, RTI queries, Parliament questions etc. Visit scheme page for specific sources.'
+                'Scheme MIS, Scheme programmatic documents and Responses of RTI applications. Visit scheme page for specific sources.'
               }
             />
           </SnapshotFooter>

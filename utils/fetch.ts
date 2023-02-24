@@ -220,11 +220,15 @@ export async function newSchemeDataFetch(id, sabha = null, schemeObj = null) {
         }
       });
 
-      for(const key in consList){
-        const unique = [...new Map(consList[key].map((item) => [item["constCode"], item])).values()];
+      for (const key in consList) {
+        const unique = [
+          ...new Map(
+            consList[key].map((item) => [item['constCode'], item])
+          ).values(),
+        ];
         consList[key] = unique;
       }
-      
+
       const tempObj: any = {};
       tempObj.metadata = {
         name: metaObj['scheme_name'] || '',
@@ -251,7 +255,7 @@ export async function newSchemeDataFetch(id, sabha = null, schemeObj = null) {
             fiscal_year[dataParse[j][4].trim()] = {
               ...fiscal_year[dataParse[j][4].trim()],
               [dataParse[j][3]]: Number.isNaN(parseFloat(dataParse[j][i]))
-                ? '0'
+                ? null
                 : parseFloat(dataParse[j][i]).toFixed(2),
             };
           }
