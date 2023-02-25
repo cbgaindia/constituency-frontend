@@ -45,7 +45,7 @@ const Card = ({ data }) => {
     "swachh-bharat-mission-gramin-sbmg-v3": "sbmg",
     "smsa-v3": "smsa",
     "pmfby-rabi-v3": "pmfby_rabi",
-    "swachh-bharat-mission-urban-v3" : "sbmu"
+    "swachh-bharat-mission-urban-sbmu-v3" : "sbmu"
   }
 
   return (
