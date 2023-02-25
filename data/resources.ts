@@ -143,7 +143,7 @@ export const resourcePages = {
         icon: 'xlsx',
       },
       {
-        title: 'PMAY',
+        title: 'PMAY-G',
         slug: 'pmay-v3',
         type: 'link',
         icon: 'xlsx',
@@ -161,13 +161,13 @@ export const resourcePages = {
         icon: 'xlsx',
       },
       {
-        title: 'SBMG',
+        title: 'SBM-G',
         slug: 'swachh-bharat-mission-gramin-sbmg-v3',
         type: 'link',
         icon: 'xlsx',
       },
       {
-        title: 'SBMU',
+        title: 'SBM-U',
         slug: 'swachh-bharat-mission-urban-sbmu-v3',
         type: 'link',
         icon: 'xlsx',
