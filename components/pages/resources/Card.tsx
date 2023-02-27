@@ -45,8 +45,27 @@ const Card = ({ data }) => {
     "swachh-bharat-mission-gramin-sbmg-v3": "sbmg",
     "smsa-v3": "smsa",
     "pmfby-rabi-v3": "pmfby_rabi",
-    "swachh-bharat-mission-urban-v3" : "sbmu"
+    "swachh-bharat-mission-urban-sbmu-v3" : "sbmu"
   }
+
+  const imageSources = {
+    'v3': (slug) => image_slug[slug] ? SchemesData[image_slug[slug]]?.logo : null,
+    'approximation': (slug) => slug.includes('approximation') ? `/images/stateMaps/${data.title}.jpg` : null,
+    'geo-listing': (slug) => slug.includes('geo-listing') ? `/images/stateMaps/${data.title}.jpg` : null,
+  };
+  
+  const getImageSrc = (data) => {
+    const slug = data.slug;
+    for (const [key, value] of Object.entries(imageSources)) {
+      const src = value(slug);
+      if (src !== null) {
+        return src;
+      }
+    }
+    return icons[data.icon];
+  };
+
+  const checkMap = data.slug.includes('approximation') || data.slug.includes('geo-listing');
 
   return (
     <LinkWrapper type={data.type} link={data.slug}>
@@ -56,9 +75,9 @@ const Card = ({ data }) => {
             icons.folder
           ) : (
             <Image
-              width={110}
-              height={110}
-              src={data.slug.includes('v3') ? SchemesData[image_slug[data.slug]]?.logo :icons[data.icon]}
+              width={checkMap ? 140 : 110 }
+              height={checkMap ? 140 : 110 }
+              src={getImageSrc(data)}
               alt={`file format ${data.icon}`}
             />
           )}

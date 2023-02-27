@@ -14,8 +14,8 @@ export const resourcesData = [
   {
     title: 'Geo Listing',
     slug: 'geo-listing',
-    type: 'link',
-    icon: 'xlsx',
+    type: 'folder',
+    icon: 'folder',
   },
   {
     title: 'Methodology',
@@ -26,18 +26,84 @@ export const resourcesData = [
 ];
 
 export const resourcePages = {
-  'area-approximation': {
-    title: 'Area Approximation',
+  'geo-listing' : {
+    title: 'Geo Listing',
     links: [
       {
-        title: 'Block share in AC',
-        slug: 'block-share-in-ac',
+        title: 'Chhattisgarh',
+        slug: 'chhattisgarh-geo-listing',
         type: 'link',
         icon: 'xlsx',
       },
       {
-        title: 'District share in AC',
-        slug: 'block-share-in-pc',
+        title: 'Uttar Pradesh',
+        slug: 'uttar-pradesh-geo-listing',
+        type: 'link',
+        icon: 'xlsx',
+      },
+      {
+        title: 'Maharashtra',
+        slug: 'maharashtra-geo-listing',
+        type: 'link',
+        icon: 'xlsx',
+      },      
+      {
+        title: 'Odisha',
+        slug: 'odisha-geo-listing',
+        type: 'link',
+        icon: 'xlsx',
+      },      
+      {
+        title: 'Jharkhand',
+        slug: 'jharkhand-geo-listing',
+        type: 'link',
+        icon: 'xlsx',
+      },      
+      {
+        title: 'Bihar',
+        slug: 'bihar-geo-listing',
+        type: 'link',
+        icon: 'xlsx',
+      },
+    ]
+  },
+
+  'area-approximation': {
+    title: 'Area Approximation',
+    links: [
+      {
+        title: 'Chhattisgarh',
+        slug: 'chhattisgarh-area-approximation',
+        type: 'link',
+        icon: 'xlsx',
+      },
+      {
+        title: 'Uttar Pradesh',
+        slug: 'uttar-pradesh-area-approximation',
+        type: 'link',
+        icon: 'xlsx',
+      },
+      {
+        title: 'Maharashtra',
+        slug: 'maharashtra-area-approximation',
+        type: 'link',
+        icon: 'xlsx',
+      },      
+      {
+        title: 'Odisha',
+        slug: 'odisha-area-approximation',
+        type: 'link',
+        icon: 'xlsx',
+      },      
+      {
+        title: 'Jharkhand',
+        slug: 'jharkhand-area-approximation',
+        type: 'link',
+        icon: 'xlsx',
+      },      
+      {
+        title: 'Bihar',
+        slug: 'bihar-area-approximation',
         type: 'link',
         icon: 'xlsx',
       },
@@ -77,7 +143,7 @@ export const resourcePages = {
         icon: 'xlsx',
       },
       {
-        title: 'PMAY',
+        title: 'PMAY-G',
         slug: 'pmay-v3',
         type: 'link',
         icon: 'xlsx',
@@ -95,13 +161,13 @@ export const resourcePages = {
         icon: 'xlsx',
       },
       {
-        title: 'SBMG',
+        title: 'SBM-G',
         slug: 'swachh-bharat-mission-gramin-sbmg-v3',
         type: 'link',
         icon: 'xlsx',
       },
       {
-        title: 'SBMU',
+        title: 'SBM-U',
         slug: 'swachh-bharat-mission-urban-sbmu-v3',
         type: 'link',
         icon: 'xlsx',
