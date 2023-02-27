@@ -41,7 +41,7 @@ const MapViz = ({
             if (params.data)
               return onlyLabel
                 ? params.data.mapName
-                : `${params.data.mapName}: ${params.data.value}`;
+                : `${params.data.mapName}: ${params.data.value === -9999999999 ? 'NA' : params.data.value}`;
             else return 'Data not available';
           },
         },

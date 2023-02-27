@@ -71,11 +71,6 @@ const StateMap = ({
         const vizIndicators = binLength
           ? [
               {
-                max: -999999999,
-                label: `Data not available`,
-                color: '#EBF0EE',
-              },
-              {
                 min: a,
                 max: b,
                 label: `upto to ${b}`,
@@ -99,11 +94,15 @@ const StateMap = ({
                 label: `${d} and above`,
                 color: '#173B3B',
               },
+              {
+                value: -9999999999,
+                label: `Data not available`,
+                color: '#494D44',
+              },
             ]
           : [
               {
-                min: 0,
-                max: 0,
+                value: -9999999999,
                 label: `data not found`,
                 color: '#494D44',
               },
@@ -127,9 +126,9 @@ const StateMap = ({
           });
         }
         vizIndicators.push({
-          max: -999999999,
+          value: -999999999,
           label: `Data not available`,
-          color: '#EBF0EE',
+          color: '#494D44',
         });
         setMapIndicator(vizIndicators);
       }
@@ -150,7 +149,7 @@ const StateMap = ({
     if (data && filteredData) {
       const tempData = Object.keys(filteredData).map((item: any) => ({
         name: item,
-        value: filteredData[item] || 0,
+        value: filteredData[item] || -9999999999,
         mapName: titleCase(consData[item]?.constituency_name),
       }));
       setMapvalues(tempData);
