@@ -237,7 +237,7 @@ export async function newSchemeDataFetch(id, sabha = null, schemeObj = null) {
         source: metaObj['data_source'] || '',
         frequency: metaObj.frequency || '',
         methodology: metaObj.methodology || '',
-        remarks: metaObj.frequency || '',
+        remarks: metaObj.remarks || '',
         slug,
         indicators: [],
         consList: consList || [],
