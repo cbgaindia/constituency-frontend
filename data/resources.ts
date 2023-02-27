@@ -231,6 +231,12 @@ export const resourcePages = {
         type: 'link',
         icon: 'xlsx',
       },
+      {
+        title: 'Consolidated Note',
+        slug: 'consolidated-methodology-note',
+        type: 'link',
+        icon: 'pdf',
+      },
     ],
   },
 };
