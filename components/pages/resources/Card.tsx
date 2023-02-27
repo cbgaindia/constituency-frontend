@@ -27,6 +27,7 @@ const icons = {
   ppt: '/assets/icons/ppt.png',
   docs: '/assets/icons/docs.png',
   xlsx: '/assets/icons/xlsx.png',
+  pdf: '/assets/icons/pdf.png',
   folder: <Folder width={128} />,
 };
 
