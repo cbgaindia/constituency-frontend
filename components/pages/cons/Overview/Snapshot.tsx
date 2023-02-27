@@ -89,7 +89,16 @@ const Snapshot = ({ queryData, schemeList, consData, stateAvg }: Props) => {
   function getStateAvg(slug) {
     if (stateAvg[selectedYear][slug]) {
       const { min, max, avg } = stateAvg[selectedYear][slug][indicator];
-      const barValue = ((avg - min) * 100) / (max - min || 1);
+      let barValue;
+      if(avg == min){
+        barValue = min
+      }
+      else if(avg == max) {
+        barValue = max
+      }
+      else {
+        barValue = ((avg - min) * 100) / (max - min || 1);
+      }
       return {
         bar: avg < 0 ? -barValue : barValue,
         value: avg,
@@ -105,7 +114,16 @@ const Snapshot = ({ queryData, schemeList, consData, stateAvg }: Props) => {
     ) {
       const { max, min } = stateAvg[selectedYear][slug][indicator];
       const consValue = consData[selectedYear][slug][indicator];
-      const barValue = ((consValue - min) * 100) / (max - min || 1);
+      let barValue;
+      if(consValue == min){
+        barValue = min
+      }
+      else if(consValue == max) {
+        barValue = max;
+      }
+      else {
+        barValue = ((consValue - min) * 100) / (max - min || 1);
+      }
       return {
         bar: consValue < 0 ? -barValue : barValue,
         value: consValue,
