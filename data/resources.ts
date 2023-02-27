@@ -23,12 +23,6 @@ export const resourcesData = [
     type: 'folder',
     icon: 'folder',
   },
-  {
-    title: 'Other Resources',
-    slug: 'other-resources',
-    type: 'folder',
-    icon: 'folder',
-  },
 ];
 
 export const resourcePages = {
