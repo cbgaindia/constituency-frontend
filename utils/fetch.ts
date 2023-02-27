@@ -262,9 +262,7 @@ export async function newSchemeDataFetch(id, sabha = null, schemeObj = null) {
           state_Obj[generateSlug(dataParse[j][0])] = { ...fiscal_year };
         }
         const indicatorSlug =
-          generateSlug(metaObj[`indicator_${i - 4}_common_name`]) ||
-          generateSlug(metaObj[`indicator_${i - 4}_name`]) ||
-          '';
+          generateSlug(metaObj[`indicator_${i - 4}_name`]) || '';
 
         tempObj.metadata.indicators.push(indicatorSlug);
 
@@ -272,14 +270,8 @@ export async function newSchemeDataFetch(id, sabha = null, schemeObj = null) {
           ...tempObj.data,
           [indicatorSlug]: {
             state_Obj,
-            name:
-              metaObj[`indicator_${i - 4}_common_name`] ||
-              metaObj[`indicator_${i - 4}_name`] ||
-              '',
-            description:
-              metaObj[`indicator_${i - 4}_common_description`] ||
-              metaObj[`indicator_${i - 4}_description`] ||
-              '',
+            name: metaObj[`indicator_${i - 4}_name`] || '',
+            description: metaObj[`indicator_${i - 4}_description`] || '',
             note: metaObj[`indicator_${i - 4}_note`] || '',
             slug: indicatorSlug,
             unit: metaObj[`indicator_${i - 4}_unit`] || '',
