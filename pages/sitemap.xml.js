@@ -51,12 +51,6 @@ export const getServerSideProps = async function ({ res }) {
         staticPages.push(
           `${baseUrl}/${state}/${sabha}/${elm.constituency_code}` // Add Constituency page for each state and sabha
         );
-
-        stateData[deSlug(state)].forEach((scheme) =>
-          staticPages.push(
-            `${baseUrl}/${state}/${sabha}/${elm.constituency_code}/scheme=${scheme.scheme_slug}` // Add Scheme page for each constituency
-          )
-        );
       });
     });
   });
