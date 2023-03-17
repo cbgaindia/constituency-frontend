@@ -96,14 +96,14 @@ const StateMap = ({
               },
               {
                 value: -9999999999,
-                label: `Data not available`,
+                label: `Data Not Available`,
                 color: '#494D44',
               },
             ]
           : [
               {
                 value: -9999999999,
-                label: `data not found`,
+                label: `Data Not Found`,
                 color: '#494D44',
               },
             ];
@@ -127,7 +127,7 @@ const StateMap = ({
         }
         vizIndicators.push({
           value: -999999999,
-          label: `Data not available`,
+          label: `Data Not Available`,
           color: '#494D44',
         });
         setMapIndicator(vizIndicators);
