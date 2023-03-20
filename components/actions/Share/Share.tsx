@@ -67,7 +67,7 @@ const Share: React.FC<{ title: string; size?: 'default' | 'compact' }> = ({
             <a
               target="_blank"
               rel="noreferrer"
-              href={`https://www.facebook.com/sharer.php?u=https://constituencyv2.openbudgetsindia.org${router.asPath}`.replaceAll(
+              href={`https://www.facebook.com/sharer.php?u=https://constituency.openbudgetsindia.org${router.asPath}`.replaceAll(
                 '&',
                 '%26'
               )}
@@ -81,7 +81,7 @@ const Share: React.FC<{ title: string; size?: 'default' | 'compact' }> = ({
             <a
               target="_blank"
               rel="noreferrer"
-              href={`https://twitter.com/intent/tweet?url=https://constituencyv2.openbudgetsindia.org${router.asPath}`.replaceAll(
+              href={`https://twitter.com/intent/tweet?url=https://constituency.openbudgetsindia.org${router.asPath}`.replaceAll(
                 '&',
                 '%26'
               )}
@@ -95,7 +95,7 @@ const Share: React.FC<{ title: string; size?: 'default' | 'compact' }> = ({
             <a
               target="_blank"
               rel="noreferrer"
-              href={`https://www.linkedin.com/sharing/share-offsite/?mini=true&url=https://constituencyv2.openbudgetsindia.org${router.asPath.replaceAll(
+              href={`https://www.linkedin.com/sharing/share-offsite/?mini=true&url=https://constituency.openbudgetsindia.org${router.asPath.replaceAll(
                 '=',
                 '%3D'
               )}`}
@@ -109,7 +109,7 @@ const Share: React.FC<{ title: string; size?: 'default' | 'compact' }> = ({
             <a
               target="_blank"
               rel="noreferrer"
-              href={`https://www.reddit.com/submit?url=https://constituencyv2.openbudgetsindia.org${router.asPath}`.replaceAll(
+              href={`https://www.reddit.com/submit?url=https://constituency.openbudgetsindia.org${router.asPath}`.replaceAll(
                 '&',
                 '%26'
               )}
