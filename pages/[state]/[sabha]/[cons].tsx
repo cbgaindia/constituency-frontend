@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import {
@@ -11,15 +11,15 @@ import {
 } from 'utils/fetch';
 
 import {
-  Overview as OverViewIcon,
   Explorer as ExplorerIcon,
+  Overview as OverViewIcon,
 } from 'components/icons';
-import { Header } from 'components/pages/cons/Header';
 import { Toolbar } from 'components/layouts/Toolbar';
-import { capitalize } from 'utils/helper';
 import { Overview } from 'components/pages/cons';
-import { useRouter } from 'next/router';
+import { Header } from 'components/pages/cons/Header';
 import { SORTED_SCHEMES } from 'config/year';
+import { useRouter } from 'next/router';
+import { capitalize } from 'utils/helper';
 
 const Explorer = dynamic(
   () => import('components/pages/cons/Explorer/Explorer'),
@@ -27,10 +27,6 @@ const Explorer = dynamic(
     ssr: false,
   }
 );
-
-const Seo = dynamic(() => import('components/common/Seo/Seo'), {
-  ssr: false,
-});
 
 type Props = {
   stateScheme: any;
@@ -156,16 +152,8 @@ const ConsPage: React.FC<Props> = ({
     [consHighlights, metaReducer]
   );
 
-  const seo = {
-    title: `${capitalize(cons_name)} . ${capitalize(
-      state
-    )} - Constituency Dashboard`,
-    description: `Explore scheme-wise fiscal information at the level of Lok Sabha and Vidhan Sabha constituencies in the state of ${state}`,
-  };
-
   return (
     <>
-      <Seo seo={seo} />
       {
         <>
           <main className="container">
@@ -219,6 +207,12 @@ export const getServerSideProps: GetServerSideProps = async ({
         stateAvg: stateData['state_avg'],
       },
       remarks,
+      meta: {
+        title: `${capitalize(queryValue.cons)} . ${capitalize(
+          queryValue.state
+        )} - Constituency Dashboard`,
+        description: `Explore scheme-wise fiscal information at the level of Lok Sabha and Vidhan Sabha constituencies in the state of ${queryValue.state}`,
+      },
     },
   };
 };

@@ -1,15 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { GetStaticProps, GetStaticPaths } from 'next';
-import dynamic from 'next/dynamic';
-
-import { fetchJSON, stateMetadataFetch } from 'utils/fetch';
-import { capitalize, getParameterCaseInsensitive } from 'utils/helper';
 import Header from 'components/pages/state/Header';
 import StateList from 'components/pages/state/StateList/StateList';
-
-const Seo = dynamic(() => import('components/common/Seo/Seo'), {
-  ssr: false,
-});
+import { GetStaticPaths, GetStaticProps } from 'next';
+import React, { useEffect, useState } from 'react';
+import { fetchJSON, stateMetadataFetch } from 'utils/fetch';
+import { capitalize, getParameterCaseInsensitive } from 'utils/helper';
 
 type Props = {
   pathName: string;
@@ -32,15 +26,8 @@ const State: React.FC<Props> = ({ pathName, constList, stateData }) => {
     }
   }, [constList]);
 
-  const seo = {
-    title: `${capitalize(
-      state.replaceAll('-', ' ')
-    )} - Constituency Dashboard`,
-    description: `Explore scheme-wise fiscal information at the level of Lok Sabha and Vidhan Sabha constituencies in the state of ${state}`,
-  };
   return (
     <>
-      <Seo seo={seo} />
       {constList && (
         <>
           <main className="container">
@@ -89,6 +76,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             pathName: state,
             constList: finalJSON,
             stateData,
+            meta: {
+              title: `${capitalize(
+                state.replaceAll('-', ' ')
+              )} - Constituency Dashboard`,
+              description: `Explore scheme-wise fiscal information at the level of Lok Sabha and Vidhan Sabha constituencies in the state of ${state}`,
+            },
           },
         }
       : { notFound: true };

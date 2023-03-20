@@ -1,24 +1,11 @@
-import React from 'react';
-import dynamic from 'next/dynamic';
-import styled from 'styled-components';
-import { resourcesData } from 'data/resources';
-import { Card } from 'components/pages/resources/Card';
 import { CardsList } from 'components/pages/resources/CardsList';
-
-const Seo = dynamic(() => import('components/common/Seo/Seo'), {
-  ssr: false,
-});
+import { resourcesData } from 'data/resources';
+import { GetStaticProps } from 'next';
+import styled from 'styled-components';
 
 const About = () => {
-  const seo = {
-    title: 'Resources - Constituency Dashboard',
-    description: 'Co-created by CBGA and CivicDataLab',
-  };
-
   return (
     <Wrapper className="container">
-      <Seo seo={seo} />
-
       <h2>Resources</h2>
       <CardsList data={resourcesData} />
     </Wrapper>
@@ -38,25 +25,13 @@ const Wrapper = styled.main`
   }
 `;
 
-const CardsWrapper = styled.ul`
-  margin-top: 24px;
-  display: flex;
-
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 16px;
-
-  > li {
-    padding: 7px;
-  }
-
-  a {
-    text-decoration-color: transparent;
-    transition: text-decoration-color 150ms ease;
-
-    &:hover,
-    &:focus-visible {
-      text-decoration-color: inherit;
-    }
-  }
-`;
+export const getStaticProps: GetStaticProps = async () => {
+  return {
+    props: {
+      meta: {
+        title: 'Resources - Constituency Dashboard',
+        description: 'Co-created by CBGA and CivicDataLab',
+      },
+    },
+  };
+};
