@@ -13,7 +13,7 @@ const Seo: React.FC<{ seo?: any }> = ({ seo }) => {
       ? seo.description
       : 'Find downloadable data, visualisations and other useful information related to a number of schemes run by the Union and State GovernmentsFind downloadable data, visualisations and other useful information related to a number of schemes run by the Union and State Governments.';
 
-  const url = `https://constituencyv2.openbudgetsindia.org`;
+  const url = `https://constituency.openbudgetsindia.org`;
   return (
     <>
       <Head>
