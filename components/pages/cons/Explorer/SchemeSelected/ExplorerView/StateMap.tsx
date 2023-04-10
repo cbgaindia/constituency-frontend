@@ -11,7 +11,7 @@ import { Menu } from 'components/actions';
 import useEffectOnChange from 'utils/hooks';
 import { Table } from 'components/data';
 import { ConstituencyPage } from 'pages/[state]/[sabha]/[cons]';
-import { yearOptions } from 'utils/fetch';
+import { stateDataFetch, yearOptions } from 'utils/fetch';
 import { IconGeneralAdd } from 'components/icons/IconlAdd';
 import { IconMinimize } from 'components/icons';
 
@@ -31,7 +31,7 @@ const StateMap = ({
   const [val, setVal] = React.useState(1);
 
   const { metaReducer } = React.useContext(ConstituencyPage);
-  const { consData } = metaReducer.obj;
+  // const { consData } = metaReducer.obj;
 
   const [year, setYear] = useState(meta.year);
   const [filteredData, setFilteredData] = useState(
@@ -41,6 +41,11 @@ const StateMap = ({
   const { data, isLoading } = swrFetch(
     `/assets/maps/${meta.sabha}/${meta.state}.json`
   );
+
+  const { data: consData } = swrFetch(`/consDataState`, stateDataFetch, [
+    meta.state,
+    meta.sabha,
+  ]);
 
   const twoDecimals = (num) => {
     return Number(num.toString().match(/^-?\d+(?:\.\d{0,2})?/));
@@ -146,15 +151,17 @@ const StateMap = ({
 
   // changing map chart values on sabha change
   useEffect(() => {
-    if (data && filteredData) {
+    if (data && filteredData && consData) {
       const tempData = Object.keys(filteredData).map((item: any) => ({
         name: item,
         value: filteredData[item] || -9999999999,
-        mapName: titleCase(consData?.constituency_name),
+        mapName: titleCase(
+          consData['constituency_data'][item]?.constituency_name
+        ),
       }));
       setMapvalues(tempData);
     }
-  }, [data, filteredData, meta.sabha]);
+  }, [data, filteredData, meta.sabha, consData]);
 
   // setting tabular data
   useEffect(() => {
