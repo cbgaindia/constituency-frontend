@@ -63,7 +63,7 @@ const ConsPage: React.FC<Props> = ({
   );
   const [view, setView] = useState('overview');
   const [metaReducer, dispatch] = React.useReducer(reducer, initialProps);
-  const { constituency_name: cons_name } = data['consData'][cons];
+  const { constituency_name: cons_name } = data['consData'];
 
   async function handleToolbarSwitch(e: string, cardIndicator = null) {
     if (cardIndicator) {
@@ -192,7 +192,9 @@ export const getServerSideProps: GetServerSideProps = async ({
     consDescFetch(queryValue.sabha, queryValue.state, queryValue.cons),
   ]);
 
-  if (!(consHighlights && stateScheme && queryValue.cons))
+  const cons_details = stateData['constituency_data'][queryValue.cons];
+
+  if (!(consHighlights && stateScheme && queryValue.cons && cons_details))
     return { notFound: true };
   const list = SORTED_SCHEMES;
   const orderedList = list.filter((e) =>
@@ -203,12 +205,12 @@ export const getServerSideProps: GetServerSideProps = async ({
       consHighlights: consHighlights,
       stateScheme: orderedList,
       data: {
-        consData: stateData['constituency_data'],
+        consData: cons_details,
         stateAvg: stateData['state_avg'],
       },
       remarks,
       meta: {
-        title: `${capitalize(queryValue.cons)} . ${capitalize(
+        title: `${capitalize(cons_details.constituency_name)} . ${capitalize(
           queryValue.state
         )} - Constituency Dashboard`,
         description: `Explore scheme-wise fiscal information at the level of Lok Sabha and Vidhan Sabha constituencies in the state of ${queryValue.state}`,

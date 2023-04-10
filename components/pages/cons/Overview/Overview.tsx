@@ -38,7 +38,7 @@ const Overview = ({
       <Snapshot
         queryData={queryData}
         schemeList={schemeList}
-        consData={data.consData[queryData.cons].fiscal_year}
+        consData={data.consData?.fiscal_year}
         stateAvg={data.stateAvg}
       />
     </Wrapper>

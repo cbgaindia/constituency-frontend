@@ -1,17 +1,17 @@
+import dynamic from 'next/dynamic';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import dynamic from 'next/dynamic';
 
-import { Indicator, IndicatorMobile } from 'components/data/Indicator';
-import { Globe, IconGeneralTrends, IconToggleOn } from 'components/icons';
-import { SourceWrapper } from 'components/pages/cons/Source';
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from '@opub-cdl/design-system';
+import { Indicator, IndicatorMobile } from 'components/data/Indicator';
+import { Globe, IconGeneralTrends, IconToggleOn } from 'components/icons';
 import { IconToggleOff } from 'components/icons/IconToggleOff';
+import { SourceWrapper } from 'components/pages/cons/Source';
 import { LoadingDiv } from 'components/pages/state/StateList/ConsMapView';
 import { ConstituencyPage } from 'pages/[state]/[sabha]/[cons]';
 
@@ -23,11 +23,6 @@ const ConstBar = dynamic(() => import('./ConstBar'), {
 const StateMap = dynamic(() => import('./StateMap'), {
   ssr: false,
   loading: () => <LoadingDiv>Loading Map...</LoadingDiv>,
-});
-
-const Table = dynamic(() => import('components/data/Table'), {
-  ssr: false,
-  loading: () => <LoadingDiv>Loading Table...</LoadingDiv>,
 });
 
 const Source = dynamic(() => import('components/pages/cons/Source'), {
@@ -51,7 +46,7 @@ const ExplorerView = ({ meta, dispatch }) => {
   const handleTableDataChange = (newData: any) => {
     setTableData(newData);
   };
-  
+
   useEffect(() => {
     handleNewIndicator(indicator);
   }, [indicator, schemeData, scheme]);
@@ -70,15 +65,15 @@ const ExplorerView = ({ meta, dispatch }) => {
           });
           setFiltered(filtered);
         } else {
-          const newVal = Object.keys(schemeData.data)[0]
+          const newVal = Object.keys(schemeData.data)[0];
           const filtered = schemeData.data[newVal]['state_Obj'];
           dispatch({
             unit: schemeData.data[newVal].unit,
           });
           setFiltered(filtered);
           dispatchCons({
-            indicator: newVal
-          })
+            indicator: newVal,
+          });
         }
       } else {
         dispatchCons({
@@ -113,7 +108,13 @@ const ExplorerView = ({ meta, dispatch }) => {
     {
       id: 'consView',
       graph: filtered ? (
-        <ConstBar meta={meta} schemeData={filtered} showTable={showTable} schemeName={schemeData.metadata?.name} onTableDataChange={handleTableDataChange}/>
+        <ConstBar
+          meta={meta}
+          schemeData={filtered}
+          showTable={showTable}
+          schemeName={schemeData.metadata?.name}
+          onTableDataChange={handleTableDataChange}
+        />
       ) : (
         <p>No data</p>
       ),
@@ -156,7 +157,7 @@ const ExplorerView = ({ meta, dispatch }) => {
               data={schemeData.data ? Object.values(schemeData.data) : []}
             />
 
-            <VizWrapper id="mapViewContainer" currentTab = {currentTab}>
+            <VizWrapper id="mapViewContainer" currentTab={currentTab}>
               <div>
                 <Tabs
                   defaultValue={currentTab}
@@ -220,7 +221,7 @@ const ExplorerView = ({ meta, dispatch }) => {
 export default React.memo(ExplorerView);
 
 interface VizProps {
-  readonly currentTab ? : string;
+  readonly currentTab?: string;
 }
 
 export const Wrapper = styled.section`
@@ -246,7 +247,8 @@ export const VizWrapper = styled.div<VizProps>`
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.14);
 
   ${SourceWrapper} {
-    margin-top:${props => props.currentTab == 'consView' ? '15px' : '125px' };
+    margin-top: ${(props) =>
+      props.currentTab == 'consView' ? '15px' : '125px'};
     margin-inline: 24px;
     padding: 16px 0 24px;
     border-top: var(--border-2);
@@ -254,13 +256,15 @@ export const VizWrapper = styled.div<VizProps>`
     @media (max-width: 1280px) {
       margin-inline: 4px;
       padding: 12px;
-      margin-top:${props => props.currentTab == 'consView' ? null : '150px' };
+      margin-top: ${(props) =>
+        props.currentTab == 'consView' ? null : '150px'};
     }
 
     @media (max-width: 550px) {
       margin-inline: 4px;
       padding: 12px;
-      margin-top:${props => props.currentTab == 'consView' ? null : '170px' };
+      margin-top: ${(props) =>
+        props.currentTab == 'consView' ? null : '170px'};
     }
   }
 `;
@@ -290,7 +294,7 @@ export const VizHeader = styled(TabsList)`
       align-items: flex-start;
     }
   }
-`; 
+`;
 
 export const VizTabs = styled(TabsTrigger)`
   white-space: nowrap;
