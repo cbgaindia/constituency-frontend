@@ -150,7 +150,7 @@ const StateMap = ({
       const tempData = Object.keys(filteredData).map((item: any) => ({
         name: item,
         value: filteredData[item] || -9999999999,
-        mapName: titleCase(consData[item]?.constituency_name),
+        mapName: titleCase(consData?.constituency_name),
       }));
       setMapvalues(tempData);
     }

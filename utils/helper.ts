@@ -220,21 +220,32 @@ export const twoDecimals = (num) => {
   if (decimalIndex === -1) {
     return numString;
   } else {
-    const truncatedDecimal = numString.slice(decimalIndex + 1, decimalIndex + 3);
-    return Number(numString.slice(0, decimalIndex + 3) + truncatedDecimal).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 2});
+    const truncatedDecimal = numString.slice(
+      decimalIndex + 1,
+      decimalIndex + 3
+    );
+    return Number(
+      numString.slice(0, decimalIndex + 3) + truncatedDecimal
+    ).toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 2,
+    });
   }
 };
 
 export function titleCase(str) {
-  str = str.toLowerCase().split(' ');
-  for (var i = 0; i < str.length; i++) {
-    if (str[i].includes('(sc)')) {
-      str[i] = str[i].replace('(sc)', '(SC)');
-    } else if (str[i].includes('(st)')) {
-      str[i] = str[i].replace('(st)', '(ST)');
-    } else {
-      str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
+  if (str) {
+    str = str?.toLowerCase().split(' ');
+    for (var i = 0; i < str.length; i++) {
+      if (str[i].includes('(sc)')) {
+        str[i] = str[i].replace('(sc)', '(SC)');
+      } else if (str[i].includes('(st)')) {
+        str[i] = str[i].replace('(st)', '(ST)');
+      } else {
+        str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
+      }
     }
+    return str.join(' ');
   }
-  return str.join(' ');
+  return str;
 }
