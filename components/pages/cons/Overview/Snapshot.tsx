@@ -94,7 +94,7 @@ const Snapshot = ({ queryData, schemeList, consData, stateAvg }: Props) => {
         barValue = min
       }
       else if(avg == max) {
-        barValue = max
+        barValue = 100
       }
       else {
         barValue = ((avg - min) * 100) / (max - min || 1);
@@ -119,7 +119,7 @@ const Snapshot = ({ queryData, schemeList, consData, stateAvg }: Props) => {
         barValue = min
       }
       else if(consValue == max) {
-        barValue = max;
+        barValue = 100;
       }
       else {
         barValue = ((consValue - min) * 100) / (max - min || 1);
