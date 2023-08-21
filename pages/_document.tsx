@@ -47,9 +47,17 @@ export default class MyDocument extends Document {
           />
         </Head>
         <body>
-          <script>0</script>
           <Main />
           <NextScript />
+          {/* Google Analytics 4 Tag - Will be removing when GA4 is primary */}
+          <script async src="https://www.googletagmanager.com/gtag/js?id=G-WNX72G1ZCS"></script>
+          <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-WNX72G1ZCS');
+          </script>
         </body>
       </Html>
     );
