@@ -18,8 +18,6 @@ const NextNprogress = dynamic(() => import('nextjs-progressbar'), {
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
     const handleRouteChange = (url) => {
-      if (process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS) pageview(url);
-
       // change focus to top on every page change
       if (url.includes('#')) {
         let idPresent = url.split('#').pop();
