@@ -67,7 +67,9 @@ function MyApp({ Component, pageProps }) {
           `,
             }}
           />
-          <Script
+        </>
+      )}
+        <Script
             strategy="afterInteractive"
             src="https://www.googletagmanager.com/gtag/js?id=G-WNX72G1ZCS"
           />
@@ -80,8 +82,6 @@ function MyApp({ Component, pageProps }) {
           gtag('config', 'G-WNX72G1ZCS');
         `}
           </Script>
-        </>
-      )}
       <Seo seo={seo} />
       <Layout>
         <NextNprogress
