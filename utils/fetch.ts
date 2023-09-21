@@ -127,7 +127,7 @@ export async function consIndicatorFetch(state, cons, sabha) {
 
 export async function stateDataFetch(state, sabha) {
   const res: any = await fetch(
-    `https://ckan.civicdatalab.in/api/3/action/package_search?fq=slug:"${state}" AND organization:state-wise-scheme-data AND private:false&rows=100`
+    `${process.env.NEXT_PUBLIC_CKAN_URL}/package_search?fq=slug:"${state}" AND organization:state-wise-scheme-data AND private:false&rows=100`
   )
     .then((res) => res.json())
     .then((res) => res.result.results[0])

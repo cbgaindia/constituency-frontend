@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import SchemesData from 'utils/schemesData';
 
 function ckanURL(slug) {
-  return `https://ckan.civicdatalab.in/dataset/${slug}`;
+  return `${process.env.NEXT_PUBLIC_CKAN_BASE_URL}/dataset/${slug}`;
 }
 
 const LinkWrapper = ({ type, link, children }) => {
